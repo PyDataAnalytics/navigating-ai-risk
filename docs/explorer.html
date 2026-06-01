@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Navigating AI Risk — Explorer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper:#ffffff; --ink:#111113; --ink-60:#5c5c61; --ink-45:#84848a; --ink-30:#a8a8ae; --ink-20:#c7c7cc;
+    --hair:#e7e7ea; --hair-2:#f1f1f3; --fill:#f4f4f6; --fill-2:#ececef;
+    --serif:"Newsreader", Georgia, "Times New Roman", serif;
+    --sans:-apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing:border-box; }
+  html, body { height:100%; }
+  body { margin:0; background:var(--paper); color:var(--ink); font-family:var(--serif); font-size:16px; line-height:1.45; display:flex; flex-direction:column; overflow:hidden; }
+  a { color:inherit; text-decoration:none; }
+  ::-webkit-scrollbar { width:10px; height:10px; }
+  ::-webkit-scrollbar-thumb { background:#e0e0e3; border-radius:6px; border:3px solid #fff; }
+  ::-webkit-scrollbar-thumb:hover { background:#cfcfd3; }
+
+  /* top bar */
+  .bar { flex:none; height:54px; display:flex; align-items:center; gap:24px; padding:0 26px; border-bottom:1px solid var(--hair); }
+  .bar__brand { display:flex; align-items:baseline; gap:11px; white-space:nowrap; }
+  .bar__brand b { font-weight:500; font-size:16px; letter-spacing:-0.015em; }
+  .bar__brand span { font-family:var(--sans); font-size:10.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-45); }
+  .search { flex:1; max-width:520px; position:relative; }
+  .search input { width:100%; font-family:var(--sans); font-size:13.5px; color:var(--ink); background:var(--fill); border:1px solid transparent; border-radius:10px; padding:9px 14px 9px 34px; outline:none; transition:background .2s, border-color .2s; }
+  .search input:focus { background:#fff; border-color:#dcdce0; }
+  .search input::placeholder { color:var(--ink-30); }
+  .search svg { position:absolute; left:12px; top:50%; transform:translateY(-50%); width:14px; height:14px; stroke:var(--ink-30); fill:none; stroke-width:1.8; }
+  .bar__meta { margin-left:auto; font-family:var(--sans); font-size:11px; color:var(--ink-45); text-align:right; line-height:1.5; white-space:nowrap; }
+  .bar__meta b { color:var(--ink); font-weight:600; }
+  .views { display:flex; gap:2px; font-family:var(--sans); }
+  .views a { font-size:11.5px; color:var(--ink-45); padding:5px 11px; border-radius:7px; transition:color .2s, background .2s; }
+  .views a:hover { color:var(--ink); background:var(--fill); }
+  .views a.on { color:var(--ink); background:var(--fill-2); }
+  @media (max-width:820px){ .bar__meta{ display:none; } }
+
+  /* layout */
+  .cols { flex:1; display:grid; grid-template-columns:280px 340px 1fr; min-height:0; }
+  .pane { min-height:0; display:flex; flex-direction:column; border-right:1px solid var(--hair); }
+  .pane:last-child { border-right:none; }
+  .pane__head { flex:none; display:flex; align-items:center; justify-content:space-between; gap:10px; height:42px; padding:0 18px 0 22px; border-bottom:1px solid var(--hair-2); }
+  .pane__label { font-family:var(--sans); font-size:10.5px; letter-spacing:0.13em; text-transform:uppercase; color:var(--ink-45); }
+  .pane__body { flex:1; overflow-y:auto; padding:8px 12px 40px; }
+
+  /* category / subcategory rows */
+  .row { width:100%; text-align:left; background:none; border:none; cursor:pointer; font-family:var(--serif); display:flex; align-items:baseline; justify-content:space-between; gap:12px; padding:9px 12px; border-radius:9px; transition:background .15s; }
+  .row:hover { background:var(--fill); }
+  .row.is-active { background:var(--fill-2); }
+  .row__name { font-size:15.5px; letter-spacing:-0.01em; line-height:1.25; color:var(--ink); }
+  .row.dim .row__name { color:var(--ink-30); }
+  .row__n { font-family:var(--sans); font-size:11px; font-variant-numeric:tabular-nums; color:var(--ink-30); flex:none; padding-top:2px; }
+  .row.is-active .row__n { color:var(--ink-60); }
+  .row__cat { display:block; font-family:var(--sans); font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-30); margin-bottom:3px; }
+
+  .toggle { font-family:var(--sans); font-size:11px; color:var(--ink-45); cursor:pointer; display:flex; align-items:center; gap:6px; user-select:none; }
+  .toggle input { accent-color:#111113; width:13px; height:13px; }
+
+  /* papers */
+  .crumb { font-family:var(--sans); font-size:10.5px; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-45); display:flex; gap:8px; align-items:center; min-width:0; }
+  .crumb b { color:var(--ink); font-weight:600; }
+  .crumb span { color:var(--ink-20); }
+  .papers { padding:6px 30px 60px; max-width:880px; }
+  .sub-title { font-size:27px; font-weight:400; letter-spacing:-0.02em; margin:18px 0 4px; }
+  .sub-sub { font-family:var(--sans); font-size:12px; color:var(--ink-45); margin:0 0 8px; }
+  .paper { padding:22px 0; border-top:1px solid var(--hair); }
+  .paper:first-of-type { border-top:none; }
+  .paper__title { font-size:19px; font-weight:500; line-height:1.28; letter-spacing:-0.01em; display:inline; background-image:linear-gradient(var(--ink),var(--ink)); background-size:0% 1px; background-repeat:no-repeat; background-position:0 1.15em; transition:background-size .35s cubic-bezier(.2,.6,.2,1); }
+  .paper__title:hover { background-size:100% 1px; }
+  .paper__title .ext { font-family:var(--sans); font-size:12px; color:var(--ink-30); margin-left:6px; }
+  .paper__auth { font-style:italic; color:var(--ink-60); font-size:14.5px; margin:7px 0 0; font-weight:300; }
+  .paper__chips { display:flex; flex-wrap:wrap; gap:7px; margin:11px 0 0; }
+  .chip { font-family:var(--sans); font-size:10.5px; letter-spacing:0.02em; color:var(--ink-60); background:var(--fill); border-radius:6px; padding:3px 9px; white-space:nowrap; }
+  .chip b { color:var(--ink); font-weight:600; }
+  .chip--score { background:#111113; color:#fff; }
+  .chip--score b { color:#fff; }
+  .paper__why { font-size:14.5px; line-height:1.5; color:var(--ink); margin:13px 0 0; padding-left:14px; border-left:2px solid var(--hair); }
+  .paper__why em { font-family:var(--sans); font-style:normal; font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-45); display:block; margin-bottom:3px; }
+  .paper__abs { font-size:13.5px; line-height:1.55; color:var(--ink-45); margin:11px 0 0; font-weight:300; }
+
+  .empty { padding:60px 30px; color:var(--ink-30); font-style:italic; font-size:17px; }
+  .placeholder { color:var(--ink-30); font-size:13px; font-family:var(--sans); padding:14px 12px; }
+
+  .pane:last-child .pane__body { padding:0; }
+  .pctrl { position:sticky; top:0; z-index:3; display:flex; align-items:center; gap:9px; flex-wrap:wrap; padding:8px 30px; background:rgba(255,255,255,0.95); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border-bottom:1px solid var(--hair-2); font-family:var(--sans); }
+  .ctl { font-size:10.5px; letter-spacing:0.04em; text-transform:uppercase; color:var(--ink-45); display:flex; align-items:center; gap:6px; }
+  .ctl select { font-family:var(--sans); font-size:12px; text-transform:none; letter-spacing:0; color:var(--ink); border:1px solid var(--hair); background:var(--fill); border-radius:7px; padding:5px 8px; cursor:pointer; }
+  .pctrl__sp { flex:1; }
+  .ctl-btn { font-family:var(--sans); font-size:11px; color:var(--ink-60); border:1px solid var(--hair); background:#fff; border-radius:7px; padding:5px 10px; cursor:pointer; transition:background .15s, border-color .15s; }
+  .ctl-btn:hover { background:var(--fill); border-color:var(--ink-20); }
+  .copied { font-size:11px; color:var(--ink-45); font-style:italic; }
+  .paper__sub { font-family:var(--sans); font-size:9.5px; font-weight:600; letter-spacing:0.07em; text-transform:uppercase; color:var(--ink-45); margin-bottom:5px; }
+
+  .m-back { display:none; }
+  .head-l { display:flex; align-items:center; gap:9px; min-width:0; }
+  @media (max-width:860px){
+    .bar { height:auto; flex-wrap:wrap; padding:9px 16px; gap:9px 14px; }
+    .bar__brand { order:1; }
+    .views { order:2; margin-left:auto; }
+    .search { order:3; flex-basis:100%; max-width:none; }
+    .cols { display:block; position:relative; }
+    .pane { position:absolute; inset:0; background:var(--paper); border-right:none; display:none; }
+    .cols[data-step="0"] .pane:nth-child(1),
+    .cols[data-step="1"] .pane:nth-child(2),
+    .cols[data-step="2"] .pane:nth-child(3) { display:flex; }
+    .m-back { display:inline-flex; align-items:center; justify-content:center; height:30px; padding:0 11px; border:1px solid var(--hair); background:var(--fill); border-radius:8px; font-family:var(--sans); font-size:14px; line-height:1; color:var(--ink-60); cursor:pointer; }
+    .m-back:active { background:var(--fill-2); }
+    .pane__body { padding:8px 16px 70px; }
+    .papers { padding:6px 4px 70px; max-width:none; }
+    .row { padding:13px 12px; }
+    .row__name { font-size:16.5px; }
+    .sub-title { font-size:24px; }
+  }
+</style>
+</head>
+<body>
+  <header class="bar">
+    <a class="bar__brand" href="home.html"><b>Navigating AI Risk</b><span>Risk Explorer</span></a>
+    <div class="search">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><line x1="16.5" y1="16.5" x2="21" y2="21"></line></svg>
+      <input id="q" type="text" placeholder="Search subcategories, papers, or authors…" autocomplete="off" />
+    </div>
+    <nav class="views">
+      <a href="explorer.html" class="on">Explorer</a>
+      <a href="coverage.html">Coverage</a>
+      <a href="evidence.html">Evidence</a>
+      <a href="graph.html">3D Graph</a>
+      <a href="landscape.html">Landscape</a>
+      <a href="mindmap.html">Mind Map</a>
+    </nav>
+    <div class="bar__meta" id="meta"></div>
+  </header>
+
+  <div class="cols" id="cols" data-step="0">
+    <section class="pane">
+      <div class="pane__head"><span class="pane__label">Categories</span><span class="pane__label" id="catCount"></span></div>
+      <div class="pane__body" id="catList"></div>
+    </section>
+    <section class="pane">
+      <div class="pane__head">
+        <div class="head-l"><button class="m-back" data-to="0" aria-label="Back to categories">‹</button><span class="pane__label" id="subLabel">Subcategories</span></div>
+        <label class="toggle"><input type="checkbox" id="hideEmpty" checked /> Hide empty</label>
+      </div>
+      <div class="pane__body" id="subList"></div>
+    </section>
+    <section class="pane">
+      <div class="pane__head"><div class="head-l"><button class="m-back" data-to="1" aria-label="Back to subcategories">‹</button><div class="crumb" id="crumb"></div></div></div>
+      <div class="pane__body"><div class="pctrl">
+        <label class="ctl">Sort <select id="sortBy"><option value="score">Score</option><option value="citations">Citations</option><option value="year">Year</option></select></label>
+        <label class="ctl">Rel <select id="minRel"><option value="0">All</option><option value="7">≥ 7</option><option value="9">≥ 9</option></select></label>
+        <span class="pctrl__sp"></span>
+        <button class="ctl-btn" id="copyMd">Copy MD</button>
+        <button class="ctl-btn" id="copyBib">BibTeX</button>
+        <span class="copied" id="copied"></span>
+      </div><div class="papers" id="papers"></div></div>
+    </section>
+  </div>
+
+  <script src="risk_data.js"></script>
+  <script>
+    const R = window.RISK;
+    const cats = R.categories;
+    let activeCat = 0, activeSub = 0, query = "", hideEmpty = true, sortBy = "score", minRel = 0;
+
+    document.getElementById("meta").innerHTML =
+      `<b>${R.totalPapers}</b> papers · <b>${cats.length}</b> categories<br>generated ${R.generated} · ${R.model || ""}`;
+    document.getElementById("catCount").textContent = cats.length;
+
+    const elCat = document.getElementById("catList");
+    const elSub = document.getElementById("subList");
+    const elPapers = document.getElementById("papers");
+    const elCrumb = document.getElementById("crumb");
+    const elSubLabel = document.getElementById("subLabel");
+    const cols = document.getElementById("cols");
+    const setStep = n => cols.setAttribute("data-step", n);
+    document.querySelectorAll(".m-back").forEach(b=>b.addEventListener("click", ()=>setStep(+b.dataset.to)));
+
+    function renderCats(){
+      elCat.innerHTML = cats.map((c,i)=>`
+        <button class="row ${i===activeCat&&!query?'is-active':''}" data-i="${i}">
+          <span class="row__name">${c.name}</span>
+          <span class="row__n">${c.papers}</span>
+        </button>`).join("");
+      elCat.querySelectorAll(".row").forEach(b=>b.onclick=()=>{ activeCat=+b.dataset.i; query=""; document.getElementById("q").value=""; pickFirstSub(); renderAll(); setStep(1); });
+    }
+
+    function matchSubs(){
+      // returns list of {ci, si, cat, sub} filtered by query / hideEmpty
+      const q = query.trim().toLowerCase();
+      const list = [];
+      cats.forEach((c,ci)=>{
+        if (!q && ci!==activeCat) return;
+        c.subs.forEach((s,si)=>{
+          const has = s.papers.length>0;
+          if (hideEmpty && !has && q==="") return;
+          if (q){
+            const inName = s.name.toLowerCase().includes(q);
+            const inPapers = s.papers.some(p=>p.title.toLowerCase().includes(q) || (p.authors||[]).some(a=>a.toLowerCase().includes(q)));
+            if (!inName && !inPapers) return;
+            if (hideEmpty && !has) return;
+          }
+          list.push({ci, si, name:s.name, n:s.papers.length, cat:c.name});
+        });
+      });
+      return list;
+    }
+
+    function renderSubs(){
+      const q = query.trim();
+      elSubLabel.textContent = q ? "Results" : "Subcategories";
+      const list = matchSubs();
+      if (!list.length){ elSub.innerHTML = `<div class="placeholder">No subcategories${q?' match “'+q+'”':''}.</div>`; return; }
+      const allRow = !q ? `<button class="row ${activeSub===-1?'is-active':''}" data-ci="${activeCat}" data-si="-1"><span class="row__name"><em>All papers</em></span><span class="row__n">${cats[activeCat].papers}</span></button>` : "";
+      elSub.innerHTML = allRow + list.map(it=>`
+        <button class="row ${(it.ci===activeCat&&it.si===activeSub)?'is-active':''} ${it.n===0?'dim':''}" data-ci="${it.ci}" data-si="${it.si}">
+          <span class="row__name">${q?`<span class="row__cat">${it.cat}</span>`:''}${it.name}</span>
+          <span class="row__n">${it.n}</span>
+        </button>`).join("");
+      elSub.querySelectorAll(".row").forEach(b=>b.onclick=()=>{ activeCat=+b.dataset.ci; activeSub=+b.dataset.si; renderCats(); markSub(); renderPapers(); setStep(2); });
+    }
+    function markSub(){
+      elSub.querySelectorAll(".row").forEach(b=>b.classList.toggle("is-active", +b.dataset.ci===activeCat && +b.dataset.si===activeSub));
+    }
+
+    function pickFirstSub(){
+      const c = cats[activeCat];
+      let idx = c.subs.findIndex(s=>s.papers.length>0);
+      activeSub = idx>=0 ? idx : 0;
+    }
+
+    let currentPapers = [];
+    function getPapers(){
+      const c = cats[activeCat];
+      let arr = [];
+      if (activeSub === -1){
+        c.subs.forEach(s=> s.papers.forEach(p=> arr.push(Object.assign({__sub:s.name}, p))));
+      } else {
+        const s = c.subs[activeSub];
+        (s?s.papers:[]).forEach(p=> arr.push(Object.assign({__sub:s.name}, p)));
+      }
+      if (minRel>0) arr = arr.filter(p=> (p.relevance||0) >= minRel);
+      arr.sort((a,b)=> sortBy==="citations" ? (b.citations||0)-(a.citations||0)
+        : sortBy==="year" ? (b.year||0)-(a.year||0)
+        : (b.score||0)-(a.score||0));
+      return arr;
+    }
+    function renderPapers(){
+      const c = cats[activeCat];
+      const all = activeSub === -1;
+      const s = all ? null : c.subs[activeSub];
+      elCrumb.innerHTML = `<b>${c.name}</b><span>›</span>${all ? "All papers" : s.name}`;
+      const papers = currentPapers = getPapers();
+      const body = document.querySelector(".pane:last-child .pane__body");
+      if (!papers.length){
+        elPapers.innerHTML = `<div class="empty">${all?`No papers match this filter.`:`No papers selected for “${s.name}” yet.`}</div>`;
+        body.scrollTop = 0; return;
+      }
+      const coveredN = c.subs.filter(x=>x.papers.length).length;
+      elPapers.innerHTML = `
+        <h2 class="sub-title">${all ? c.name : s.name}</h2>
+        <p class="sub-sub">${papers.length} ${papers.length===1?'paper':'papers'}${all?` across ${coveredN} subcategories`:` · ${c.name}`} · by ${sortBy}</p>
+        ${papers.map(p=>{
+          const auth = p.authors.join(", ") + (p.nAuthors>p.authors.length ? `, +${p.nAuthors-p.authors.length}` : "");
+          const meta = [p.venue, p.year].filter(Boolean).join(" · ");
+          const titleEl = p.url ? `<a class="paper__title" href="${p.url}" target="_blank" rel="noopener">${p.title}<span class="ext">↗</span></a>` : `<span class="paper__title">${p.title}</span>`;
+          return `<article class="paper">
+            ${all?`<div class="paper__sub">${p.__sub}</div>`:''}
+            ${titleEl}
+            <p class="paper__auth">${auth}${meta?` — ${meta}`:''}</p>
+            <div class="paper__chips">
+              ${p.score!=null?`<span class="chip chip--score">Score <b>${p.score.toFixed(1)}</b></span>`:''}
+              ${p.relevance!=null?`<span class="chip">Relevance <b>${p.relevance.toFixed(0)}/10</b></span>`:''}
+              <span class="chip"><b>${p.citations.toLocaleString()}</b> citations</span>
+            </div>
+            ${p.rationale?`<p class="paper__why"><em>Why it's here</em>${p.rationale}</p>`:''}
+            ${p.abstract?`<p class="paper__abs">${p.abstract}</p>`:''}
+          </article>`;
+        }).join("")}`;
+      body.scrollTop = 0;
+    }
+
+    function renderAll(){ renderCats(); renderSubs(); renderPapers(); }
+
+    document.getElementById("q").addEventListener("input", e=>{
+      query = e.target.value;
+      renderCats(); renderSubs();
+      // if searching, auto-select first result
+      if (query.trim()){ setStep(1);
+        const list = matchSubs();
+        if (list.length){ activeCat=list[0].ci; activeSub=list[0].si; markSub(); renderPapers(); }
+      }
+    });
+    document.getElementById("hideEmpty").addEventListener("change", e=>{ hideEmpty=e.target.checked; renderSubs(); });
+    document.getElementById("sortBy").addEventListener("change", e=>{ sortBy=e.target.value; renderPapers(); });
+    document.getElementById("minRel").addEventListener("change", e=>{ minRel=+e.target.value; renderPapers(); });
+    document.getElementById("copyMd").addEventListener("click", ()=>copyOut("md"));
+    document.getElementById("copyBib").addEventListener("click", ()=>copyOut("bib"));
+    function copyOut(fmt){
+      const c=cats[activeCat]; const title = activeSub===-1?c.name:c.subs[activeSub].name;
+      let text;
+      if (fmt==="md"){
+        text = `# Navigating AI Risk — ${title}\n\n` + currentPapers.map(p=>{
+          const a=p.authors.join(", ")+(p.nAuthors>p.authors.length?" et al.":"");
+          return `- **${p.title}** — ${a}${p.year?` (${p.year})`:""}${p.venue?`, _${p.venue}_`:""}${p.citations?` · ${p.citations} citations`:""}${p.url?`\n  ${p.url}`:""}`;
+        }).join("\n");
+      } else {
+        text = currentPapers.map((p,i)=>{
+          const key=(p.authors[0]||"anon").split(" ").pop().toLowerCase().replace(/[^a-z]/g,"")+(p.year||"")+(i||"");
+          const a=p.authors.join(" and ");
+          return `@article{${key},\n  title={${p.title}},\n  author={${a}},\n  year={${p.year||""}},\n  journal={${p.venue||""}},\n  url={${p.url||""}}\n}`;
+        }).join("\n\n");
+      }
+      navigator.clipboard.writeText(text).then(()=>flash(`Copied ${currentPapers.length} · ${fmt==="md"?"Markdown":"BibTeX"}`)).catch(()=>flash("Copy failed"));
+    }
+    function flash(msg){ const e=document.getElementById("copied"); e.textContent=msg; clearTimeout(flash._t); flash._t=setTimeout(()=>e.textContent="",2600); }
+
+    const fromQuery = (function(){
+      const u = new URLSearchParams(location.search);
+      const cid = u.get("c"), si = u.get("s");
+      if (cid){ const idx = cats.findIndex(c=>c.id===cid); if (idx>=0){ activeCat=idx; activeSub = (si!=null) ? +si : -1; setStep(2); return true; } }
+      return false;
+    })();
+    if (!fromQuery) pickFirstSub();
+    renderAll();
+  </script>
+</body>
+</html>

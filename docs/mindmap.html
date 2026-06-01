@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Navigating AI Risk — Mind Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper:#ffffff; --ink:#111113; --ink-60:#5c5c61; --ink-45:#84848a; --ink-30:#a8a8ae; --ink-20:#c7c7cc;
+    --hair:#e7e7ea; --hair-2:#f1f1f3; --fill:#f4f4f6; --fill-2:#ececef;
+    --serif:"Newsreader", Georgia, "Times New Roman", serif;
+    --sans:-apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing:border-box; }
+  html, body { height:100%; }
+  body { margin:0; background:var(--paper); color:var(--ink); font-family:var(--serif); overflow:hidden; }
+  a { color:inherit; text-decoration:none; }
+
+  .bar { position:fixed; top:0; left:0; right:0; height:54px; z-index:30; display:flex; align-items:center; gap:18px; padding:0 24px; border-bottom:1px solid var(--hair); background:rgba(255,255,255,0.72); backdrop-filter:blur(18px) saturate(180%); -webkit-backdrop-filter:blur(18px) saturate(180%); }
+  .bar__brand { display:flex; align-items:baseline; gap:11px; white-space:nowrap; }
+  .bar__brand b { font-weight:500; font-size:15px; letter-spacing:-0.015em; }
+  .bar__brand span { font-family:var(--sans); font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-45); }
+  .back { font-family:var(--sans); font-size:12px; color:var(--ink-45); padding:6px 12px; border-radius:8px; border:1px solid var(--hair); cursor:pointer; background:none; opacity:0; pointer-events:none; transition:opacity .25s, color .2s, background .2s; }
+  .back.show { opacity:1; pointer-events:auto; }
+  .back:hover { color:var(--ink); background:var(--fill); }
+  .views { margin-left:auto; display:flex; gap:2px; font-family:var(--sans); }
+  .views a { font-size:11.5px; color:var(--ink-45); padding:5px 11px; border-radius:7px; transition:color .2s, background .2s; }
+  .views a:hover { color:var(--ink); background:var(--fill); }
+  .views a.on { color:var(--ink); background:var(--fill-2); }
+
+  .stage { position:fixed; inset:54px 0 0 0; }
+  svg { width:100%; height:100%; display:block; }
+
+  .edge { fill:none; stroke:var(--ink-30); stroke-width:1; opacity:.5; transition:opacity .3s, stroke .3s; }
+  .edge--main { stroke:var(--ink-45); stroke-width:1.2; opacity:.6; }
+  .nd-dot { fill:var(--ink); }
+  .nd-halo { fill:var(--fill-2); }
+  .lbl { font-family:var(--serif); fill:var(--ink); }
+  .lbl--core { font-weight:500; letter-spacing:-0.02em; }
+  .lbl--cat { font-size:15.5px; font-weight:500; letter-spacing:-0.01em; }
+  .lbl--sub { font-size:13px; font-weight:400; fill:#2c2c30; }
+  .lbl--n { font-family:var(--sans); font-size:10px; fill:var(--ink-30); }
+  .core-ring { fill:#fff; stroke:var(--ink); stroke-width:1.4; }
+  .node { cursor:pointer; }
+  .node .hit { fill:transparent; }
+  .node:hover .nd-dot { fill:#000; }
+  .node:hover .lbl { fill:#000; }
+  .node.dimmed { opacity:.32; }
+  .node.empty { cursor:default; }
+  .node.empty .nd-dot { fill:var(--ink-30); }
+  .node.empty .lbl--sub { fill:var(--ink-30); }
+  .stage.focus .branch { opacity:.12; transition:opacity .3s; }
+  .stage.focus .branch.active { opacity:1; }
+  .branch { transition:opacity .3s; }
+  .center-hit { cursor:pointer; }
+
+  /* panel */
+  .panel { position:fixed; top:54px; right:0; bottom:0; width:390px; max-width:90vw; z-index:25; background:rgba(255,255,255,0.97); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border-left:1px solid var(--hair); box-shadow:-24px 0 60px -40px rgba(0,0,0,.4); transform:translateX(100%); transition:transform .35s cubic-bezier(.3,.7,.2,1); display:flex; flex-direction:column; }
+  .panel.show { transform:none; }
+  .panel__head { flex:none; padding:20px 22px 14px; border-bottom:1px solid var(--hair); }
+  .panel__cat { font-family:var(--sans); font-size:10px; letter-spacing:0.13em; text-transform:uppercase; color:var(--ink-45); }
+  .panel__title { font-size:22px; font-weight:500; letter-spacing:-0.015em; margin:6px 0 0; }
+  .panel__count { font-family:var(--sans); font-size:11.5px; color:var(--ink-45); margin-top:6px; }
+  .panel__close { position:absolute; top:14px; right:16px; width:28px; height:28px; border:none; background:var(--fill); border-radius:50%; cursor:pointer; font-size:15px; color:var(--ink-60); line-height:1; }
+  .panel__close:hover { background:var(--fill-2); color:var(--ink); }
+  .panel__body { flex:1; overflow-y:auto; padding:8px 22px 50px; }
+  .paper { padding:18px 0; border-top:1px solid var(--hair); }
+  .paper:first-child { border-top:none; }
+  .paper__title { font-size:16.5px; font-weight:500; line-height:1.3; letter-spacing:-0.01em; }
+  .paper__title .ext { font-family:var(--sans); font-size:11px; color:var(--ink-30); margin-left:5px; }
+  .paper__title:hover { text-decoration:underline; text-underline-offset:2px; }
+  .paper__auth { font-style:italic; color:var(--ink-60); font-size:13px; margin:6px 0 0; font-weight:300; }
+  .paper__chips { display:flex; flex-wrap:wrap; gap:6px; margin:9px 0 0; }
+  .chip { font-family:var(--sans); font-size:10px; color:var(--ink-60); background:var(--fill); border-radius:6px; padding:3px 8px; white-space:nowrap; }
+  .chip b { color:var(--ink); font-weight:600; }
+  .chip--score { background:#111113; color:#fff; } .chip--score b { color:#fff; }
+  .paper__why { font-size:13px; line-height:1.5; color:var(--ink); margin:10px 0 0; padding-left:12px; border-left:2px solid var(--hair); }
+  .paper__why em { font-family:var(--sans); font-style:normal; font-size:9.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-45); display:block; margin-bottom:3px; }
+
+  .hint { position:fixed; left:24px; bottom:22px; z-index:20; font-family:var(--sans); font-size:11px; color:var(--ink-30); }
+  .toggle { position:fixed; right:24px; bottom:22px; z-index:20; font-family:var(--sans); font-size:11px; color:var(--ink-45); display:flex; align-items:center; gap:6px; cursor:pointer; user-select:none; background:rgba(255,255,255,.8); padding:5px 9px; border-radius:8px; }
+  .toggle input { accent-color:#111; }
+  .panel.show ~ .toggle { right:410px; }
+  /* mobile accordion fallback */
+  .mlist { display:none; }
+  .mcat { border-bottom:1px solid var(--hair-2); }
+  .mcat__h { width:100%; text-align:left; background:none; border:none; cursor:pointer; font-family:var(--serif); display:flex; align-items:center; gap:10px; padding:15px 18px; }
+  .mcat__h .nm { font-size:17px; font-weight:500; letter-spacing:-0.01em; }
+  .mcat__h .ct { font-family:var(--sans); font-size:11px; color:var(--ink-30); margin-left:auto; }
+  .mcat__h .chev { font-family:var(--sans); font-size:15px; color:var(--ink-30); transition:transform .25s; }
+  .mcat.open .chev { transform:rotate(90deg); }
+  .mcat__body { display:none; padding:0 14px 12px; }
+  .mcat.open .mcat__body { display:block; }
+  .msub { width:100%; text-align:left; background:var(--fill); border:none; border-radius:9px; cursor:pointer; font-family:var(--serif); display:flex; align-items:center; gap:10px; padding:11px 14px; margin:6px 0 0; }
+  .msub .nm { font-size:14.5px; line-height:1.25; }
+  .msub .ct { font-family:var(--sans); font-size:11px; color:var(--ink-45); margin-left:auto; flex:none; }
+  @media (max-width:640px){
+    .bar { gap:10px; padding:0 14px; }
+    .bar__brand span { display:none; }
+    .panel { width:100%; max-width:100%; }
+    .hint { display:none; }
+  }
+  @media (max-width:600px){
+    .stage { display:none; }
+    .back { display:none !important; }
+    .mlist { display:block; position:fixed; inset:54px 0 0 0; overflow-y:auto; -webkit-overflow-scrolling:touch; padding:4px 0 80px; z-index:10; background:var(--paper); }
+  }
+</style>
+</head>
+<body>
+  <div class="bar">
+    <a class="bar__brand" href="home.html"><b>Navigating AI Risk</b><span>Mind Map</span></a>
+    <button class="back" id="back">← All categories</button>
+    <nav class="views">
+      <a href="explorer.html">Explorer</a>
+      <a href="coverage.html">Coverage</a>
+      <a href="evidence.html">Evidence</a>
+      <a href="graph.html">3D Graph</a>
+      <a href="landscape.html">Landscape</a>
+      <a href="mindmap.html" class="on">Mind Map</a>
+    </nav>
+  </div>
+
+  <div class="stage" id="stage"><svg id="svg" viewBox="0 0 1600 940" preserveAspectRatio="xMidYMid meet"></svg></div>
+  <div class="mlist" id="mlist"></div>
+
+  <aside class="panel" id="panel">
+    <div class="panel__head">
+      <button class="panel__close" id="pClose">×</button>
+      <div class="panel__cat" id="pCat"></div>
+      <div class="panel__title" id="pTitle"></div>
+      <div class="panel__count" id="pCount"></div>
+    </div>
+    <div class="panel__body" id="pBody"></div>
+  </aside>
+
+  <div class="hint" id="hint">Click a category to open it</div>
+  <label class="toggle"><input type="checkbox" id="hideEmpty" checked /> Hide empty</label>
+
+  <script src="risk_data.js"></script>
+  <script>
+    const R = window.RISK, cats = R.categories;
+    const SVGNS = "http://www.w3.org/2000/svg";
+    const svg = document.getElementById("svg"), stage = document.getElementById("stage");
+    const panel = document.getElementById("panel");
+    const CX = 800, CY = 470;
+    let level = 0, focusCat = -1, hideEmpty = true;
+
+    const el = (n,a={}) => { const e=document.createElementNS(SVGNS,n); for(const k in a) e.setAttribute(k,a[k]); return e; };
+    const pol = (r,deg)=>[CX+r*Math.cos(deg*Math.PI/180), CY+r*Math.sin(deg*Math.PI/180)];
+    const edgePath = (x1,y1,x2,y2)=>{ const c1=[x1+(x2-x1)*0.42,y1+(y2-y1)*0.42], c2=[x1+(x2-x1)*0.72,y1+(y2-y1)*0.72]; return `M ${x1} ${y1} C ${c1[0]} ${c1[1]} ${c2[0]} ${c2[1]} ${x2} ${y2}`; };
+
+    function clear(){ while(svg.firstChild) svg.removeChild(svg.firstChild); }
+
+    function coreNode(lines, onClick){
+      const g = el("g", { class: onClick?"center-hit":"" });
+      const ring = el("circle", { cx:CX, cy:CY, r:62, class:"core-ring" });
+      g.appendChild(ring);
+      const fs = lines.length>1 ? 21 : 25;
+      lines.forEach((ln,i)=>{
+        const t = el("text", { x:CX, y:CY + (i-(lines.length-1)/2)*(fs+3), class:"lbl lbl--core", "text-anchor":"middle", "font-size":fs, "dominant-baseline":"central" });
+        t.textContent = ln; g.appendChild(t);
+      });
+      if (onClick){ const hit=el("circle",{cx:CX,cy:CY,r:62,fill:"transparent"}); hit.addEventListener("click",onClick); g.appendChild(hit); }
+      svg.appendChild(g);
+    }
+
+    function wrap2(s){ // split long label into up to 2 lines near middle
+      if (s.length<=20) return [s];
+      const words=s.split(" "); let a="",b=""; for(const w of words){ if((a+" "+w).trim().length<=Math.ceil(s.length/2)||!a) a=(a?a+" ":"")+w; else b=(b?b+" ":"")+w; }
+      return b?[a,b]:[a];
+    }
+
+    function radius(n){ return Math.min(430, 250 + n*4.5); }
+
+    function buildOverview(){
+      clear(); level=0; focusCat=-1; stage.classList.remove("focus");
+      document.getElementById("back").classList.remove("show");
+      document.getElementById("hint").textContent = "Click a category to open it";
+      const N=cats.length, step=360/N, start=-90;
+      const gEdges=el("g"); svg.appendChild(gEdges);
+      const gNodes=el("g"); svg.appendChild(gNodes);
+      cats.forEach((c,i)=>{
+        const ang=start+i*step, [x,y]=pol(300,ang);
+        gEdges.appendChild(el("path",{ d:edgePath(CX,CY,x,y), class:"edge edge--main" }));
+        const right=Math.cos(ang*Math.PI/180)>=-0.001;
+        const g=el("g",{ class:"node" });
+        const r=4+Math.sqrt(c.papers)*0.7;
+        g.appendChild(el("circle",{ cx:x, cy:y, r:r+5, class:"nd-halo" }));
+        g.appendChild(el("circle",{ cx:x, cy:y, r, class:"nd-dot" }));
+        const lines=wrap2(c.name);
+        const lx=x+(right?12:-12);
+        lines.forEach((ln,k)=>{
+          const t=el("text",{ x:lx, y:y-2+(k-(lines.length-1)/2)*16, class:"lbl lbl--cat", "text-anchor":right?"start":"end" });
+          t.textContent=ln; g.appendChild(t);
+        });
+        const cnt=el("text",{ x:lx, y:y-2+((lines.length-1)/2)*16+16, class:"lbl lbl--n", "text-anchor":right?"start":"end" });
+        cnt.textContent=c.papers+" papers"; g.appendChild(cnt);
+        const hit=el("circle",{ cx:x, cy:y, r:r+16, class:"hit" }); g.appendChild(hit);
+        g.addEventListener("click",()=>focusCategory(i));
+        gNodes.appendChild(g);
+      });
+      coreNode(["Navigating","AI Risk"], null);
+    }
+
+    function focusCategory(ci){
+      clear(); level=1; focusCat=ci; closePanel();
+      document.getElementById("back").classList.add("show");
+      const c=cats[ci];
+      let subs=c.subs.map((s,si)=>({s,si})).filter(o=> hideEmpty ? o.s.papers.length>0 : true);
+      document.getElementById("hint").textContent = subs.length+" subcategories — click one";
+      const N=Math.max(subs.length,1), step=360/N, start=-90, Rr=radius(N);
+      const gEdges=el("g"); svg.appendChild(gEdges);
+      const gNodes=el("g"); svg.appendChild(gNodes);
+      subs.forEach((o,i)=>{
+        const ang=start+i*step, [x,y]=pol(Rr,ang);
+        const has=o.s.papers.length>0;
+        gEdges.appendChild(el("path",{ d:edgePath(CX,CY,x,y), class:"edge" }));
+        const right=Math.cos(ang*Math.PI/180)>=-0.001;
+        const g=el("g",{ class:"node"+(has?"":" empty") });
+        g.appendChild(el("circle",{ cx:x, cy:y, r:has?3.4:2.4, class:"nd-dot" }));
+        const lines=wrap2(o.s.name);
+        const lx=x+(right?10:-10);
+        lines.forEach((ln,k)=>{
+          const t=el("text",{ x:lx, y:y+3.5+(k-(lines.length-1)/2)*14, class:"lbl lbl--sub", "text-anchor":right?"start":"end" });
+          t.textContent=ln + (k===lines.length-1 && has?`  ·${o.s.papers.length}`:""); g.appendChild(t);
+        });
+        if (has){ const hit=el("circle",{ cx:x, cy:y, r:12, class:"hit" }); g.appendChild(hit);
+          g.addEventListener("click",()=>openSub(ci,o.si)); }
+        gNodes.appendChild(g);
+      });
+      coreNode(wrap2(c.name), ()=>buildOverview());
+    }
+
+    function openSub(ci,si){
+      const c=cats[ci], s=c.subs[si];
+      document.getElementById("pCat").textContent=c.name;
+      document.getElementById("pTitle").textContent=s.name;
+      document.getElementById("pCount").textContent=s.papers.length+" selected "+(s.papers.length===1?"paper":"papers");
+      document.getElementById("pBody").innerHTML = s.papers.map(p=>{
+        const auth=p.authors.join(", ")+(p.nAuthors>p.authors.length?`, +${p.nAuthors-p.authors.length}`:"");
+        const meta=[p.venue,p.year].filter(Boolean).join(" · ");
+        const titleEl = p.url?`<a class="paper__title" href="${p.url}" target="_blank" rel="noopener">${p.title}<span class="ext">↗</span></a>`:`<span class="paper__title">${p.title}</span>`;
+        return `<article class="paper">${titleEl}
+          <p class="paper__auth">${auth}${meta?` — ${meta}`:''}</p>
+          <div class="paper__chips">
+            ${p.score!=null?`<span class="chip chip--score">Score <b>${p.score.toFixed(1)}</b></span>`:''}
+            ${p.relevance!=null?`<span class="chip">Rel <b>${p.relevance.toFixed(0)}/10</b></span>`:''}
+            <span class="chip"><b>${p.citations.toLocaleString()}</b> cites</span>
+          </div>
+          ${p.rationale?`<p class="paper__why"><em>Why it's here</em>${p.rationale}</p>`:''}
+        </article>`;
+      }).join("");
+      panel.classList.add("show");
+      // highlight selected node
+      [...svg.querySelectorAll(".node")].forEach(n=>n.classList.remove("dimmed"));
+    }
+    function closePanel(){ panel.classList.remove("show"); }
+
+    document.getElementById("back").addEventListener("click", buildOverview);
+    document.getElementById("pClose").addEventListener("click", closePanel);
+    document.getElementById("hideEmpty").addEventListener("change", e=>{ hideEmpty=e.target.checked; if(level===1) focusCategory(focusCat); buildMobileList(); });
+
+    // mobile accordion list
+    const mlist = document.getElementById("mlist");
+    function buildMobileList(){
+      mlist.innerHTML = cats.map((c,ci)=>{
+        const subs = c.subs.map((s,si)=>({s,si})).filter(o=> hideEmpty ? o.s.papers.length>0 : true);
+        return `<div class="mcat" data-ci="${ci}">
+          <button class="mcat__h"><span class="nm">${c.name}</span><span class="ct">${c.papers}</span><span class="chev">›</span></button>
+          <div class="mcat__body">${subs.map(o=>`<button class="msub" data-ci="${ci}" data-si="${o.si}"><span class="nm">${o.s.name}</span><span class="ct">${o.s.papers.length}</span></button>`).join("")}</div>
+        </div>`;
+      }).join("");
+      mlist.querySelectorAll(".mcat__h").forEach(h=>h.addEventListener("click",()=>h.parentNode.classList.toggle("open")));
+      mlist.querySelectorAll(".msub").forEach(b=>b.addEventListener("click",()=>openSub(+b.dataset.ci,+b.dataset.si)));
+    }
+    buildMobileList();
+
+    buildOverview();
+  </script>
+</body>
+</html>

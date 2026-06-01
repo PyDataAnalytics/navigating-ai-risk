@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Navigating AI Risk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper:#ffffff; --ink:#111113; --ink-60:#5c5c61; --ink-45:#84848a; --ink-30:#a8a8ae; --ink-20:#c7c7cc;
+    --hair:#e7e7ea; --hair-2:#f1f1f3; --fill:#f4f4f6; --fill-2:#ececef;
+    --serif:"Newsreader", Georgia, "Times New Roman", serif;
+    --sans:-apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --maxw:1180px; --gut:40px;
+  }
+  * { box-sizing:border-box; }
+  html { -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+  body { margin:0; background:var(--paper); color:var(--ink); font-family:var(--serif); line-height:1.5; }
+  a { color:inherit; text-decoration:none; }
+
+  .wrap { max-width:var(--maxw); margin:0 auto; padding:64px var(--gut) 90px; }
+
+  .kicker { font-family:var(--sans); font-size:11.5px; letter-spacing:0.18em; text-transform:uppercase; color:var(--ink-45); display:flex; align-items:center; gap:14px; }
+  .kicker::after { content:""; flex:1; height:1px; background:var(--hair); }
+  .title { font-weight:400; letter-spacing:-0.03em; line-height:0.96; font-size:clamp(52px,8vw,104px); margin:22px 0 0; }
+  .stand { font-style:italic; font-weight:300; font-size:clamp(19px,2.3vw,26px); line-height:1.42; color:var(--ink-60); margin:22px 0 0; max-width:40ch; }
+
+  .stats { display:flex; flex-wrap:wrap; gap:42px; margin:46px 0 0; padding:26px 0; border-top:1px solid var(--ink); border-bottom:1px solid var(--hair); }
+  .stat b { display:block; font-size:38px; font-weight:500; letter-spacing:-0.025em; line-height:1; }
+  .stat span { font-family:var(--sans); font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-45); margin-top:8px; display:block; }
+  .stat .sub { color:var(--ink-30); }
+  .highlight { font-family:var(--sans); font-size:12.5px; line-height:1.7; color:var(--ink-60); margin:20px 0 0; }
+  .highlight b { color:var(--ink); font-weight:600; }
+  .highlight a { border-bottom:1px solid var(--ink-20); }
+  .highlight a:hover { border-color:var(--ink); }
+
+  .viewsLabel { font-family:var(--sans); font-size:10.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-45); margin:54px 0 18px; }
+  .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  @media (max-width:860px){ .grid { grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px){ .grid { grid-template-columns:1fr; } }
+  .card { display:flex; flex-direction:column; border:1px solid var(--hair); border-radius:16px; padding:22px 22px 20px; transition:transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s, border-color .4s; min-height:172px; }
+  .card:hover { transform:translateY(-4px); box-shadow:0 20px 44px -26px rgba(17,17,19,0.32); border-color:#e0e0e3; }
+  .card__n { font-family:var(--sans); font-size:11px; font-weight:600; color:var(--ink-30); letter-spacing:0.04em; }
+  .card__name { font-size:25px; font-weight:500; letter-spacing:-0.02em; margin:10px 0 0; }
+  .card__desc { font-size:14.5px; line-height:1.45; color:var(--ink-60); margin:9px 0 0; font-weight:300; }
+  .card__go { font-family:var(--sans); font-size:12px; color:var(--ink-45); margin-top:auto; padding-top:16px; display:flex; align-items:center; gap:6px; transition:gap .25s, color .25s; }
+  .card:hover .card__go { color:var(--ink); gap:10px; }
+
+  .foot { font-family:var(--sans); font-size:11px; color:var(--ink-45); margin-top:50px; padding-top:16px; border-top:1px solid var(--hair); display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; }
+  .foot b { color:var(--ink); font-weight:600; }
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="kicker" id="kicker">The Review</div>
+    <h1 class="title">Navigating AI&nbsp;Risk</h1>
+    <p class="stand">A structured scan of the field — every risk worth tracking, and the research behind it, in one place.</p>
+
+    <div class="stats" id="stats"></div>
+    <p class="highlight" id="highlight"></p>
+
+    <div class="viewsLabel">Six ways to read it</div>
+    <div class="grid" id="grid"></div>
+
+    <div class="foot" id="foot"></div>
+  </main>
+
+  <script src="risk_data.js"></script>
+  <script>
+    const R = window.RISK, cats = R.categories;
+    const totalSubs = cats.reduce((a,c)=>a+c.subs.length,0);
+    const covered = cats.reduce((a,c)=>a+c.subs.filter(s=>s.papers.length>0).length,0);
+
+    document.getElementById("kicker").textContent = "The Review · generated " + R.generated;
+
+    document.getElementById("stats").innerHTML = `
+      <div class="stat"><b>${cats.length}</b><span>Categories</span></div>
+      <div class="stat"><b>${totalSubs}</b><span>Subcategories</span></div>
+      <div class="stat"><b>${R.totalPapers}</b><span>Selected papers</span></div>`;
+
+    const mostStudied = cats.reduce((a,b)=> b.papers>a.papers ? b : a);
+    const biggestGap = cats.map((c,ci)=>({c,ci,gap:c.subs.filter(s=>!s.papers.length).length}))
+      .reduce((a,b)=> b.gap>a.gap ? b : a);
+    const msIdx = cats.indexOf(mostStudied);
+    document.getElementById("highlight").innerHTML =
+      `Most studied — <a href="explorer.html?c=${mostStudied.id}"><b>${mostStudied.name}</b></a> (${mostStudied.papers} papers).&nbsp; Thinnest coverage — <a href="coverage.html"><b>${biggestGap.c.name}</b></a> (${biggestGap.gap} of ${biggestGap.c.subs.length} subcategories with no papers).`;
+
+    const VIEWS = [
+      { n:"01", name:"Explorer", file:"explorer.html", d:"Browse the taxonomy — category to subcategory to ranked papers, with search, sort, and export." },
+      { n:"02", name:"Coverage", file:"coverage.html", d:"A density map of where the research is thick, thin, or missing entirely." },
+      { n:"03", name:"Evidence", file:"evidence.html", d:"The research findings themselves — each claim with the papers that support it." },
+      { n:"04", name:"3D Graph", file:"graph.html", d:"The field as a rotatable cluster of categories and subcategories." },
+      { n:"05", name:"Landscape", file:"landscape.html", d:"The whole field on one page — every selected title, colour-coded by subcategory." },
+      { n:"06", name:"Mind Map", file:"mindmap.html", d:"The taxonomy as a drill-down radial; open any subcategory to read its papers." },
+    ];
+    document.getElementById("grid").innerHTML = VIEWS.map(v=>`
+      <a class="card" href="${v.file}">
+        <div class="card__n">${v.n}</div>
+        <div class="card__name">${v.name}</div>
+        <div class="card__desc">${v.d}</div>
+        <div class="card__go">Open <span>→</span></div>
+      </a>`).join("");
+
+    document.getElementById("foot").innerHTML =
+      `<div><b>${R.totalPapers}</b> papers across <b>${cats.length}</b> categories · taxonomy v${R.taxonomy_version||"1.0"}</div>
+       <div>Selected &amp; scored by ${R.model||"an LLM"} · ${R.generated} · illustrative dataset</div>`;
+  </script>
+</body>
+</html>

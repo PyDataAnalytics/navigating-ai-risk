@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Navigating AI Risk — Landscape</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper:#ffffff; --ink:#111113; --ink-60:#5c5c61; --ink-45:#84848a; --ink-30:#a8a8ae; --ink-20:#c7c7cc;
+    --hair:#e7e7ea; --hair-2:#f1f1f3; --fill:#f4f4f6; --fill-2:#ececef;
+    --serif:"Newsreader", Georgia, "Times New Roman", serif;
+    --sans:-apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --maxw:1640px; --gut:34px;
+  }
+  * { box-sizing:border-box; }
+  html { -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+  body { margin:0; background:var(--paper); color:var(--ink); font-family:var(--serif); }
+  a { color:inherit; text-decoration:none; }
+
+  /* masthead */
+  .mast { position:sticky; top:0; z-index:20; background:rgba(255,255,255,0.85); backdrop-filter:blur(18px) saturate(180%); -webkit-backdrop-filter:blur(18px) saturate(180%); border-bottom:1px solid var(--ink); }
+  .mast__in { max-width:var(--maxw); margin:0 auto; padding:13px var(--gut) 12px; display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; }
+  .mast__l { display:flex; align-items:baseline; gap:16px; flex-wrap:wrap; }
+  .mast__title { font-size:clamp(24px,2.6vw,34px); font-weight:400; letter-spacing:-0.025em; margin:0; line-height:1; }
+  .mast__sub { font-style:italic; font-weight:300; color:var(--ink-60); font-size:15px; }
+  .mast__r { display:flex; align-items:center; gap:18px; }
+  .views { display:flex; gap:2px; font-family:var(--sans); }
+  .views a { font-size:11.5px; color:var(--ink-45); padding:5px 11px; border-radius:7px; transition:color .2s, background .2s; }
+  .views a:hover { color:var(--ink); background:var(--fill); }
+  .views a.on { color:var(--ink); background:var(--fill-2); }
+  .mast__meta { font-family:var(--sans); font-size:11px; color:var(--ink-45); white-space:nowrap; }
+  .mast__meta b { color:var(--ink); font-weight:600; }
+  @media (max-width:720px){ .mast__meta{ display:none; } }
+
+  /* columns */
+  .sheet { max-width:var(--maxw); margin:0 auto; padding:18px var(--gut) 70px;
+    column-count:6; column-gap:28px; column-rule:1px solid var(--hair); }
+  @media (max-width:1500px){ .sheet{ column-count:5; } }
+  @media (max-width:1240px){ .sheet{ column-count:4; } }
+  @media (max-width:960px){ .sheet{ column-count:3; } }
+  @media (max-width:680px){ .sheet{ column-count:2; } }
+  @media (max-width:460px){ .sheet{ column-count:1; } }
+
+  @media (max-width:680px){
+    .mast__sub { display:none; }
+    .sub a, .sub span.t { white-space:normal; }
+  }
+
+  .cat { margin:0 0 4px; }
+  .cat__h { break-after:avoid-column; -webkit-column-break-after:avoid; padding:7px 0 4px; border-top:2px solid var(--ink); margin-top:11px; display:flex; align-items:baseline; justify-content:space-between; gap:8px; }
+  .cat:first-child .cat__h { margin-top:0; }
+  .cat__name { font-size:15px; font-weight:600; letter-spacing:-0.01em; line-height:1.12; }
+  .cat__n { font-family:var(--sans); font-size:9.5px; color:var(--ink-30); font-variant-numeric:tabular-nums; flex:none; }
+
+  .sub { break-inside:avoid; -webkit-column-break-inside:avoid; page-break-inside:avoid; margin:7px 0 0; }
+  .sub__h { font-family:var(--sans); font-size:9.5px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--c, var(--ink-45)); margin:0 0 1px; display:flex; align-items:baseline; gap:6px; }
+  .sub__h .n { color:var(--ink-20); font-weight:500; }
+  .sub ul { list-style:none; margin:0 0 0; padding:0; }
+  .sub li { line-height:1.26; }
+  .sub a, .sub span.t {
+    display:block; font-size:11.5px; color:var(--ink); padding:1px 0;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    background-image:linear-gradient(var(--ink),var(--ink)); background-size:0% 1px; background-repeat:no-repeat; background-position:0 1.05em;
+    transition:background-size .3s cubic-bezier(.2,.6,.2,1);
+  }
+  .sub a:hover { background-size:100% 1px; }
+
+  .foot { max-width:var(--maxw); margin:0 auto; padding:18px var(--gut) 50px; border-top:1px solid var(--hair); font-family:var(--sans); font-size:10.5px; color:var(--ink-45); display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; }
+  .foot b { color:var(--ink); font-weight:600; }
+</style>
+</head>
+<body>
+  <header class="mast">
+    <div class="mast__in">
+      <div class="mast__l">
+        <a href="home.html"><h1 class="mast__title">Navigating AI Risk</h1></a>
+        <span class="mast__sub">The landscape — every selected reading, at a glance</span>
+      </div>
+      <div class="mast__r">
+        <nav class="views">
+          <a href="explorer.html">Explorer</a>
+          <a href="coverage.html">Coverage</a>
+          <a href="evidence.html">Evidence</a>
+          <a href="graph.html">3D Graph</a>
+          <a href="landscape.html" class="on">Landscape</a>
+          <a href="mindmap.html">Mind Map</a>
+        </nav>
+        <div class="mast__meta" id="meta"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="sheet" id="sheet"></main>
+  <footer class="foot" id="foot"></footer>
+
+  <script src="risk_data.js"></script>
+  <script>
+    const R = window.RISK, cats = R.categories;
+    document.getElementById("meta").innerHTML = `<b>${cats.length}</b> categories · <b>${R.totalPapers}</b> papers`;
+
+    const sheet = document.getElementById("sheet");
+    // curated Apple-style muted palette — uniform low chroma, varied hue
+    const PALETTE = [
+      "oklch(0.62 0.05 252)", "oklch(0.62 0.048 150)", "oklch(0.63 0.052 38)", "oklch(0.61 0.05 300)",
+      "oklch(0.63 0.048 205)", "oklch(0.64 0.048 95)", "oklch(0.63 0.05 350)", "oklch(0.61 0.05 272)",
+      "oklch(0.64 0.05 65)", "oklch(0.62 0.048 178)", "oklch(0.62 0.05 325)", "oklch(0.63 0.048 122)"
+    ];
+    let gi = 0;
+    sheet.innerHTML = cats.map((c)=>{
+      const subs = c.subs.filter(s=>s.papers.length>0);
+      const subsHtml = subs.map(s=>{
+        const col = PALETTE[gi++ % PALETTE.length];
+        return `
+        <div class="sub">
+          <div class="sub__h" style="--c:${col}">${s.name} <span class="n">${s.papers.length}</span></div>
+          <ul>${s.papers.map(p=>{
+            const tip = `${p.title} — ${p.authors.join(", ")}${p.nAuthors>p.authors.length?" et al.":""}${p.year?", "+p.year:""}`;
+            return p.url
+              ? `<li><a href="${p.url}" target="_blank" rel="noopener" title="${tip.replace(/"/g,'&quot;')}">${p.title}</a></li>`
+              : `<li><span class="t" title="${tip.replace(/"/g,'&quot;')}">${p.title}</span></li>`;
+          }).join("")}</ul>
+        </div>`;
+      }).join("");
+      return `<section class="cat">
+        <div class="cat__h"><span class="cat__name">${c.name}</span><span class="cat__n">${c.papers}</span></div>
+        ${subsHtml}
+      </section>`;
+    }).join("");
+
+    document.getElementById("foot").innerHTML =
+      `<div><b>Navigating AI Risk</b> · the landscape</div>
+       <div>${cats.length} categories · ${R.totalPapers} papers · generated ${R.generated} · hover a title for authors, click to open</div>`;
+  </script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Navigating AI Risk — Coverage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper:#ffffff; --ink:#111113; --ink-60:#5c5c61; --ink-45:#84848a; --ink-30:#a8a8ae; --ink-20:#c7c7cc;
+    --hair:#e7e7ea; --hair-2:#f1f1f3; --fill:#f4f4f6; --fill-2:#ececef;
+    --serif:"Newsreader", Georgia, "Times New Roman", serif;
+    --sans:-apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --maxw:1500px; --gut:40px;
+  }
+  * { box-sizing:border-box; }
+  html { -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+  body { margin:0; background:var(--paper); color:var(--ink); font-family:var(--serif); }
+  a { color:inherit; text-decoration:none; }
+
+  .bar { position:sticky; top:0; z-index:20; height:54px; display:flex; align-items:center; gap:18px; padding:0 var(--gut); border-bottom:1px solid var(--hair); background:rgba(255,255,255,0.78); backdrop-filter:blur(18px) saturate(180%); -webkit-backdrop-filter:blur(18px) saturate(180%); }
+  .bar__brand { display:flex; align-items:baseline; gap:11px; white-space:nowrap; }
+  .bar__brand b { font-weight:500; font-size:15px; letter-spacing:-0.015em; }
+  .bar__brand span { font-family:var(--sans); font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-45); }
+  .views { margin-left:auto; display:flex; gap:2px; font-family:var(--sans); flex-wrap:wrap; justify-content:flex-end; }
+  .views a { font-size:11.5px; color:var(--ink-45); padding:5px 10px; border-radius:7px; transition:color .2s, background .2s; white-space:nowrap; }
+  .views a:hover { color:var(--ink); background:var(--fill); }
+  .views a.on { color:var(--ink); background:var(--fill-2); }
+
+  .wrap { max-width:var(--maxw); margin:0 auto; padding:30px var(--gut) 90px; }
+  .head { display:flex; align-items:flex-end; justify-content:space-between; gap:30px; flex-wrap:wrap; border-bottom:1px solid var(--ink); padding-bottom:18px; }
+  .head__title { font-size:clamp(28px,3.4vw,42px); font-weight:400; letter-spacing:-0.025em; margin:0; }
+  .head__sub { font-style:italic; font-weight:300; color:var(--ink-60); font-size:16px; margin:9px 0 0; max-width:54ch; }
+  .stats { display:flex; gap:26px; font-family:var(--sans); }
+  .stat { text-align:right; }
+  .stat b { display:block; font-family:var(--serif); font-size:26px; font-weight:500; letter-spacing:-0.02em; }
+  .stat span { font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-45); }
+
+  .legend { display:flex; align-items:center; gap:16px; margin:18px 0 6px; font-family:var(--sans); font-size:11px; color:var(--ink-45); flex-wrap:wrap; }
+  .legend .sw { display:inline-flex; align-items:center; gap:6px; }
+  .legend i { width:15px; height:15px; border-radius:4px; display:inline-block; }
+  .l0 { background:#fff; border:1px dashed var(--ink-20); }
+  .l1 { background:rgba(17,17,19,0.16); }
+  .l2 { background:rgba(17,17,19,0.42); }
+  .l3 { background:rgba(17,17,19,0.80); }
+
+  .rows { margin-top:14px; }
+  .crow { display:grid; grid-template-columns:300px 1fr; gap:26px; align-items:start; padding:16px 0; border-top:1px solid var(--hair); }
+  .crow:first-child { border-top:none; }
+  .cinfo__name { font-size:18px; font-weight:500; letter-spacing:-0.015em; line-height:1.12; margin:0; }
+  .cinfo__name a:hover { text-decoration:underline; text-underline-offset:2px; text-decoration-thickness:1px; }
+  .cinfo__meta { font-family:var(--sans); font-size:11px; color:var(--ink-45); margin:6px 0 8px; }
+  .cinfo__meta b { color:var(--ink); font-weight:600; }
+  .covbar { height:5px; background:var(--fill-2); border-radius:3px; overflow:hidden; max-width:230px; }
+  .covbar i { display:block; height:100%; background:var(--ink); border-radius:3px; }
+
+  .cells { display:flex; flex-wrap:wrap; gap:5px; }
+  .cell { width:19px; height:19px; border-radius:4px; transition:transform .15s, box-shadow .15s; cursor:default; }
+  .cell.has { cursor:pointer; }
+  .cell.has:hover { transform:scale(1.35); box-shadow:0 4px 12px -4px rgba(0,0,0,.4); position:relative; z-index:2; }
+  .cell.c0 { background:#fff; border:1px dashed var(--ink-20); }
+  .cell.c1 { background:rgba(17,17,19,0.16); }
+  .cell.c2 { background:rgba(17,17,19,0.42); }
+  .cell.c3 { background:rgba(17,17,19,0.80); }
+
+  .foot { font-family:var(--sans); font-size:10.5px; color:var(--ink-45); margin-top:34px; padding-top:14px; border-top:1px solid var(--hair); }
+  .foot b { color:var(--ink); font-weight:600; }
+
+  @media (max-width:760px){
+    .crow { grid-template-columns:1fr; gap:10px; }
+    .views span:first-child { }
+  }
+</style>
+</head>
+<body>
+  <header class="bar">
+    <a class="bar__brand" href="home.html"><b>Navigating AI Risk</b><span>Coverage</span></a>
+    <nav class="views">
+      <a href="explorer.html">Explorer</a>
+      <a href="coverage.html" class="on">Coverage</a>
+      <a href="evidence.html">Evidence</a>
+      <a href="graph.html">3D Graph</a>
+      <a href="landscape.html">Landscape</a>
+      <a href="mindmap.html">Mind Map</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <div class="head">
+      <div>
+        <h1 class="head__title">Coverage of the field</h1>
+        <p class="head__sub">Where the research is thick, thin, or missing entirely. Each square is a subcategory, shaded by how many papers were selected for it.</p>
+      </div>
+      <div class="stats" id="stats"></div>
+    </div>
+
+    <div class="legend">
+      <span class="sw"><i class="l0"></i> No papers</span>
+      <span class="sw"><i class="l1"></i> 1</span>
+      <span class="sw"><i class="l2"></i> 2</span>
+      <span class="sw"><i class="l3"></i> 3+</span>
+      <span style="margin-left:auto">Click a filled square to open it in the Explorer</span>
+    </div>
+
+    <div class="rows" id="rows"></div>
+    <div class="foot" id="foot"></div>
+  </main>
+
+  <script src="risk_data.js"></script>
+  <script>
+    const R = window.RISK, cats = R.categories;
+    const totalSubs = cats.reduce((a,c)=>a+c.subs.length,0);
+    const coveredSubs = cats.reduce((a,c)=>a+c.subs.filter(s=>s.papers.length>0).length,0);
+
+    document.getElementById("stats").innerHTML = `
+      <div class="stat"><b>${cats.length}</b><span>Categories</span></div>
+      <div class="stat"><b>${coveredSubs}<span style="color:var(--ink-30)">/${totalSubs}</span></b><span>Subcats covered</span></div>
+      <div class="stat"><b>${Math.round(coveredSubs/totalSubs*100)}%</b><span>Coverage</span></div>
+      <div class="stat"><b>${R.totalPapers}</b><span>Papers</span></div>`;
+
+    // sort categories by coverage ratio descending for a readable gradient
+    const ranked = cats.map((c,ci)=>({c,ci})).sort((a,b)=>{
+      const ra=a.c.subs.filter(s=>s.papers.length>0).length/a.c.subs.length;
+      const rb=b.c.subs.filter(s=>s.papers.length>0).length/b.c.subs.length;
+      return rb-ra;
+    });
+
+    document.getElementById("rows").innerHTML = ranked.map(({c,ci})=>{
+      const cov = c.subs.filter(s=>s.papers.length>0).length;
+      const pct = Math.round(cov/c.subs.length*100);
+      const cells = c.subs.map((s,si)=>{
+        const n = s.papers.length;
+        const cls = n===0?"c0":(n===1?"c1":(n===2?"c2":"c3"));
+        const tip = `${s.name} — ${n} paper${n===1?"":"s"}`;
+        return n>0
+          ? `<a class="cell has ${cls}" href="explorer.html?c=${c.id}&s=${si}" title="${tip.replace(/"/g,'&quot;')}"></a>`
+          : `<span class="cell ${cls}" title="${tip.replace(/"/g,'&quot;')}"></span>`;
+      }).join("");
+      return `<section class="crow">
+        <div class="cinfo">
+          <h2 class="cinfo__name"><a href="explorer.html?c=${c.id}">${c.name}</a></h2>
+          <div class="cinfo__meta"><b>${cov}</b>/${c.subs.length} subcats · <b>${c.papers}</b> papers · <b>${c.subs.length-cov}</b> gaps</div>
+          <div class="covbar"><i style="width:${pct}%"></i></div>
+        </div>
+        <div class="cells">${cells}</div>
+      </section>`;
+    }).join("");
+
+    const emptySubs = totalSubs - coveredSubs;
+    document.getElementById("foot").innerHTML =
+      `<b>${emptySubs}</b> of ${totalSubs} subcategories have no selected papers — the field's current blind spots. Generated ${R.generated} · ${R.model||""}`;
+  </script>
+</body>
+</html>

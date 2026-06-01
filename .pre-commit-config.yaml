@@ -1,0 +1,47 @@
+# Pre-commit hooks: run before every `git commit`.
+# Install once with:  pre-commit install
+# Then every commit auto-runs taxonomy drift guard + adjacency integrity + lint.
+#
+# To run manually:  pre-commit run --all-files
+
+repos:
+  # Local hooks run from the repo itself, not pulled from network.
+  - repo: local
+    hooks:
+      - id: taxonomy-drift-guard
+        name: Taxonomy drift + adjacency integrity
+        entry: pytest tests/test_adjacencies.py -q
+        language: system
+        # Re-run whenever the taxonomy, definitions, signatures, or the validator change.
+        files: ^(config/taxonomy\.yaml|config/subcategory_definitions\.yaml|config/subcategory_signatures\.yaml|tests/test_adjacencies\.py)$
+        pass_filenames: false
+        # Drift is a structural defect — never auto-skip, never let stage flags bypass.
+        always_run: false
+        stages: [pre-commit]
+
+      - id: quality-audits
+        name: Layer 1 quality audits
+        entry: pytest tests/test_quality_audits.py -q
+        language: system
+        files: ^(config/subcategory_definitions\.yaml|tests/test_quality_audits\.py)$
+        pass_filenames: false
+        stages: [pre-commit]
+
+      - id: ruff
+        name: ruff lint
+        entry: ruff check
+        language: system
+        types: [python]
+        pass_filenames: true
+
+  # Standard hygiene from upstream — trailing whitespace, EOF newlines, YAML validity.
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+        # taxonomy.yaml uses unicode box-drawing in comments which check-yaml handles fine,
+        # but if a future entry breaks YAML parse we want to know before commit.
+      - id: check-added-large-files
+        args: ["--maxkb=2000"]

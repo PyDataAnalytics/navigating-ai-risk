@@ -1,0 +1,18 @@
+# Ruff configuration - linting + formatting for the Python pipeline scripts.
+# Run locally:  ruff check --fix .   then   ruff format .
+target-version = "py311"
+line-length = 100
+
+[lint]
+# E/W pycodestyle, F pyflakes (unused imports/vars), I import-sorting,
+# B likely-bugs (bugbear), UP modernize-syntax (pyupgrade)
+select = ["E", "W", "F", "I", "B", "UP"]
+ignore = ["E501"]  # long lines are handled by `ruff format`, don't fail the check on them
+
+[format]
+quote-style = "double"
+
+[lint.flake8-bugbear]
+extend-immutable-calls = ["typer.Option", "typer.Argument"]
+[lint.per-file-ignores]
+"tests/test_source_http.py" = ["E402"]

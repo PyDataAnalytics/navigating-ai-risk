@@ -1,0 +1,16 @@
+.venv/
+data/
+__pycache__/
+*.pyc
+*.zip
+.idea/
+*.egg-info/
+dist/
+*.egg-info/
+dist/
+
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+config/local.yaml
+.env

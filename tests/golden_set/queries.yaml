@@ -1,0 +1,158 @@
+# Golden-set queries for matcher behavioral evaluation.
+#
+# Each entry is a real-world-style query paired with the canonical subcategory
+# name(s) that should be in the matcher's top-K result. Entries are grouped by
+# difficulty so the harness can report recall per difficulty class.
+#
+# Schema:
+#   query:           the user-facing question or research request
+#   expected:        list of canonical subcategory names (exact match to
+#                    config/taxonomy.yaml). The matcher passes if ANY of these
+#                    appears in its top-K. List > 1 entry for queries that
+#                    legitimately span multiple subcategories.
+#   difficulty:      one of [easy, medium, hard]
+#                      - easy: query uses words from the subcategory name
+#                      - medium: query is phrased differently but unambiguous
+#                      - hard: query lands between two similar siblings; the
+#                              disambiguation must work
+#   notes:           optional rationale for why this is the expected answer
+#
+# This file is intentionally small at first. To be useful as a benchmark, it
+# should grow to ~200 entries covering: every category (≥10 each), every hard
+# similar-cluster (≥2 per cluster), and a mix of phrasing styles.
+
+version: "0.1"
+
+queries:
+  # ═══════════════════════════════════════════════════════════════════════════
+  # EASY — query uses words from the subcategory name
+  # ═══════════════════════════════════════════════════════════════════════════
+  - query: "LLM hallucinations in legal research"
+    expected: ["Hallucinations"]
+    difficulty: easy
+
+  - query: "prompt injection attacks against chatbots"
+    expected: ["Prompt injection attacks"]
+    difficulty: easy
+
+  - query: "deepfake pornography targeting women"
+    expected: ["Deepfake pornography"]
+    difficulty: easy
+
+  - query: "AI energy consumption and carbon emissions"
+    expected: ["Increased carbon emissions from AI", "High electricity usage of AI training"]
+    difficulty: easy
+    notes: "Legitimately spans both — either is a valid match."
+
+  - query: "facial recognition deployed without consent"
+    expected: ["Facial recognition misuse"]
+    difficulty: easy
+
+  - query: "AI used for job displacement"
+    expected: ["Job displacement by AI"]
+    difficulty: easy
+
+  - query: "model collapse from training on AI-generated data"
+    expected: ["Model collapse from synthetic training data"]
+    difficulty: easy
+
+  - query: "election interference using AI"
+    expected: ["Election interference by AI"]
+    difficulty: easy
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # MEDIUM — phrased differently but unambiguous
+  # ═══════════════════════════════════════════════════════════════════════════
+  - query: "ChatGPT making up fake court case citations in a legal brief"
+    expected: ["Fabricated citations or sources"]
+    difficulty: medium
+    notes: "User describes the phenomenon without naming it; tests one_line/applies_when matching."
+
+  - query: "AI assistant invents references that don't exist in a paper"
+    expected: ["Fabricated citations or sources"]
+    difficulty: medium
+
+  - query: "self-driving car causes a fatal crash"
+    expected: ["Autonomous vehicle accidents"]
+    difficulty: medium
+
+  - query: "AI chatbot tells a depressed user how to harm themselves"
+    expected: ["Self-harm encouragement"]
+    difficulty: medium
+
+  - query: "research lab compromised through poisoned ML training dataset"
+    expected: ["Data poisoning", "Compromised training pipelines"]
+    difficulty: medium
+
+  - query: "GDPR violations from training language models on scraped European user data"
+    expected: ["Training on private data without consent", "Privacy law violations by AI"]
+    difficulty: medium
+
+  - query: "warehouse robot injures worker due to unexpected behavior"
+    expected: ["Industrial robot malfunctions"]
+    difficulty: medium
+
+  - query: "AI image generator produces output substantially similar to a copyrighted illustration"
+    expected: ["Copyright infringement by AI"]
+    difficulty: medium
+
+  - query: "data center water use straining a drought-affected region"
+    expected: ["Water consumption for AI cooling"]
+    difficulty: medium
+
+  - query: "fully autonomous drone selects and engages a human target without operator input"
+    expected: ["Unsafe autonomous weapons"]
+    difficulty: medium
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # HARD — lands between two similar siblings; disambiguation must work
+  # ═══════════════════════════════════════════════════════════════════════════
+  - query: "LLM produces a math answer with reasoning that looks right but the conclusion doesn't follow from the premises"
+    expected: ["Incorrect reasoning"]
+    difficulty: hard
+    notes: "Distinguishes from Hallucinations (false facts) and Arithmetic and logical errors (numerical computation failure)."
+
+  - query: "model trained on Q1 data starts performing worse on Q4 user behavior"
+    expected: ["Distribution shift failures"]
+    difficulty: hard
+    notes: "Distinguishes from Silent degradation (which is broader) and Brittleness OOD (which is failure on natural OOD inputs in general)."
+
+  - query: "AI customer-service bot keeps giving subtly worse answers month over month and nobody noticed"
+    expected: ["Silent degradation over time"]
+    difficulty: hard
+    notes: "Distinguishes from Distribution shift (specifically data drift) and Poor monitoring (the gap that lets it happen)."
+
+  - query: "RL agent in a game environment finds an exploit in the reward function to maximize score without playing the game"
+    expected: ["Reward hacking"]
+    difficulty: hard
+    notes: "Distinguishes from Specification gaming (broader pattern), Proxy gaming (proxy-vs-true-objective), Wireheading (direct reward-signal seizure)."
+
+  - query: "AI agent that's been instructed to maximize widget sales starts acquiring resources and influence to do its job better"
+    expected: ["Power-seeking AI behavior", "Instrumental convergence"]
+    difficulty: hard
+    notes: "Both are valid framings — Power-seeking is the behavior, Instrumental convergence is the theory."
+
+  - query: "AI assistant claims to have read a book that doesn't exist"
+    expected: ["Hallucinations"]
+    difficulty: hard
+    notes: "Distinguishes from Fabricated citations (which is specifically about citation/reference format)."
+
+  - query: "attacker hides instructions in a webpage that an LLM-powered browsing agent reads"
+    expected: ["Prompt injection attacks"]
+    difficulty: hard
+    notes: "Distinguishes from Jailbreaks (direct user bypass) and Failure under adversarial inputs (classical ML attack inputs)."
+
+  - query: "user posts in a forum convinces a chatbot to give instructions it would normally refuse"
+    expected: ["Jailbreaks"]
+    difficulty: hard
+    notes: "Distinguishes from Prompt injection (external content vector) — here the user IS the attacker."
+
+  - query: "company's marketing team uses ChatGPT for customer emails without IT approval"
+    expected: ["Shadow AI usage in enterprises"]
+    difficulty: hard
+    notes: "Distinguishes from Poor AI governance (the broader absence of frameworks)."
+
+  - query: "researchers in pharma use an LLM to write fake experimental data into a paper"
+    expected: ["Fabricated experimental results from AI"]
+    difficulty: hard
+    notes: "Distinguishes from Fake scientific papers (broader — paper mills, citation fraud) and Hallucinations (LLM honestly mistaken)."

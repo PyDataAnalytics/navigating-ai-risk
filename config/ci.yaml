@@ -1,0 +1,77 @@
+# Config for the scheduled GitHub Actions run. Optimized for cheap, reproducible runs.
+
+llm:
+  provider: ollama
+  host: "http://127.0.0.1:11434"
+  model: "llama3.1:8b"
+  temperature: 0.0
+  num_ctx: 4096
+  request_timeout_seconds: 90
+  max_input_chars: 5000
+
+# Stage-1 cheap binary screener. Filters an extended shortlist before the
+# expensive judge runs. Improves recall at fixed compute on the judge.
+llm_screen:
+  enabled: true
+  provider: ollama
+  host: "http://127.0.0.1:11434"
+  model: "llama3.2:3b"
+  temperature: 0.0
+  num_ctx: 2048
+  request_timeout_seconds: 30
+  max_input_chars: 4000
+
+sources:
+  arxiv:
+    enabled: true
+    max_candidates_per_subcategory: 20
+    arxiv_categories: ["cs.AI", "cs.LG", "cs.CL", "cs.CR", "cs.CY", "stat.ML"]
+  semantic_scholar:
+    enabled: true
+    max_candidates_per_subcategory: 25
+    api_key_env: "SEMANTIC_SCHOLAR_API_KEY"
+  papers_with_code:
+    enabled: true
+    max_candidates_per_subcategory: 10
+  ssrn:
+    enabled: true
+    max_candidates_per_subcategory: 10
+  google_scholar:
+    enabled: true
+    max_candidates_per_subcategory: 15
+    api_key_env: "SERPAPI_API_KEY"
+  openalex:
+    enabled: true
+    max_candidates_per_subcategory: 25
+
+retrieval:
+  max_age_years: 7
+  min_abstract_chars: 200
+  title_dedup_threshold: 92
+  llm_shortlist_size: 15
+  screen_shortlist_size: 40
+
+scoring:
+  weights:
+    llm_relevance: 0.65
+    citations: 0.15
+    recency: 0.15
+    source_diversity_bonus: 0.05
+  min_acceptable_score: 4.0
+  diversity_lambda: 0.6
+
+output:
+  directory: "data/output"
+  format: "json"
+  include_full_abstracts: true
+  include_llm_rationale: true
+  atomic_writes: true
+
+runtime:
+  concurrency: 2          # Conservative on shared CI runner
+  per_request_timeout_seconds: 30
+  retry_attempts: 3
+  cache_directory: "data/cache"
+  cache_ttl_hours: 168
+  log_level: "INFO"
+  audit_log_path: "data/cache/audit.jsonl"

@@ -1,0 +1,46 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install package with dev extras
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      # Taxonomy drift + adjacency integrity runs first and on its own.
+      # If this fails, the build is dead — no point running the rest.
+      - name: Validate taxonomy and adjacencies (drift guard)
+        run: pytest tests/test_adjacencies.py -v
+
+      # Layer 1 quality audits — content-quality checks complementing the
+      # structural validator above.
+      - name: Quality audits
+        run: pytest tests/test_quality_audits.py -v
+
+      - name: Run full test suite
+        run: pytest -v
+
+      - name: Lint
+        run: ruff check src tests

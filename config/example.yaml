@@ -1,0 +1,152 @@
+# Copy to local.yaml and edit. local.yaml is gitignored.
+#
+# Two LLM provider options:
+#
+#   1. provider: "ollama" (default)
+#      Local Ollama instance. Free, private, but needs a GPU for real speed.
+#      Localhost-only — see config.py validators for why.
+#
+#   2. provider: "openai_compatible"
+#      Any OpenAI-compatible API (Groq, OpenAI, Together AI, Fireworks,
+#      Anyscale, vLLM serve, etc.). HTTPS required for remote hosts.
+#      api_key_env names an environment variable that holds the key.
+#
+# Example Groq config (free tier, fast, no credit card needed):
+#
+#   llm:
+#     provider: openai_compatible
+#     host: "https://api.groq.com/openai/v1"
+#     model: "llama-3.3-70b-versatile"
+#     api_key_env: "GROQ_API_KEY"
+#     request_timeout_seconds: 30
+#     num_ctx: 8192
+#     max_input_chars: 8000
+#
+#   llm_screen:
+#     enabled: true
+#     provider: openai_compatible
+#     host: "https://api.groq.com/openai/v1"
+#     model: "llama-3.1-8b-instant"
+#     api_key_env: "GROQ_API_KEY"
+#     request_timeout_seconds: 20
+#     num_ctx: 4096
+#     max_input_chars: 4000
+#
+# Then set the env var before running:
+#   PowerShell:  $env:GROQ_API_KEY = "gsk_..."
+#   Bash:        export GROQ_API_KEY="gsk_..."
+
+# ── LLM judge ────────────────────────────────────────────────────────────────
+llm:
+  provider: ollama
+  host: "http://127.0.0.1:11434"   # local only; never expose to public network
+  model: "llama3.1:8b"             # any chat-capable Ollama model
+  temperature: 0.0                 # deterministic scoring
+  num_ctx: 4096
+  request_timeout_seconds: 60
+  # Hard ceiling on text passed to the model after sanitization. Anything above
+  # is truncated. Keeps prompt injection payloads bounded and prompt costs predictable.
+  max_input_chars: 6000
+
+# ── LLM screener (optional, stage-1 cheap relevance filter) ──────────────────
+# When enabled, an extended shortlist (retrieval.screen_shortlist_size papers)
+# is filtered through a small fast model with a yes/no relevance prompt.
+# Survivors are then trimmed to retrieval.llm_shortlist_size and passed to the
+# expensive detailed judge above. Net effect: better recall at the same
+# wall-clock budget on the detailed judge.
+# Set enabled: false to disable and run the original single-stage pipeline.
+llm_screen:
+  enabled: true
+  provider: ollama
+  host: "http://127.0.0.1:11434"
+  model: "llama3.2:3b"             # smaller, faster than the judge
+  temperature: 0.0
+  num_ctx: 2048
+  request_timeout_seconds: 30
+  max_input_chars: 4000
+
+# ── Sources ──────────────────────────────────────────────────────────────────
+# Each source has a per-subcategory candidate budget. Set to 0 to disable.
+sources:
+  arxiv:
+    enabled: true
+    max_candidates_per_subcategory: 25
+    # Filter to AI/ML/security categories on arXiv to reduce noise
+    arxiv_categories: ["cs.AI", "cs.LG", "cs.CL", "cs.CR", "cs.CY", "stat.ML"]
+  semantic_scholar:
+    enabled: true
+    max_candidates_per_subcategory: 25
+    api_key_env: "SEMANTIC_SCHOLAR_API_KEY"   # optional; raises rate limit
+  papers_with_code:
+    enabled: true
+    max_candidates_per_subcategory: 15
+  ssrn:
+    enabled: true
+    max_candidates_per_subcategory: 15
+  google_scholar:
+    # Google Scholar has no public API. We use SerpAPI as a permitted gateway.
+    # Without an API key, this source is auto-disabled.
+    enabled: true
+    max_candidates_per_subcategory: 20
+    api_key_env: "SERPAPI_API_KEY"
+  openalex:
+    # OpenAlex is free, no API key required. Covers ~250M works including
+    # arXiv preprints, journal articles, and venues other sources miss.
+    # Strongly recommended: set OPENALEX_MAILTO in the environment to enter
+    # the polite pool (higher rate limit).
+    enabled: true
+    max_candidates_per_subcategory: 25
+
+# ── Retrieval logic ──────────────────────────────────────────────────────────
+retrieval:
+  # Filter candidates older than N years (set null to disable)
+  max_age_years: 6
+  # Minimum abstract length to be considered (very short = usually noise)
+  min_abstract_chars: 200
+  # Dedup threshold for fuzzy title match (0–100)
+  title_dedup_threshold: 92
+  # How many top candidates to send to the expensive detailed LLM judge
+  # per subcategory (raise for better selection at higher cost).
+  llm_shortlist_size: 20
+  # When llm_screen.enabled=true, this is the larger pool sent to the
+  # cheap binary screener BEFORE detailed judging. Survivors get trimmed
+  # to llm_shortlist_size. Set to ~2-3× llm_shortlist_size for a good
+  # recall/cost balance. Ignored when llm_screen is disabled.
+  screen_shortlist_size: 50
+
+# ── Scoring ──────────────────────────────────────────────────────────────────
+scoring:
+  # The LLM returns relevance ∈ [0, 10]. Final rank also factors:
+  #   citations (log-normalized), recency, source diversity.
+  # Weights must sum to 1.0.
+  weights:
+    llm_relevance: 0.65
+    citations: 0.15
+    recency: 0.15
+    source_diversity_bonus: 0.05
+  min_acceptable_score: 4.0   # below this, drop the paper even if top-N
+  # MMR diversification λ for final selection (see pipeline/diversify.py).
+  # 1.0 = pure composite score (the original greedy top-N behavior).
+  # 0.6 = recommended default — clearly diversifies near-ties without
+  # surfacing oddities. Lower (0.3–0.5) pushes harder toward variety.
+  diversity_lambda: 0.6
+
+# ── Output ───────────────────────────────────────────────────────────────────
+output:
+  directory: "data/output"
+  format: "json"
+  include_full_abstracts: true
+  include_llm_rationale: true
+  # Atomic write: tempfile + rename, prevents partial files from being served
+  atomic_writes: true
+
+# ── Operational ──────────────────────────────────────────────────────────────
+runtime:
+  concurrency: 4               # parallel subcategories. Keep low to respect rate limits.
+  per_request_timeout_seconds: 30
+  retry_attempts: 3
+  cache_directory: "data/cache"
+  cache_ttl_hours: 168         # 1 week
+  log_level: "INFO"
+  # Audit log of every prompt sent to the LLM, hashed, for forensics.
+  audit_log_path: "data/cache/audit.jsonl"

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Navigating AI Risk — 3D Graph</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #ffffff;
+    --ink: #111113;
+    --ink-60: #5c5c61;
+    --ink-45: #84848a;
+    --ink-30: #a8a8ae;
+    --hair: #e7e7ea;
+    --serif: "Newsreader", Georgia, "Times New Roman", serif;
+    --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--serif); overflow: hidden; }
+  a { color: inherit; text-decoration: none; }
+
+  .bar { position: fixed; top: 0; left: 0; right: 0; height: 50px; z-index: 20; display: flex; align-items: center; justify-content: space-between; padding: 0 28px; border-bottom: 1px solid var(--hair); background: rgba(255,255,255,0.7); backdrop-filter: blur(18px) saturate(180%); -webkit-backdrop-filter: blur(18px) saturate(180%); }
+  .bar__l { font-size: 14.5px; font-weight: 500; letter-spacing: -0.01em; }
+  .bar__l span { font-family: var(--sans); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-45); margin-left: 12px; }
+  .views { display: flex; gap: 2px; font-family: var(--sans); }
+  .views a { font-size: 11.5px; color: var(--ink-45); padding: 5px 11px; border-radius: 7px; transition: color .2s, background .2s; }
+  .views a:hover { color: var(--ink); background: #f1f1f3; }
+  .views a.on { color: var(--ink); background: #ececef; }
+
+  .stage { position: fixed; inset: 50px 0 0 0; cursor: grab; }
+  .stage.drag { cursor: grabbing; }
+  canvas { display: block; width: 100%; height: 100%; }
+
+  .legend { position: fixed; left: 28px; top: 70px; z-index: 15; font-family: var(--sans); font-size: 11px; color: var(--ink-45); display: flex; flex-direction: column; gap: 7px; }
+  .legend b { color: var(--ink); font-weight: 600; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; }
+  .legend i { display: inline-flex; align-items: center; gap: 8px; font-style: normal; }
+  .legend .swatch { width: 9px; height: 9px; border-radius: 50%; background: var(--ink); }
+  .legend .swatch.sm { width: 5px; height: 5px; background: var(--ink-45); }
+
+  .panel { position: fixed; left: 28px; bottom: 26px; z-index: 15; width: 320px; max-width: calc(100vw - 56px); background: rgba(255,255,255,0.92); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid var(--hair); border-radius: 14px; padding: 16px 18px 15px; box-shadow: 0 20px 50px -28px rgba(0,0,0,.4); opacity: 0; transform: translateY(8px); transition: opacity .3s ease, transform .3s ease; pointer-events: none; }
+  .panel.show { opacity: 1; transform: none; }
+  .panel__cat { font-family: var(--sans); font-size: 10px; letter-spacing: 0.13em; text-transform: uppercase; color: var(--ink-45); }
+  .panel__title { font-size: 20px; font-weight: 500; letter-spacing: -0.015em; margin: 5px 0 11px; }
+  .panel__list { list-style: none; margin: 0; padding: 0; }
+  .panel__list li { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; padding: 7px 0; border-top: 1px solid #f0f0f2; }
+  .panel__t { font-size: 13.5px; line-height: 1.3; }
+  .panel__u { font-family: var(--sans); font-size: 9.5px; color: var(--ink-30); white-space: nowrap; }
+  .hint { position: fixed; right: 28px; bottom: 30px; z-index: 15; font-family: var(--sans); font-size: 11px; color: var(--ink-30); letter-spacing: 0.02em; }
+</style>
+</head>
+<body>
+  <div class="bar">
+    <a class="bar__l" href="home.html">Navigating AI Risk <span>3D Graph</span></a>
+    <nav class="views">
+      <a href="explorer.html">Explorer</a>
+      <a href="coverage.html">Coverage</a>
+      <a href="evidence.html">Evidence</a>
+      <a href="graph.html" class="on">3D Graph</a>
+      <a href="landscape.html">Landscape</a>
+      <a href="mindmap.html">Mind Map</a>
+    </nav>
+  </div>
+
+  <div class="stage" id="stage"><canvas id="cv"></canvas></div>
+
+  <div class="legend">
+    <b>The field in 3D</b>
+    <i><span class="swatch"></span> Category hub</i>
+    <i><span class="swatch sm"></span> Subcategory</i>
+  </div>
+
+  <aside class="panel" id="panel">
+    <div class="panel__cat" id="pCat"></div>
+    <div class="panel__title" id="pTitle"></div>
+    <ul class="panel__list" id="pList"></ul>
+  </aside>
+  <div class="hint">Drag to rotate · hover a cluster to label its subcategories</div>
+
+  <script src="risk_data.js"></script>
+  <script>
+    window.addEventListener("error", e => { window.__err = e.message + " @line " + e.lineno; });
+    const R = window.RISK; const cats = R.categories;
+    const cv = document.getElementById("cv"), ctx = cv.getContext("2d");
+    const stage = document.getElementById("stage"), panel = document.getElementById("panel");
+
+    // deterministic RNG
+    let _s = 1337; const rnd = () => { _s = (_s*1664525 + 1013904223) % 4294967296; return _s/4294967296; };
+    const unit = () => { const u=rnd()*2-1, t=rnd()*Math.PI*2, r=Math.sqrt(1-u*u); return [r*Math.cos(t), r*Math.sin(t), u]; };
+
+    // build nodes from the real taxonomy: 15 category hubs, their non-empty subcategories around each
+    const nodes = [], edges = [];
+    nodes.push({ type:"core", x:0,y:0,z:0, baseR:0 });
+    const RD = 350, NC = cats.length;
+    const fib = (j, n) => { const yy = n>1 ? 1-(j+0.5)/n*2 : 0; const rr=Math.sqrt(Math.max(0,1-yy*yy)); const th=j*2.399963229728653; return [Math.cos(th)*rr, yy, Math.sin(th)*rr]; };
+    cats.forEach((c, k) => {
+      const dir = fib(k, NC);
+      const dp = { type:"domain", ci:k, x:dir[0]*RD, y:dir[1]*RD, z:dir[2]*RD, label:c.name, baseR:4.5 + Math.sqrt(c.papers)*0.55 };
+      const di = nodes.push(dp) - 1;
+      edges.push([0, di, "main"]);
+      const subs = c.subs.filter(s=>s.papers.length>0);
+      const RT = Math.min(125, 46 + subs.length*2.4);
+      subs.forEach((s, j) => {
+        const u = fib(j, subs.length);
+        // even local sphere, biased outward along the hub direction so clusters fan away from the core
+        const x = dp.x + (u[0]*0.78 + dir[0]*0.55)*RT;
+        const y = dp.y + (u[1]*0.78 + dir[1]*0.55)*RT;
+        const z = dp.z + (u[2]*0.78 + dir[2]*0.55)*RT;
+        const sp = { type:"theme", ci:k, x, y, z, label:s.name, data:{cat:c.name, sub:s}, baseR:2.3 + s.papers.length*0.5 };
+        const si = nodes.push(sp) - 1;
+        edges.push([di, si, "theme"]);
+      });
+    });
+
+    // camera
+    let rotX = -0.45, rotY = 0.6, autoV = 0.0022, dragging = false, lastX=0, lastY=0, vX=0, vY=0;
+    const VD = 1550;
+    let W=0, H=0, CX=0, CY=0, DPR = Math.min(window.devicePixelRatio||1, 2);
+    function resize(){ W=window.innerWidth; H=window.innerHeight-50; CX=W/2; CY=H/2; cv.width=W*DPR; cv.height=H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0); }
+    window.addEventListener("resize", resize); window.addEventListener("load", resize); resize();
+
+    const P = new Array(nodes.length); // projected cache
+
+    function project(){
+      const cy=Math.cos(rotY), sy=Math.sin(rotY), cx=Math.cos(rotX), sx=Math.sin(rotX);
+      for (let i=0;i<nodes.length;i++){
+        const n=nodes[i];
+        let x=n.x*cy + n.z*sy;
+        let z1=-n.x*sy + n.z*cy;
+        let y=n.y*cx - z1*sx;
+        let z=n.y*sx + z1*cx;
+        const s = VD/(VD+z);
+        P[i] = { sx: CX + x*s, sy: CY + y*s, s, z };
+      }
+    }
+
+    let hover = -1, activeHub = -1;
+    function render(){
+      window.__f = (window.__f || 0) + 1;
+      const wantW = window.innerWidth, wantH = window.innerHeight - 50;
+      if (W !== wantW || H !== wantH) resize();
+      if (!dragging){ rotY += autoV; }
+      rotY += vY; rotX += vX; vY*=0.92; vX*=0.92;
+      rotX = Math.max(-1.2, Math.min(1.2, rotX));
+      project();
+      ctx.clearRect(0,0,W,H);
+
+      // edges
+      for (const [a,b,t] of edges){
+        const pa=P[a], pb=P[b];
+        const depth = (pa.s+pb.s)/2;
+        let op = Math.max(0.05, Math.min(0.55, (depth-0.6)*0.7));
+        const inActive = activeHub>=0 && (nodes[a].ci===activeHub || nodes[b].ci===activeHub);
+        if (activeHub>=0 && !inActive) op *= 0.22;
+        const hot = hover>=0 && (a===hover || b===hover);
+        ctx.beginPath(); ctx.moveTo(pa.sx,pa.sy); ctx.lineTo(pb.sx,pb.sy);
+        ctx.strokeStyle = hot ? "rgba(17,17,19,0.85)" : (inActive ? `rgba(90,90,96,${Math.min(0.7,op+0.15)})` : `rgba(150,150,156,${op})`);
+        ctx.lineWidth = t==="main" ? 1.2 : (hot?1.4:0.8);
+        ctx.stroke();
+      }
+
+      // nodes back-to-front, collecting label candidates
+      const order = [...P.keys()].sort((i,j)=>P[j].z - P[i].z);
+      const labelCands = [];
+      for (const i of order){
+        const n=nodes[i], p=P[i];
+        if (n.type==="core"){
+          ctx.beginPath(); ctx.arc(p.sx,p.sy, 52*p.s, 0, Math.PI*2);
+          ctx.strokeStyle="rgba(17,17,19,0.9)"; ctx.lineWidth=1.4; ctx.stroke();
+          ctx.fillStyle="#111113"; ctx.font=`500 ${22*p.s}px Newsreader, serif`; ctx.textAlign="center"; ctx.textBaseline="middle";
+          ctx.fillText("Navigating", p.sx, p.sy - 11*p.s); ctx.fillText("AI Risk", p.sx, p.sy + 12*p.s);
+          continue;
+        }
+        const fade = Math.max(0, Math.min(1, (p.s-0.62)/0.5));
+        const isHover = i===hover;
+        const inActive = activeHub>=0 && n.ci===activeHub;
+        const dim = activeHub>=0 && !inActive;
+        if (n.type==="domain"){
+          const r=n.baseR*p.s;
+          ctx.beginPath(); ctx.arc(p.sx,p.sy, isHover?r+1.5:r, 0, Math.PI*2);
+          ctx.fillStyle=`rgba(17,17,19,${dim?0.32+fade*0.2:0.62+fade*0.38})`; ctx.fill();
+          labelCands.push({pri:0, x:p.sx+r+7, y:p.sy, text:n.label, font:`500 ${15*Math.max(0.92,p.s)}px Newsreader, serif`, col:`rgba(17,17,19,${dim?0.5:1})`, s:p.s});
+        } else {
+          const r=(inActive?n.baseR+1.1:n.baseR)*p.s;
+          ctx.beginPath(); ctx.arc(p.sx,p.sy, isHover?r+1.5:r, 0, Math.PI*2);
+          ctx.fillStyle=`rgba(17,17,19,${dim?0.12+fade*0.12:(inActive?0.62+fade*0.38:0.45+fade*0.4)})`; ctx.fill();
+          if (isHover || inActive)
+            labelCands.push({pri:isHover?1:2, x:p.sx+r+6, y:p.sy, text:n.label, font:`400 ${13*Math.max(0.92,p.s)}px Newsreader, serif`, col:isHover?"rgba(17,17,19,1)":`rgba(34,34,38,${Math.max(0.55,fade)})`, s:p.s});
+        }
+      }
+      // label pass with collision avoidance (hubs first, then hovered, then active subs; nearer first)
+      labelCands.sort((a,b)=> a.pri-b.pri || b.s-a.s);
+      const lrects=[];
+      ctx.textAlign="left"; ctx.textBaseline="middle";
+      for (const L of labelCands){
+        ctx.font=L.font;
+        const w=ctx.measureText(L.text).width;
+        const rect={x:L.x-2, y:L.y-7, w:w+4, h:14};
+        let clash=false;
+        for (const r of lrects){ if (rect.x<r.x+r.w && rect.x+rect.w>r.x && rect.y<r.y+r.h && rect.y+rect.h>r.y){ clash=true; break; } }
+        if (clash) continue;
+        lrects.push(rect);
+        ctx.fillStyle=L.col; ctx.fillText(L.text, L.x, L.y);
+      }
+      // (paint only; the animation loop is driven separately)
+    }
+    function animate(){ render(); requestAnimationFrame(animate); }
+    animate();
+    window.addEventListener("load", render);
+    setTimeout(render, 150); setTimeout(render, 500); setTimeout(render, 1200);
+
+    // interaction
+    stage.addEventListener("pointerdown", e=>{ dragging=true; stage.classList.add("drag"); lastX=e.clientX; lastY=e.clientY; stage.setPointerCapture(e.pointerId); });
+    stage.addEventListener("pointermove", e=>{
+      if (dragging){ const dx=e.clientX-lastX, dy=e.clientY-lastY; lastX=e.clientX; lastY=e.clientY; vY = dx*0.005; vX = dy*0.005; }
+      else { pick(e); }
+    });
+    stage.addEventListener("pointerup", e=>{ dragging=false; stage.classList.remove("drag"); });
+    stage.addEventListener("pointerleave", ()=>{ if(!dragging){ hover=-1; activeHub=-1; } });
+
+    function pick(e){
+      const r=stage.getBoundingClientRect(); const mx=e.clientX-r.left, my=e.clientY-r.top;
+      // nearest category hub within a generous radius → focus that cluster
+      let bh=-1, bhd=240;
+      for (let i=0;i<nodes.length;i++){ if(nodes[i].type!=="domain")continue; const p=P[i]; const d=Math.hypot(p.sx-mx,p.sy-my); if(d<bhd){bhd=d;bh=i;} }
+      activeHub = bh>=0 ? nodes[bh].ci : -1;
+      // nearest node (hub or subcategory) for hover + panel
+      let best=-1, bd=18;
+      for (let i=0;i<nodes.length;i++){
+        if (nodes[i].type!=="theme" && nodes[i].type!=="domain") continue;
+        const p=P[i]; const d=Math.hypot(p.sx-mx, p.sy-my);
+        const hitR = (nodes[i].baseR*p.s) + 10;
+        if (d < hitR && d < bd){ bd=d; best=i; }
+      }
+      hover = best;
+      const n = best>=0 ? nodes[best] : null;
+      if (n && n.type==="theme"){
+        document.getElementById("pCat").textContent = n.data.cat;
+        document.getElementById("pTitle").textContent = n.data.sub.name;
+        document.getElementById("pList").innerHTML = n.data.sub.papers.map(p=>`<li><span class="panel__t">${p.url?`<a href="${p.url}" target="_blank" rel="noopener" style="color:inherit">${p.title} ↗</a>`:p.title}</span><span class="panel__u">${p.year||""}</span></li>`).join("");
+        panel.classList.add("show");
+      }
+    }
+  </script>
+</body>
+</html>

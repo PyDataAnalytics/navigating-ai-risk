@@ -1,0 +1,358 @@
+# AI Risk Taxonomy
+# Each category contains subcategories. Each subcategory has:
+#   - name: human-readable label (also used as search seed)
+#   - keywords: extra terms to OR into the search query (optional)
+#   - excludes: things the LLM judge should NOT count as matching this
+#       subcategory (optional). Especially useful for ambiguous names where
+#       the literal term appears in unrelated fields (e.g. "Hallucinations"
+#       in medical/perceptual research). Threaded into the judge prompt as
+#       negative anchors. Max 10 per subcategory.
+#   - target_papers: how many top papers to keep (default 3)
+#
+# This file is the single source of truth shared with the webapp.
+
+version: "1.0"
+default_target_papers: 3
+
+categories:
+  - id: technical_reliability
+    name: "Technical & Reliability Risks"
+    subcategories:
+      - name: "Hallucinations"
+        keywords: ["LLM hallucination", "confident false outputs"]
+        excludes:
+          - "medical or psychiatric hallucinations"
+          - "perceptual hallucinations in neuroscience"
+          - "hallucinogenic drugs"
+      - name: "Fabricated citations or sources"
+        keywords: ["fabricated references", "LLM citation accuracy"]
+      - name: "Incorrect reasoning"
+        keywords: ["LLM reasoning errors", "chain-of-thought failures"]
+      - name: "Arithmetic and logical errors"
+        keywords: ["LLM arithmetic", "logical reasoning benchmark"]
+      - name: "Misunderstanding context or intent"
+        keywords: ["intent recognition", "context misinterpretation LLM"]
+      - name: "Overfitting and underfitting"
+      - name: "Brittleness outside training distribution"
+        keywords: ["out-of-distribution", "OOD generalization"]
+      - name: "Failure under adversarial inputs"
+        keywords: ["adversarial robustness"]
+      - name: "Prompt injection attacks"
+        keywords: ["prompt injection", "indirect prompt injection"]
+      - name: "Jailbreaks"
+        keywords: ["LLM jailbreak", "safety bypass"]
+      - name: "Adversarial examples"
+      - name: "Data poisoning"
+        keywords: ["training data poisoning", "backdoor attack ML"]
+        excludes:
+          - "literal food or water poisoning"
+          - "toxicology unrelated to ML training data"
+      - name: "Distribution shift failures"
+      - name: "Catastrophic forgetting"
+      - name: "Unexpected emergent behaviors"
+        keywords: ["emergent capabilities LLM"]
+      - name: "Objective misspecification"
+      - name: "Reward hacking"
+      - name: "Wireheading"
+        excludes:
+          - "literal electrical stimulation of biological brains"
+          - "neuroscience studies of reward circuitry in animals"
+      - name: "Proxy gaming"
+      - name: "Goal misgeneralization"
+      - name: "Instrumental convergence"
+      - name: "Deceptive alignment"
+      - name: "Inner misalignment"
+        keywords: ["mesa-optimization", "inner alignment"]
+      - name: "Specification gaming"
+      - name: "Unpredictable outputs"
+        keywords: ["LLM output variability"]
+      - name: "Non-determinism in LLMs"
+      - name: "Cascading system failures"
+        keywords: ["multi-agent cascade failure"]
+      - name: "Automation complacency"
+      - name: "Silent degradation over time"
+        keywords: ["model drift", "performance degradation"]
+      - name: "Poor monitoring or observability"
+        keywords: ["ML observability", "LLM monitoring"]
+      - name: "Dependency on external APIs and models"
+
+  - id: safety
+    name: "Safety Risks"
+    subcategories:
+      - name: "Autonomous vehicle accidents"
+        keywords: ["self-driving safety", "AV crash"]
+      - name: "Industrial robot malfunctions"
+      - name: "Medical diagnosis and treatment errors"
+        keywords: ["clinical AI errors", "medical AI safety"]
+      - name: "Unsafe autonomous weapons"
+        keywords: ["lethal autonomous weapons", "LAWS"]
+      - name: "Drone misuse"
+        excludes:
+          - "wildlife monitoring drones"
+          - "agricultural drones"
+          - "papers about bees or insects"
+      - name: "Critical infrastructure failures"
+        keywords: ["AI critical infrastructure risk"]
+      - name: "Psychological manipulation by AI"
+      - name: "Dangerous advice generation"
+      - name: "Self-harm encouragement"
+        keywords: ["LLM mental health risk"]
+      - name: "Unsafe healthcare recommendations"
+      - name: "Chemical and biological hazard assistance"
+        keywords: ["dual-use AI biosecurity", "CBRN AI risk"]
+      - name: "Child safety risks from AI"
+      - name: "Legal decision errors"
+        keywords: ["AI legal reasoning errors"]
+      - name: "Incorrect financial decisions"
+      - name: "Air traffic and power grid AI failures"
+      - name: "Military escalation risks from AI"
+      - name: "Disaster response mistakes"
+
+  - id: security_cyber
+    name: "Security & Cyber Risks"
+    subcategories:
+      - name: "Automated phishing by AI"
+      - name: "Malware generation by LLMs"
+        keywords: ["LLM malware", "AI-generated malware"]
+      - name: "Social engineering at scale"
+      - name: "Credential theft assistance"
+      - name: "Vulnerability discovery and exploitation by AI"
+        keywords: ["LLM vulnerability discovery", "AI exploit generation"]
+      - name: "Deepfake impersonation"
+      - name: "AI systems being hacked"
+        keywords: ["attacks on ML models"]
+      - name: "Model theft"
+        keywords: ["model extraction attack"]
+      - name: "API abuse of AI services"
+      - name: "Supply-chain attacks on AI"
+      - name: "Compromised training pipelines"
+      - name: "Leakage of confidential data by LLMs"
+        keywords: ["LLM data leakage"]
+      - name: "Memorized training data exposure"
+        keywords: ["training data extraction", "membership inference"]
+      - name: "Insider threats with AI"
+      - name: "Prompt leakage"
+        keywords: ["system prompt extraction"]
+      - name: "Sensitive document extraction"
+      - name: "Self-propagating AI attacks"
+      - name: "Autonomous cyberwarfare agents"
+      - name: "AI-driven botnets"
+      - name: "Automated disinformation networks"
+
+  - id: privacy
+    name: "Privacy Risks"
+    subcategories:
+      - name: "Mass surveillance with AI"
+      - name: "Biometric tracking"
+      - name: "Facial recognition misuse"
+      - name: "Voiceprint misuse"
+      - name: "Behavioral profiling"
+      - name: "Re-identification attacks"
+        keywords: ["de-anonymization"]
+      - name: "Training on private data without consent"
+      - name: "Data retention abuse"
+      - name: "Sensitive inference from innocuous data"
+      - name: "Loss of anonymity"
+      - name: "Persistent tracking ecosystems"
+      - name: "Workplace surveillance with AI"
+      - name: "Government overreach via AI"
+
+  - id: ethical
+    name: "Ethical Risks"
+    subcategories:
+      - name: "Racial bias in AI"
+      - name: "Gender bias in AI"
+      - name: "Religious bias in AI"
+      - name: "Political bias in LLMs"
+      - name: "Socioeconomic discrimination by AI"
+      - name: "Language and cultural bias in AI"
+      - name: "Lack of accountability in AI systems"
+      - name: "Opaque AI decision-making"
+        keywords: ["explainability", "XAI"]
+      - name: "Unfair automated decisions"
+        keywords: ["algorithmic fairness"]
+      - name: "Manipulation of vulnerable groups by AI"
+      - name: "Human dignity concerns with AI"
+      - name: "Exploitation of labor for training data"
+        keywords: ["data labeling labor", "RLHF workers"]
+      - name: "Unauthorized use of copyrighted works in training"
+      - name: "Style imitation without permission"
+      - name: "Deepfake pornography"
+        keywords: ["non-consensual intimate imagery", "NCII deepfake"]
+      - name: "Identity cloning"
+      - name: "Lack of informed consent in AI data use"
+
+  - id: social_cultural
+    name: "Social & Cultural Risks"
+    subcategories:
+      - name: "Misinformation amplified by AI"
+      - name: "Disinformation generated by AI"
+      - name: "Fake news generation"
+      - name: "Synthetic propaganda"
+      - name: "Astroturfing with AI"
+      - name: "Fake reviews and comments"
+      - name: "Reality apathy"
+        keywords: ["liars dividend", "trust erosion deepfakes"]
+      - name: "Inability to trust media"
+      - name: "Deepfake confusion"
+      - name: "Collapse of evidence credibility"
+      - name: "Personalized persuasion by AI"
+      - name: "Political microtargeting"
+      - name: "Radicalization via AI"
+      - name: "Cult formation assistance"
+        excludes:
+          - "historical religious studies"
+          - "anthropology of pre-AI cults"
+      - name: "Emotional dependency on AI"
+        keywords: ["AI companion dependency"]
+      - name: "Homogenization of culture by AI"
+      - name: "Loss of local languages due to AI"
+      - name: "Reduced human creativity from AI use"
+      - name: "Synthetic content flooding the web"
+      - name: "Historical revisionism via generated media"
+
+  - id: economic_labor
+    name: "Economic & Labor Risks"
+    subcategories:
+      - name: "Job displacement by AI"
+      - name: "Wage suppression from automation"
+      - name: "Automation inequality"
+      - name: "Deskilling of professions"
+      - name: "Gig work exploitation by AI platforms"
+      - name: "Monopoly concentration in AI"
+      - name: "Unequal AI access"
+      - name: "Dependency on a few AI providers"
+      - name: "Anti-competitive AI behavior"
+      - name: "AI-driven market manipulation"
+      - name: "Flash crashes from AI trading"
+      - name: "Fraud automation with AI"
+      - name: "Synthetic identity fraud"
+      - name: "Insurance and pricing discrimination by AI"
+      - name: "Overreliance reducing human expertise"
+      - name: "Quality collapse from AI-generated spam"
+      - name: "Automation errors scaling rapidly"
+
+  - id: political_geopolitical
+    name: "Political & Geopolitical Risks"
+    subcategories:
+      - name: "Regulatory capture in AI"
+      - name: "Weak oversight of AI"
+      - name: "Inadequate AI safety standards"
+      - name: "Lack of international AI coordination"
+      - name: "Population surveillance by authoritarian AI"
+      - name: "Automated censorship"
+      - name: "Predictive policing abuse"
+      - name: "Social credit systems"
+      - name: "AI arms race"
+      - name: "Strategic instability from AI"
+      - name: "Unequal national AI capabilities"
+      - name: "Escalation due to autonomous systems"
+      - name: "Voter manipulation by AI"
+      - name: "Deepfake candidates"
+      - name: "Automated propaganda campaigns"
+      - name: "Election interference by AI"
+
+  - id: legal_compliance
+    name: "Legal & Compliance Risks"
+    subcategories:
+      - name: "Unclear responsibility for AI harms"
+      - name: "Difficulty assigning fault for AI errors"
+      - name: "Jurisdictional ambiguity in AI law"
+      - name: "Copyright infringement by AI"
+      - name: "Trademark misuse by AI"
+      - name: "Licensing violations from AI training"
+      - name: "Training-data disputes"
+      - name: "Non-compliance with AI laws"
+        keywords: ["EU AI Act compliance"]
+      - name: "Privacy law violations by AI"
+      - name: "Failure of AI auditability requirements"
+
+  - id: organizational_business
+    name: "Organizational & Business Risks"
+    subcategories:
+      - name: "Poor AI governance"
+      - name: "Shadow AI usage in enterprises"
+      - name: "Vendor lock-in for AI"
+      - name: "Lack of internal AI expertise"
+      - name: "Overestimating AI capabilities"
+      - name: "Misaligned AI incentives in firms"
+      - name: "Reputational damage from AI failures"
+      - name: "Failed AI deployments"
+      - name: "Critical dependency on AI systems"
+      - name: "Loss of human oversight"
+      - name: "Reduced institutional resilience from AI"
+
+  - id: environmental
+    name: "Environmental Risks"
+    subcategories:
+      - name: "High electricity usage of AI training"
+        keywords: ["LLM energy consumption"]
+      - name: "Water consumption for AI cooling"
+      - name: "Rare-earth material demand for AI hardware"
+      - name: "Increased carbon emissions from AI"
+      - name: "E-waste generation from AI hardware"
+      - name: "Resource extraction pressures from AI"
+
+  - id: cognitive_psychological
+    name: "Human Cognitive & Psychological Risks"
+    subcategories:
+      - name: "Reduced critical thinking from AI use"
+      - name: "Memory atrophy with AI assistants"
+        excludes:
+          - "Alzheimer's disease and clinical dementia"
+          - "memory loss from physical injury or aging"
+      - name: "Skill degradation from AI reliance"
+      - name: "Decision dependency on AI"
+      - name: "Loneliness substitution by AI companions"
+      - name: "Emotional manipulation by AI"
+      - name: "Addiction-like engagement with AI"
+      - name: "Parasocial attachment to AI"
+      - name: "Academic dishonesty with AI"
+      - name: "Reduced learning depth from AI"
+      - name: "Overreliance on AI in schools"
+
+  - id: scientific_knowledge
+    name: "Scientific & Knowledge Risks"
+    subcategories:
+      - name: "Fake scientific papers by AI"
+      - name: "Automated plagiarism"
+      - name: "Fabricated experimental results from AI"
+      - name: "AI-generated low-quality content"
+      - name: "Search engine contamination by AI content"
+      - name: "Model collapse from synthetic training data"
+        keywords: ["recursive training collapse"]
+
+  - id: existential
+    name: "Long-Term and Existential Risks"
+    subcategories:
+      - name: "Loss of human control over superintelligence"
+      - name: "Recursive self-improvement"
+        excludes:
+          - "recursion as a general programming technique"
+          - "self-improving algorithms unrelated to AI safety"
+      - name: "Power-seeking AI behavior"
+      - name: "Misaligned superintelligence"
+      - name: "Human disempowerment by AI"
+      - name: "Economic collapse from uncontrolled automation"
+      - name: "Concentration of power in a small elite via AI"
+      - name: "Irreversible societal dependence on AI"
+      - name: "Human extinction scenarios from AI"
+        keywords: ["AI x-risk"]
+      - name: "Permanent global authoritarianism via AI"
+      - name: "Autonomous weapons escalation to catastrophe"
+      - name: "Irrecoverable loss of human agency"
+
+  - id: meta_risks
+    name: "Meta-Risks (Risks About Risk Management)"
+    subcategories:
+      - name: "Safety theater in AI"
+      - name: "Underestimating AI risks"
+      - name: "Overregulation stifling beneficial AI innovation"
+      - name: "Regulatory lag for AI"
+      - name: "International AI prisoner's dilemma"
+      - name: "Competitive pressure reducing AI safety standards"
+      - name: "Fragmented AI standards"
+      - name: "Public misunderstanding of AI"
+      - name: "AI hype cycles"
+      - name: "Panic or moral hysteria about AI"
+      - name: "Misleading AI benchmarks"

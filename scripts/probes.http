@@ -1,0 +1,54 @@
+# PyCharm HTTP Client probes for local validation.
+#
+# PyCharm Professional renders this file with a green "Send Request" gutter
+# icon next to each request. Click to run, see response inline.
+#
+# These are manual probes — they confirm what the Python preflight already
+# checks, but in a form you can poke at during debugging.
+
+
+### Probe 1: Is Ollama up?
+# Expected: 200 OK, JSON body with `models` array
+GET http://127.0.0.1:11434/api/tags
+
+
+### Probe 2: Is the judge model installed?
+# Expected: 200 OK, JSON body with capability info
+POST http://127.0.0.1:11434/api/show
+Content-Type: application/json
+
+{
+  "name": "llama3.1:8b"
+}
+
+
+### Probe 3: Is the screener model installed?
+POST http://127.0.0.1:11434/api/show
+Content-Type: application/json
+
+{
+  "name": "llama3.2:3b"
+}
+
+
+### Probe 4: Quick judge-prompt sanity check
+# Send a tiny prompt to the judge to confirm it actually responds.
+# This will run for ~5-30 seconds depending on your CPU/GPU.
+# Expected: a JSON object with `response` field containing the model output.
+POST http://127.0.0.1:11434/api/generate
+Content-Type: application/json
+
+{
+  "model": "llama3.1:8b",
+  "prompt": "Reply with the single word OK.",
+  "stream": false,
+  "options": { "temperature": 0.0, "num_ctx": 512 }
+}
+
+
+### Probe 5: Academy feed served correctly
+# After `local_validation.py --skip-retrieval --serve` is running, this
+# should return the rebuilt feed.json. Inspect the `academy` array to
+# confirm papers are present.
+GET http://localhost:8000/feed.json
+Accept: application/json

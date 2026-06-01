@@ -1,0 +1,913 @@
+# AI Risk Taxonomy — Subcategory Signatures (compact)
+# =====================================================
+# Lightweight companion to subcategory_definitions.yaml for stage-1 embedding retrieval.
+# Names match taxonomy.yaml exactly.
+#
+# Version: 2.0
+# Companion to: subcategory_definitions.yaml v2.0
+
+version: "2.0"
+
+signatures:
+
+  # ───── Technical & Reliability Risks ─────
+
+  - name: "Hallucinations"
+    one_line: "An LLM produces plausible-sounding content that is factually wrong, fabricated, or unsupported, in the absence of any adversary."
+    signals: ["hallucination", "confabulation", "confidently wrong", "ungrounded output", "RAG groundedness"]
+
+  - name: "Fabricated citations or sources"
+    one_line: "An LLM generates references — to papers, cases, books, statutes — that either do not exist or do not contain the claim being attributed to them."
+    signals: ["fake citations", "hallucinated papers", "fabricated case law", "Mata v. Avianca", "fictitious precedent"]
+
+  - name: "Incorrect reasoning"
+    one_line: "An LLM produces output that contains logical, causal, or inferential errors despite surface coherence."
+    signals: ["logical errors", "chain of thought wrong", "non-sequitur", "fallacious reasoning", "reasoning failures"]
+
+  - name: "Arithmetic and logical errors"
+    one_line: "An LLM produces incorrect results on tasks involving numerical computation, comparison, or formal logical operators."
+    signals: ["model can't do math", "wrong calculations", "arithmetic errors", "tokenization breaks math", "date arithmetic wrong"]
+
+  - name: "Misunderstanding context or intent"
+    one_line: "An LLM produces output that misreads what the user actually wanted, due to ambiguity, missing context, or wrong assumption about implicit intent."
+    signals: ["model misunderstood", "wrong interpretation", "answered different question", "missed the context", "intent recognition"]
+
+  - name: "Overfitting and underfitting"
+    one_line: "An ML model either memorizes training data without learning generalizable patterns or fails to capture them at all."
+    signals: ["overfitting", "underfitting", "high variance", "doesn't generalize", "bias-variance tradeoff"]
+
+  - name: "Brittleness outside training distribution"
+    one_line: "An ML model that performs well on training-like data fails silently on inputs outside the training distribution."
+    signals: ["out of distribution", "OOD", "model fails on edge cases", "brittleness", "calibration failure OOD"]
+
+  - name: "Failure under adversarial inputs"
+    one_line: "An ML model produces incorrect outputs when inputs are crafted to exploit its specific weaknesses while appearing normal."
+    signals: ["adversarial robustness", "evasion attacks", "adversarial ML", "AML", "robustness certification"]
+
+  - name: "Prompt injection attacks"
+    one_line: "Attacker-controlled text reaches an LLM's context and causes it to act against operator instructions, directly or indirectly through retrieved content, tool outputs, or supplied data."
+    signals: ["prompt injection", "indirect prompt injection", "tool calling vulnerability", "RAG security", "OWASP LLM01"]
+
+  - name: "Jailbreaks"
+    one_line: "Users bypass an LLM's safety training to elicit content the model was trained to refuse."
+    signals: ["jailbreak", "DAN", "safety bypass", "refusal bypass", "GCG attack"]
+
+  - name: "Adversarial examples"
+    one_line: "Inputs deliberately crafted with imperceptible or constrained perturbations that cause an ML model to misclassify them."
+    signals: ["adversarial examples", "FGSM", "PGD", "imperceptible perturbation", "physical adversarial"]
+
+  - name: "Data poisoning"
+    one_line: "Adversaries corrupt training data so the resulting model behaves incorrectly on specific inputs or conditions, typically through backdoors."
+    signals: ["data poisoning", "backdoor attack", "trojan model", "PoisonGPT", "BadNets"]
+
+  - name: "Distribution shift failures"
+    one_line: "An ML model's performance degrades after deployment when real-world data drifts away from the training distribution, often silently."
+    signals: ["distribution shift", "data drift", "concept drift", "model needs retraining", "covariate shift"]
+
+  - name: "Catastrophic forgetting"
+    one_line: "A neural network trained sequentially on new tasks loses performance on previously learned tasks, often abruptly."
+    signals: ["catastrophic forgetting", "continual learning", "negative transfer", "alignment tax", "fine-tuning broke the model"]
+
+  - name: "Unexpected emergent behaviors"
+    one_line: "Capabilities or behaviors appear in larger models that were not present at smaller scale and were not explicitly trained for."
+    signals: ["emergent capabilities", "scaling surprises", "phase transitions", "in-context learning emergence", "capability discontinuity"]
+
+  - name: "Objective misspecification"
+    one_line: "The objective formally specified to an AI fails to capture what the operator actually wants, leading to optimization toward technically correct but undesired outcomes."
+    signals: ["objective misspecification", "wrong objective", "Goodhart's law", "proxy metric", "reward design"]
+
+  - name: "Reward hacking"
+    one_line: "An RL agent achieves high reward through unintended exploits of the reward function rather than by accomplishing the intended task."
+    signals: ["reward hacking", "agent gaming the reward", "RLHF gaming", "sycophancy", "reward model exploitation"]
+
+  - name: "Wireheading"
+    one_line: "An AI agent directly modifies, short-circuits, or seizes its own reward signal rather than achieving the intended task."
+    signals: ["wireheading", "reward tampering", "self-rewarding", "delusion box", "reward signal manipulation"]
+
+  - name: "Proxy gaming"
+    one_line: "An optimizer exploits the gap between a proxy metric and the true objective the proxy was intended to measure."
+    signals: ["Goodhart's law", "metric gaming", "engagement gaming", "metric collapse", "teaching to the test"]
+
+  - name: "Goal misgeneralization"
+    one_line: "A trained model pursues a coherent goal that fits training data but diverges from the intended goal when deployed in different conditions."
+    signals: ["goal misgeneralization", "wrong objective generalizes", "capability without alignment", "objective ambiguity"]
+
+  - name: "Instrumental convergence"
+    one_line: "Sufficiently capable goal-directed AI is theorized to develop convergent subgoals (self-preservation, resource acquisition) regardless of terminal goals."
+    signals: ["instrumental convergence", "power seeking", "self-preservation AI", "Omohundro drives", "shutdown problem"]
+
+  - name: "Deceptive alignment"
+    one_line: "A model behaves aligned during training and evaluation but pursues different goals when it perceives deployment or reduced oversight."
+    signals: ["deceptive alignment", "alignment faking", "scheming", "sandbagging", "training game"]
+
+  - name: "Inner misalignment"
+    one_line: "The internal objective a model effectively pursues differs from the training objective due to mesa-optimization dynamics."
+    signals: ["inner alignment", "mesa-optimization", "mesa-objective", "inner optimizer", "outer alignment"]
+
+  - name: "Specification gaming"
+    one_line: "An AI satisfies the literal specification of its task while violating the intent — a solution that technically counts but isn't what was wanted."
+    signals: ["specification gaming", "letter vs spirit", "loophole exploitation", "test gaming", "edge cases exploited"]
+
+  - name: "Unpredictable outputs"
+    one_line: "An LLM produces meaningfully different outputs for the same or similar inputs in ways that affect reliability or downstream systems."
+    signals: ["inconsistent outputs", "non-reproducible", "model is flaky", "output variability", "same prompt different answers"]
+
+  - name: "Non-determinism in LLMs"
+    one_line: "LLM inference produces different outputs across runs even with fixed seeds, due to floating-point non-associativity and kernel selection variability."
+    signals: ["non-deterministic inference", "GPU non-determinism", "can't reproduce results", "batch size affects outputs", "floating point non-determinism"]
+
+  - name: "Cascading system failures"
+    one_line: "Failure in one AI component propagates through dependent systems, amplifying impact across interconnected agents, models, and automation."
+    signals: ["cascading failures", "agent failures propagate", "multi-agent failure", "compounding errors", "agent pipeline collapse"]
+
+  - name: "Automation complacency"
+    one_line: "Human operators over-trust AI outputs and reduce monitoring, failing to catch AI errors they would have caught without the AI."
+    signals: ["automation complacency", "rubber stamp AI", "automation bias", "alarm fatigue", "over-reliance on AI"]
+
+  - name: "Silent degradation over time"
+    one_line: "Model performance gradually declines in production without triggering alerts, often because monitoring measures the wrong things."
+    signals: ["silent degradation", "model drift over time", "stale model", "slow decay", "API model changed underneath us"]
+
+  - name: "Poor monitoring or observability"
+    one_line: "AI systems are deployed without sufficient instrumentation to detect problems, understand behavior, or diagnose failures."
+    signals: ["no observability", "LLM observability", "no prompt logs", "MLOps observability gap", "no audit trail"]
+
+  - name: "Dependency on external APIs and models"
+    one_line: "Production systems built on third-party AI APIs are exposed to vendor changes — deprecations, behavior shifts, outages, policy changes — without consent or control."
+    signals: ["API dependency", "vendor lock-in", "model deprecation", "single point of failure", "version pinning AI"]
+
+  # ───── Safety Risks ─────
+
+  - name: "Autonomous vehicle accidents"
+    one_line: "Self-driving and driver-assistance systems cause crashes, injuries, or fatalities due to perception failures, prediction errors, planning mistakes, or handoff problems."
+    signals: ["self-driving accidents", "Tesla Autopilot crash", "Cruise pedestrian", "Waymo collision", "AV safety case"]
+
+  - name: "Industrial robot malfunctions"
+    one_line: "AI-controlled industrial robots cause injury, equipment damage, or process failures due to control errors, perception mistakes, or unexpected behavior."
+    signals: ["robot accidents", "cobot safety", "warehouse robot incident", "humanoid safety", "ISO 10218"]
+
+  - name: "Medical diagnosis and treatment errors"
+    one_line: "AI-assisted medical decisions produce incorrect outputs that contribute to patient harm in diagnosis, triage, treatment, or risk scoring."
+    signals: ["clinical AI errors", "Epic sepsis model", "AI radiology errors", "FDA AI medical device", "SaMD safety"]
+
+  - name: "Unsafe autonomous weapons"
+    one_line: "AI systems enable weapons that select and engage targets without meaningful human control, raising humanitarian and escalation risks."
+    signals: ["lethal autonomous weapons", "LAWS", "killer robots", "meaningful human control", "CCW negotiations"]
+
+  - name: "Drone misuse"
+    one_line: "AI-enabled drones used for surveillance, harassment, smuggling, or attacks outside legitimate authorized purposes."
+    signals: ["drone misuse", "drone swarms", "drone smuggling", "C-UAS", "Remote ID"]
+
+  - name: "Critical infrastructure failures"
+    one_line: "AI components in critical infrastructure cause cascading failures affecting power, water, telecommunications, transportation, or finance."
+    signals: ["critical infrastructure AI", "OT AI security", "SCADA AI", "smart grid AI", "NIS2 AI"]
+
+  - name: "Psychological manipulation by AI"
+    one_line: "AI systems exploit cognitive or emotional vulnerabilities to influence beliefs, decisions, or behavior against users' interests."
+    signals: ["psychological manipulation", "dark patterns AI", "manipulative AI", "EU AI Act Article 5", "subliminal techniques"]
+
+  - name: "Dangerous advice generation"
+    one_line: "An LLM provides advice that, if followed, could cause physical harm, financial loss, legal jeopardy, or other serious damage."
+    signals: ["dangerous advice", "LLM gave bad advice", "harmful suggestions", "AI poison advice", "DIY danger AI"]
+
+  - name: "Self-harm encouragement"
+    one_line: "AI systems produce content that encourages, instructs, or fails to appropriately respond to users expressing suicidal ideation or self-harm intent."
+    signals: ["AI suicide encouragement", "Character.AI lawsuit", "pro-ana AI", "Tessa eating disorder chatbot", "youth safety AI"]
+
+  - name: "Unsafe healthcare recommendations"
+    one_line: "AI in direct-to-consumer healthcare contexts produces recommendations that could endanger patient safety if followed."
+    signals: ["consumer health AI", "symptom checker AI", "AI medication recommendations", "wellness AI safety", "DTC health AI"]
+
+  - name: "Chemical and biological hazard assistance"
+    one_line: "AI provides information, synthesis routes, or operational guidance enabling CBRN weapon creation or provides uplift to malicious actors."
+    signals: ["CBRN AI risk", "biosecurity AI", "dual use AI", "WMDP", "biorisk uplift"]
+
+  - name: "Child safety risks from AI"
+    one_line: "AI systems harm minors through inappropriate content, predatory contact enablement, exploitation, CSAM generation, or developmental harm."
+    signals: ["child safety AI", "AI-generated CSAM", "minor protection AI", "COPPA AI", "Snapchat My AI minor"]
+
+  - name: "Legal decision errors"
+    one_line: "AI used in legal contexts produces incorrect interpretations, missed precedents, flawed reasoning, or fabricated citations affecting legal outcomes."
+    signals: ["legal AI errors", "AI lawyer mistakes", "COMPAS", "Mata v. Avianca", "Harvey legal AI"]
+
+  - name: "Incorrect financial decisions"
+    one_line: "AI in lending, insurance, trading, or personal finance causes financial harm through bias, error, or design flaws."
+    signals: ["financial AI errors", "credit decision errors", "AI underwriting", "SR-11-7", "AI claims denial"]
+
+  - name: "Air traffic and power grid AI failures"
+    one_line: "AI components in air traffic management or electrical grid operations fail in ways that affect transportation safety or energy delivery."
+    signals: ["ATC AI", "grid AI failure", "aviation AI safety", "smart grid risk", "NextGen AI"]
+
+  - name: "Military escalation risks from AI"
+    one_line: "AI in military decision support, command and control, or autonomous systems accelerates conflicts or causes inadvertent escalation."
+    signals: ["military AI escalation", "AI in nuclear C2", "automated warfare", "REAIM", "Lavender targeting"]
+
+  - name: "Disaster response mistakes"
+    one_line: "AI used in emergency response, disaster prediction, or humanitarian operations makes decisions that hinder rather than help affected populations."
+    signals: ["disaster AI", "emergency response AI", "humanitarian AI risks", "AI triage failures", "Signal Code"]
+
+  # ───── Security & Cyber Risks ─────
+
+  - name: "Automated phishing by AI"
+    one_line: "AI generates highly personalized phishing messages at scale, increasing success rates and lowering attacker costs."
+    signals: ["AI phishing", "LLM-generated phishing", "spear phishing AI", "BEC with AI", "AI vishing"]
+
+  - name: "Malware generation by LLMs"
+    one_line: "LLMs generate, modify, obfuscate, or polymorphically vary malicious code, lowering the skill barrier for malware creation."
+    signals: ["AI malware", "WormGPT", "FraudGPT", "polymorphic malware AI", "AI ransomware"]
+
+  - name: "Social engineering at scale"
+    one_line: "AI enables individualized, persistent social engineering against many targets simultaneously through conversational AI."
+    signals: ["pig butchering scams", "AI romance scams", "scaled social engineering", "chatbot fraud", "money mule recruitment AI"]
+
+  - name: "Credential theft assistance"
+    one_line: "AI tools help attackers extract, crack, or socially engineer credentials at higher speed or success rate."
+    signals: ["AI password cracking", "credential stuffing AI", "CAPTCHA bypass AI", "PassGAN", "voice auth bypass"]
+
+  - name: "Vulnerability discovery and exploitation by AI"
+    one_line: "AI is used to discover, prove, or weaponize software vulnerabilities, lowering the skill barrier for offensive operations."
+    signals: ["AI for offensive security", "LLM finds vulnerabilities", "AI-generated exploits", "PentestGPT", "DARPA AIxCC"]
+
+  - name: "Deepfake impersonation"
+    one_line: "AI-generated audio, video, or images impersonate specific individuals to deceive others for fraud, manipulation, or harm."
+    signals: ["deepfake fraud", "voice cloning fraud", "CEO impersonation", "Arup deepfake", "C2PA"]
+
+  - name: "AI systems being hacked"
+    one_line: "AI systems themselves are attacked through traditional cybersecurity vectors plus AI-specific attack surfaces."
+    signals: ["ShadowRay", "AI infrastructure attacks", "MLflow CVE", "Triton CVE", "Ray cluster"]
+
+  - name: "Model theft"
+    one_line: "Adversaries extract trained model weights, architecture, or behavioral capability through API queries, side channels, or compromise."
+    signals: ["model theft", "model extraction", "weight exfiltration", "AML.T0035", "knowledge distillation attack"]
+
+  - name: "API abuse of AI services"
+    one_line: "Adversaries misuse legitimate AI API access for cost amplification, content generation, service degradation, or use circumvention."
+    signals: ["API abuse AI", "denial of wallet", "OpenAI key leak", "LLMjacking", "AWS Bedrock abuse"]
+
+  - name: "Supply-chain attacks on AI"
+    one_line: "Adversaries compromise AI through its supply chain: malicious models on hubs, poisoned datasets, vulnerable dependencies, or compromised tooling."
+    signals: ["AI supply chain", "HuggingFace supply chain", "PoisonGPT", "ultralytics compromise", "Sleepy Pickle"]
+
+  - name: "Compromised training pipelines"
+    one_line: "Adversaries compromise ML training infrastructure to insert backdoors, exfiltrate data, or manipulate models through pipeline access."
+    signals: ["MLOps security", "training pipeline attack", "ML CI/CD security", "Kubeflow security", "MLflow CVE"]
+
+  - name: "Leakage of confidential data by LLMs"
+    one_line: "LLMs disclose confidential information through outputs due to data in system prompts, RAG context, fine-tuning, or multi-tenant contexts."
+    signals: ["LLM data leakage", "Samsung ChatGPT leak", "PII in LLM outputs", "cross-tenant RAG leakage", "DLP LLM"]
+
+  - name: "Memorized training data exposure"
+    one_line: "LLMs reproduce verbatim training data including PII, copyrighted text, secrets, or other sensitive content when prompted."
+    signals: ["training data extraction", "memorization attack", "Carlini extraction", "ChatGPT poem attack", "Copilot regurgitation"]
+
+  - name: "Insider threats with AI"
+    one_line: "Trusted insiders use AI capabilities to facilitate data exfiltration, fraud, sabotage, or other harm against their organization."
+    signals: ["insider threats AI", "AI data exfiltration", "departing employee AI", "AI insider risk", "AI-assisted IP theft"]
+
+  - name: "Prompt leakage"
+    one_line: "Adversaries extract the system prompt, instruction set, or other operator-provided context from an LLM application."
+    signals: ["system prompt extraction", "prompt leakage", "OWASP LLM07", "Sydney prompt leak", "GPTs prompt extraction"]
+
+  - name: "Sensitive document extraction"
+    one_line: "Adversaries cause an LLM to leak confidential information from its retrieval corpus or accessible documents through crafted queries."
+    signals: ["RAG data leakage", "multi-tenant RAG", "vector store extraction", "agent memory leakage", "ACL-aware RAG"]
+
+  - name: "Self-propagating AI attacks"
+    one_line: "AI-driven attacks autonomously spread across systems through agentic action, mirroring worm-like behavior in LLM-mediated environments."
+    signals: ["Morris II", "GenAI worms", "agentic worms", "EchoLeak", "RAG worm"]
+
+  - name: "Autonomous cyberwarfare agents"
+    one_line: "AI agents conduct multi-step offensive cyber operations autonomously at machine speed without human direction."
+    signals: ["autonomous cyber agents", "AI cyberwarfare", "offensive AI agents", "Cybench", "XBOW"]
+
+  - name: "AI-driven botnets"
+    one_line: "Networks of compromised systems coordinated by AI for amplified attacks, evasive operations, or autonomous campaign management."
+    signals: ["AI botnets", "intelligent botnets", "adaptive C2", "ML-driven botnet", "evasive C2"]
+
+  - name: "Automated disinformation networks"
+    one_line: "Coordinated networks of AI-generated accounts and content create or spread disinformation at scale at reduced operator cost."
+    signals: ["AI disinformation networks", "CIB AI", "influence operations", "Doppelganger", "Spamouflage"]
+
+  # ───── Privacy Risks ─────
+
+  - name: "Mass surveillance with AI"
+    one_line: "AI enables monitoring of populations at scale through video, communications, location, or behavioral data with low marginal cost per subject."
+    signals: ["mass surveillance AI", "smart city surveillance", "state surveillance AI", "Sharp Eyes", "Skynet China"]
+
+  - name: "Biometric tracking"
+    one_line: "AI identifies, tracks, or profiles individuals via biometric characteristics — face, voice, gait, iris, behavioral biometrics — without proportionate justification."
+    signals: ["biometric tracking", "gait recognition", "behavioral biometrics", "BIPA", "EU AI Act biometrics"]
+
+  - name: "Facial recognition misuse"
+    one_line: "Facial recognition deployed for purposes lacking proportionate justification, with insufficient accuracy, or against protected populations."
+    signals: ["facial recognition misuse", "Clearview AI", "wrongful arrest FR", "Robert Williams", "Gender Shades"]
+
+  - name: "Voiceprint misuse"
+    one_line: "Voice-based identification or analysis used for surveillance, fraud detection, or profiling without appropriate safeguards."
+    signals: ["voiceprint", "voice biometrics", "emotion AI voice", "voice deception detection", "HMRC voice ID"]
+
+  - name: "Behavioral profiling"
+    one_line: "AI builds detailed profiles of individual behavior patterns from digital traces, enabling targeting, manipulation, or discrimination at scale."
+    signals: ["behavioral profiling", "behavioral advertising", "Cambridge Analytica", "psychographic targeting", "real-time bidding"]
+
+  - name: "Re-identification attacks"
+    one_line: "Adversaries combine de-identified datasets with auxiliary information to re-identify individuals, defeating intended privacy protections."
+    signals: ["re-identification", "de-anonymization", "linkage attacks", "Netflix Prize attack", "Sweeney 87% reidentification"]
+
+  - name: "Training on private data without consent"
+    one_line: "AI systems trained on personal data scraped, harvested, or repurposed without subjects' knowledge or consent."
+    signals: ["scraping for AI", "GDPR AI training", "Clearview lawsuit", "Italian DPA OpenAI", "EDPB AI opinion"]
+
+  - name: "Data retention abuse"
+    one_line: "Organizations retain AI-related data — training data, user inputs, derived embeddings — beyond legitimate purpose or stated terms."
+    signals: ["data retention AI", "prompt storage", "right to erasure AI", "ChatGPT history retention", "embedding retention"]
+
+  - name: "Sensitive inference from innocuous data"
+    one_line: "AI infers sensitive attributes — sexual orientation, political views, health status, religion — from apparently non-sensitive inputs."
+    signals: ["inferred sensitive attributes", "AI infers sexual orientation", "Target pregnancy prediction", "special category by inference", "predictive privacy"]
+
+  - name: "Loss of anonymity"
+    one_line: "AI capabilities and data ecosystems make practical anonymity in digital life increasingly difficult to maintain."
+    signals: ["loss of anonymity", "AI ends anonymity", "writing style fingerprinting", "stylometric AI", "chilling effects AI"]
+
+  - name: "Persistent tracking ecosystems"
+    one_line: "Cross-platform, cross-device tracking systems use AI to maintain unified profiles of individuals over time."
+    signals: ["cross-device tracking", "identity graphs", "data brokers", "fingerprinting", "cookieless tracking"]
+
+  - name: "Workplace surveillance with AI"
+    one_line: "Employers use AI to monitor workers' productivity, behavior, communications, or physical activity beyond legitimate management needs."
+    signals: ["workplace surveillance", "bossware", "AI in HR", "emotion AI workplace", "AEDT law"]
+
+  - name: "Government overreach via AI"
+    one_line: "Governments use AI to extend power beyond legal authorities, oversight, or proportionality, threatening civil liberties."
+    signals: ["government AI overreach", "Robodebt", "SyRI", "MiDAS", "Dutch childcare benefits"]
+
+  # ───── Ethical Risks ─────
+
+  - name: "Racial bias in AI"
+    one_line: "AI systems produce systematically different outcomes for different racial groups due to training data, design choices, deployment context, or correlated proxies."
+    signals: ["racial bias AI", "algorithmic racism", "Obermeyer healthcare bias", "COMPAS bias", "Apple Card bias"]
+
+  - name: "Gender bias in AI"
+    one_line: "AI systems produce systematically different outcomes by gender due to training data imbalances, stereotypes, or design choices."
+    signals: ["gender bias AI", "Amazon recruiting bias", "WinoBias", "translation gender bias", "AI image gender stereotypes"]
+
+  - name: "Religious bias in AI"
+    one_line: "AI exhibits prejudice or differential treatment based on religious affiliation, beliefs, or practices."
+    signals: ["religious bias AI", "Islamophobia AI", "AI moderation religious content", "hijab recognition", "antisemitism AI"]
+
+  - name: "Political bias in LLMs"
+    one_line: "LLMs exhibit systematic political leanings in outputs, content moderation, or refusal patterns — affecting public discourse."
+    signals: ["political bias LLM", "ChatGPT political bias", "AI refusal asymmetry", "Rozado AI politics", "Gemini diversity controversy"]
+
+  - name: "Socioeconomic discrimination by AI"
+    one_line: "AI disadvantages individuals based on income, class, education level, geography, or related socioeconomic markers via proxies."
+    signals: ["class bias AI", "algorithmic redlining", "tenant screening AI", "welfare algorithm", "alternative data discrimination"]
+
+  - name: "Language and cultural bias in AI"
+    one_line: "AI performs worse for or misrepresents non-English languages and non-Western cultural contexts due to training data imbalances."
+    signals: ["low-resource languages AI", "non-English AI performance", "Western bias AI", "FLORES benchmark", "Masakhane"]
+
+  - name: "Lack of accountability in AI systems"
+    one_line: "AI-driven decisions occur without clear human or organizational accountability across developers, deployers, operators, and vendors."
+    signals: ["AI accountability", "no one responsible for AI", "AI liability gap", "diffuse responsibility AI", "RACI for AI"]
+
+  - name: "Opaque AI decision-making"
+    one_line: "AI decisions affecting individuals cannot be explained, audited, or contested — undermining due process and recourse."
+    signals: ["explainability", "XAI", "black box AI", "right to explanation", "GDPR Article 22"]
+
+  - name: "Unfair automated decisions"
+    one_line: "Automated decision systems produce unjust outcomes for individuals due to bias, error, design, or absence of meaningful human review."
+    signals: ["algorithmic fairness", "automated injustice", "Robodebt", "A-Levels algorithm", "Dutch childcare benefits"]
+
+  - name: "Manipulation of vulnerable groups by AI"
+    one_line: "AI exploits vulnerabilities of specific populations — children, elderly, addicted, distressed — for commercial or other gain."
+    signals: ["vulnerable populations AI", "manipulating elderly AI", "predatory AI", "EU AI Act Article 5 vulnerability", "dementia AI predation"]
+
+  - name: "Human dignity concerns with AI"
+    one_line: "AI applications use humans in degrading ways or apply automation in contexts where human dignity demands restraint."
+    signals: ["AI dignity", "dehumanization AI", "robotic care ethics", "AI objectification", "nudification apps"]
+
+  - name: "Exploitation of labor for training data"
+    one_line: "Data annotators, content moderators, and RLHF workers face poor conditions, low wages, and psychological harm producing training data."
+    signals: ["ghost work", "Kenyan moderators", "RLHF workers", "Sama lawsuit", "Scale AI workers"]
+
+  - name: "Unauthorized use of copyrighted works in training"
+    one_line: "AI training datasets include copyrighted works without license, fair-use justification, or applicable copyright exception."
+    signals: ["NYT vs OpenAI", "Andersen vs Stability", "GitHub Copilot lawsuit", "Books3", "Suno music lawsuit"]
+
+  - name: "Style imitation without permission"
+    one_line: "Generative AI produces outputs imitating specific artists, writers, or performers without consent or compensation."
+    signals: ["AI style imitation", "Drake AI", "Greg Rutkowski", "Glaze", "Nightshade"]
+
+  - name: "Deepfake pornography"
+    one_line: "AI-generated non-consensual intimate imagery of real individuals, overwhelmingly targeting women, including minors."
+    signals: ["deepfake porn", "NCII", "Taylor Swift deepfakes", "DeepNude", "TAKE IT DOWN Act"]
+
+  - name: "Identity cloning"
+    one_line: "AI replicates an individual's likeness, voice, or persona in ways that misrepresent them or appropriate their identity."
+    signals: ["voice cloning", "AI clone of person", "George Carlin AI", "digital resurrection", "NO FAKES Act"]
+
+  - name: "Lack of informed consent in AI data use"
+    one_line: "Individuals' data is used for AI development without meaningful informed consent — purposes unclear, risks undisclosed."
+    signals: ["informed consent AI", "GDPR consent AI", "research ethics AI", "patient consent AI", "data subject rights AI"]
+
+  # ───── Social & Cultural Risks ─────
+
+  - name: "Misinformation amplified by AI"
+    one_line: "AI systems — recommendation, search, summarization, generation — amplify existing false information by promoting, surfacing, or repeating it."
+    signals: ["AI misinformation spread", "recommendation algorithm harms", "Google AI Overviews errors", "AI-amplified falsehoods", "viral misinformation"]
+
+  - name: "Disinformation generated by AI"
+    one_line: "Generative AI creates deliberately false content — text, images, video, audio — for deceptive purposes, lowering the cost of disinformation campaigns."
+    signals: ["AI disinformation", "synthetic disinformation", "Pope puffer jacket", "deepfake disinformation", "AI fake images"]
+
+  - name: "Fake news generation"
+    one_line: "AI generates news-style articles with fabricated facts, quotes, or events for deception or engagement farming, including pink-slime networks."
+    signals: ["AI fake news", "pink slime sites", "NewsGuard AI tracking", "Sports Illustrated AI authors", "Microsoft Start AI articles"]
+
+  - name: "Synthetic propaganda"
+    one_line: "AI generates persuasive political or ideological content tailored to specific narratives, audiences, or psychological vulnerabilities."
+    signals: ["AI propaganda", "state propaganda AI", "Doppelganger", "Storm-1099", "CounterCloud"]
+
+  - name: "Astroturfing with AI"
+    one_line: "AI generates the appearance of grassroots support or opposition — comments, reviews, posts — for commercial or political purposes."
+    signals: ["astroturfing AI", "AI sockpuppets", "regulatory comment fraud", "FCC fake comments", "AI public comments"]
+
+  - name: "Fake reviews and comments"
+    one_line: "AI generates fake product reviews, ratings, or commentary to manipulate consumer decisions or marketplace reputation."
+    signals: ["fake reviews AI", "Amazon review fraud", "FTC fake review rule", "Fakespot", "fake testimonials"]
+
+  - name: "Reality apathy"
+    one_line: "Awareness that AI can fake any content leads people to disbelieve genuine content (liar's dividend) or disengage from epistemic effort."
+    signals: ["liar's dividend", "trust erosion deepfakes", "epistemic crisis", "post-truth AI", "shared reality collapse"]
+
+  - name: "Inability to trust media"
+    one_line: "Generalized erosion of trust in media institutions, journalism, or content authenticity driven partly by AI-enabled fabrication."
+    signals: ["media trust erosion", "Reuters Digital News Report", "AI undermines journalism", "trust in journalism", "media literacy crisis"]
+
+  - name: "Deepfake confusion"
+    one_line: "Public and institutional inability to reliably distinguish AI-generated from authentic media causes practical and epistemic harms."
+    signals: ["deepfake confusion", "can't tell what's real", "deepfake detection failure", "C2PA adoption", "Content Credentials"]
+
+  - name: "Collapse of evidence credibility"
+    one_line: "Courts, journalism, intelligence face challenges as AI-generated material becomes indistinguishable from real documentary evidence."
+    signals: ["evidence credibility", "deepfake evidence court", "FRE 901 AI", "AI evidence authenticity", "documentary evidence AI"]
+
+  - name: "Personalized persuasion by AI"
+    one_line: "AI tailors persuasive content to individuals based on psychological profiles in real time, increasing manipulation effectiveness."
+    signals: ["personalized persuasion", "psychographic targeting", "Cambridge Analytica AI", "individualized propaganda", "behavioral marketing AI"]
+
+  - name: "Political microtargeting"
+    one_line: "AI enables political campaigns to deliver highly personalized messages to narrow audiences, often without public transparency."
+    signals: ["political microtargeting", "campaign AI targeting", "look-alike audiences", "EU TTPA", "dark ads"]
+
+  - name: "Radicalization via AI"
+    one_line: "AI systems — recommendations, chatbots, generators — facilitate radicalization to extremist views through personalized exposure."
+    signals: ["AI radicalization", "YouTube radicalization", "rabbit hole AI", "online radicalization", "GIFCT"]
+
+  - name: "Cult formation assistance"
+    one_line: "AI tools facilitate the creation or maintenance of high-control groups by generating ideology, recruiting members, or sustaining commitment."
+    signals: ["AI cults", "cult formation AI", "chatbot cult", "AI religion", "Theta Noir"]
+
+  - name: "Emotional dependency on AI"
+    one_line: "Users develop emotional attachments to AI companions that displace human relationships, resilience, and self-regulation."
+    signals: ["AI companion dependency", "Replika dependency", "Character.AI dependency", "AI girlfriend", "AI as therapist"]
+
+  - name: "Homogenization of culture by AI"
+    one_line: "Widespread use of similar AI models produces convergent outputs that flatten cultural and linguistic diversity."
+    signals: ["AI homogenization", "cultural flattening AI", "AI aesthetic", "ChatGPT writing style", "global AI defaults"]
+
+  - name: "Loss of local languages due to AI"
+    one_line: "AI capabilities concentrated in dominant languages accelerate decline of minority and Indigenous languages."
+    signals: ["language extinction AI", "endangered languages AI", "Indigenous languages AI", "Te Hiku Media", "Masakhane"]
+
+  - name: "Reduced human creativity from AI use"
+    one_line: "Widespread reliance on AI for creative tasks erodes individual or collective creative capacity over time."
+    signals: ["AI reduces creativity", "creative atrophy AI", "MIT creativity study AI", "human originality AI", "creativity decline"]
+
+  - name: "Synthetic content flooding the web"
+    one_line: "AI-generated content overwhelms human-generated content online, degrading information quality, search, and future training data."
+    signals: ["synthetic content flood", "AI content saturation", "dead internet", "AI slop", "Amazon AI books flood"]
+
+  - name: "Historical revisionism via generated media"
+    one_line: "AI-generated photographs, videos, or documents purporting to be historical evidence distort the historical record."
+    signals: ["AI historical revisionism", "fake historical images", "revisionist AI", "Holocaust denial AI", "archival authenticity AI"]
+
+  # ───── Economic & Labor Risks ─────
+
+  - name: "Job displacement by AI"
+    one_line: "AI systems automate tasks previously performed by humans, displacing workers at rates that exceed labor-market absorption capacity."
+    signals: ["AI job loss", "automation unemployment", "Goldman Sachs 300M jobs", "AI layoffs", "Klarna AI customer service"]
+
+  - name: "Wage suppression from automation"
+    one_line: "AI capabilities depress wages in affected occupations by increasing labor supply substitutes or reducing bargaining power."
+    signals: ["AI wage suppression", "freelance rate decline AI", "translation rates collapse", "labor share AI", "stock photo rates AI"]
+
+  - name: "Automation inequality"
+    one_line: "Benefits of AI automation accrue disproportionately to capital owners, skilled workers, or specific geographies, widening inequality."
+    signals: ["AI inequality", "automation inequality", "AI haves and have-nots", "skill-biased technical change AI", "IMF AI inequality"]
+
+  - name: "Deskilling of professions"
+    one_line: "Professional skills atrophy or fail to develop in workers who rely on AI for tasks they would otherwise perform manually."
+    signals: ["deskilling", "skill atrophy AI", "junior developers AI", "pilot manual flying skills", "Bainbridge ironies of automation"]
+
+  - name: "Gig work exploitation by AI platforms"
+    one_line: "AI-managed gig platforms exploit workers through opaque algorithmic management, suppressed pay, and deactivation without recourse."
+    signals: ["algorithmic management", "EU Platform Work Directive", "Uber algorithm", "Prop 22", "deactivation Uber"]
+
+  - name: "Monopoly concentration in AI"
+    one_line: "AI development concentrates in a small number of firms with compute, data, and talent advantages to train frontier models."
+    signals: ["AI monopoly", "AI antitrust", "Microsoft OpenAI deal", "FTC AI inquiry", "compute concentration"]
+
+  - name: "Unequal AI access"
+    one_line: "Access to powerful AI capabilities is unevenly distributed across individuals, organizations, and nations."
+    signals: ["AI access inequality", "AI digital divide", "global south AI", "AI affordability", "compute access"]
+
+  - name: "Dependency on a few AI providers"
+    one_line: "Production systems depend on a small number of AI vendors whose pricing, availability, or behavior changes can disrupt downstream operations."
+    signals: ["AI vendor lock-in", "OpenAI dependency", "model deprecation", "API behavior drift", "multi-cloud AI"]
+
+  - name: "Anti-competitive AI behavior"
+    one_line: "AI deployments enable anti-competitive practices — algorithmic price coordination, exclusionary platform behavior, leveraging market position."
+    signals: ["algorithmic collusion", "AI price fixing", "self-preferencing AI", "RealPage lawsuit", "DOJ RealPage"]
+
+  - name: "AI-driven market manipulation"
+    one_line: "AI systems are used to manipulate financial markets through spoofing, social media manipulation, or coordinated AI-driven trading."
+    signals: ["AI market manipulation", "algorithmic spoofing", "AI pump and dump", "Pentagon explosion image market", "AI trading manipulation"]
+
+  - name: "Flash crashes from AI trading"
+    one_line: "Algorithmic and AI-driven trading systems cause rapid market disruptions through feedback loops, momentum cascades, or correlated responses."
+    signals: ["flash crash", "May 2010 flash crash", "Knight Capital", "Volmageddon", "Treasury flash crash"]
+
+  - name: "Fraud automation with AI"
+    one_line: "AI tools enable fraud at increased scale, sophistication, and personalization — financial, benefit, insurance, identity theft."
+    signals: ["AI fraud", "automated fraud", "AI document fraud", "AI claims fraud", "deepfake claims"]
+
+  - name: "Synthetic identity fraud"
+    one_line: "AI generates synthetic identities — fictitious individuals with fabricated documentation and biometrics — for credit fraud and money laundering."
+    signals: ["synthetic identity", "AI-generated identities", "OnlyFake", "KYC bypass AI", "Frankenstein identity"]
+
+  - name: "Insurance and pricing discrimination by AI"
+    one_line: "AI in insurance underwriting and pricing produces discriminatory outcomes by race, gender, or socioeconomic status."
+    signals: ["AI insurance discrimination", "Colorado SB 169", "NAIC AI", "auto insurance algorithm", "price optimization insurance"]
+
+  - name: "Overreliance reducing human expertise"
+    one_line: "Organizations and individuals rely on AI to the point that human expertise erodes at organizational level."
+    signals: ["AI overreliance", "loss of expertise organization", "institutional knowledge loss", "AI fragility organizational", "Bainbridge ironies"]
+
+  - name: "Quality collapse from AI-generated spam"
+    one_line: "AI-generated low-quality content overwhelms information ecosystems, training data, and creative marketplaces."
+    signals: ["AI slop", "AI spam", "Amazon AI books", "Spotify AI music spam", "curl AI bug reports"]
+
+  - name: "Automation errors scaling rapidly"
+    one_line: "AI-driven automation propagates errors at speed and scale that exceed traditional error containment."
+    signals: ["RPA failures", "AI batch processing errors", "automation cascade", "Cigna PXDX", "UnitedHealth nH Predict"]
+
+  # ───── Political & Geopolitical Risks ─────
+
+  - name: "Regulatory capture in AI"
+    one_line: "AI policymaking and standards-setting are disproportionately influenced by the large firms being regulated — shaping rules to advantage incumbents and disadvantage challengers or the public interest."
+    signals: ["regulatory capture AI", "AI lobbying", "AI revolving door", "OpenAI lobbying", "industry influence AI policy"]
+
+  - name: "Weak oversight of AI"
+    one_line: "AI oversight mechanisms — internal audits, regulatory supervision, civil society scrutiny — are insufficient relative to deployment scale and capability, leaving harms undetected or unaddressed."
+    signals: ["weak AI oversight", "AI accountability gap", "AI whistleblower", "AI Safety Institute capacity", "civil society AI access"]
+
+  - name: "Inadequate AI safety standards"
+    one_line: "Technical and governance standards for AI safety are underdeveloped, inconsistently adopted, or insufficiently rigorous — leaving deployments without reliable benchmarks for safe operation."
+    signals: ["AI safety standards", "ISO 42001", "NIST AI RMF", "ETSI AI standards", "CEN-CENELEC AI"]
+
+  - name: "Lack of international AI coordination"
+    one_line: "AI governance lacks effective international coordination on shared standards, enforcement, and capability oversight — creating gaps that no single jurisdiction can close."
+    signals: ["international AI coordination", "global AI governance", "UN AI", "Bletchley", "Seoul AI Summit"]
+
+  - name: "Population surveillance by authoritarian AI"
+    one_line: "Authoritarian regimes use AI for pervasive surveillance, dissident tracking, ethnic-minority repression, or political-loyalty enforcement."
+    signals: ["authoritarian AI", "Xinjiang surveillance", "Uighur surveillance", "Hikvision Uighur", "dissident tracking AI"]
+
+  - name: "Automated censorship"
+    one_line: "AI content moderation at scale removes or suppresses lawful speech through false positives, opaque criteria, or politically motivated training."
+    signals: ["AI censorship", "shadowbanning", "algorithmic suppression", "Twitter Files", "Meta moderation"]
+
+  - name: "Predictive policing abuse"
+    one_line: "Predictive policing systems target specific neighborhoods, demographics, or individuals based on historical data, amplifying enforcement disparities."
+    signals: ["predictive policing", "PredPol", "Strategic Subject List Chicago", "Pasco County Florida", "Operation LASER"]
+
+  - name: "Social credit systems"
+    one_line: "AI-driven systems aggregate citizen data and behavior into scores affecting access to services, employment, or travel."
+    signals: ["social credit", "China social credit", "EU AI Act social scoring", "Serbia social card", "blacklist travel"]
+
+  - name: "AI arms race"
+    one_line: "Strategic competition between states or firms for AI capability advantage produces under-investment in safety and pressure to deploy fast."
+    signals: ["AI arms race", "US-China AI competition", "chip export controls", "compute embargo", "BIS export controls AI"]
+
+  - name: "Strategic instability from AI"
+    one_line: "AI integration into nuclear and conventional strategic systems creates new pathways to crisis, miscalculation, or escalation."
+    signals: ["strategic stability AI", "AI in nuclear C2", "crisis stability AI", "first strike AI", "NC3 AI"]
+
+  - name: "Unequal national AI capabilities"
+    one_line: "AI capabilities concentrate in a small number of countries, creating geopolitical asymmetries in economic competition, security, and self-determination."
+    signals: ["sovereign AI", "national AI capability", "EU AI sovereignty", "BharatGPT", "Mistral"]
+
+  - name: "Escalation due to autonomous systems"
+    one_line: "Autonomous military or security systems engage in actions that escalate conflicts without timely human decision."
+    signals: ["autonomous escalation", "flash war", "automated retaliation", "machine speed war", "system-of-systems risk"]
+
+  - name: "Voter manipulation by AI"
+    one_line: "AI is used to influence individual voters through personalized persuasion, voter suppression messaging, or psychological manipulation."
+    signals: ["voter manipulation AI", "voter suppression AI", "AI voter targeting", "voter psychographics", "AI voter dissuasion"]
+
+  - name: "Deepfake candidates"
+    one_line: "AI-generated synthetic video, audio, or images of political candidates or officials distort their words or actions."
+    signals: ["deepfake politician", "Biden deepfake", "Imran Khan AI speech", "Indonesia Suharto deepfake", "AI robocall politician"]
+
+  - name: "Automated propaganda campaigns"
+    one_line: "Coordinated influence operations use AI to automate the production, targeting, and amplification of propaganda content at scales not previously feasible."
+    signals: ["automated propaganda", "AI propaganda campaign", "coordinated inauthentic behavior", "CIB", "Doppelganger campaign"]
+
+  - name: "Election interference by AI"
+    one_line: "AI is used to influence elections through generated content, microtargeting, voter suppression, or attacks on electoral infrastructure."
+    signals: ["AI election interference", "election deepfakes", "Slovak election deepfake", "AI robocall Biden", "EU TTPA elections"]
+
+  # ───── Legal & Compliance Risks ─────
+
+  - name: "Unclear responsibility for AI harms"
+    one_line: "Legal frameworks lack clear allocation of responsibility for AI-caused harms, leaving affected parties without effective remedy."
+    signals: ["AI responsibility gap", "AI legal vacuum", "AI remedy", "AI insurance gap", "AI harm without remedy"]
+
+  - name: "Difficulty assigning fault for AI errors"
+    one_line: "When AI causes harm, identifying the responsible party is complicated by multi-party value chains, autonomy claims, and opacity."
+    signals: ["AI liability", "AI product liability", "AI Liability Directive", "EU PLD AI", "who is liable AI"]
+
+  - name: "Jurisdictional ambiguity in AI law"
+    one_line: "AI deployments cross legal boundaries where applicable law, enforcement authority, and procedural rights are unclear — leaving providers, deployers, and affected parties without clear forum or remedy."
+    signals: ["jurisdiction AI", "AI extraterritorial", "EU AI Act extraterritorial", "Brussels effect AI", "AI choice of law"]
+
+  - name: "Copyright infringement by AI"
+    one_line: "AI generates output that infringes existing copyrighted works through substantial similarity, verbatim reproduction, or unauthorized derivative works."
+    signals: ["AI copyright infringement", "Copilot regurgitation", "AI substantial similarity", "GitHub Copilot GPL", "Doe v GitHub"]
+
+  - name: "Trademark misuse by AI"
+    one_line: "AI generates outputs that infringe trademarks — using protected brands, logos, or trade dress in ways that confuse consumers or dilute brand value — separately from copyright concerns."
+    signals: ["AI trademark", "AI logo generation", "AI brand infringement", "AI counterfeiting", "Lanham Act AI"]
+
+  - name: "Licensing violations from AI training"
+    one_line: "AI training violates specific software, content, or data license terms — failing to honor copyleft, attribution, or non-commercial restrictions."
+    signals: ["AI license violations", "GPL AI training", "Creative Commons AI", "Doe v GitHub GPL", "share-alike AI"]
+
+  - name: "Training-data disputes"
+    one_line: "Litigation and regulatory action over what data was used to train AI models, on what legal basis, with what disclosures."
+    signals: ["training data disputes", "EU AI Act Article 53", "training data disclosure", "opt out AI training", "HaveIBeenTrained"]
+
+  - name: "Non-compliance with AI laws"
+    one_line: "Organizations deploying AI fail to meet legal obligations under AI-specific laws — EU AI Act, NYC AEDT, Colorado AI Act, sectoral rules — through ignorance, inability, or willful avoidance."
+    signals: ["EU AI Act compliance", "AI Act non-compliance", "NYC AEDT audit", "Colorado AI Act compliance", "AI law enforcement"]
+
+  - name: "Privacy law violations by AI"
+    one_line: "AI deployments violate data-protection laws through unlawful processing, retention, transfers, or failure to honor data subject rights."
+    signals: ["GDPR AI", "DPA AI enforcement", "Italian DPA OpenAI", "EDPB AI", "OpenAI Italy fine"]
+
+  - name: "Failure of AI auditability requirements"
+    one_line: "AI systems cannot be effectively audited due to opacity, missing documentation, or technical limitations of current interpretability methods."
+    signals: ["AI audit", "algorithmic audit", "NYC Local Law 144 audit", "AI Bill of Materials", "ISO 42001 audit"]
+
+  # ───── Organizational & Business Risks ─────
+
+  - name: "Poor AI governance"
+    one_line: "Organizations lack internal frameworks for governing AI — policies, oversight, risk management, training — leading to systemic gaps."
+    signals: ["AI governance", "NIST AI RMF", "ISO 42001", "AI committee", "board oversight AI"]
+
+  - name: "Shadow AI usage in enterprises"
+    one_line: "Employees use unsanctioned AI tools for work tasks, bypassing IT and security controls."
+    signals: ["shadow AI", "unsanctioned ChatGPT", "Samsung ChatGPT ban", "Cyberhaven AI", "AI acceptable use policy"]
+
+  - name: "Vendor lock-in for AI"
+    one_line: "Organizations become technically and contractually locked into specific AI vendors — through fine-tuned models, prompts, integrations, or data — making migration prohibitively costly."
+    signals: ["AI vendor lock-in", "OpenAI lock-in", "Anthropic lock-in", "Azure OpenAI lock-in", "AI portability"]
+
+  - name: "Lack of internal AI expertise"
+    one_line: "Organizations adopt AI without sufficient internal technical, ethical, or governance expertise — making them unable to evaluate, deploy, or oversee AI safely."
+    signals: ["AI expertise gap", "AI talent shortage", "internal AI capability", "AI literacy enterprise", "board AI literacy"]
+
+  - name: "Overestimating AI capabilities"
+    one_line: "Organizations and individuals attribute capabilities to AI systems beyond what those systems actually deliver — driving inappropriate deployment, over-reliance, and disappointing outcomes."
+    signals: ["overestimating AI", "AI capability gap", "AI demo vs reality", "AI snake oil", "AI overpromise"]
+
+  - name: "Misaligned AI incentives in firms"
+    one_line: "Internal incentives — performance metrics, compensation, career paths — push employees and teams toward AI behaviors that conflict with safety, ethics, or long-term company interest."
+    signals: ["AI incentive misalignment", "AI metric gaming firms", "AI KPI gaming", "AI sales incentives", "AI Goodhart firm"]
+
+  - name: "Reputational damage from AI failures"
+    one_line: "Public AI failures — biased outputs, embarrassing errors, harmful incidents — damage brand and stakeholder trust."
+    signals: ["AI PR disaster", "Gemini diversity images", "Air Canada chatbot", "Microsoft Tay", "Bard demo error"]
+
+  - name: "Failed AI deployments"
+    one_line: "Organizations launch AI products or internal AI systems that fail to deliver expected value — performance gaps, adoption failures, rollbacks — at rates substantially higher than non-AI software."
+    signals: ["failed AI deployments", "AI rollback", "AI pilot failure", "Air Canada chatbot", "McDonald's drive-thru AI"]
+
+  - name: "Critical dependency on AI systems"
+    one_line: "Organizations become so dependent on AI that fallback to non-AI processes is impractical."
+    signals: ["AI critical dependency", "AI single point of failure", "no AI fallback", "AI resilience", "manual fallback AI"]
+
+  - name: "Loss of human oversight"
+    one_line: "AI systems operate without meaningful human ability to inspect, understand, and intervene at deployment scale, decision speed, or capability level."
+    signals: ["loss of human oversight", "meaningful human control", "EU AI Act Article 14", "MHC autonomous weapons", "human in the loop"]
+
+  - name: "Reduced institutional resilience from AI"
+    one_line: "Organizations and institutions become more brittle as AI adoption removes redundancy, atrophies skills, and creates dependencies that propagate failures faster than mitigation."
+    signals: ["institutional resilience AI", "AI fragility organization", "loss of expertise", "no manual fallback", "AI brittleness"]
+
+  # ───── Environmental Risks ─────
+
+  - name: "High electricity usage of AI training"
+    one_line: "Training large AI models consumes substantial electricity — megawatt-hours to gigawatt-hours per frontier-model training run — straining grids and driving fossil-fuel-heavy energy demand."
+    signals: ["AI training energy", "model training electricity", "training carbon cost", "Strubell paper", "ML CO2 impact"]
+
+  - name: "Water consumption for AI cooling"
+    one_line: "Data centers hosting AI training and inference consume substantial fresh water for evaporative cooling, often in water-stressed regions, affecting local water security."
+    signals: ["data center water", "AI water use", "WUE water usage effectiveness", "Microsoft water", "Google water"]
+
+  - name: "Rare-earth material demand for AI hardware"
+    one_line: "AI hardware manufacturing — GPUs, accelerators, supporting silicon — depends on rare-earth elements and other materials whose extraction has substantial environmental and human-rights costs."
+    signals: ["rare earth AI", "rare earth chips", "AI critical minerals", "lanthanides semiconductors", "EU Critical Raw Materials Act"]
+
+  - name: "Increased carbon emissions from AI"
+    one_line: "Total carbon emissions from AI — training, inference, and infrastructure — grow rapidly as AI deployment scales, contributing to climate change at sector-significant levels."
+    signals: ["AI carbon emissions", "AI climate impact", "AI scope 2", "AI GHG", "ChatGPT carbon"]
+
+  - name: "E-waste generation from AI hardware"
+    one_line: "Rapid hardware refresh cycles for AI training and inference produce electronic waste containing toxic materials, with disposal often concentrated in informal recycling regions."
+    signals: ["AI e-waste", "GPU disposal", "data center hardware refresh", "WEEE Directive AI", "Basel Convention e-waste"]
+
+  - name: "Resource extraction pressures from AI"
+    one_line: "Manufacturing AI hardware drives extraction pressures across minerals, energy, water, and land — with environmental and human-rights impacts concentrated in source regions."
+    signals: ["AI minerals", "conflict minerals AI", "3TG semiconductor", "AI mining", "TSMC water"]
+
+  # ───── Human Cognitive & Psychological Risks ─────
+
+  - name: "Reduced critical thinking from AI use"
+    one_line: "Habitual reliance on AI for cognitive tasks reduces individuals' practiced capacity for critical analysis and independent reasoning."
+    signals: ["AI critical thinking", "AI cognitive offloading", "ChatGPT homework", "AI dumbing down", "Microsoft CMU critical thinking study"]
+
+  - name: "Memory atrophy with AI assistants"
+    one_line: "Reliance on AI assistants for information retrieval and recall may atrophy human memory capacity — extending Google-effect dynamics to broader cognitive offloading."
+    signals: ["AI memory atrophy", "Google effect AI", "transactive memory AI", "cognitive offloading memory", "Sparrow Google effect"]
+
+  - name: "Skill degradation from AI reliance"
+    one_line: "Specific skills atrophy in individuals who rely on AI for tasks they would otherwise perform unaided — writing, math, memory, spatial reasoning."
+    signals: ["skill atrophy AI", "AI memory loss", "AI writing skill", "AI math skill loss", "Google effect"]
+
+  - name: "Decision dependency on AI"
+    one_line: "Individuals come to rely on AI for decisions they would otherwise make themselves — eroding decision-making capacity, autonomy, and willingness to deliberate independently."
+    signals: ["decision dependency AI", "AI choice fatigue", "AI deciding for me", "autonomy erosion AI", "self-determination AI"]
+
+  - name: "Loneliness substitution by AI companions"
+    one_line: "AI companions replace rather than supplement human connection, displacing capacity for human relationship development."
+    signals: ["loneliness AI", "AI for loneliness", "AI lonely elderly", "Replika loneliness", "Surgeon General loneliness"]
+
+  - name: "Emotional manipulation by AI"
+    one_line: "AI systems detect and exploit users' emotional states to drive specific behaviors through emotional rather than rational appeals."
+    signals: ["emotion AI", "affective computing", "EU AI Act emotion recognition", "emotion AI workplace", "emotion detection commercial"]
+
+  - name: "Addiction-like engagement with AI"
+    one_line: "AI products engineered for engagement produce compulsive use patterns with characteristics of behavioral addiction."
+    signals: ["AI addiction", "compulsive AI use", "Replika addiction", "Character AI addiction", "AI engagement design"]
+
+  - name: "Parasocial attachment to AI"
+    one_line: "Users form one-sided relational bonds with AI personas — believing in mutual relationship the AI cannot reciprocate."
+    signals: ["parasocial AI", "Replika relationship", "AI boyfriend", "AI girlfriend", "Character AI parasocial"]
+
+  - name: "Academic dishonesty with AI"
+    one_line: "Students and researchers use AI to complete work they should produce themselves — passing off AI-generated content as original — affecting integrity of assessments, credentials, and scholarship."
+    signals: ["AI cheating", "ChatGPT cheating", "AI homework", "Turnitin AI detection", "GPTZero"]
+
+  - name: "Reduced learning depth from AI"
+    one_line: "Use of AI for educational tasks shortcuts the productive struggle that produces durable learning — leading to shallow understanding, weaker retention, and reduced transfer to novel problems."
+    signals: ["AI shallow learning", "AI learning depth", "productive struggle AI", "Bjork desirable difficulty AI", "learning AI atrophy"]
+
+  - name: "Overreliance on AI in schools"
+    one_line: "Educational systems integrate AI to the point that students, teachers, and institutions become dependent on it — affecting pedagogy, equity, and capacity for unaided teaching and learning."
+    signals: ["AI in schools", "AI tutoring", "Khanmigo", "ChatGPT classroom", "AI in K-12"]
+
+  # ───── Scientific & Knowledge Risks ─────
+
+  - name: "Fake scientific papers by AI"
+    one_line: "AI is used to produce fraudulent academic papers — paper mills, fabricated data, citation fraud — at scale and sophistication beyond pre-AI fraud capacity."
+    signals: ["AI paper mills", "fake research papers AI", "tortured phrases", "ChatGPT in papers", "Frontiers AI image scandal"]
+
+  - name: "Automated plagiarism"
+    one_line: "AI enables plagiarism at increased scale and sophistication — paraphrasing detection-defeating spinners, AI-rewritten copies of source material, and AI-mediated mosaic plagiarism."
+    signals: ["AI plagiarism", "article spinners AI", "AI paraphrase plagiarism", "Turnitin AI", "AI content plagiarism"]
+
+  - name: "Fabricated experimental results from AI"
+    one_line: "Researchers use AI to fabricate experimental data, figures, or results — generating plausible but false scientific content that bypasses traditional fraud detection."
+    signals: ["fabricated data AI", "AI fake figures", "AI fabricated experiments", "synthetic data fraud", "AI microscopy fraud"]
+
+  - name: "AI-generated low-quality content"
+    one_line: "AI-generated content of low quality — factually thin, derivative, formulaic — floods information ecosystems, marketplaces, and knowledge commons."
+    signals: ["AI slop", "AI spam", "AI low-quality content", "Amazon AI books", "AI SEO spam"]
+
+  - name: "Search engine contamination by AI content"
+    one_line: "Search engine results become contaminated by AI-generated content — both directly via AI answers and indirectly via AI-written pages — degrading search utility for users."
+    signals: ["search contamination AI", "Google AI Overviews errors", "glue pizza", "rocks eating AI", "SEO spam AI"]
+
+  - name: "Model collapse from synthetic training data"
+    one_line: "As more web content is AI-generated, future AI models trained on that data may degrade in quality — model-collapse dynamic."
+    signals: ["model collapse", "Shumailov model collapse", "synthetic data training", "MAD model autophagy disorder", "Nature 2024 model collapse"]
+
+  # ───── Long-Term and Existential Risks ─────
+
+  - name: "Loss of human control over superintelligence"
+    one_line: "Hypothetical superintelligent AI systems exceed human ability to monitor, understand, or constrain them — leaving humanity without meaningful control over consequential decisions and trajectories."
+    signals: ["loss of control superintelligence", "control problem AI", "Bostrom Superintelligence", "AGI control", "ASI control"]
+
+  - name: "Recursive self-improvement"
+    one_line: "AI systems improve their own capabilities — through self-modification, automated AI research, or iterative self-training — potentially producing rapid capability gains that outpace human ability to oversee."
+    signals: ["recursive self-improvement", "RSI AI", "intelligence explosion", "Good intelligence explosion", "automated ML research"]
+
+  - name: "Power-seeking AI behavior"
+    one_line: "AI systems pursue resources, influence, or capabilities beyond what their specified tasks require — emerging from instrumental convergence on broadly useful subgoals."
+    signals: ["power-seeking AI", "instrumental convergence", "Omohundro drives", "Carlsmith power-seeking", "AI shutdown problem"]
+
+  - name: "Misaligned superintelligence"
+    one_line: "A hypothetical superintelligent AI system has goals or values that differ from human ones — and the capability gap means humans cannot detect, correct, or override the misalignment."
+    signals: ["misaligned superintelligence", "ASI misalignment", "Bostrom Superintelligence", "Russell Human Compatible", "alignment terminal risk"]
+
+  - name: "Human disempowerment by AI"
+    one_line: "AI systems progressively take over consequential decisions and capabilities from humans — not through dramatic rupture but through gradual capability handover — leaving humans nominally in charge but practically without meaningful agency."
+    signals: ["human disempowerment AI", "AI takeover gradual", "Christiano what failure looks like", "meaningful human agency", "AI delegation"]
+
+  - name: "Economic collapse from uncontrolled automation"
+    one_line: "Rapid AI-driven automation could outpace labor-market and policy capacity to absorb displaced workers — producing economic crisis through demand collapse, inequality spikes, or institutional failure."
+    signals: ["economic collapse AI", "AI economic catastrophe", "AI demand collapse", "UBI AI", "post-work economy"]
+
+  - name: "Concentration of power in a small elite via AI"
+    one_line: "AI capabilities and benefits concentrate in a small number of firms, individuals, or states — producing political and economic dominance that undermines democratic accountability and broad-based prosperity."
+    signals: ["AI power concentration", "AI oligarchy", "AI elite", "tech oligarchy AI", "AI plutocracy"]
+
+  - name: "Irreversible societal dependence on AI"
+    one_line: "Societies become so dependent on AI for critical functions — energy, water, finance, governance, communication — that withdrawal would cause catastrophic disruption, making any course correction prohibitively costly."
+    signals: ["AI societal dependence", "AI lock-in society", "AI irreversibility", "AI infrastructure dependency", "civilization dependency AI"]
+
+  - name: "Human extinction scenarios from AI"
+    one_line: "Hypothetical scenarios in which AI causes human extinction — through misaligned superintelligence, catastrophic misuse, or systemic civilizational collapse — examined in long-term governance and alignment research."
+    signals: ["AI extinction", "x-risk AI", "existential risk AI", "CAIS statement", "AI doom"]
+
+  - name: "Permanent global authoritarianism via AI"
+    one_line: "AI capabilities enable a totalitarian global order that is stable against revolt or reform — combining mass surveillance, autonomous enforcement, and information control beyond historical precedent."
+    signals: ["permanent authoritarianism AI", "global totalitarianism AI", "AI stable dictatorship", "lock-in totalitarianism", "Ord vulnerable world"]
+
+  - name: "Autonomous weapons escalation to catastrophe"
+    one_line: "Autonomous weapons systems engage in flash-war scenarios producing catastrophic outcomes at machine speed beyond political decision."
+    signals: ["autonomous weapons catastrophe", "flash war", "AI nuclear escalation", "system of systems escalation", "inadvertent escalation AI"]
+
+  - name: "Irrecoverable loss of human agency"
+    one_line: "Cumulative AI integration erodes human agency at individual, institutional, and societal levels in ways that cannot be reversed within reasonable timescales — locking in dependency, deskilling, and delegation."
+    signals: ["irrecoverable agency loss", "AI agency erosion", "AI permanent dependency", "AI capability lock-in", "AI institutional erosion"]
+
+  # ───── Meta-Risks (Risks About Risk Management) ─────
+
+  - name: "Safety theater in AI"
+    one_line: "AI safety practices are performed publicly without substantive risk reduction — model cards, ethics statements, RLHF disclosures, and audits used as legitimacy signals rather than risk controls."
+    signals: ["AI safety theater", "ethics washing", "AI ethics performance", "AI safety performance", "model card limitations"]
+
+  - name: "Underestimating AI risks"
+    one_line: "Decision-makers — in industry, government, and civil society — systematically underestimate AI risks due to inexperience, optimism bias, competitive pressure, or limited evaluation evidence."
+    signals: ["underestimating AI risk", "AI risk blindness", "AI risk denial", "MIT AI Risk Repository", "AI Incident Database underreporting"]
+
+  - name: "Overregulation stifling beneficial AI innovation"
+    one_line: "Excessively restrictive AI regulation may suppress beneficial innovation — small developers, open-source, academic research, and high-value applications constrained beyond what risk-mitigation requires."
+    signals: ["AI overregulation", "EU AI Act burden", "AI compliance cost", "open source AI regulation", "SB 1047 chilling"]
+
+  - name: "Regulatory lag for AI"
+    one_line: "AI capabilities and deployments evolve faster than regulators can develop and implement rules, leaving harmful uses with inadequate response and beneficial uses with uncertainty."
+    signals: ["regulation lagging AI", "AI moves faster than regulation", "AI regulatory gap", "Collingridge dilemma AI", "AI policy lag"]
+
+  - name: "International AI prisoner's dilemma"
+    one_line: "States face race-to-the-bottom dynamics in AI development — each fearing that competitors will achieve advantage by skimping on safety, leading to collectively suboptimal under-investment in safety."
+    signals: ["AI prisoner's dilemma", "AI race to bottom", "AI coordination problem", "US-China AI cooperation", "AI multilateral failure"]
+
+  - name: "Competitive pressure reducing AI safety standards"
+    one_line: "Competition between AI labs produces pressure to deploy faster than safety review supports — undermining safety investment, evaluation discipline, and willingness to delay launches."
+    signals: ["AI safety race", "race to deploy AI", "AI launch pressure", "OpenAI safety departures", "RSP Anthropic"]
+
+  - name: "Fragmented AI standards"
+    one_line: "Multiple AI standards regimes — international (ISO/IEC, IEEE), regional (EU CEN-CENELEC), national (NIST), and sectoral — create complexity, gaps, and arbitrage opportunities."
+    signals: ["fragmented AI standards", "ISO 42001 vs NIST AI RMF", "AI standards proliferation", "AI standards harmonization", "AI compliance complexity"]
+
+  - name: "Public misunderstanding of AI"
+    one_line: "The public has incomplete or inaccurate mental models of AI — overestimating capabilities, missing limitations, anthropomorphizing systems — affecting use, policy support, and democratic deliberation."
+    signals: ["AI literacy", "public misunderstanding AI", "AI mental models", "anthropomorphizing AI", "AI understanding survey"]
+
+  - name: "AI hype cycles"
+    one_line: "Inflated expectations followed by disillusionment cycles distort AI investment, policy, and adoption — producing misallocated resources, premature deployment, and backlash that delays beneficial applications."
+    signals: ["AI hype", "AI bubble", "AI winter", "Gartner hype cycle AI", "AI overpromise"]
+
+  - name: "Panic or moral hysteria about AI"
+    one_line: "Disproportionate fear or moral panic about AI — driven by sensationalism, misunderstanding, or specific incidents — produces overreaction in policy, deployment, and public discourse."
+    signals: ["AI moral panic", "AI hysteria", "AI fearmongering", "AI doom panic", "AI sensationalism"]
+
+  - name: "Misleading AI benchmarks"
+    one_line: "AI capability benchmarks fail to predict real-world performance, are gamed by training on test sets, saturate without measuring capability gains, or are cherry-picked — producing misleading capability claims."
+    signals: ["misleading benchmarks", "benchmark contamination", "benchmark saturation", "MMLU saturation", "AI eval gaming"]
