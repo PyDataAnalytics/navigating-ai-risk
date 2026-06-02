@@ -1,30 +1,23 @@
 name: discovery
 
-# Weekly NEW-paper discovery on your own GPU. This job CREATES A FRESH RunPod
-# pod each run (more reliable than resuming a pinned one - a stopped pod can
-# fail to resume when its original host has no free GPU), runs the real Ollama
-# pipeline ON the pod (keeping the "no third-party LLM" posture), pulls the run
-# back, folds it into the corpus, commits, and ALWAYS terminates the pod. The
-# GPU only bills while a run is in flight.
+# NEW-paper discovery on your own GPU. Creates a FRESH RunPod pod, runs the real
+# Ollama pipeline ON the pod (keeping the "no third-party LLM" posture), pulls the
+# run back, folds it into the corpus, commits, and ALWAYS terminates the pod.
 #
-# A permissive GPU list (gpu_types) maximises the odds of getting a GPU: an 8B
-# model fits on any 24GB+ card, so cheaper/plentiful GPUs are listed first and
-# RunPod picks whichever is free (gpuTypePriority + dataCenterPriority:
-# availability). Lightweight citation/OA upkeep is the separate, free,
-# GPU-less weekly-refresh.yml.
+# Runs WEEKLY (Sunday 04:00 UTC) and on manual dispatch. The create step is
+# built to actually land a GPU: it validates GPU names against RunPod's live
+# catalog (so a typo can't break it), auto-includes every >=24GB GPU, and tries
+# SECURE then COMMUNITY cloud. In the rare event no GPU is available anywhere,
+# the run SKIPS cleanly (green) instead of erroring - so a capacity blip never
+# reddens the repo. Real bugs (bad API key, bad request) still fail loudly.
 #
-# Required repo secrets (Settings -> Secrets and variables -> Actions):
-#   RUNPOD_API_KEY   create/wait/terminate the pod
-#   RUNPOD_SSH_KEY   PRIVATE SSH key (base64); its public half is injected into
-#                    the new pod at create time via PUBLIC_KEY
-# Optional (forwarded into the run on the pod):
-#   SEMANTIC_SCHOLAR_API_KEY, OPENALEX_MAILTO, UNPAYWALL_EMAIL, SERPAPI_API_KEY
-#
-# NOTE: RUNPOD_POD_ID is no longer used - pods are created on demand.
+# Required repo secrets:  RUNPOD_API_KEY, RUNPOD_SSH_KEY (base64 private key)
+# Optional (forwarded to the pod): SEMANTIC_SCHOLAR_API_KEY, OPENALEX_MAILTO,
+#                                  UNPAYWALL_EMAIL, SERPAPI_API_KEY
 
 on:
   schedule:
-    - cron: "0 4 * * 0"     # 04:00 UTC Sunday (refresh runs Monday, so no clash)
+    - cron: "0 4 * * 0"   # 04:00 UTC every Sunday (refresh runs Monday - no clash)
   workflow_dispatch:
     inputs:
       gpu_types:
@@ -67,15 +60,17 @@ jobs:
         env:
           RUNPOD_SSH_KEY_B64: ${{ secrets.RUNPOD_SSH_KEY }}
         run: |
+          if [ -z "$RUNPOD_SSH_KEY_B64" ]; then
+            echo "RUNPOD_SSH_KEY secret is not set" >&2; exit 1
+          fi
           mkdir -p ~/.ssh && chmod 700 ~/.ssh
-          # Stored base64-encoded so Windows/PowerShell encoding quirks can never
-          # corrupt the key on its way into the secret.
+          # base64-encoded so Windows/PowerShell encoding quirks can't corrupt it.
           printf '%s' "$RUNPOD_SSH_KEY_B64" | base64 -d > ~/.ssh/runpod_key
           chmod 600 ~/.ssh/runpod_key
-          # Derive the public half to inject into the fresh pod at create time.
           ssh-keygen -y -f ~/.ssh/runpod_key > ~/.ssh/runpod_key.pub
 
       - name: Create pod
+        id: create
         env:
           RUNPOD_API_KEY: ${{ secrets.RUNPOD_API_KEY }}
           GPU_TYPE_IDS: ${{ inputs.gpu_types || 'NVIDIA GeForce RTX 4090,NVIDIA L40S,NVIDIA RTX A5000,NVIDIA A40,NVIDIA A100 80GB PCIe' }}
@@ -85,23 +80,37 @@ jobs:
           CONTAINER_DISK_GB: "40"
           VOLUME_GB: "40"
         run: |
+          set +e
           PUBLIC_KEY="$(cat ~/.ssh/runpod_key.pub)" \
             python scripts/runpod_pod.py create > pod_id.txt
+          rc=$?
+          set -e
+          if [ "$rc" -eq 3 ]; then
+            echo "::warning title=Discovery skipped::No GPU capacity available - skipping this run (not a failure)."
+            echo "proceed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if [ "$rc" -ne 0 ]; then
+            echo "create failed with exit code $rc" >&2
+            exit "$rc"
+          fi
           POD_ID="$(tail -n1 pod_id.txt)"
-          if [ -z "$POD_ID" ]; then echo "create produced no pod id" >&2; exit 1; fi
           echo "RP_POD_ID=$POD_ID" >> "$GITHUB_ENV"
+          echo "proceed=true" >> "$GITHUB_OUTPUT"
           echo "Created pod: $POD_ID"
 
       - name: Wait for SSH
+        if: steps.create.outputs.proceed == 'true'
         env:
           RUNPOD_API_KEY: ${{ secrets.RUNPOD_API_KEY }}
         run: |
-          EP="$(python scripts/runpod_pod.py wait --pod-id "$RP_POD_ID" --timeout 900 --interval 12)"
+          EP="$(python scripts/runpod_pod.py wait --pod-id "$RP_POD_ID" --timeout 1200 --interval 15)"
           echo "RP_HOST=$(echo "$EP" | cut -d' ' -f1)" >> "$GITHUB_ENV"
           echo "RP_PORT=$(echo "$EP" | cut -d' ' -f2)" >> "$GITHUB_ENV"
           echo "Pod SSH at $EP"
 
       - name: Run discovery on the pod
+        if: steps.create.outputs.proceed == 'true'
         env:
           SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
           OPENALEX_MAILTO: ${{ secrets.OPENALEX_MAILTO }}
@@ -120,6 +129,7 @@ jobs:
              bash -s" < scripts/pod_discovery.sh
 
       - name: Fetch run back from the pod
+        if: steps.create.outputs.proceed == 'true'
         run: |
           mkdir -p data/output
           scp -i ~/.ssh/runpod_key -P "$RP_PORT" \
@@ -128,11 +138,13 @@ jobs:
             data/output/latest.json
 
       - name: Merge into corpus + rebuild site data
+        if: steps.create.outputs.proceed == 'true'
         run: |
           python merge_corpus.py --run data/output/latest.json --corpus corpus.json --snapshot-dir snapshots
           python build_data.py -i corpus.json -o docs/risk_data.js -e excerpts.json
 
       - name: Commit results
+        if: steps.create.outputs.proceed == 'true'
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -144,18 +156,19 @@ jobs:
             git push || { git pull --rebase --autostash && git push; }
           fi
 
-      # CRITICAL cost safety: terminate the pod no matter what happened above
-      # (success, failure, or cancellation). Guarded so a failed create is a no-op.
+      # CRITICAL cost safety: terminate no matter what. Terminate by id if we have
+      # one, then sweep by this run's unique pod name to catch any pod a slow create
+      # may have left without returning an id.
       - name: Terminate pod
         if: always()
         env:
           RUNPOD_API_KEY: ${{ secrets.RUNPOD_API_KEY }}
+          POD_NAME: ai-risk-discovery-${{ github.run_number }}
         run: |
           if [ -n "${RP_POD_ID:-}" ]; then
             python scripts/runpod_pod.py terminate --pod-id "$RP_POD_ID"
-          else
-            echo "No pod was created - nothing to terminate."
           fi
+          python scripts/runpod_pod.py cleanup --name "$POD_NAME"
 
       - name: Upload run artifact
         if: always()
@@ -164,3 +177,4 @@ jobs:
           name: discovery-results
           path: data/output/
           retention-days: 30
+          if-no-files-found: ignore
