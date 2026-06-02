@@ -193,44 +193,52 @@ commits, and stops the pod again — so the GPU only bills while a run is in fli
 The "no third-party LLM" posture is preserved: the judge still runs on your own
 Ollama on the pod; nothing about paper content leaves your infrastructure.
 
-Flow: `runpod_pod.py start` → wait for SSH → run `pod_discovery.sh` on the pod over
-SSH (it ensures Ollama is serving, models are pulled, the repo is current, then runs
-`--all`) → `scp` `latest.json` back → `merge_corpus.py` + `build_data.py` on the
-runner → commit → **`runpod_pod.py stop` (runs even on failure/cancel)**.
+Flow: `runpod_pod.py create` (a **fresh** pod from a permissive GPU list) → wait for
+SSH → run `pod_discovery.sh` on the pod over SSH (it installs Ollama if needed, pulls
+the models, clones the repo, then runs `--all`) → `scp` `latest.json` back →
+`merge_corpus.py` + `build_data.py` on the runner → commit →
+**`runpod_pod.py terminate` (runs even on failure/cancel)**.
+
+Creating a fresh pod each run is more reliable than resuming one pinned pod: a stopped
+pod can fail to resume when its original host has no free GPU. The 8B model fits on any
+24GB+ card, so the workflow lists several GPU types and lets RunPod take whichever is
+available (`gpuTypePriority`/`dataCenterPriority: availability`).
 
 ### Weekly discovery on RunPod — one-time setup
 
-1. **Pod**: use a pod with a **public IP** and **TCP port 22 exposed** with sshd
-   running (RunPod's PyTorch template has this). Note its **pod id**.
-2. **SSH key**: generate a keypair (`ssh-keygen -t ed25519 -f runpod_key`). Put the
-   **public** key in the pod's `authorized_keys` (simplest: set the pod's `PUBLIC_KEY`
-   env var to the public key, which RunPod installs on boot).
+1. **SSH key**: generate a keypair (`ssh-keygen -t ed25519 -f runpod_key`, empty
+   passphrase). The workflow injects the **public** half into each fresh pod at create
+   time (via the pod's `PUBLIC_KEY` env), so you don't pre-register it anywhere.
+2. **GPU access**: nothing to provision in advance — the workflow creates an on-demand
+   pod each run. Optionally grab a **template id** from a known-good pod (Console →
+   your pod → its template) to pin the exact image/ports/env; pass it as the
+   `template_id` dispatch input for the most reproducible environment.
 3. **Secrets** (Settings → Secrets and variables → Actions → New repository secret):
 
    | Secret | Purpose |
    |---|---|
-   | `RUNPOD_API_KEY` | start/stop the pod via the RunPod REST API |
-   | `RUNPOD_POD_ID` | which pod to wake |
-   | `RUNPOD_SSH_KEY` | the **private** key from step 2, **base64-encoded** (see command below) |
+   | `RUNPOD_API_KEY` | create / wait / terminate the pod via the RunPod REST API |
+   | `RUNPOD_SSH_KEY` | the **private** key from step 1, **base64-encoded** (see command below) |
    | `SEMANTIC_SCHOLAR_API_KEY` / `OPENALEX_MAILTO` / `UNPAYWALL_EMAIL` / `SERPAPI_API_KEY` | optional; forwarded into the run on the pod |
 
    Encode the private key for the `RUNPOD_SSH_KEY` secret (base64 avoids any
    line-ending corruption): on Windows PowerShell,
-   `[Convert]::ToBase64String([IO.File]::ReadAllBytes("$HOME\.ssh\runpod_key")) | gh secret set RUNPOD_SSH_KEY`.
+   `[Convert]::ToBase64String([IO.File]::ReadAllBytes("$HOME\.ssh\runpod_key")) | Set-Clipboard`,
+   then paste it into the secret's value field.
 
-4. **First run**: trigger it manually (Actions → discovery → Run workflow) and watch
-   the log. The pod's working dir is `REMOTE_WORKDIR` in the workflow
-   (`/workspace/ai-risk-retrieval-work/navigating-ai-risk`); the script clones the
-   repo there on first run and fast-forwards it after. `python scripts/runpod_pod.py
-   describe` (with the env vars set locally) dumps the raw pod JSON if you need to
-   confirm the SSH port field shape.
+4. **First run**: trigger it manually (Actions → discovery → Run workflow). You can
+   override `gpu_types`, `template_id`, or `image` per run. The pod's working dir is
+   `REMOTE_WORKDIR` (`/workspace/ai-risk-retrieval-work/navigating-ai-risk`); the
+   script clones the repo there fresh each run. `python scripts/runpod_pod.py describe
+   --pod-id <id>` dumps the raw pod JSON if you need to confirm the SSH port field.
 
-Cost & safety notes: the pod is **Stopped**, not Terminated, so the `/workspace`
-volume (repo, venv, pulled models) persists between weeks. The `Stop pod` step uses
-`if: always()`, so a failed or cancelled run still releases the GPU. Resuming a pod
-can occasionally allocate **zero GPUs** if the region is at capacity — the run will
-fail fast and the pod is stopped; just re-run. Dial the `cron` back to monthly if a
-weekly GPU run is more than you need.
+Cost & safety notes: pods are **created on demand and terminated** at the end of every
+run (the `Terminate pod` step is `if: always()`, so a failed or cancelled run still
+releases the GPU), so there is no idle GPU and no persistent volume bill. Each run
+re-pulls the ~5GB of models (a few minutes / a few cents); add a network volume later
+if you want to skip that. If `create` finds no capacity for any listed GPU type it
+fails fast and terminates nothing — just widen `gpu_types` or re-run. Dial the `cron`
+back to monthly if a weekly GPU run is more than you need.
 
 ### Manual discovery run (on the pod directly)
 
@@ -250,9 +258,8 @@ All optional — the workflows degrade gracefully if any are unset:
 | `OPENALEX_MAILTO` | both | Joins OpenAlex's faster "polite pool" (any contact email). |
 | `UNPAYWALL_EMAIL` | both | Enables the Unpaywall OA backfill (the free API needs a contact email). |
 | `SERPAPI_API_KEY` | discovery | Enables the Google Scholar source. |
-| `RUNPOD_API_KEY` | discovery | Starts/stops the GPU pod via the RunPod REST API. |
-| `RUNPOD_POD_ID` | discovery | The pod the discovery job wakes. |
-| `RUNPOD_SSH_KEY` | discovery | Private SSH key (base64-encoded) for running the pipeline on the pod. |
+| `RUNPOD_API_KEY` | discovery | Creates/terminates the on-demand GPU pod via the RunPod REST API. |
+| `RUNPOD_SSH_KEY` | discovery | Private SSH key (base64-encoded); its public half is injected into each fresh pod. |
 
 GitHub Actions secrets are encrypted and are **not** exposed to pull requests
 from forks; both workflows are `schedule`/`workflow_dispatch` only, so there is no

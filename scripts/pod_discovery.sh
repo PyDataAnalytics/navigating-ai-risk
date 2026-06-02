@@ -1,22 +1,25 @@
 #!/usr/bin/env bash
-# pod_discovery.sh — runs ON the RunPod pod (over SSH) to produce a fresh run.
+# pod_discovery.sh - runs ON a freshly-created RunPod pod (over SSH).
 #
-# Idempotent bootstrap so a freshly-resumed pod is always in a known-good state:
-#   1. start Ollama if it isn't already serving (no systemd in the container)
-#   2. ensure the judge + screen models are pulled
-#   3. clone the repo on first run, otherwise fast-forward it
-#   4. install the package (editable) if the console script is missing
-#   5. run the full retrieval; leave data/output/latest.json on disk
+# The discovery workflow now CREATES A FRESH POD each run, so this script
+# bootstraps everything from a bare image (nothing persists between runs):
+#   1. ensure git / curl / Ollama are installed
+#   2. start Ollama (no systemd in the container) and pull the judge+screen models
+#   3. clone the repo into the ephemeral /workspace
+#   4. pip install the package (editable)
+#   5. run the full retrieval, leaving data/output/latest.json on disk
 #
-# The workflow then scp's latest.json back and merges it into the corpus on the
-# runner. This script never pushes git or handles corpus state — it only produces
-# a run. Tunables come in as environment variables (all have sane defaults):
+# Network steps are wrapped in retry() so a transient apt/pip/pull/clone hiccup
+# self-heals instead of failing the weekly run. The workflow scp's latest.json
+# back and merges it into the corpus on the runner; this script never touches
+# git history or corpus state - it only produces a run.
 #
-#   WORKDIR    where the repo lives on the /workspace volume (survives Stop)
-#   REPO_URL   public clone URL (only used on first run)
-#   CONFIG     pipeline config (Ollama localhost; llama3.1:8b judge + llama3.2:3b screen)
+# Tunables (env, all defaulted):
+#   WORKDIR   repo location on the pod
+#   REPO_URL  public clone URL
+#   CONFIG    pipeline config (Ollama localhost; llama3.1:8b judge + llama3.2:3b screen)
 #   JUDGE_MODEL / SCREEN_MODEL   Ollama tags to ensure present
-# Plus optional source creds forwarded by the workflow: SEMANTIC_SCHOLAR_API_KEY,
+# Optional source creds forwarded by the workflow: SEMANTIC_SCHOLAR_API_KEY,
 # OPENALEX_MAILTO, UNPAYWALL_EMAIL, SERPAPI_API_KEY.
 
 set -euo pipefail
@@ -27,10 +30,33 @@ CONFIG="${CONFIG:-config/ci.yaml}"
 JUDGE_MODEL="${JUDGE_MODEL:-llama3.1:8b}"
 SCREEN_MODEL="${SCREEN_MODEL:-llama3.2:3b}"
 
+# retry <cmd...> : up to 3 attempts with backoff (10s, 20s)
+retry() {
+  local n=1
+  until "$@"; do
+    if [ "$n" -ge 3 ]; then
+      echo "::pod:: giving up after $n attempts: $*" >&2
+      return 1
+    fi
+    echo "::pod:: attempt $n failed, retrying: $*" >&2
+    sleep $((n * 10))
+    n=$((n + 1))
+  done
+}
+
+echo "::pod:: ensuring base tooling (git, curl, ollama)"
+if ! command -v git >/dev/null 2>&1 || ! command -v curl >/dev/null 2>&1; then
+  retry apt-get update
+  retry apt-get install -y --no-install-recommends git curl ca-certificates
+fi
+if ! command -v ollama >/dev/null 2>&1; then
+  retry bash -c 'curl -fsSL https://ollama.com/install.sh | sh'
+fi
+
 echo "::pod:: starting Ollama if needed"
 if ! curl -fsS http://127.0.0.1:11434/api/tags >/dev/null 2>&1; then
   nohup ollama serve >/tmp/ollama.log 2>&1 &
-  for _ in $(seq 1 30); do
+  for _ in $(seq 1 60); do
     curl -fsS http://127.0.0.1:11434/api/tags >/dev/null 2>&1 && break
     sleep 1
   done
@@ -38,21 +64,21 @@ fi
 curl -fsS http://127.0.0.1:11434/api/tags >/dev/null 2>&1 || { echo "Ollama not reachable"; exit 1; }
 
 echo "::pod:: ensuring models present"
-ollama list | grep -q "${JUDGE_MODEL}"  || ollama pull "${JUDGE_MODEL}"
-ollama list | grep -q "${SCREEN_MODEL}" || ollama pull "${SCREEN_MODEL}"
+ollama list | grep -q "${JUDGE_MODEL}"  || retry ollama pull "${JUDGE_MODEL}"
+ollama list | grep -q "${SCREEN_MODEL}" || retry ollama pull "${SCREEN_MODEL}"
 
 echo "::pod:: syncing repo at ${WORKDIR}"
 if [ -d "${WORKDIR}/.git" ]; then
-  git -C "${WORKDIR}" fetch --depth 1 origin main
+  retry git -C "${WORKDIR}" fetch --depth 1 origin main
   git -C "${WORKDIR}" reset --hard origin/main
 else
   mkdir -p "$(dirname "${WORKDIR}")"
-  git clone --depth 1 "${REPO_URL}" "${WORKDIR}"
+  retry git clone --depth 1 "${REPO_URL}" "${WORKDIR}"
 fi
 cd "${WORKDIR}"
 
 echo "::pod:: ensuring package installed"
-command -v ai-risk-retrieval >/dev/null 2>&1 || pip install -e . -q
+command -v ai-risk-retrieval >/dev/null 2>&1 || retry pip install -e . -q
 
 echo "::pod:: validating config"
 ai-risk-retrieval validate-config -c "${CONFIG}" -t config/taxonomy.yaml

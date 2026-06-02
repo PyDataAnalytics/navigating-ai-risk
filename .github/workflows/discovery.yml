@@ -1,29 +1,41 @@
 name: discovery
 
-# Weekly NEW-paper discovery on your own GPU, the cheap way: this job wakes a
-# stopped RunPod pod, runs the real Ollama pipeline ON the pod (keeping the
-# "no third-party LLM" posture), pulls the run back, folds it into the corpus,
-# commits, and ALWAYS stops the pod again. The GPU only bills while a run is in
-# flight (~$1.49/hr on the doc's A100), not 24/7.
+# Weekly NEW-paper discovery on your own GPU. This job CREATES A FRESH RunPod
+# pod each run (more reliable than resuming a pinned one - a stopped pod can
+# fail to resume when its original host has no free GPU), runs the real Ollama
+# pipeline ON the pod (keeping the "no third-party LLM" posture), pulls the run
+# back, folds it into the corpus, commits, and ALWAYS terminates the pod. The
+# GPU only bills while a run is in flight.
 #
-# Lightweight citation/OA upkeep over the whole corpus is the separate, free,
+# A permissive GPU list (gpu_types) maximises the odds of getting a GPU: an 8B
+# model fits on any 24GB+ card, so cheaper/plentiful GPUs are listed first and
+# RunPod picks whichever is free (gpuTypePriority + dataCenterPriority:
+# availability). Lightweight citation/OA upkeep is the separate, free,
 # GPU-less weekly-refresh.yml.
 #
 # Required repo secrets (Settings -> Secrets and variables -> Actions):
-#   RUNPOD_API_KEY   control the pod (start/stop/describe)
-#   RUNPOD_POD_ID    the pod to wake (e.g. the doc's stuck_indigo_slug id)
-#   RUNPOD_SSH_KEY   PRIVATE SSH key whose public half is in the pod's authorized_keys
+#   RUNPOD_API_KEY   create/wait/terminate the pod
+#   RUNPOD_SSH_KEY   PRIVATE SSH key (base64); its public half is injected into
+#                    the new pod at create time via PUBLIC_KEY
 # Optional (forwarded into the run on the pod):
 #   SEMANTIC_SCHOLAR_API_KEY, OPENALEX_MAILTO, UNPAYWALL_EMAIL, SERPAPI_API_KEY
 #
-# Pod prerequisites (one-time): public IP + TCP port 22 exposed, sshd running
-# (RunPod's PyTorch template has this). See README "Weekly discovery on RunPod".
+# NOTE: RUNPOD_POD_ID is no longer used - pods are created on demand.
 
 on:
   schedule:
     - cron: "0 4 * * 0"     # 04:00 UTC Sunday (refresh runs Monday, so no clash)
   workflow_dispatch:
     inputs:
+      gpu_types:
+        description: "Comma-separated RunPod GPU type ids to try (any order)"
+        default: "NVIDIA GeForce RTX 4090,NVIDIA L40S,NVIDIA RTX A5000,NVIDIA A40,NVIDIA A100 80GB PCIe"
+      template_id:
+        description: "RunPod template id to create from (recommended; overrides image)"
+        default: ""
+      image:
+        description: "Container image (used only if template_id is blank)"
+        default: "runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04"
       config:
         description: "Pipeline config on the pod"
         default: "config/ci.yaml"
@@ -51,28 +63,40 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Write SSH key
+      - name: Write SSH keypair
         env:
           RUNPOD_SSH_KEY_B64: ${{ secrets.RUNPOD_SSH_KEY }}
         run: |
           mkdir -p ~/.ssh && chmod 700 ~/.ssh
-          # Stored base64-encoded so Windows/PowerShell line-ending and encoding
-          # quirks can never corrupt the key on its way into the secret.
+          # Stored base64-encoded so Windows/PowerShell encoding quirks can never
+          # corrupt the key on its way into the secret.
           printf '%s' "$RUNPOD_SSH_KEY_B64" | base64 -d > ~/.ssh/runpod_key
           chmod 600 ~/.ssh/runpod_key
+          # Derive the public half to inject into the fresh pod at create time.
+          ssh-keygen -y -f ~/.ssh/runpod_key > ~/.ssh/runpod_key.pub
 
-      - name: Start pod
+      - name: Create pod
         env:
           RUNPOD_API_KEY: ${{ secrets.RUNPOD_API_KEY }}
-          RUNPOD_POD_ID: ${{ secrets.RUNPOD_POD_ID }}
-        run: python scripts/runpod_pod.py start
+          GPU_TYPE_IDS: ${{ inputs.gpu_types || 'NVIDIA GeForce RTX 4090,NVIDIA L40S,NVIDIA RTX A5000,NVIDIA A40,NVIDIA A100 80GB PCIe' }}
+          POD_TEMPLATE_ID: ${{ inputs.template_id }}
+          POD_IMAGE: ${{ inputs.image || 'runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04' }}
+          POD_NAME: ai-risk-discovery-${{ github.run_number }}
+          CONTAINER_DISK_GB: "40"
+          VOLUME_GB: "40"
+        run: |
+          PUBLIC_KEY="$(cat ~/.ssh/runpod_key.pub)" \
+            python scripts/runpod_pod.py create > pod_id.txt
+          POD_ID="$(tail -n1 pod_id.txt)"
+          if [ -z "$POD_ID" ]; then echo "create produced no pod id" >&2; exit 1; fi
+          echo "RP_POD_ID=$POD_ID" >> "$GITHUB_ENV"
+          echo "Created pod: $POD_ID"
 
       - name: Wait for SSH
         env:
           RUNPOD_API_KEY: ${{ secrets.RUNPOD_API_KEY }}
-          RUNPOD_POD_ID: ${{ secrets.RUNPOD_POD_ID }}
         run: |
-          EP="$(python scripts/runpod_pod.py wait --timeout 900 --interval 10)"
+          EP="$(python scripts/runpod_pod.py wait --pod-id "$RP_POD_ID" --timeout 900 --interval 12)"
           echo "RP_HOST=$(echo "$EP" | cut -d' ' -f1)" >> "$GITHUB_ENV"
           echo "RP_PORT=$(echo "$EP" | cut -d' ' -f2)" >> "$GITHUB_ENV"
           echo "Pod SSH at $EP"
@@ -120,14 +144,18 @@ jobs:
             git push || { git pull --rebase --autostash && git push; }
           fi
 
-      # CRITICAL cost safety: stop the pod no matter what happened above
-      # (success, failure, or cancellation). Never leave the GPU running.
-      - name: Stop pod
+      # CRITICAL cost safety: terminate the pod no matter what happened above
+      # (success, failure, or cancellation). Guarded so a failed create is a no-op.
+      - name: Terminate pod
         if: always()
         env:
           RUNPOD_API_KEY: ${{ secrets.RUNPOD_API_KEY }}
-          RUNPOD_POD_ID: ${{ secrets.RUNPOD_POD_ID }}
-        run: python scripts/runpod_pod.py stop
+        run: |
+          if [ -n "${RP_POD_ID:-}" ]; then
+            python scripts/runpod_pod.py terminate --pod-id "$RP_POD_ID"
+          else
+            echo "No pod was created - nothing to terminate."
+          fi
 
       - name: Upload run artifact
         if: always()

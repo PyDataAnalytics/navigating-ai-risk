@@ -108,9 +108,11 @@ the attacker control the final output.
 
 ### RunPod credentials (discovery workflow)
 
-`RUNPOD_API_KEY` is the highest-value secret here: it can start and stop GPU pods,
-which costs money. Treat it accordingly — use a dedicated key for CI, set a RunPod
-billing alert, and rotate it on a schedule. `RUNPOD_SSH_KEY` is a private SSH key
+`RUNPOD_API_KEY` is the highest-value secret here: it can **create and terminate** GPU
+pods, which costs money. Treat it accordingly — use a dedicated key for CI, set a RunPod
+billing alert, and rotate it on a schedule. The discovery workflow always terminates the
+pod it creates (`if: always()`), but a RunPod billing alert is still the backstop if a
+pod ever escapes cleanup. `RUNPOD_SSH_KEY` is a private SSH key
 scoped to one pod; generate a fresh keypair for CI rather than reusing a personal
 key, and remove its public half from the pod if you retire the automation. Both
 are encrypted Actions secrets and, because `discovery` runs only on `schedule` and
