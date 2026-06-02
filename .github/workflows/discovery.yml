@@ -1,0 +1,138 @@
+name: discovery
+
+# Weekly NEW-paper discovery on your own GPU, the cheap way: this job wakes a
+# stopped RunPod pod, runs the real Ollama pipeline ON the pod (keeping the
+# "no third-party LLM" posture), pulls the run back, folds it into the corpus,
+# commits, and ALWAYS stops the pod again. The GPU only bills while a run is in
+# flight (~$1.49/hr on the doc's A100), not 24/7.
+#
+# Lightweight citation/OA upkeep over the whole corpus is the separate, free,
+# GPU-less weekly-refresh.yml.
+#
+# Required repo secrets (Settings -> Secrets and variables -> Actions):
+#   RUNPOD_API_KEY   control the pod (start/stop/describe)
+#   RUNPOD_POD_ID    the pod to wake (e.g. the doc's stuck_indigo_slug id)
+#   RUNPOD_SSH_KEY   PRIVATE SSH key whose public half is in the pod's authorized_keys
+# Optional (forwarded into the run on the pod):
+#   SEMANTIC_SCHOLAR_API_KEY, OPENALEX_MAILTO, UNPAYWALL_EMAIL, SERPAPI_API_KEY
+#
+# Pod prerequisites (one-time): public IP + TCP port 22 exposed, sshd running
+# (RunPod's PyTorch template has this). See README "Weekly discovery on RunPod".
+
+on:
+  schedule:
+    - cron: "0 4 * * 0"     # 04:00 UTC Sunday (refresh runs Monday, so no clash)
+  workflow_dispatch:
+    inputs:
+      config:
+        description: "Pipeline config on the pod"
+        default: "config/ci.yaml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: discovery
+  cancel-in-progress: false
+
+env:
+  REMOTE_WORKDIR: /workspace/ai-risk-retrieval-work/navigating-ai-risk
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Write SSH key
+        env:
+          RUNPOD_SSH_KEY_B64: ${{ secrets.RUNPOD_SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          # Stored base64-encoded so Windows/PowerShell line-ending and encoding
+          # quirks can never corrupt the key on its way into the secret.
+          printf '%s' "$RUNPOD_SSH_KEY_B64" | base64 -d > ~/.ssh/runpod_key
+          chmod 600 ~/.ssh/runpod_key
+
+      - name: Start pod
+        env:
+          RUNPOD_API_KEY: ${{ secrets.RUNPOD_API_KEY }}
+          RUNPOD_POD_ID: ${{ secrets.RUNPOD_POD_ID }}
+        run: python scripts/runpod_pod.py start
+
+      - name: Wait for SSH
+        env:
+          RUNPOD_API_KEY: ${{ secrets.RUNPOD_API_KEY }}
+          RUNPOD_POD_ID: ${{ secrets.RUNPOD_POD_ID }}
+        run: |
+          EP="$(python scripts/runpod_pod.py wait --timeout 900 --interval 10)"
+          echo "RP_HOST=$(echo "$EP" | cut -d' ' -f1)" >> "$GITHUB_ENV"
+          echo "RP_PORT=$(echo "$EP" | cut -d' ' -f2)" >> "$GITHUB_ENV"
+          echo "Pod SSH at $EP"
+
+      - name: Run discovery on the pod
+        env:
+          SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
+          OPENALEX_MAILTO: ${{ secrets.OPENALEX_MAILTO }}
+          UNPAYWALL_EMAIL: ${{ secrets.UNPAYWALL_EMAIL }}
+          SERPAPI_API_KEY: ${{ secrets.SERPAPI_API_KEY }}
+        run: |
+          ssh -i ~/.ssh/runpod_key -p "$RP_PORT" \
+            -o StrictHostKeyChecking=accept-new \
+            -o ServerAliveInterval=60 -o ServerAliveCountMax=60 \
+            "root@$RP_HOST" \
+            "WORKDIR='$REMOTE_WORKDIR' CONFIG='${{ inputs.config || 'config/ci.yaml' }}' \
+             SEMANTIC_SCHOLAR_API_KEY='$SEMANTIC_SCHOLAR_API_KEY' \
+             OPENALEX_MAILTO='$OPENALEX_MAILTO' \
+             UNPAYWALL_EMAIL='$UNPAYWALL_EMAIL' \
+             SERPAPI_API_KEY='$SERPAPI_API_KEY' \
+             bash -s" < scripts/pod_discovery.sh
+
+      - name: Fetch run back from the pod
+        run: |
+          mkdir -p data/output
+          scp -i ~/.ssh/runpod_key -P "$RP_PORT" \
+            -o StrictHostKeyChecking=accept-new \
+            "root@$RP_HOST:$REMOTE_WORKDIR/data/output/latest.json" \
+            data/output/latest.json
+
+      - name: Merge into corpus + rebuild site data
+        run: |
+          python merge_corpus.py --run data/output/latest.json --corpus corpus.json --snapshot-dir snapshots
+          python build_data.py -i corpus.json -o docs/risk_data.js -e excerpts.json
+
+      - name: Commit results
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add corpus.json docs/risk_data.js snapshots
+          if git diff --cached --quiet; then
+            echo "No new papers this run."
+          else
+            git commit -m "feat(data): discovery run $(date -u +%Y-%m-%d)"
+            git push || { git pull --rebase --autostash && git push; }
+          fi
+
+      # CRITICAL cost safety: stop the pod no matter what happened above
+      # (success, failure, or cancellation). Never leave the GPU running.
+      - name: Stop pod
+        if: always()
+        env:
+          RUNPOD_API_KEY: ${{ secrets.RUNPOD_API_KEY }}
+          RUNPOD_POD_ID: ${{ secrets.RUNPOD_POD_ID }}
+        run: python scripts/runpod_pod.py stop
+
+      - name: Upload run artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: discovery-results
+          path: data/output/
+          retention-days: 30

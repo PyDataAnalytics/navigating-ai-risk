@@ -14,3 +14,5 @@ dist/
 .mypy_cache/
 config/local.yaml
 .env
+*.tmp
+data/cache/

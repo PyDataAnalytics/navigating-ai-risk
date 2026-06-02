@@ -3,7 +3,15 @@ name: lint
 on:
   push:
     branches: [ main ]
+    paths-ignore:
+      - 'docs/**'
+      - 'corpus.json'
+      - 'excerpts.json'
+      - 'snapshots/**'
   pull_request:
+
+permissions:
+  contents: read
 
 jobs:
   ruff:

@@ -3,7 +3,7 @@
 # This prevents "works on my machine" drift between local and CI.
 
 .PHONY: help install install-dev validate test lint format ci pre-commit-install \
-        pass-a pass-b pass-c clean
+        pass-a pass-b pass-c refresh build-site clean
 
 help:
 	@echo "Available targets:"
@@ -20,6 +20,8 @@ help:
 	@echo "  pass-a             [Pass A] Type adjacent_to; enforce symmetry"
 	@echo "  pass-b             [Pass B] Add disambiguation field"
 	@echo "  pass-c             [Pass C] Tighten applies_when (not yet implemented)"
+	@echo "  refresh            Weekly GPU-free refresh: citations + OA links over corpus.json"
+	@echo "  build-site         Rebuild docs/risk_data.js from corpus.json"
 	@echo "  clean              Remove caches"
 
 install:
@@ -77,6 +79,16 @@ pass-b:
 pass-c:
 	@echo "Pass C not yet implemented"
 	@exit 1
+
+# Weekly maintenance (no GPU, stdlib only): re-pull citation counts and OA links
+# for the existing corpus, then rebuild the site data. Same commands CI runs in
+# .github/workflows/weekly-refresh.yml — runnable locally for a manual refresh.
+refresh:
+	python scripts/refresh_corpus.py --corpus corpus.json
+	$(MAKE) build-site
+
+build-site:
+	python build_data.py -i corpus.json -o docs/risk_data.js -e excerpts.json
 
 clean:
 	find . -type d -name __pycache__ -exec rm -rf {} +

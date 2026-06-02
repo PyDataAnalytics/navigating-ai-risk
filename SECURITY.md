@@ -106,6 +106,43 @@ the attacker control the final output.
 - Rotate API keys (`SEMANTIC_SCHOLAR_API_KEY`, `SERPAPI_API_KEY`) yearly.
 - Pin dependencies via lockfile in your deployment.
 
+### RunPod credentials (discovery workflow)
+
+`RUNPOD_API_KEY` is the highest-value secret here: it can start and stop GPU pods,
+which costs money. Treat it accordingly — use a dedicated key for CI, set a RunPod
+billing alert, and rotate it on a schedule. `RUNPOD_SSH_KEY` is a private SSH key
+scoped to one pod; generate a fresh keypair for CI rather than reusing a personal
+key, and remove its public half from the pod if you retire the automation. Both
+are encrypted Actions secrets and, because `discovery` runs only on `schedule` and
+`workflow_dispatch`, are never exposed to pull requests. The discovery job's
+`Stop pod` step runs with `if: always()`, so a crashed or cancelled run cannot
+leave a GPU billing indefinitely.
+
+### Secrets in a public repository
+
+This repo is public, but its credentials live in **GitHub Actions secrets**, which
+are encrypted at rest and masked in logs. They are safe here because:
+
+- Both data workflows (`weekly-refresh`, `discovery`) trigger only on `schedule`
+  and `workflow_dispatch` — never on `pull_request`. Pull requests from forks
+  therefore have no path to read the secrets (the classic public-repo leak vector).
+- No secret is ever written to the corpus, the site data, or a commit. The
+  refresh/discovery scripts read keys from the environment only.
+- Every key is optional. The weekly refresh runs (key-less S2 + OpenAlex paths)
+  even with no secrets configured; keys only raise rate limits / enable Unpaywall.
+
+The durable `corpus.json` and the abstract-stripped `snapshots/` committed here
+contain **metadata only** (titles, authors, DOIs, citation counts, OA link URLs)
+— no paper full text and no abstracts. See `merge_corpus.py` for the strip step.
+
+### Weekly-refresh job safety
+
+`scripts/refresh_corpus.py` is hardened against corrupting the historical asset:
+it validates before writing (paper count must stay constant, `first_seen` is
+immutable, no abstract may appear, the corpus must round-trip through JSON) and
+writes atomically (temp file + `os.replace`). A failed validation aborts the
+write with a non-zero exit and leaves the committed corpus untouched.
+
 ## 5. Reporting issues
 
 If you find a security vulnerability, please open a private security advisory

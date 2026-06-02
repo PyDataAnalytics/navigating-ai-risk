@@ -1,0 +1,67 @@
+name: weekly-refresh
+
+# Incremental, GPU-free corpus maintenance. Re-pulls citation counts and
+# open-access links for the EXISTING corpus, accretes a `last_refreshed`
+# clock + an append-only refresh history, rebuilds the site data, and commits.
+# Runs on a free CPU runner in seconds — no Ollama, no GPU, no pip install.
+#
+# Discovery of brand-new papers is a separate, GPU-bound job: see discovery.yml.
+
+on:
+  schedule:
+    # 06:00 UTC every Monday. (GitHub may delay scheduled runs under load.)
+    - cron: "0 6 * * 1"
+  workflow_dispatch: {}   # allow manual runs from the Actions tab
+
+# Least privilege: the only write this job needs is committing data back.
+permissions:
+  contents: write
+
+# Never let two refreshes race on corpus.json.
+concurrency:
+  group: weekly-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # refresh_corpus.py + build_data.py are standard-library only, so there is
+      # deliberately NO `pip install` step — nothing to break a scheduled run.
+
+      - name: Refresh corpus (citations + open-access links)
+        env:
+          # All optional. SEMANTIC_SCHOLAR_API_KEY lifts the S2 rate limit;
+          # OPENALEX_MAILTO joins the faster polite pool; UNPAYWALL_EMAIL
+          # enables OA backfill. The script degrades gracefully if any are
+          # absent — see scripts/refresh_corpus.py.
+          SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
+          OPENALEX_MAILTO: ${{ secrets.OPENALEX_MAILTO }}
+          UNPAYWALL_EMAIL: ${{ secrets.UNPAYWALL_EMAIL }}
+        run: python scripts/refresh_corpus.py --corpus corpus.json
+
+      - name: Rebuild site data (docs/risk_data.js)
+        run: python build_data.py -i corpus.json -o docs/risk_data.js -e excerpts.json
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add corpus.json docs/risk_data.js
+          if git diff --cached --quiet; then
+            echo "No changes this week."
+          else
+            # Data commits are skipped by CI via paths-ignore (see ci.yml); GitHub
+            # Pages "deploy from branch" still rebuilds on the push.
+            git commit -m "chore(data): weekly refresh $(date -u +%Y-%m-%d)"
+            git push || { git pull --rebase --autostash && git push; }
+          fi

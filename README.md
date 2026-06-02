@@ -164,7 +164,100 @@ Disambiguation authoring lives in `scripts/disambiguation_content.py` as `DISAMB
 
 ## Scheduled runs
 
-`.github/workflows/scheduled-retrieval.yml` runs weekly. Results are committed to a `data/` branch or pushed to an artifact store; see the workflow file for options.
+The pipeline has two halves with very different compute needs, so they run as
+two separate workflows:
+
+**1. Weekly refresh — automatic, GPU-free** (`.github/workflows/weekly-refresh.yml`)
+
+Runs every Monday on a free `ubuntu-latest` runner in seconds. It does *not*
+discover new papers; it keeps the existing corpus alive:
+
+- re-pulls **citation counts** (Semantic Scholar batch endpoint, OpenAlex fallback),
+- backfills **open-access PDF links** (Semantic Scholar, then Unpaywall),
+- stamps a `last_refreshed` clock on each paper (the immutable `first_seen` is
+  never touched) and appends a record to the corpus's `refreshes` history,
+- rebuilds `docs/risk_data.js` and commits `corpus.json` + the site data.
+
+`scripts/refresh_corpus.py` is **standard-library only** — there is deliberately
+no `pip install` in this workflow, so a scheduled run has nothing to break. It is
+best-effort (any single HTTP failure is a quiet miss, never an aborted run),
+validates before writing (paper count constant, `first_seen` never mutated, no
+abstract leak), and writes atomically. Run it locally with `make refresh`.
+
+**2. Discovery — weekly, on your RunPod GPU** (`.github/workflows/discovery.yml`)
+
+Finding *new* papers runs the LLM judge/screener on Ollama, which needs a GPU.
+Instead of paying for an always-on runner, this job wakes a **stopped** RunPod pod
+on a schedule, runs the real pipeline on it, folds the result into `corpus.json`,
+commits, and stops the pod again — so the GPU only bills while a run is in flight.
+The "no third-party LLM" posture is preserved: the judge still runs on your own
+Ollama on the pod; nothing about paper content leaves your infrastructure.
+
+Flow: `runpod_pod.py start` → wait for SSH → run `pod_discovery.sh` on the pod over
+SSH (it ensures Ollama is serving, models are pulled, the repo is current, then runs
+`--all`) → `scp` `latest.json` back → `merge_corpus.py` + `build_data.py` on the
+runner → commit → **`runpod_pod.py stop` (runs even on failure/cancel)**.
+
+### Weekly discovery on RunPod — one-time setup
+
+1. **Pod**: use a pod with a **public IP** and **TCP port 22 exposed** with sshd
+   running (RunPod's PyTorch template has this). Note its **pod id**.
+2. **SSH key**: generate a keypair (`ssh-keygen -t ed25519 -f runpod_key`). Put the
+   **public** key in the pod's `authorized_keys` (simplest: set the pod's `PUBLIC_KEY`
+   env var to the public key, which RunPod installs on boot).
+3. **Secrets** (Settings → Secrets and variables → Actions → New repository secret):
+
+   | Secret | Purpose |
+   |---|---|
+   | `RUNPOD_API_KEY` | start/stop the pod via the RunPod REST API |
+   | `RUNPOD_POD_ID` | which pod to wake |
+   | `RUNPOD_SSH_KEY` | the **private** key from step 2, **base64-encoded** (see command below) |
+   | `SEMANTIC_SCHOLAR_API_KEY` / `OPENALEX_MAILTO` / `UNPAYWALL_EMAIL` / `SERPAPI_API_KEY` | optional; forwarded into the run on the pod |
+
+   Encode the private key for the `RUNPOD_SSH_KEY` secret (base64 avoids any
+   line-ending corruption): on Windows PowerShell,
+   `[Convert]::ToBase64String([IO.File]::ReadAllBytes("$HOME\.ssh\runpod_key")) | gh secret set RUNPOD_SSH_KEY`.
+
+4. **First run**: trigger it manually (Actions → discovery → Run workflow) and watch
+   the log. The pod's working dir is `REMOTE_WORKDIR` in the workflow
+   (`/workspace/ai-risk-retrieval-work/navigating-ai-risk`); the script clones the
+   repo there on first run and fast-forwards it after. `python scripts/runpod_pod.py
+   describe` (with the env vars set locally) dumps the raw pod JSON if you need to
+   confirm the SSH port field shape.
+
+Cost & safety notes: the pod is **Stopped**, not Terminated, so the `/workspace`
+volume (repo, venv, pulled models) persists between weeks. The `Stop pod` step uses
+`if: always()`, so a failed or cancelled run still releases the GPU. Resuming a pod
+can occasionally allocate **zero GPUs** if the region is at capacity — the run will
+fail fast and the pod is stopped; just re-run. Dial the `cron` back to monthly if a
+weekly GPU run is more than you need.
+
+### Manual discovery run (on the pod directly)
+
+```bash
+ai-risk-retrieval run --all -c config/ci.yaml -t config/taxonomy.yaml
+python merge_corpus.py --run data/output/latest.json --corpus corpus.json --snapshot-dir snapshots
+python build_data.py -i corpus.json -o docs/risk_data.js
+```
+
+### Secrets (Settings → Secrets and variables → Actions → New repository secret)
+
+All optional — the workflows degrade gracefully if any are unset:
+
+| Secret | Used by | Effect if set |
+|---|---|---|
+| `SEMANTIC_SCHOLAR_API_KEY` | both | Lifts the S2 rate limit (sent as `x-api-key`). |
+| `OPENALEX_MAILTO` | both | Joins OpenAlex's faster "polite pool" (any contact email). |
+| `UNPAYWALL_EMAIL` | both | Enables the Unpaywall OA backfill (the free API needs a contact email). |
+| `SERPAPI_API_KEY` | discovery | Enables the Google Scholar source. |
+| `RUNPOD_API_KEY` | discovery | Starts/stops the GPU pod via the RunPod REST API. |
+| `RUNPOD_POD_ID` | discovery | The pod the discovery job wakes. |
+| `RUNPOD_SSH_KEY` | discovery | Private SSH key (base64-encoded) for running the pipeline on the pod. |
+
+GitHub Actions secrets are encrypted and are **not** exposed to pull requests
+from forks; both workflows are `schedule`/`workflow_dispatch` only, so there is no
+fork-PR path that could read them. Never commit a key to the repo — only add it
+through the Actions secrets UI above.
 
 ## Integrating into a webapp
 
