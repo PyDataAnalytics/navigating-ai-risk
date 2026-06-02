@@ -139,30 +139,45 @@ def _ids_by_name(name: str) -> list[str]:
     return [p["id"] for p in _all_pods() if p.get("name") == name and p.get("id")]
 
 
-def _ports(pod: dict) -> list[dict]:
-    rt = pod.get("runtime") or {}
-    for candidate in (rt.get("ports"), pod.get("portMappings"), pod.get("ports")):
-        if isinstance(candidate, list) and candidate:
-            return candidate
-    return []
-
-
 _PRIVATE_IP_PREFIXES = ("10.", "172.16.", "172.17.", "172.18.", "192.168.", "100.64.", "127.")
 
 
+def _port_dicts(pod: dict) -> list[dict]:
+    rt = pod.get("runtime") or {}
+    out: list[dict] = []
+    for cand in (rt.get("ports"), pod.get("portMappings"), pod.get("ports")):
+        if isinstance(cand, list):
+            out += [p for p in cand if isinstance(p, dict)]
+    return out
+
+
+def _public_ip(pod: dict) -> str | None:
+    rt = pod.get("runtime") or {}
+    for key in ("publicIp", "publicIP", "ip"):
+        v = pod.get(key) or rt.get(key)
+        if v and not str(v).startswith(_PRIVATE_IP_PREFIXES):
+            return str(v)
+    return None
+
+
 def _ssh_endpoint(pod: dict) -> tuple[str, int] | None:
-    for p in _ports(pod):
-        if not isinstance(p, dict):
-            continue
+    # Shape 1: a list of port mapping objects (runtime.ports / portMappings / ports).
+    for p in _port_dicts(pod):
         priv = p.get("privatePort") or p.get("PrivatePort")
         pub = p.get("publicPort") or p.get("PublicPort")
         ip = p.get("ip") or p.get("IP")
         flagged_public = p.get("isIpPublic") or p.get("isPublic") or p.get("public")
-        if priv != 22 or not pub or not ip:
+        if str(priv) != "22" or not pub or not ip:
             continue
-        looks_public = flagged_public or not str(ip).startswith(_PRIVATE_IP_PREFIXES)
-        if looks_public:
+        if flagged_public or not str(ip).startswith(_PRIVATE_IP_PREFIXES):
             return str(ip), int(pub)
+    # Shape 2: portMappings as a dict {"22": <publicPort>} plus a public IP field.
+    pm = pod.get("portMappings") or (pod.get("runtime") or {}).get("portMappings")
+    if isinstance(pm, dict):
+        pub = pm.get("22") or pm.get(22)
+        ip = _public_ip(pod)
+        if pub and ip:
+            return ip, int(pub)
     return None
 
 
@@ -289,8 +304,9 @@ def cmd_wait(pod_id: str, timeout_s: int, interval_s: int) -> int:
             last_pod = pod
             if _is_running(pod):
                 if not shown_ports:
-                    # Print the real port shape once so the log shows ground truth.
-                    print(f"  pod running; ports = {json.dumps(_ports(pod))}", file=sys.stderr)
+                    # Dump the full pod object once so the log shows ground truth.
+                    print("  pod running; full pod object:", file=sys.stderr)
+                    print(json.dumps(pod, indent=2)[:3500], file=sys.stderr)
                     shown_ports = True
                 ep = _ssh_endpoint(pod)
                 if ep:
