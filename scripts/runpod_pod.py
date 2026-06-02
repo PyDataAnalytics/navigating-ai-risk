@@ -58,22 +58,22 @@ SSHD_BOOTSTRAP = (
     "command -v sshd >/dev/null 2>&1 || { apt-get update && "
     "DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends openssh-server; }; "
     "ssh-keygen -A; mkdir -p /run/sshd; "
-    "exec /usr/sbin/sshd -D -e"
+    "exec /usr/sbin/sshd -D -e "
+    "-o PasswordAuthentication=no -o KbdInteractiveAuthentication=no "
+    "-o PubkeyAuthentication=yes -o PermitRootLogin=prohibit-password"
 )
 
-# Curated >=24GB GPUs, in rough order of availability/value. These are standard
-# RunPod REST gpuTypeIds; if any is stale, the enum self-correction handles it.
+# Curated >=24GB GPUs, cheap/plentiful only (an 8B model needs nothing more).
+# Expensive H100/A100 cards are deliberately excluded so an "availability" pick
+# can't land you on a $3+/hr GPU. Add them to GPU_TYPE_IDS if you ever want them.
 DEFAULT_GPU_IDS = [
     "NVIDIA GeForce RTX 4090",
+    "NVIDIA RTX A5000",
+    "NVIDIA A40",
     "NVIDIA L40S",
     "NVIDIA L40",
-    "NVIDIA RTX A5000",
-    "NVIDIA RTX A6000",
-    "NVIDIA A40",
     "NVIDIA GeForce RTX 3090",
-    "NVIDIA A100 80GB PCIe",
-    "NVIDIA H100 PCIe",
-    "NVIDIA H100 80GB HBM3",
+    "NVIDIA RTX A6000",
 ]
 
 _LAST_STATUS: int | None = None
@@ -259,7 +259,7 @@ def cmd_create() -> int:
         "containerDiskInGb": int(os.environ.get("CONTAINER_DISK_GB", "40")),
         "volumeInGb": int(os.environ.get("VOLUME_GB", "40")),
         "volumeMountPath": "/workspace",
-        "ports": ["8888/http", "22/tcp"],
+        "ports": ["22/tcp"],
         "supportPublicIp": True,
         "interruptible": False,
         "env": {"PUBLIC_KEY": os.environ.get("PUBLIC_KEY", "")},
@@ -294,31 +294,36 @@ def cmd_create() -> int:
     return 3
 
 
+def _redacted(pod: dict) -> dict:
+    """Pod object with the env block removed (it carries PUBLIC_KEY)."""
+    safe = {k: v for k, v in pod.items() if k != "env"}
+    if "env" in pod:
+        safe["env"] = "[redacted]"
+    return safe
+
+
 def cmd_wait(pod_id: str, timeout_s: int, interval_s: int) -> int:
     deadline = time.time() + timeout_s
-    shown_ports = False
+    announced = False
     last_pod: dict | None = None
     while time.time() < deadline:
         pod = _api("GET", f"/pods/{pod_id}")
         if isinstance(pod, dict):
             last_pod = pod
             if _is_running(pod):
-                if not shown_ports:
-                    # Dump the full pod object once so the log shows ground truth.
-                    print("  pod running; full pod object:", file=sys.stderr)
-                    print(json.dumps(pod, indent=2)[:3500], file=sys.stderr)
-                    shown_ports = True
+                if not announced:
+                    print("  pod running; waiting for its public SSH endpoint...", file=sys.stderr)
+                    announced = True
                 ep = _ssh_endpoint(pod)
-                if ep:
-                    if _tcp_open(ep[0], ep[1]):
-                        print(f"{ep[0]} {ep[1]}")
-                        return 0
-                    print("  ssh port mapped but not accepting yet...", file=sys.stderr)
+                if ep and _tcp_open(ep[0], ep[1]):
+                    print(f"{ep[0]} {ep[1]}")
+                    return 0
         time.sleep(interval_s)
     print(f"timed out after {timeout_s}s waiting for public SSH on pod {pod_id}", file=sys.stderr)
     if last_pod is not None:
-        print("  last pod state (truncated):", file=sys.stderr)
-        print(json.dumps(last_pod, indent=2)[:4000], file=sys.stderr)
+        # Only on failure, and with env (PUBLIC_KEY) stripped out.
+        print("  last pod state (env redacted):", file=sys.stderr)
+        print(json.dumps(_redacted(last_pod), indent=2)[:4000], file=sys.stderr)
     return 1
 
 
