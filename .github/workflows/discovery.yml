@@ -22,7 +22,7 @@ on:
     inputs:
       gpu_types:
         description: "Comma-separated RunPod GPU type ids to try (any order)"
-        default: "NVIDIA GeForce RTX 4090,NVIDIA L40S,NVIDIA RTX A5000,NVIDIA A40,NVIDIA A100 80GB PCIe"
+        default: "NVIDIA GeForce RTX 4090,NVIDIA RTX A5000,NVIDIA A40,NVIDIA L40S,NVIDIA GeForce RTX 3090"
       template_id:
         description: "RunPod template id to create from (recommended; overrides image)"
         default: ""
@@ -73,7 +73,7 @@ jobs:
         id: create
         env:
           RUNPOD_API_KEY: ${{ secrets.RUNPOD_API_KEY }}
-          GPU_TYPE_IDS: ${{ inputs.gpu_types || 'NVIDIA GeForce RTX 4090,NVIDIA L40S,NVIDIA RTX A5000,NVIDIA A40,NVIDIA A100 80GB PCIe' }}
+          GPU_TYPE_IDS: ${{ inputs.gpu_types || 'NVIDIA GeForce RTX 4090,NVIDIA RTX A5000,NVIDIA A40,NVIDIA L40S,NVIDIA GeForce RTX 3090' }}
           POD_TEMPLATE_ID: ${{ inputs.template_id }}
           POD_IMAGE: ${{ inputs.image || 'runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04' }}
           POD_NAME: ai-risk-discovery-${{ github.run_number }}

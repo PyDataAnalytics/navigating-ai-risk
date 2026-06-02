@@ -44,10 +44,15 @@ retry() {
   done
 }
 
-echo "::pod:: ensuring base tooling (git, curl, ollama)"
-if ! command -v git >/dev/null 2>&1 || ! command -v curl >/dev/null 2>&1; then
+echo "::pod:: ensuring base tooling (git, curl, zstd, ollama)"
+need_apt=0
+for tool in git curl zstd; do
+  command -v "$tool" >/dev/null 2>&1 || need_apt=1
+done
+if [ "$need_apt" = "1" ]; then
   retry apt-get update
-  retry apt-get install -y --no-install-recommends git curl ca-certificates
+  # zstd is required by the current Ollama installer to unpack its release.
+  retry apt-get install -y --no-install-recommends git curl ca-certificates zstd
 fi
 if ! command -v ollama >/dev/null 2>&1; then
   retry bash -c 'curl -fsSL https://ollama.com/install.sh | sh'
