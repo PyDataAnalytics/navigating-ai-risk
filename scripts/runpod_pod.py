@@ -6,28 +6,26 @@ Discovery CREATES A FRESH POD each run and TERMINATES it at the end. Creating
 (rather than resuming a pinned pod) lets RunPod place the pod on any host with
 capacity.
 
-`create` is built to maximise the odds of actually getting a GPU:
-  * It pulls RunPod's live GPU catalog (GraphQL) and selects every GPU with
-    >= MIN_VRAM_GB of memory - an 8B model fits on any 24GB card - so it never
-    depends on a hand-typed GPU-name string being exactly right. A provided
-    GPU_TYPE_IDS list is treated as a *preference order*, not a hard constraint.
-  * It tries SECURE then COMMUNITY cloud, so a capacity miss in one tier
-    escalates to the other.
-  * A slow create can time out AFTER the pod was made; the unique per-run pod
-    name lets us recover the id instead of failing or duplicating.
+`create` is built to actually land a GPU:
+  * Sends a curated list of >=24GB GPU type ids (an 8B model fits on any of them).
+  * SELF-CORRECTS: the REST API validates gpuTypeIds against a fixed enum and
+    400s the whole request if any id is not in it. On that 400 we parse the
+    allowed ids out of the error and retry with the intersection, so a stale or
+    mistyped id can never block the run.
+  * Tries SECURE then COMMUNITY cloud (capacity escalation).
+  * 240s timeout + id-recovery-by-name (a slow create can't duplicate/orphan).
 
-`create` exit codes (so the workflow reacts sensibly):
+`create` exit codes:
   0  pod created (id on stdout)
-  1  request rejected, HTTP 4xx (bad API key / bad body)      -> workflow fails
-  2  could not determine any eligible GPU at all              -> workflow fails
-  3  no GPU obtained anywhere (capacity / 5xx / timeout)       -> workflow skips
+  1  request rejected for a non-GPU reason, HTTP 4xx (bad key/body) -> workflow fails
+  3  no GPU obtained (capacity / 5xx / timeout)                      -> workflow skips
 
 Commands: create | wait | terminate | cleanup | describe | start | stop
 stdlib only. Auth: Bearer ${RUNPOD_API_KEY}.
 
-create env: POD_NAME, GPU_TYPE_IDS (comma list, optional preference),
+create env: POD_NAME, GPU_TYPE_IDS (comma list; optional preference/override),
 POD_TEMPLATE_ID, POD_IMAGE, POD_CLOUD_TYPE (comma list, default "SECURE,COMMUNITY"),
-CONTAINER_DISK_GB, VOLUME_GB, PUBLIC_KEY, MIN_VRAM_GB (default 24).
+CONTAINER_DISK_GB, VOLUME_GB, PUBLIC_KEY.
 """
 
 from __future__ import annotations
@@ -35,26 +33,42 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import sys
 import time
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
 BASE = "https://rest.runpod.io/v1"
-GRAPHQL = "https://api.runpod.io/graphql"
 TIMEOUT = 60.0
 CREATE_TIMEOUT = 240.0
 USER_AGENT = "ai-risk-discovery/1.0 (+github-actions)"
 
 DEFAULT_IMAGE = "runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04"
-MIN_VRAM_GB = int(os.environ.get("MIN_VRAM_GB", "24"))
+
+# Curated >=24GB GPUs, in rough order of availability/value. These are standard
+# RunPod REST gpuTypeIds; if any is stale, the enum self-correction handles it.
+DEFAULT_GPU_IDS = [
+    "NVIDIA GeForce RTX 4090",
+    "NVIDIA L40S",
+    "NVIDIA L40",
+    "NVIDIA RTX A5000",
+    "NVIDIA RTX A6000",
+    "NVIDIA A40",
+    "NVIDIA GeForce RTX 3090",
+    "NVIDIA A100 80GB PCIe",
+    "NVIDIA H100 PCIe",
+    "NVIDIA H100 80GB HBM3",
+]
 
 _LAST_STATUS: int | None = None
+_LAST_ERROR: str = ""
 
 
 def _api(method: str, path: str, body: dict | None = None, timeout: float = TIMEOUT):
-    global _LAST_STATUS
+    global _LAST_STATUS, _LAST_ERROR
     _LAST_STATUS = None
+    _LAST_ERROR = ""
     key = os.environ.get("RUNPOD_API_KEY", "").strip()
     if not key:
         print("RUNPOD_API_KEY is not set", file=sys.stderr)
@@ -76,56 +90,22 @@ def _api(method: str, path: str, body: dict | None = None, timeout: float = TIME
             return json.loads(txt) if txt.strip() else {}
     except HTTPError as e:
         _LAST_STATUS = e.code
-        detail = e.read().decode("utf-8", "replace")[:400]
-        print(f"RunPod {method} {path} -> HTTP {e.code}: {detail}", file=sys.stderr)
+        _LAST_ERROR = e.read().decode("utf-8", "replace")
+        print(f"RunPod {method} {path} -> HTTP {e.code}: {_LAST_ERROR[:300]}", file=sys.stderr)
         return None
     except Exception as e:  # noqa: BLE001
         print(f"RunPod {method} {path} -> {type(e).__name__}: {e}", file=sys.stderr)
         return None
 
 
-def _gpu_catalog() -> list[dict]:
-    """Live GPU catalog via GraphQL. Best-effort: returns [] on any failure."""
-    key = os.environ.get("RUNPOD_API_KEY", "").strip()
-    if not key:
+def _enum_from_error(text: str) -> list[str]:
+    """Extract RunPod's allowed gpuTypeIds from a 400 'value must be one of ...'."""
+    if "must be one of" not in text:
         return []
-    query = {"query": "query { gpuTypes { id memoryInGb secureCloud communityCloud } }"}
-    req = Request(
-        f"{GRAPHQL}?api_key={key}",
-        data=json.dumps(query).encode("utf-8"),
-        method="POST",
-        headers={"Content-Type": "application/json", "User-Agent": USER_AGENT},
-    )
-    try:
-        with urlopen(req, timeout=TIMEOUT) as r:  # noqa: S310
-            payload = json.loads(r.read().decode("utf-8"))
-        types = (payload.get("data") or {}).get("gpuTypes") or []
-        return [t for t in types if isinstance(t, dict) and t.get("id")]
-    except Exception as e:  # noqa: BLE001
-        print(
-            f"gpu catalog lookup failed ({type(e).__name__}); using requested list",
-            file=sys.stderr,
-        )
-        return []
-
-
-def _resolve_gpu_ids(requested: list[str], cloud: str) -> list[str]:
-    """Eligible GPU ids for this cloud (>= MIN_VRAM_GB), requested ones first.
-
-    Falls back to the requested list verbatim if the catalog can't be fetched.
-    """
-    catalog = _gpu_catalog()
-    if not catalog:
-        return list(dict.fromkeys(requested))
-    want_secure = cloud.upper() == "SECURE"
-    eligible = [
-        t["id"]
-        for t in catalog
-        if (t.get("memoryInGb") or 0) >= MIN_VRAM_GB
-        and (t.get("secureCloud") if want_secure else t.get("communityCloud"))
-    ]
-    valid_req = [r for r in requested if r in eligible]
-    return list(dict.fromkeys(valid_req + eligible))
+    tail = text.split("must be one of", 1)[1]
+    # Stop at the next problem entry if present, then grab all quoted tokens.
+    tail = re.split(r'"\s*\]|"\s*,\s*"At ', tail, maxsplit=1)[0]
+    return [m for m in re.findall(r"'([^']+)'", tail)]
 
 
 def _all_pods() -> list[dict]:
@@ -167,27 +147,55 @@ def _is_running(pod: dict) -> bool:
     return status == "RUNNING" or bool(pod.get("runtime"))
 
 
-def _try_create(body: dict, name: str) -> tuple[str | None, int | None]:
-    """One create attempt + name-based recovery. Returns (pod_id, http_status)."""
+def _post_create(body: dict, name: str) -> tuple[str | None, int | None, str]:
+    """POST once + recover by name. Returns (pod_id, http_status, error_body)."""
     out = _api("POST", "/pods", body, timeout=CREATE_TIMEOUT)
-    status = _LAST_STATUS
+    status, err = _LAST_STATUS, _LAST_ERROR
     pod_id = None
     if isinstance(out, dict):
         pod_id = out.get("id") or (out.get("pod") or {}).get("id")
     if not pod_id:
-        # The POST may have made the pod even though the response was lost.
         for _ in range(6):
-            ids = _ids_by_name(name)
+            ids = _ids_by_name(name)  # overwrites globals; that's fine, we saved them
             if ids:
                 pod_id = ids[0]
                 print(f"create: recovered pod {pod_id} by name '{name}'", file=sys.stderr)
                 break
             time.sleep(10)
-    return pod_id, status
+    return pod_id, status, err
+
+
+def _create_in_cloud(
+    base_body: dict, gpu_ids: list[str], name: str
+) -> tuple[str | None, int | None]:
+    """Create in one cloud, self-correcting the GPU list against RunPod's enum."""
+    body = dict(base_body)
+    body["gpuTypeIds"] = gpu_ids
+    pod_id, status, err = _post_create(body, name)
+    if pod_id:
+        return pod_id, status
+
+    # Enum rejection -> learn the allowed ids and retry with the intersection.
+    if status == 400 and "gpuTypeIds" in err:
+        allowed = _enum_from_error(err)
+        if allowed:
+            fixed = [g for g in gpu_ids if g in allowed] or allowed
+            if fixed and fixed != gpu_ids:
+                print(
+                    f"create: retrying with RunPod-accepted GPU ids "
+                    f"({len(fixed)} of {len(allowed)} allowed)",
+                    file=sys.stderr,
+                )
+                body["gpuTypeIds"] = fixed
+                pod_id, status, _ = _post_create(body, name)
+                if pod_id:
+                    return pod_id, status
+    return None, status
 
 
 def cmd_create() -> int:
     requested = [g.strip() for g in os.environ.get("GPU_TYPE_IDS", "").split(",") if g.strip()]
+    gpu_ids = list(dict.fromkeys(requested + DEFAULT_GPU_IDS))  # preference first, then fallbacks
     name = os.environ.get("POD_NAME", "ai-risk-discovery")
     clouds = [
         c.strip().upper()
@@ -195,46 +203,31 @@ def cmd_create() -> int:
         if c.strip()
     ]
     template_id = os.environ.get("POD_TEMPLATE_ID", "").strip()
-    image = os.environ.get("POD_IMAGE", DEFAULT_IMAGE)
-    public_key = os.environ.get("PUBLIC_KEY", "")
-    disk = int(os.environ.get("CONTAINER_DISK_GB", "40"))
-    vol = int(os.environ.get("VOLUME_GB", "40"))
+    base_body: dict = {
+        "name": name,
+        "computeType": "GPU",
+        "gpuCount": 1,
+        "gpuTypePriority": "availability",
+        "dataCenterPriority": "availability",
+        "containerDiskInGb": int(os.environ.get("CONTAINER_DISK_GB", "40")),
+        "volumeInGb": int(os.environ.get("VOLUME_GB", "40")),
+        "volumeMountPath": "/workspace",
+        "ports": ["8888/http", "22/tcp"],
+        "supportPublicIp": True,
+        "interruptible": False,
+        "env": {"PUBLIC_KEY": os.environ.get("PUBLIC_KEY", "")},
+    }
+    if template_id:
+        base_body["templateId"] = template_id
+    else:
+        base_body["imageName"] = os.environ.get("POD_IMAGE", DEFAULT_IMAGE)
 
-    had_any_gpu_list = False
     worst_status: int | None = None
-
     for cloud in clouds:
-        gpu_ids = _resolve_gpu_ids(requested, cloud)
-        if not gpu_ids:
-            print(f"create: no eligible >={MIN_VRAM_GB}GB GPUs for {cloud} cloud", file=sys.stderr)
-            continue
-        had_any_gpu_list = True
-        print(
-            f"create: trying {cloud} cloud with {len(gpu_ids)} candidate GPU type(s)",
-            file=sys.stderr,
-        )
-        body: dict = {
-            "name": name,
-            "computeType": "GPU",
-            "cloudType": cloud,
-            "gpuCount": 1,
-            "gpuTypeIds": gpu_ids,
-            "gpuTypePriority": "availability",
-            "dataCenterPriority": "availability",
-            "containerDiskInGb": disk,
-            "volumeInGb": vol,
-            "volumeMountPath": "/workspace",
-            "ports": ["8888/http", "22/tcp"],
-            "supportPublicIp": True,
-            "interruptible": False,
-            "env": {"PUBLIC_KEY": public_key},
-        }
-        if template_id:
-            body["templateId"] = template_id
-        else:
-            body["imageName"] = image
-
-        pod_id, status = _try_create(body, name)
+        print(f"create: trying {cloud} cloud ({len(gpu_ids)} GPU ids)", file=sys.stderr)
+        body = dict(base_body)
+        body["cloudType"] = cloud
+        pod_id, status = _create_in_cloud(body, gpu_ids, name)
         if pod_id:
             print(pod_id)  # stdout: captured by the workflow
             return 0
@@ -242,13 +235,7 @@ def cmd_create() -> int:
             worst_status = status
         print(f"create: {cloud} cloud yielded no pod; trying next option", file=sys.stderr)
 
-    if not had_any_gpu_list:
-        print(
-            "create: could not determine any eligible GPU (catalog lookup failed "
-            "and no valid GPU_TYPE_IDS provided)",
-            file=sys.stderr,
-        )
-        return 2
+    # 4xx that is NOT the (self-corrected) gpu enum means a real problem to fix.
     if worst_status is not None and 400 <= worst_status < 500:
         print(
             f"create: request rejected (HTTP {worst_status}); check API key / body",
