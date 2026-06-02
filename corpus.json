@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "taxonomy_version": "1.0",
-  "corpus_updated_at": "2026-06-02T16:29:37.337823+00:00",
+  "corpus_updated_at": "2026-06-02T19:25:29.764224+00:00",
   "runs": [
     {
       "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
@@ -343,7 +343,7 @@
       "year": 2024,
       "publication_date": "2024-11-20",
       "venue": "ACM Transactions on Information Systems",
-      "citation_count": 1415,
+      "citation_count": 2925,
       "doi": "10.1145/3703155",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -363,7 +363,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:37:06.430808Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.18653/v1/2021.findings-emnlp.320",
@@ -380,7 +381,7 @@
       "year": 2021,
       "publication_date": "2021-01-01",
       "venue": "",
-      "citation_count": 453,
+      "citation_count": 1070,
       "doi": "10.18653/v1/2021.findings-emnlp.320",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -400,7 +401,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:37:06.430808Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.18653/v1/2023.findings-emnlp.123",
@@ -418,7 +420,7 @@
       "year": 2023,
       "publication_date": "2023-01-01",
       "venue": "",
-      "citation_count": 201,
+      "citation_count": 469,
       "doi": "10.18653/v1/2023.findings-emnlp.123",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -438,7 +440,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:37:06.430808Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.7759/cureus.39238",
@@ -454,7 +457,7 @@
       "year": 2023,
       "publication_date": "2023-05-19",
       "venue": "Cureus",
-      "citation_count": 249,
+      "citation_count": 239,
       "doi": "10.7759/cureus.39238",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -474,7 +477,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:37:42.007332Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1002/asi.24896",
@@ -490,7 +494,7 @@
       "year": 2024,
       "publication_date": "2024-05-06",
       "venue": "Journal of the Association for Information Science and Technology",
-      "citation_count": 21,
+      "citation_count": 20,
       "doi": "10.1002/asi.24896",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -510,7 +514,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:37:42.007332Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.24090/celti.2025.1335",
@@ -543,7 +548,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:37:42.007332Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.48550/arxiv.2310.01061",
@@ -559,13 +565,13 @@
       "year": 2023,
       "publication_date": "2023-10-02",
       "venue": "arXiv (Cornell University)",
-      "citation_count": 39,
+      "citation_count": 525,
       "doi": "10.48550/arxiv.2310.01061",
       "arxiv_id": null,
       "semantic_scholar_id": null,
       "url": "http://arxiv.org/abs/2310.01061",
       "pdf_url": "https://arxiv.org/pdf/2310.01061",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "https://arxiv.org/pdf/2310.01061",
       "source": "openalex",
       "content_hash": "64faa69f6930dcc6c20db64ba1ab7990ecdf65950d8ce235f8a148736350f777",
       "placements": [
@@ -579,7 +585,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:37:30.273179Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1145/3586045",
@@ -594,7 +601,7 @@
       "year": 2023,
       "publication_date": "2023-04-06",
       "venue": "Proceedings of the ACM on Programming Languages",
-      "citation_count": 34,
+      "citation_count": 47,
       "doi": "10.1145/3586045",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -614,7 +621,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:37:30.273179Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1007/s10763-022-10338-7",
@@ -630,7 +638,7 @@
       "year": 2022,
       "publication_date": "2022-12-03",
       "venue": "International Journal of Science and Mathematics Education",
-      "citation_count": 24,
+      "citation_count": 21,
       "doi": "10.1007/s10763-022-10338-7",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -650,7 +658,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:37:30.273179Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.48550/arxiv.2304.03439",
@@ -668,13 +677,13 @@
       "year": 2023,
       "publication_date": "2023-04-07",
       "venue": "arXiv (Cornell University)",
-      "citation_count": 104,
+      "citation_count": 329,
       "doi": "10.48550/arxiv.2304.03439",
       "arxiv_id": null,
       "semantic_scholar_id": null,
       "url": "http://arxiv.org/abs/2304.03439",
       "pdf_url": "https://arxiv.org/pdf/2304.03439",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "http://arxiv.org/pdf/2304.03439",
       "source": "openalex",
       "content_hash": "20a802f1cde9d547df69397cb1576f961c6cb079c60f1466e296d5b430a0a124",
       "placements": [
@@ -688,7 +697,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:37:48.975743Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.18653/v1/2025.emnlp-main.681",
@@ -704,7 +714,7 @@
       "year": 2025,
       "publication_date": "2025-01-01",
       "venue": "",
-      "citation_count": 1,
+      "citation_count": 6,
       "doi": "10.18653/v1/2025.emnlp-main.681",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -724,7 +734,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:37:48.975743Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.18653/v1/2024.eacl-srw.17",
@@ -762,7 +773,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:37:48.975743Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1145/3503161.3547906",
@@ -780,7 +792,7 @@
       "year": 2022,
       "publication_date": "2022-10-10",
       "venue": "Proceedings of the 30th ACM International Conference on Multimedia",
-      "citation_count": 51,
+      "citation_count": 87,
       "doi": "10.1145/3503161.3547906",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -800,7 +812,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:38:03.904862Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1109/tiv.2021.3137805",
@@ -816,7 +829,7 @@
       "year": 2021,
       "publication_date": "2021-12-23",
       "venue": "IEEE Transactions on Intelligent Vehicles",
-      "citation_count": 29,
+      "citation_count": 27,
       "doi": "10.1109/tiv.2021.3137805",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -836,7 +849,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:38:03.904862Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1145/3434073.3444671",
@@ -854,7 +868,7 @@
       "year": 2021,
       "publication_date": "2021-03-05",
       "venue": "",
-      "citation_count": 23,
+      "citation_count": 29,
       "doi": "10.1145/3434073.3444671",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -874,7 +888,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:38:03.904862Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.7717/peerj-cs.2245",
@@ -889,7 +904,7 @@
       "year": 2024,
       "publication_date": "2024-09-06",
       "venue": "PeerJ Computer Science",
-      "citation_count": 118,
+      "citation_count": 132,
       "doi": "10.7717/peerj-cs.2245",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -909,7 +924,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:39:16.109357Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.3906/elk-2006-143",
@@ -922,7 +938,7 @@
       "year": 2020,
       "publication_date": "2020-10-27",
       "venue": "TURKISH JOURNAL OF ELECTRICAL ENGINEERING & COMPUTER SCIENCES",
-      "citation_count": 5,
+      "citation_count": 4,
       "doi": "10.3906/elk-2006-143",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -942,7 +958,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:39:16.109357Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.29207/joseit.v2i2.5460",
@@ -956,7 +973,7 @@
       "year": 2023,
       "publication_date": "2023-10-03",
       "venue": "Journal of Systems Engineering and Information Technology (JOSEIT)",
-      "citation_count": 16,
+      "citation_count": 12,
       "doi": "10.29207/joseit.v2i2.5460",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -976,7 +993,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:39:16.109357Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.57702/uwcm8hhf",
@@ -995,7 +1013,7 @@
       "semantic_scholar_id": null,
       "url": "https://doi.org/10.57702/uwcm8hhf",
       "pdf_url": "https://doi.org/10.57702/uwcm8hhf",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "https://doi.org/10.57702/uwcm8hhf",
       "source": "openalex",
       "content_hash": "0600952aeb7e7ee220b24f01330be1858009520885fa2717d3f12f050fd6800d",
       "placements": [
@@ -1009,7 +1027,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:38:21.660073Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.18653/v1/2020.acl-main.244",
@@ -1027,7 +1046,7 @@
       "year": 2020,
       "publication_date": "2020-01-01",
       "venue": "",
-      "citation_count": 292,
+      "citation_count": 487,
       "doi": "10.18653/v1/2020.acl-main.244",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -1047,7 +1066,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:38:21.660073Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1109/tnnls.2023.3330864",
@@ -1067,7 +1087,7 @@
       "year": 2023,
       "publication_date": "2023-11-17",
       "venue": "IEEE Transactions on Neural Networks and Learning Systems",
-      "citation_count": 100,
+      "citation_count": 88,
       "doi": "10.1109/tnnls.2023.3330864",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -1087,7 +1107,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:38:21.660073Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.24963/ijcai.2021/591",
@@ -1104,7 +1125,7 @@
       "year": 2021,
       "publication_date": "2021-08-01",
       "venue": "",
-      "citation_count": 434,
+      "citation_count": 635,
       "doi": "10.24963/ijcai.2021/591",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -1124,7 +1145,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:38:51.091349Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1109/cvpr52688.2022.01473",
@@ -1141,13 +1163,13 @@
       "year": 2022,
       "publication_date": "2022-06-01",
       "venue": "2022 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)",
-      "citation_count": 134,
+      "citation_count": 207,
       "doi": "10.1109/cvpr52688.2022.01473",
       "arxiv_id": null,
       "semantic_scholar_id": null,
       "url": "https://doi.org/10.1109/cvpr52688.2022.01473",
       "pdf_url": "",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "https://arxiv.org/pdf/2201.05057",
       "source": "openalex",
       "content_hash": "8e4698340fa2194e335c6bf2b3f36107677289e6dd43cb5fb063dbdb64930ffa",
       "placements": [
@@ -1161,7 +1183,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:38:51.091349Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1186/s12880-020-00530-y",
@@ -1176,7 +1199,7 @@
       "year": 2021,
       "publication_date": "2021-01-07",
       "venue": "BMC Medical Imaging",
-      "citation_count": 153,
+      "citation_count": 144,
       "doi": "10.1186/s12880-020-00530-y",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -1196,7 +1219,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:38:51.091349Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1145/3605764.3623985",
@@ -1214,13 +1238,13 @@
       "year": 2023,
       "publication_date": "2023-11-21",
       "venue": "arXiv (Cornell University)",
-      "citation_count": 328,
+      "citation_count": 1319,
       "doi": "10.1145/3605764.3623985",
       "arxiv_id": null,
       "semantic_scholar_id": null,
       "url": "https://doi.org/10.1145/3605764.3623985",
       "pdf_url": "https://arxiv.org/pdf/2302.12173",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "https://arxiv.org/pdf/2302.12173",
       "source": "openalex",
       "content_hash": "c5564fe54f782dd4158f287a9e59d8f9c36cc144e25ddec867a5b9a3638db1d2",
       "placements": [
@@ -1234,7 +1258,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:39:07.009725Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1038/s41467-024-55631-x",
@@ -1254,7 +1279,7 @@
       "year": 2025,
       "publication_date": "2025-02-01",
       "venue": "Nature Communications",
-      "citation_count": 34,
+      "citation_count": 53,
       "doi": "10.1038/s41467-024-55631-x",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -1274,7 +1299,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:39:07.009725Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1145/3658644.3690291",
@@ -1293,7 +1319,7 @@
       "year": 2024,
       "publication_date": "2024-12-02",
       "venue": "",
-      "citation_count": 41,
+      "citation_count": 172,
       "doi": "10.1145/3658644.3690291",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -1313,7 +1339,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:39:07.009725Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1109/satml64287.2025.00010",
@@ -1331,7 +1358,7 @@
       "year": 2025,
       "publication_date": "2025-04-09",
       "venue": "arXiv (Cornell University)",
-      "citation_count": 88,
+      "citation_count": 1452,
       "doi": "10.1109/satml64287.2025.00010",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -1351,7 +1378,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:40:21.979952Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1145/3658644.3670388",
@@ -1368,7 +1396,7 @@
       "year": 2024,
       "publication_date": "2024-12-02",
       "venue": "arXiv (Cornell University)",
-      "citation_count": 165,
+      "citation_count": 631,
       "doi": "10.1145/3658644.3670388",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -1388,7 +1416,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:40:21.979952Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.48550/arxiv.2307.15043",
@@ -1401,13 +1430,13 @@
       "year": 2023,
       "publication_date": "2023-07-27",
       "venue": "arXiv (Cornell University)",
-      "citation_count": 184,
+      "citation_count": 185,
       "doi": "10.48550/arxiv.2307.15043",
       "arxiv_id": null,
       "semantic_scholar_id": null,
       "url": "http://arxiv.org/abs/2307.15043",
       "pdf_url": "https://arxiv.org/pdf/2307.15043",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "https://arxiv.org/pdf/2307.15043",
       "source": "openalex",
       "content_hash": "3c23cbaa3604327d4c20f8bfa94170a88d077502cefabdcc67289429c041fba3",
       "placements": [
@@ -1421,7 +1450,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:40:21.979952Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1109/cvpr42600.2020.00090",
@@ -1439,13 +1469,13 @@
       "year": 2020,
       "publication_date": "2020-06-01",
       "venue": "",
-      "citation_count": 466,
+      "citation_count": 622,
       "doi": "10.1109/cvpr42600.2020.00090",
       "arxiv_id": null,
       "semantic_scholar_id": null,
       "url": "https://doi.org/10.1109/cvpr42600.2020.00090",
       "pdf_url": "",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "https://arxiv.org/pdf/1911.09665",
       "source": "openalex",
       "content_hash": "f678c94bf0153b705c25b51e86699aa271223cf1fcc63e8ecc81aa0102a8a786",
       "placements": [
@@ -1459,7 +1489,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:39:59.916349Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1109/cvpr46437.2021.01501",
@@ -1476,13 +1507,13 @@
       "year": 2021,
       "publication_date": "2021-06-01",
       "venue": "",
-      "citation_count": 760,
+      "citation_count": 1922,
       "doi": "10.1109/cvpr46437.2021.01501",
       "arxiv_id": null,
       "semantic_scholar_id": null,
       "url": "https://doi.org/10.1109/cvpr46437.2021.01501",
       "pdf_url": "",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "https://arxiv.org/pdf/1907.07174",
       "source": "openalex",
       "content_hash": "484a9a022862d907fb0de95012c4d9f02a8e665ef563f7deb26fd2940f9dc314",
       "placements": [
@@ -1496,7 +1527,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:39:59.916349Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1038/s41591-024-03445-1",
@@ -1541,7 +1573,7 @@
       "year": 2025,
       "publication_date": "2025-01-08",
       "venue": "Nature Medicine",
-      "citation_count": 147,
+      "citation_count": 181,
       "doi": "10.1038/s41591-024-03445-1",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -1561,7 +1593,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:40:46.828392Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1109/jiot.2021.3128646",
@@ -1579,13 +1612,13 @@
       "year": 2021,
       "publication_date": "2021-11-17",
       "venue": "IEEE Internet of Things Journal",
-      "citation_count": 276,
+      "citation_count": 288,
       "doi": "10.1109/jiot.2021.3128646",
       "arxiv_id": null,
       "semantic_scholar_id": null,
       "url": "https://doi.org/10.1109/jiot.2021.3128646",
       "pdf_url": "",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "http://arxiv.org/pdf/2004.10020",
       "source": "openalex",
       "content_hash": "e2d6ac28e81081f4c687b07c94aeb6d671f63b7a87c59de260b9bfcae46ca879",
       "placements": [
@@ -1599,7 +1632,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:40:46.828392Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1109/tdsc.2020.3021407",
@@ -1616,13 +1650,13 @@
       "year": 2020,
       "publication_date": "2020-01-01",
       "venue": "IEEE Transactions on Dependable and Secure Computing",
-      "citation_count": 283,
+      "citation_count": 400,
       "doi": "10.1109/tdsc.2020.3021407",
       "arxiv_id": null,
       "semantic_scholar_id": null,
       "url": "https://doi.org/10.1109/tdsc.2020.3021407",
       "pdf_url": "",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "https://arxiv.org/pdf/1909.02742",
       "source": "openalex",
       "content_hash": "e0c5a4bba77b9f6c68d06f8a6c5223b22fbbc3df5486d9faefab91653c694cc9",
       "placements": [
@@ -1636,7 +1670,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:40:46.828392Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.3390/computers12100209",
@@ -1652,7 +1687,7 @@
       "year": 2023,
       "publication_date": "2023-10-17",
       "venue": "Computers",
-      "citation_count": 19,
+      "citation_count": 18,
       "doi": "10.3390/computers12100209",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -1672,7 +1707,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:40:53.587000Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.48550/arxiv.2505.15803",
@@ -1709,7 +1745,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:40:53.587000Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "content_hash:cc4eefc6aaa513a56cfb734cdcf77d03a67549cc59d4ecefb9d2d2528e647895",
@@ -1747,7 +1784,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:40:53.587000Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1109/ijcnn48605.2020.9207181",
@@ -1761,7 +1799,7 @@
       "year": 2020,
       "publication_date": "2020-07-01",
       "venue": "",
-      "citation_count": 207,
+      "citation_count": 275,
       "doi": "10.1109/ijcnn48605.2020.9207181",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -1781,7 +1819,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:41:37.183927Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1609/aaai.v35i10.17049",
@@ -1796,7 +1835,7 @@
       "year": 2021,
       "publication_date": "2021-05-18",
       "venue": "Proceedings of the AAAI Conference on Artificial Intelligence",
-      "citation_count": 106,
+      "citation_count": 172,
       "doi": "10.1609/aaai.v35i10.17049",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -1816,7 +1855,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:41:37.183927Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.3390/systems9040089",
@@ -1830,7 +1870,7 @@
       "year": 2021,
       "publication_date": "2021-12-19",
       "venue": "Systems",
-      "citation_count": 2,
+      "citation_count": 1,
       "doi": "10.3390/systems9040089",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -1850,7 +1890,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:41:00.225968Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1609/aaai.v38i9.28875",
@@ -1884,7 +1925,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:42:14.678962Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.48550/arxiv.2604.08303",
@@ -1904,7 +1946,7 @@
       "semantic_scholar_id": null,
       "url": "https://doi.org/10.48550/arxiv.2604.08303",
       "pdf_url": "https://doi.org/10.48550/arxiv.2604.08303",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "https://doi.org/10.48550/arxiv.2604.08303",
       "source": "openalex",
       "content_hash": "d0597e422f075ca8b8dc51493cc947ff8a37322db9f6f80d486f7f861c71022d",
       "placements": [
@@ -1918,7 +1960,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:42:14.678962Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.5281/zenodo.19709312",
@@ -1937,7 +1980,7 @@
       "semantic_scholar_id": null,
       "url": "https://doi.org/10.5281/zenodo.19709312",
       "pdf_url": "https://doi.org/10.5281/zenodo.19709312",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "https://doi.org/10.5281/zenodo.19709312",
       "source": "openalex",
       "content_hash": "4bc292ff5f38d25b826b0545554379d422418c30b9f7810b026a24a6aef1dd78",
       "placements": [
@@ -1951,7 +1994,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:42:14.678962Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1038/s41467-025-57582-3",
@@ -1969,7 +2013,7 @@
       "year": 2025,
       "publication_date": "2025-03-11",
       "venue": "Nature Communications",
-      "citation_count": 13,
+      "citation_count": 18,
       "doi": "10.1038/s41467-025-57582-3",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -1989,7 +2033,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:42:29.264700Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.48550/arxiv.2209.13085",
@@ -2005,13 +2050,13 @@
       "year": 2022,
       "publication_date": "2022-09-27",
       "venue": "arXiv (Cornell University)",
-      "citation_count": 18,
+      "citation_count": 139,
       "doi": "10.48550/arxiv.2209.13085",
       "arxiv_id": null,
       "semantic_scholar_id": null,
       "url": "http://arxiv.org/abs/2209.13085",
       "pdf_url": "https://arxiv.org/pdf/2209.13085",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "http://arxiv.org/pdf/2209.13085",
       "source": "openalex",
       "content_hash": "5fa4d8f05a550bc4bb305c42f1e14bc35b9da82fe7b5708c84c382b755dcc5f2",
       "placements": [
@@ -2025,7 +2070,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:42:29.264700Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.48550/arxiv.2501.09620",
@@ -2048,7 +2094,7 @@
       "year": 2025,
       "publication_date": "2025-01-16",
       "venue": "ArXiv.org",
-      "citation_count": 1,
+      "citation_count": 36,
       "doi": "10.48550/arxiv.2501.09620",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -2068,7 +2114,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:42:29.264700Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1007/s11229-023-04367-0",
@@ -2081,7 +2128,7 @@
       "year": 2023,
       "publication_date": "2023-10-26",
       "venue": "Synthese",
-      "citation_count": 45,
+      "citation_count": 67,
       "doi": "10.1007/s11229-023-04367-0",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -2101,7 +2148,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:42:21.695792Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1002/aaai.12064",
@@ -2116,7 +2164,7 @@
       "year": 2022,
       "publication_date": "2022-08-29",
       "venue": "AI Magazine",
-      "citation_count": 31,
+      "citation_count": 40,
       "doi": "10.1002/aaai.12064",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -2136,7 +2184,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:42:21.695792Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.48550/arxiv.2511.23092",
@@ -2170,7 +2219,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:42:21.695792Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.48550/arxiv.2410.19749",
@@ -2203,7 +2253,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:43:06.557326Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.48550/arxiv.2507.05619",
@@ -2218,7 +2269,7 @@
       "year": 2025,
       "publication_date": "2025-07-08",
       "venue": "ArXiv.org",
-      "citation_count": 0,
+      "citation_count": 5,
       "doi": "10.48550/arxiv.2507.05619",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -2238,7 +2289,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:43:06.557326Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.5281/zenodo.18202077",
@@ -2257,7 +2309,7 @@
       "semantic_scholar_id": null,
       "url": "https://doi.org/10.5281/zenodo.18202077",
       "pdf_url": "https://doi.org/10.5281/zenodo.18202077",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "https://doi.org/10.5281/zenodo.18202077",
       "source": "openalex",
       "content_hash": "2190b390dddc4d754fe0c12933dfa03779c6d6a69bf8e8031212a567de4054ad",
       "placements": [
@@ -2271,7 +2323,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:43:06.557326Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1038/s41586-025-09937-5",
@@ -2292,7 +2345,7 @@
       "year": 2026,
       "publication_date": "2026-01-14",
       "venue": "Nature",
-      "citation_count": 10,
+      "citation_count": 137,
       "doi": "10.1038/s41586-025-09937-5",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -2312,7 +2365,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:44:22.720745Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.48550/arxiv.2105.14111",
@@ -2336,7 +2390,7 @@
       "semantic_scholar_id": null,
       "url": "http://arxiv.org/abs/2105.14111",
       "pdf_url": "https://arxiv.org/pdf/2105.14111",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "https://arxiv.org/pdf/2105.14111",
       "source": "openalex",
       "content_hash": "59c6b74f5352191e6284a35989ee1e62d0a8c754c812c83d3d4d64b6a2ac10aa",
       "placements": [
@@ -2350,7 +2404,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:44:22.720745Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1007/s11098-024-02249-w",
@@ -2366,7 +2421,7 @@
       "year": 2024,
       "publication_date": "2024-11-09",
       "venue": "Philosophical Studies",
-      "citation_count": 20,
+      "citation_count": 56,
       "doi": "10.1007/s11098-024-02249-w",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -2386,7 +2441,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:44:22.720745Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.5281/zenodo.20045463",
@@ -2405,7 +2461,7 @@
       "semantic_scholar_id": null,
       "url": "https://doi.org/10.5281/zenodo.20045463",
       "pdf_url": "https://doi.org/10.5281/zenodo.20045463",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "https://doi.org/10.5281/zenodo.20045463",
       "source": "openalex",
       "content_hash": "7df300c217781bd93792095d978111f8b27ccb6f23d1a4fb79a03a16a83e7858",
       "placements": [
@@ -2419,7 +2475,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:44:16.829328Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1007/s11098-024-02099-6",
@@ -2433,7 +2490,7 @@
       "year": 2024,
       "publication_date": "2024-06-06",
       "venue": "Philosophical Studies",
-      "citation_count": 3,
+      "citation_count": 8,
       "doi": "10.1007/s11098-024-02099-6",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -2453,7 +2510,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:44:16.829328Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.5281/zenodo.19622135",
@@ -2472,7 +2530,7 @@
       "semantic_scholar_id": null,
       "url": "https://doi.org/10.5281/zenodo.19622135",
       "pdf_url": "https://doi.org/10.5281/zenodo.19622135",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "https://doi.org/10.5281/zenodo.19622135",
       "source": "openalex",
       "content_hash": "35dc04e57a3dd7a0102b19a0b411ce7afa9c9a1dee6648f52b8410b5de5c7beb",
       "placements": [
@@ -2486,7 +2544,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:44:16.829328Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1073/pnas.2317967121",
@@ -2499,7 +2558,7 @@
       "year": 2024,
       "publication_date": "2024-06-04",
       "venue": "Proceedings of the National Academy of Sciences",
-      "citation_count": 67,
+      "citation_count": 165,
       "doi": "10.1073/pnas.2317967121",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -2519,7 +2578,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:43:36.337900Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.5281/zenodo.19410194",
@@ -2538,7 +2598,7 @@
       "semantic_scholar_id": null,
       "url": "https://doi.org/10.5281/zenodo.19410194",
       "pdf_url": "https://doi.org/10.5281/zenodo.19410194",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "https://doi.org/10.5281/zenodo.19410194",
       "source": "openalex",
       "content_hash": "90331a190b87a9bae9f3f11bec3312ecb3595f4c2c63c257311441321614a6d3",
       "placements": [
@@ -2552,7 +2612,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:43:36.337900Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.48550/arxiv.2311.08379",
@@ -2565,7 +2626,7 @@
       "year": 2023,
       "publication_date": "2023-11-14",
       "venue": "arXiv (Cornell University)",
-      "citation_count": 7,
+      "citation_count": 75,
       "doi": "10.48550/arxiv.2311.08379",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -2585,7 +2646,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:43:36.337900Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.48550/arxiv.2309.05858",
@@ -2609,13 +2671,13 @@
       "year": 2023,
       "publication_date": "2023-09-11",
       "venue": "arXiv (Cornell University)",
-      "citation_count": 5,
+      "citation_count": 100,
       "doi": "10.48550/arxiv.2309.05858",
       "arxiv_id": null,
       "semantic_scholar_id": null,
       "url": "http://arxiv.org/abs/2309.05858",
       "pdf_url": "https://arxiv.org/pdf/2309.05858",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "https://arxiv.org/pdf/2309.05858",
       "source": "openalex",
       "content_hash": "4de7f860e902698c4c9a0fa4fbfbea776fe684e9e35c341196ec2885eafc4585",
       "placements": [
@@ -2629,7 +2691,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:44:45.092520Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.3390/machines10050355",
@@ -2663,7 +2726,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:44:45.092520Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1186/s13321-025-00972-y",
@@ -2681,7 +2745,7 @@
       "year": 2025,
       "publication_date": "2025-03-14",
       "venue": "Journal of Cheminformatics",
-      "citation_count": 10,
+      "citation_count": 12,
       "doi": "10.1186/s13321-025-00972-y",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -2701,7 +2765,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:45:12.688459Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.48550/arxiv.2502.13295",
@@ -2717,7 +2782,7 @@
       "year": 2025,
       "publication_date": "2025-02-18",
       "venue": "ArXiv.org",
-      "citation_count": 2,
+      "citation_count": 35,
       "doi": "10.48550/arxiv.2502.13295",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -2737,7 +2802,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:45:12.688459Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.48550/arxiv.2210.01790",
@@ -2756,13 +2822,13 @@
       "year": 2022,
       "publication_date": "2022-10-04",
       "venue": "arXiv (Cornell University)",
-      "citation_count": 14,
+      "citation_count": 127,
       "doi": "10.48550/arxiv.2210.01790",
       "arxiv_id": null,
       "semantic_scholar_id": null,
       "url": "http://arxiv.org/abs/2210.01790",
       "pdf_url": "https://arxiv.org/pdf/2210.01790",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "https://arxiv.org/pdf/2210.01790",
       "source": "openalex",
       "content_hash": "84736eddcafaa5cf68ab518e3c0794ff08d2c8cede60ecee4ee3d62f091c0e2a",
       "placements": [
@@ -2776,7 +2842,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:45:12.688459Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1145/3697010",
@@ -2792,7 +2859,7 @@
       "year": 2024,
       "publication_date": "2024-09-26",
       "venue": "ACM Transactions on Software Engineering and Methodology",
-      "citation_count": 135,
+      "citation_count": 272,
       "doi": "10.1145/3697010",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -2812,7 +2879,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:45:31.611219Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.48550/arxiv.2407.10457",
@@ -2828,7 +2896,7 @@
       "year": 2024,
       "publication_date": "2024-07-15",
       "venue": "arXiv (Cornell University)",
-      "citation_count": 7,
+      "citation_count": 145,
       "doi": "10.48550/arxiv.2407.10457",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -2848,7 +2916,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:45:31.611219Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.48550/arxiv.2311.15180",
@@ -2861,7 +2930,7 @@
       "year": 2023,
       "publication_date": "2023-11-26",
       "venue": "arXiv (Cornell University)",
-      "citation_count": 1,
+      "citation_count": 8,
       "doi": "10.48550/arxiv.2311.15180",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -2881,7 +2950,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:45:31.611219Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1109/tpwrs.2020.3012625",
@@ -2895,7 +2965,7 @@
       "year": 2020,
       "publication_date": "2020-08-05",
       "venue": "IEEE Transactions on Power Systems",
-      "citation_count": 17,
+      "citation_count": 11,
       "doi": "10.1109/tpwrs.2020.3012625",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -2915,7 +2985,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:45:59.869497Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1109/icaic67076.2026.11395759",
@@ -2948,7 +3019,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:45:59.869497Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.22541/essoar.175096357.77091817/v1",
@@ -2986,7 +3058,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:45:59.869497Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1007/s43681-025-00825-2",
@@ -3023,7 +3096,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:46:15.054410Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1080/00140139.2023.2210793",
@@ -3037,7 +3111,7 @@
       "year": 2023,
       "publication_date": "2023-05-04",
       "venue": "Ergonomics",
-      "citation_count": 20,
+      "citation_count": 17,
       "doi": "10.1080/00140139.2023.2210793",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -3057,7 +3131,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:46:15.054410Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1080/10447318.2023.2265240",
@@ -3090,7 +3165,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:46:15.054410Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "arxiv_id:2503.06606v1",
@@ -3126,7 +3202,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:46:52.594020Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "arxiv_id:2603.22608v2",
@@ -3161,7 +3238,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:46:52.594020Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "arxiv_id:2505.00913v1",
@@ -3196,7 +3274,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:46:52.594020Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "arxiv_id:2511.03106v1",
@@ -3234,7 +3313,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:46:57.344430Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.14778/3565838.3565853",
@@ -3248,13 +3328,13 @@
       "year": 2022,
       "publication_date": "2022-09-01",
       "venue": "Proceedings of the VLDB Endowment",
-      "citation_count": 14,
+      "citation_count": 21,
       "doi": "10.14778/3565838.3565853",
       "arxiv_id": null,
       "semantic_scholar_id": null,
       "url": "https://doi.org/10.14778/3565838.3565853",
       "pdf_url": "https://arxiv.org/pdf/2108.13557",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "https://arxiv.org/pdf/2108.13557",
       "source": "openalex",
       "content_hash": "5cfdd0499b72dae30502cc476b5ac2f2e9366a12ec0d1b0af72f51e15bc8735a",
       "placements": [
@@ -3268,7 +3348,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:46:57.344430Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.48550/arxiv.2603.23171",
@@ -3290,7 +3371,7 @@
       "semantic_scholar_id": null,
       "url": "http://arxiv.org/abs/2603.23171",
       "pdf_url": "https://arxiv.org/pdf/2603.23171",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "https://doi.org/10.48550/arxiv.2603.23171",
       "source": "openalex",
       "content_hash": "5021eee87955b675861f67fe02da8683590d0f16c7d3005b36e1e06b7b6b5068",
       "placements": [
@@ -3304,7 +3385,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:46:57.344430Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1038/s41467-024-48526-4",
@@ -3318,7 +3400,7 @@
       "year": 2024,
       "publication_date": "2024-06-18",
       "venue": "Nature Communications",
-      "citation_count": 113,
+      "citation_count": 115,
       "doi": "10.1038/s41467-024-48526-4",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -3338,7 +3420,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:47:45.726733Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1145/3597503.3639175",
@@ -3355,7 +3438,7 @@
       "year": 2024,
       "publication_date": "2024-04-12",
       "venue": "",
-      "citation_count": 11,
+      "citation_count": 15,
       "doi": "10.1145/3597503.3639175",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -3375,7 +3458,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:47:45.726733Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1177/03611981211018461",
@@ -3411,7 +3495,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:47:45.726733Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1007/s10994-025-06834-w",
@@ -3447,7 +3532,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:48:17.539461Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1145/3765612.3768142",
@@ -3468,7 +3554,7 @@
       "year": 2025,
       "publication_date": "2025-10-12",
       "venue": "",
-      "citation_count": 0,
+      "citation_count": 1,
       "doi": "10.1145/3765612.3768142",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -3488,7 +3574,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:48:17.539461Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "content_hash:14a7be5e67e9ef53b74c61a36082ff25d7aa4b6a7d46b0364cd4524772612453",
@@ -3534,7 +3621,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:48:17.539461Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.3390/eng4010025",
@@ -3548,7 +3636,7 @@
       "year": 2023,
       "publication_date": "2023-02-01",
       "venue": "Eng—Advances in Engineering",
-      "citation_count": 85,
+      "citation_count": 94,
       "doi": "10.3390/eng4010025",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -3568,7 +3656,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:48:30.997197Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1080/0966369x.2025.2513073",
@@ -3582,7 +3671,7 @@
       "year": 2025,
       "publication_date": "2025-06-16",
       "venue": "Gender Place & Culture",
-      "citation_count": 1,
+      "citation_count": 0,
       "doi": "10.1080/0966369x.2025.2513073",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -3602,7 +3691,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:48:30.997197Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.3390/rs12183075",
@@ -3620,7 +3710,7 @@
       "year": 2020,
       "publication_date": "2020-09-19",
       "venue": "Remote Sensing",
-      "citation_count": 25,
+      "citation_count": 24,
       "doi": "10.3390/rs12183075",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -3640,7 +3730,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:48:30.997197Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.5194/nhess-22-3831-2022",
@@ -3676,7 +3767,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:49:31.168720Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1021/acs.est.1c00024",
@@ -3697,7 +3789,7 @@
       "year": 2021,
       "publication_date": "2021-04-30",
       "venue": "Environmental Science & Technology",
-      "citation_count": 175,
+      "citation_count": 153,
       "doi": "10.1021/acs.est.1c00024",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -3717,7 +3809,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:49:31.168720Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1080/23789689.2022.2127999",
@@ -3737,7 +3830,7 @@
       "year": 2022,
       "publication_date": "2022-09-30",
       "venue": "Sustainable and Resilient Infrastructure",
-      "citation_count": 16,
+      "citation_count": 14,
       "doi": "10.1080/23789689.2022.2127999",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -3757,7 +3850,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:49:31.168720Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.37934/arca.39.1.7786a",
@@ -3791,7 +3885,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:49:28.372340Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.63056/acad.004.04.1420",
@@ -3806,7 +3901,7 @@
       "year": 2025,
       "publication_date": "2025-12-26",
       "venue": "ACADEMIA International Journal for Social Sciences",
-      "citation_count": 0,
+      "citation_count": 1,
       "doi": "10.63056/acad.004.04.1420",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -3826,7 +3921,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:49:28.372340Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.29121/shodhkosh.v5.i7.2024.6508",
@@ -3859,7 +3955,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:49:28.372340Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.64898/2026.01.12.26343914",
@@ -3909,7 +4006,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:49:43.170579Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.36838/ijhsr89.5",
@@ -3942,7 +4040,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:49:43.170579Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.7441/joc.2021.02.06",
@@ -3958,7 +4057,7 @@
       "year": 2021,
       "publication_date": "2021-06-30",
       "venue": "Journal of Competitiveness",
-      "citation_count": 12,
+      "citation_count": 13,
       "doi": "10.7441/joc.2021.02.06",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -3978,7 +4077,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:51:29.027914Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.26794/2408-9303-2024-11-4-6-22",
@@ -4011,7 +4111,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:51:29.027914Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.24891/ia.23.11.1220",
@@ -4025,7 +4126,7 @@
       "year": 2020,
       "publication_date": "2020-11-13",
       "venue": "International Accounting",
-      "citation_count": 3,
+      "citation_count": 1,
       "doi": "10.24891/ia.23.11.1220",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -4045,7 +4146,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:51:29.027914Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.22214/ijraset.2025.71745",
@@ -4078,7 +4180,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:52:01.078638Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1145/3607505.3607513",
@@ -4096,7 +4199,7 @@
       "year": 2023,
       "publication_date": "2023-08-07",
       "venue": "",
-      "citation_count": 71,
+      "citation_count": 86,
       "doi": "10.1145/3607505.3607513",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -4116,7 +4219,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:52:42.308901Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.5121/csit.2026.160902",
@@ -4130,7 +4234,7 @@
       "year": 2026,
       "publication_date": "2026-05-16",
       "venue": "arXiv",
-      "citation_count": 0,
+      "citation_count": 1,
       "doi": "10.5121/csit.2026.160902",
       "arxiv_id": "2603.09044v1",
       "semantic_scholar_id": null,
@@ -4150,7 +4254,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:52:42.308901Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.52783/jisem.v10i42s.8363",
@@ -4183,7 +4288,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:52:42.308901Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.3390/jcp5020018",
@@ -4201,7 +4307,7 @@
       "year": 2025,
       "publication_date": "2025-04-27",
       "venue": "Journal of Cybersecurity and Privacy",
-      "citation_count": 8,
+      "citation_count": 13,
       "doi": "10.3390/jcp5020018",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -4221,7 +4327,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:52:26.081897Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.48550/arxiv.2502.07663",
@@ -4249,7 +4356,7 @@
       "year": 2025,
       "publication_date": "2025-02-11",
       "venue": "ArXiv.org",
-      "citation_count": 5,
+      "citation_count": 25,
       "doi": "10.48550/arxiv.2502.07663",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -4269,7 +4376,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:52:26.081897Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1177/14614448221099228",
@@ -4282,7 +4390,7 @@
       "year": 2022,
       "publication_date": "2022-07-01",
       "venue": "New Media & Society",
-      "citation_count": 8,
+      "citation_count": 9,
       "doi": "10.1177/14614448221099228",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -4302,7 +4410,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:52:26.081897Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "content_hash:ff1aaeabcc5363a22b608a696d02cb49df1887a2ba1ce2b7197ef2980b0a562c",
@@ -4336,7 +4445,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:53:08.045773Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.48550/arxiv.2103.00847",
@@ -4357,7 +4467,7 @@
       "semantic_scholar_id": null,
       "url": "http://arxiv.org/abs/2103.00847",
       "pdf_url": "https://arxiv.org/pdf/2103.00847",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "https://arxiv.org/pdf/2103.00847",
       "source": "openalex",
       "content_hash": "d480758415b62442ca45bd5211834418a18f3e7cc2bda82cc6b49ba276facd0c",
       "placements": [
@@ -4371,7 +4481,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:53:45.507399Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "arxiv_id:2508.11579v1",
@@ -4408,7 +4519,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:53:45.507399Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "arxiv_id:2507.21150v1",
@@ -4442,7 +4554,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:53:45.507399Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1109/eurosp53844.2022.00049",
@@ -4459,7 +4572,7 @@
       "year": 2022,
       "publication_date": "2022-06-01",
       "venue": "",
-      "citation_count": 213,
+      "citation_count": 328,
       "doi": "10.1109/eurosp53844.2022.00049",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -4479,7 +4592,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:54:21.173845Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1145/3374217",
@@ -4495,7 +4609,7 @@
       "year": 2020,
       "publication_date": "2020-04-03",
       "venue": "ACM Transactions on Intelligent Systems and Technology",
-      "citation_count": 413,
+      "citation_count": 274,
       "doi": "10.1145/3374217",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -4515,7 +4629,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:54:21.173845Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1016/j.egyr.2021.11.026",
@@ -4529,7 +4644,7 @@
       "year": 2021,
       "publication_date": "2021-11-26",
       "venue": "Energy Reports",
-      "citation_count": 45,
+      "citation_count": 46,
       "doi": "10.1016/j.egyr.2021.11.026",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -4549,7 +4664,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:54:21.173845Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1109/tifs.2025.3530691",
@@ -4587,7 +4703,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:54:57.637719Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1145/3634737.3657002",
@@ -4603,7 +4720,7 @@
       "year": 2024,
       "publication_date": "2024-06-28",
       "venue": "",
-      "citation_count": 17,
+      "citation_count": 37,
       "doi": "10.1145/3634737.3657002",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -4623,7 +4740,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:54:57.637719Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1145/3665451.3665533",
@@ -4638,7 +4756,7 @@
       "year": 2024,
       "publication_date": "2024-07-02",
       "venue": "arXiv (Cornell University)",
-      "citation_count": 13,
+      "citation_count": 61,
       "doi": "10.1145/3665451.3665533",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -4658,7 +4776,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:54:57.637719Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.20944/preprints202603.1963.v1",
@@ -4691,7 +4810,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:55:33.273433Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.48550/arxiv.2605.11418",
@@ -4712,7 +4832,7 @@
       "semantic_scholar_id": null,
       "url": "https://doi.org/10.48550/arxiv.2605.11418",
       "pdf_url": "https://doi.org/10.48550/arxiv.2605.11418",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "https://doi.org/10.48550/arxiv.2605.11418",
       "source": "openalex",
       "content_hash": "ad3f33fa6a8c57519a8d975647cd353c32d13ec83c99fe2d6139c67f57e708d5",
       "placements": [
@@ -4726,7 +4846,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:55:33.273433Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.55041/ijsrem40091",
@@ -4759,7 +4880,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:55:33.273433Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1109/icde53745.2022.00100",
@@ -4778,7 +4900,7 @@
       "year": 2022,
       "publication_date": "2022-05-01",
       "venue": "2022 IEEE 38th International Conference on Data Engineering (ICDE)",
-      "citation_count": 16,
+      "citation_count": 14,
       "doi": "10.1109/icde53745.2022.00100",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -4798,7 +4920,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:55:56.255432Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1109/tifs.2023.3322315",
@@ -4817,7 +4940,7 @@
       "year": 2023,
       "publication_date": "2023-10-05",
       "venue": "IEEE Transactions on Information Forensics and Security",
-      "citation_count": 31,
+      "citation_count": 28,
       "doi": "10.1109/tifs.2023.3322315",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -4837,7 +4960,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:55:56.255432Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1109/access.2025.3571995",
@@ -4853,7 +4977,7 @@
       "year": 2025,
       "publication_date": "2025-01-01",
       "venue": "IEEE Access",
-      "citation_count": 6,
+      "citation_count": 10,
       "doi": "10.1109/access.2025.3571995",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -4873,7 +4997,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:55:56.255432Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.18653/v1/2024.findings-emnlp.346",
@@ -4891,7 +5016,7 @@
       "year": 2024,
       "publication_date": "2024-01-01",
       "venue": "",
-      "citation_count": 5,
+      "citation_count": 12,
       "doi": "10.18653/v1/2024.findings-emnlp.346",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -4911,7 +5036,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:55:49.656669Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.58496/mjaih/2024/019",
@@ -4946,7 +5072,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:55:49.656669Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1109/ism66958.2025.00011",
@@ -4979,7 +5106,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:55:49.656669Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.25394/pgs.24983289.v1",
@@ -4998,7 +5126,7 @@
       "semantic_scholar_id": null,
       "url": "https://figshare.com/articles/thesis/MEMBERSHIP_INFERENCE_ATTACKS_AND_DEFENSES_IN_CLASSIFICATION_MODELS/24983289",
       "pdf_url": "https://figshare.com/articles/thesis/MEMBERSHIP_INFERENCE_ATTACKS_AND_DEFENSES_IN_CLASSIFICATION_MODELS/24983289",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "https://figshare.com/articles/thesis/MEMBERSHIP_INFERENCE_ATTACKS_AND_DEFENSES_IN_CLASSIFICATION_MODELS/24983289",
       "source": "openalex",
       "content_hash": "41051a9b91ec0c91f024fd08b1849d1a21688fdedcb0c9eae44feee8d0dd9b22",
       "placements": [
@@ -5012,7 +5140,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:56:23.211819Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.18653/v1/2022.emnlp-main.570",
@@ -5049,7 +5178,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:56:23.211819Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "arxiv_id:2601.18110v1",
@@ -5086,7 +5216,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:56:23.211819Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.48084/etasr.6911",
@@ -5120,7 +5251,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:56:55.590236Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.63282/3117-5481/wfcmls26-107",
@@ -5153,7 +5285,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:56:55.590236Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.30574/wjaets.2024.13.2.0642",
@@ -5186,7 +5319,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:56:55.590236Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.18653/v1/2024.emnlp-industry.94",
@@ -5204,7 +5338,7 @@
       "year": 2024,
       "publication_date": "2024-01-01",
       "venue": "",
-      "citation_count": 13,
+      "citation_count": 33,
       "doi": "10.18653/v1/2024.emnlp-industry.94",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -5224,7 +5358,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:57:39.751560Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1109/mipro65660.2025.11131790",
@@ -5260,7 +5395,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:57:39.751560Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.48550/arxiv.2311.09127",
@@ -5277,7 +5413,7 @@
       "year": 2023,
       "publication_date": "2023-11-15",
       "venue": "arXiv (Cornell University)",
-      "citation_count": 7,
+      "citation_count": 80,
       "doi": "10.48550/arxiv.2311.09127",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -5297,7 +5433,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:57:39.751560Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.47392/irjaem.2026.0021",
@@ -5333,7 +5470,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:58:26.472666Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.53483/xcqw3581",
@@ -5346,7 +5484,7 @@
       "year": 2024,
       "publication_date": "2024-01-01",
       "venue": "Journal of Illiberalism Studies",
-      "citation_count": 3,
+      "citation_count": 1,
       "doi": "10.53483/xcqw3581",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -5366,7 +5504,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:58:50.759378Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.14763/2024.3.1798",
@@ -5379,7 +5518,7 @@
       "year": 2024,
       "publication_date": "2024-09-30",
       "venue": "Internet Policy Review",
-      "citation_count": 10,
+      "citation_count": 11,
       "doi": "10.14763/2024.3.1798",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -5399,7 +5538,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:58:50.759378Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.5281/zenodo.20047250",
@@ -5418,7 +5558,7 @@
       "semantic_scholar_id": null,
       "url": "https://doi.org/10.5281/zenodo.20047250",
       "pdf_url": "https://doi.org/10.5281/zenodo.20047250",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "https://doi.org/10.5281/zenodo.20047250",
       "source": "openalex",
       "content_hash": "a0653d5a559cf3ef40b206693d4a2f2ba05e41ca3ab75237f614e7ef53b20c10",
       "placements": [
@@ -5432,7 +5572,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:58:50.759378Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.3389/fphys.2021.777874",
@@ -5454,7 +5595,7 @@
       "year": 2021,
       "publication_date": "2021-11-25",
       "venue": "Frontiers in Physiology",
-      "citation_count": 33,
+      "citation_count": 24,
       "doi": "10.3389/fphys.2021.777874",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -5474,7 +5615,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:59:25.269663Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1177/14413582231167645",
@@ -5490,7 +5632,7 @@
       "year": 2023,
       "publication_date": "2023-04-19",
       "venue": "Australasian Marketing Journal (AMJ)",
-      "citation_count": 3,
+      "citation_count": 5,
       "doi": "10.1177/14413582231167645",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -5510,7 +5652,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:59:25.269663Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1021/acs.nanolett.5c04037",
@@ -5529,7 +5672,7 @@
       "year": 2025,
       "publication_date": "2025-09-30",
       "venue": "Nano Letters",
-      "citation_count": 3,
+      "citation_count": 2,
       "doi": "10.1021/acs.nanolett.5c04037",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -5549,7 +5692,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:59:25.269663Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.4067/s1726-569x2023000200249",
@@ -5564,7 +5708,7 @@
       "year": 2023,
       "publication_date": "2023-10-01",
       "venue": "Acta bioethica",
-      "citation_count": 2,
+      "citation_count": 0,
       "doi": "10.4067/s1726-569x2023000200249",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -5584,7 +5728,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:59:50.275643Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1109/sp46215.2023.10179445",
@@ -5600,7 +5745,7 @@
       "year": 2023,
       "publication_date": "2023-05-01",
       "venue": "",
-      "citation_count": 0,
+      "citation_count": 21,
       "doi": "10.1109/sp46215.2023.10179445",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -5620,7 +5765,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:59:50.275643Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1109/tifs.2022.3208471",
@@ -5638,7 +5784,7 @@
       "year": 2022,
       "publication_date": "2022-01-01",
       "venue": "IEEE Transactions on Information Forensics and Security",
-      "citation_count": 98,
+      "citation_count": 97,
       "doi": "10.1109/tifs.2022.3208471",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -5658,7 +5804,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T13:59:43.436457Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.5204/lthj.1745",
@@ -5672,7 +5819,7 @@
       "year": 2021,
       "publication_date": "2021-04-05",
       "venue": "Law Technology and Humans",
-      "citation_count": 40,
+      "citation_count": 27,
       "doi": "10.5204/lthj.1745",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -5692,7 +5839,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:00:23.907515Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.3390/info14030157",
@@ -5729,7 +5877,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:00:23.907515Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1145/3544548.3580950",
@@ -5744,7 +5893,7 @@
       "year": 2023,
       "publication_date": "2023-04-19",
       "venue": "",
-      "citation_count": 101,
+      "citation_count": 107,
       "doi": "10.1145/3544548.3580950",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -5764,7 +5913,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:01:18.273260Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "content_hash:9c84fe9b0dc0c984285c20da6b6b09ef7bc872db0b3807e941d1eb892b33a618",
@@ -5801,7 +5951,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:01:18.273260Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.55248/gengpi.07.0426.b1111",
@@ -5835,7 +5986,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:01:18.273260Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1038/s41746-025-01746-4",
@@ -5850,7 +6002,7 @@
       "year": 2025,
       "publication_date": "2025-06-04",
       "venue": "npj Digital Medicine",
-      "citation_count": 30,
+      "citation_count": 33,
       "doi": "10.1038/s41746-025-01746-4",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -5870,7 +6022,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:01:29.225552Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1007/s00146-025-02282-1",
@@ -5883,7 +6036,7 @@
       "year": 2025,
       "publication_date": "2025-03-10",
       "venue": "AI & Society",
-      "citation_count": 14,
+      "citation_count": 16,
       "doi": "10.1007/s00146-025-02282-1",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -5903,7 +6056,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:01:29.225552Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.33448/rsd-v14i2.48186",
@@ -5940,7 +6094,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:01:29.225552Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1093/jcmc/zmad045",
@@ -5958,7 +6113,7 @@
       "year": 2023,
       "publication_date": "2023-11-08",
       "venue": "Journal of Computer-Mediated Communication",
-      "citation_count": 105,
+      "citation_count": 122,
       "doi": "10.1093/jcmc/zmad045",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -5978,7 +6133,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:01:59.885460Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.3127/ajis.v26i0.3835",
@@ -5993,7 +6149,7 @@
       "year": 2022,
       "publication_date": "2022-12-21",
       "venue": "AJIS. Australasian journal of information systems/AJIS. Australian journal of information systems/Australian journal of information systems",
-      "citation_count": 68,
+      "citation_count": 59,
       "doi": "10.3127/ajis.v26i0.3835",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -6013,7 +6169,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:01:59.885460Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.3390/socsci12080435",
@@ -6026,7 +6183,7 @@
       "year": 2023,
       "publication_date": "2023-08-01",
       "venue": "Social Sciences",
-      "citation_count": 148,
+      "citation_count": 135,
       "doi": "10.3390/socsci12080435",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -6046,7 +6203,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:01:59.885460Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.48550/arxiv.2407.01556",
@@ -6060,7 +6218,7 @@
       "year": 2024,
       "publication_date": "2024-05-02",
       "venue": "arXiv (Cornell University)",
-      "citation_count": 7,
+      "citation_count": 13,
       "doi": "10.48550/arxiv.2407.01556",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -6080,7 +6238,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:01:37.789163Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.48550/arxiv.2512.03943",
@@ -6098,7 +6257,7 @@
       "year": 2025,
       "publication_date": "2025-12-03",
       "venue": "ArXiv.org",
-      "citation_count": 0,
+      "citation_count": 1,
       "doi": "10.48550/arxiv.2512.03943",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -6118,7 +6277,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:01:37.789163Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.33102/jfatwa.vol31no2.780",
@@ -6155,7 +6315,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:01:37.789163Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1007/s11127-023-01097-2",
@@ -6170,7 +6331,7 @@
       "year": 2023,
       "publication_date": "2023-08-17",
       "venue": "Public Choice",
-      "citation_count": 244,
+      "citation_count": 416,
       "doi": "10.1007/s11127-023-01097-2",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -6190,7 +6351,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:02:34.276463Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1609/aies.v7i1.31612",
@@ -6205,7 +6367,7 @@
       "year": 2024,
       "publication_date": "2024-10-16",
       "venue": "Proceedings of the AAAI/ACM Conference on AI Ethics and Society",
-      "citation_count": 11,
+      "citation_count": 13,
       "doi": "10.1609/aies.v7i1.31612",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -6225,7 +6387,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:02:34.276463Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1007/s42001-025-00376-w",
@@ -6240,7 +6403,7 @@
       "year": 2025,
       "publication_date": "2025-02-28",
       "venue": "Journal of Computational Social Science",
-      "citation_count": 23,
+      "citation_count": 53,
       "doi": "10.1007/s42001-025-00376-w",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -6260,7 +6423,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:02:34.276463Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.31703/gmsr.2025(x-iii).06",
@@ -6295,7 +6459,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:01:52.446587Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.63345/sjaibt.v2.i3.108",
@@ -6328,7 +6493,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:01:52.446587Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.69987/aimlr.2024.50303",
@@ -6344,7 +6510,7 @@
       "year": 2024,
       "publication_date": "2024-07-10",
       "venue": "Artificial Intelligence and Machine Learning Review",
-      "citation_count": 9,
+      "citation_count": 13,
       "doi": "10.69987/aimlr.2024.50303",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -6364,7 +6530,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:02:52.150165Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.2196/64406",
@@ -6378,7 +6545,7 @@
       "year": 2024,
       "publication_date": "2024-09-25",
       "venue": "JMIR Bioinformatics and Biotechnology",
-      "citation_count": 59,
+      "citation_count": 55,
       "doi": "10.2196/64406",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -6398,7 +6565,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:02:52.150165Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.3390/soc15050142",
@@ -6413,7 +6581,7 @@
       "year": 2025,
       "publication_date": "2025-05-21",
       "venue": "Societies",
-      "citation_count": 3,
+      "citation_count": 6,
       "doi": "10.3390/soc15050142",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -6433,7 +6601,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:02:52.150165Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1016/j.clsr.2023.105795",
@@ -6447,7 +6616,7 @@
       "year": 2023,
       "publication_date": "2023-04-01",
       "venue": "Computer law & security review",
-      "citation_count": 40,
+      "citation_count": 31,
       "doi": "10.1016/j.clsr.2023.105795",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -6467,7 +6636,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:02:25.889893Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.30574/ijsra.2024.13.2.2396",
@@ -6480,7 +6650,7 @@
       "year": 2024,
       "publication_date": "2024-12-08",
       "venue": "International Journal of Science and Research Archive",
-      "citation_count": 16,
+      "citation_count": 17,
       "doi": "10.30574/ijsra.2024.13.2.2396",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -6500,7 +6670,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:02:25.889893Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.70843/ijass.2025.05314",
@@ -6536,7 +6707,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:02:25.889893Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1016/j.inffus.2023.101805",
@@ -6558,7 +6730,7 @@
       "year": 2023,
       "publication_date": "2023-04-18",
       "venue": "Information Fusion",
-      "citation_count": 1451,
+      "citation_count": 1330,
       "doi": "10.1016/j.inffus.2023.101805",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -6578,7 +6750,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:02:15.538952Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1109/tnnls.2020.3027314",
@@ -6592,7 +6765,7 @@
       "year": 2020,
       "publication_date": "2020-10-21",
       "venue": "IEEE Transactions on Neural Networks and Learning Systems",
-      "citation_count": 2136,
+      "citation_count": 1994,
       "doi": "10.1109/tnnls.2020.3027314",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -6612,7 +6785,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:02:15.538952Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1016/j.inffus.2024.102301",
@@ -6643,7 +6817,7 @@
       "year": 2024,
       "publication_date": "2024-02-15",
       "venue": "Information Fusion",
-      "citation_count": 457,
+      "citation_count": 505,
       "doi": "10.1016/j.inffus.2024.102301",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -6663,7 +6837,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:02:15.538952Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1111/poms.13839",
@@ -6678,13 +6853,13 @@
       "year": 2022,
       "publication_date": "2022-08-22",
       "venue": "Production and Operations Management",
-      "citation_count": 72,
+      "citation_count": 62,
       "doi": "10.1111/poms.13839",
       "arxiv_id": null,
       "semantic_scholar_id": null,
       "url": "https://doi.org/10.1111/poms.13839",
       "pdf_url": "",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "https://arxiv.org/pdf/2207.10991",
       "source": "openalex",
       "content_hash": "e87b5066bd11805a4de4439fcb2f31ee7c4e3b0d0050186e0225644778ff4ec9",
       "placements": [
@@ -6698,7 +6873,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:03:34.956714Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1111/papa.12189",
@@ -6711,7 +6887,7 @@
       "year": 2021,
       "publication_date": "2021-03-01",
       "venue": "Philosophy &amp Public Affairs",
-      "citation_count": 129,
+      "citation_count": 120,
       "doi": "10.1111/papa.12189",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -6731,7 +6907,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:03:34.956714Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1111/isj.12482",
@@ -6748,7 +6925,7 @@
       "year": 2024,
       "publication_date": "2024-01-15",
       "venue": "Information Systems Journal",
-      "citation_count": 66,
+      "citation_count": 65,
       "doi": "10.1111/isj.12482",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -6768,7 +6945,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:03:34.956714Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1145/3613904.3642382",
@@ -6784,7 +6962,7 @@
       "year": 2024,
       "publication_date": "2024-05-11",
       "venue": "",
-      "citation_count": 46,
+      "citation_count": 67,
       "doi": "10.1145/3613904.3642382",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -6804,7 +6982,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:04:59.354384Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1016/j.ssaho.2025.101882",
@@ -6824,7 +7003,7 @@
       "year": 2025,
       "publication_date": "2025-01-01",
       "venue": "Social Sciences & Humanities Open",
-      "citation_count": 7,
+      "citation_count": 14,
       "doi": "10.1016/j.ssaho.2025.101882",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -6844,7 +7023,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:04:59.354384Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.3998/phimp.2653",
@@ -6857,7 +7037,7 @@
       "year": 2024,
       "publication_date": "2024-09-11",
       "venue": "Philosophers Imprint",
-      "citation_count": 3,
+      "citation_count": 2,
       "doi": "10.3998/phimp.2653",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -6877,7 +7057,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:04:59.354384Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1038/s42003-024-06372-6",
@@ -6894,7 +7075,7 @@
       "year": 2024,
       "publication_date": "2024-06-11",
       "venue": "Communications Biology",
-      "citation_count": 11,
+      "citation_count": 10,
       "doi": "10.1038/s42003-024-06372-6",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -6914,7 +7095,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:04:34.759893Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1109/icws53863.2021.00083",
@@ -6930,7 +7112,7 @@
       "year": 2021,
       "publication_date": "2021-09-01",
       "venue": "Figshare",
-      "citation_count": 2,
+      "citation_count": 5,
       "doi": "10.1109/icws53863.2021.00083",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -6950,7 +7132,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:04:34.759893Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.20944/preprints202312.0807.v1",
@@ -6984,7 +7167,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:04:34.759893Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.18260/1-2-119-54995",
@@ -6998,7 +7182,7 @@
       "year": 2025,
       "publication_date": "2025-04-29",
       "venue": "",
-      "citation_count": 0,
+      "citation_count": 1,
       "doi": "10.18260/1-2-119-54995",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -7018,7 +7202,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:05:12.961717Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1609/aaai.v34i01.5389",
@@ -7037,7 +7222,7 @@
       "year": 2020,
       "publication_date": "2020-04-03",
       "venue": "Proceedings of the AAAI Conference on Artificial Intelligence",
-      "citation_count": 153,
+      "citation_count": 159,
       "doi": "10.1609/aaai.v34i01.5389",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -7057,7 +7242,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:06:21.060957Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.20944/preprints202407.2317.v1",
@@ -7094,7 +7280,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:06:21.060957Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1109/access.2025.3606114",
@@ -7129,7 +7316,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:06:21.060957Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1108/reps-12-2024-0104",
@@ -7143,7 +7331,7 @@
       "year": 2025,
       "publication_date": "2025-10-28",
       "venue": "Seikei ronsō/Review of economics and political science",
-      "citation_count": 1,
+      "citation_count": 0,
       "doi": "10.1108/reps-12-2024-0104",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -7163,7 +7351,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:05:50.463692Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "arxiv_id:2403.03550v1",
@@ -7199,7 +7388,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:05:50.463692Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1371/journal.pone.0299031",
@@ -7216,7 +7406,7 @@
       "year": 2024,
       "publication_date": "2024-03-13",
       "venue": "PLoS ONE",
-      "citation_count": 4,
+      "citation_count": 5,
       "doi": "10.1371/journal.pone.0299031",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -7236,7 +7426,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:05:50.463692Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1177/2056305120903408",
@@ -7250,7 +7441,7 @@
       "year": 2020,
       "publication_date": "2020-01-01",
       "venue": "Social Media + Society",
-      "citation_count": 823,
+      "citation_count": 777,
       "doi": "10.1177/2056305120903408",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -7280,7 +7471,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:15:11.853201Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.55549/epstem.1371792",
@@ -7326,7 +7518,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:15:11.853201Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1145/3425780",
@@ -7340,7 +7533,7 @@
       "year": 2021,
       "publication_date": "2021-01-02",
       "venue": "ACM Computing Surveys",
-      "citation_count": 633,
+      "citation_count": 845,
       "doi": "10.1145/3425780",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -7360,7 +7553,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:07:06.010759Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.56127/ijst.v4i1.1960",
@@ -7375,7 +7569,7 @@
       "year": 2025,
       "publication_date": "2025-03-17",
       "venue": "International Journal Science and Technology",
-      "citation_count": 3,
+      "citation_count": 4,
       "doi": "10.56127/ijst.v4i1.1960",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -7395,7 +7589,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:06:06.282109Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1007/s10676-023-09703-z",
@@ -7408,7 +7603,7 @@
       "year": 2023,
       "publication_date": "2023-05-29",
       "venue": "Ethics and Information Technology",
-      "citation_count": 34,
+      "citation_count": 38,
       "doi": "10.1007/s10676-023-09703-z",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -7428,7 +7623,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:06:06.282109Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.37016/mr-2020-192",
@@ -7461,7 +7657,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:06:06.282109Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.18280/ria.370507",
@@ -7476,7 +7673,7 @@
       "year": 2023,
       "publication_date": "2023-10-31",
       "venue": "Revue d intelligence artificielle",
-      "citation_count": 13,
+      "citation_count": 9,
       "doi": "10.18280/ria.370507",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -7496,7 +7693,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:07:36.666903Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1016/j.measen.2024.101148",
@@ -7530,7 +7728,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:07:36.666903Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1109/icac3n56670.2022.10074498",
@@ -7546,7 +7745,7 @@
       "year": 2022,
       "publication_date": "2022-12-16",
       "venue": "",
-      "citation_count": 5,
+      "citation_count": 2,
       "doi": "10.1109/icac3n56670.2022.10074498",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -7566,7 +7765,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:07:36.666903Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1057/s41304-024-00482-9",
@@ -7580,7 +7780,7 @@
       "year": 2024,
       "publication_date": "2024-04-25",
       "venue": "European Political Science",
-      "citation_count": 54,
+      "citation_count": 45,
       "doi": "10.1057/s41304-024-00482-9",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -7600,7 +7800,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:06:59.329589Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1007/s11229-023-04097-3",
@@ -7613,7 +7814,7 @@
       "year": 2023,
       "publication_date": "2023-03-09",
       "venue": "Synthese",
-      "citation_count": 54,
+      "citation_count": 43,
       "doi": "10.1007/s11229-023-04097-3",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -7633,7 +7834,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:06:59.329589Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.5281/zenodo.18981069",
@@ -7652,7 +7854,7 @@
       "semantic_scholar_id": null,
       "url": "https://ijrlm.com/journal/deepfakes-and-the-digitial-dignity-of-women-in-india/",
       "pdf_url": "https://ijrlm.com/journal/deepfakes-and-the-digitial-dignity-of-women-in-india/",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "https://ijrlm.com/journal/deepfakes-and-the-digitial-dignity-of-women-in-india/",
       "source": "openalex",
       "content_hash": "29a9007fb0387eb88275ed4dab6b130c1f954e71bf9648f105b85e1a227d83ab",
       "placements": [
@@ -7666,7 +7868,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:06:59.329589Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.52783/eel.v15i2.3203",
@@ -7679,7 +7882,7 @@
       "year": 2025,
       "publication_date": "2025-01-01",
       "venue": "",
-      "citation_count": 0,
+      "citation_count": 1,
       "doi": "10.52783/eel.v15i2.3203",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -7699,7 +7902,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:07:30.131172Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.21203/rs.3.rs-3415144/v1",
@@ -7734,7 +7938,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:08:08.407893Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.17645/mac.11451",
@@ -7750,7 +7955,7 @@
       "year": 2026,
       "publication_date": "2026-03-05",
       "venue": "Media and Communication",
-      "citation_count": 0,
+      "citation_count": 1,
       "doi": "10.17645/mac.11451",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -7770,7 +7975,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:09:10.274282Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.26480//bedc.02.2025.64.72",
@@ -7806,7 +8012,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:09:10.274282Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.31234/osf.io/egpmq_v3",
@@ -7839,7 +8046,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:09:10.274282Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1093/pnasnexus/pgae035",
@@ -7874,7 +8082,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:09:17.210019Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.51685/jqd.2024.010",
@@ -7912,7 +8121,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:09:17.210019Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1073/pnas.2403116121",
@@ -7926,7 +8136,7 @@
       "year": 2024,
       "publication_date": "2024-06-07",
       "venue": "Proceedings of the National Academy of Sciences",
-      "citation_count": 84,
+      "citation_count": 121,
       "doi": "10.1073/pnas.2403116121",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -7946,7 +8156,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:09:17.210019Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.29121/digisecforensics.v2.i2.2025.63",
@@ -7979,7 +8190,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:09:26.718303Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1109/access.2021.3068313",
@@ -7995,7 +8207,7 @@
       "year": 2021,
       "publication_date": "2021-01-01",
       "venue": "IEEE Access",
-      "citation_count": 65,
+      "citation_count": 53,
       "doi": "10.1109/access.2021.3068313",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -8015,7 +8227,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:09:26.718303Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1525/collabra.94304",
@@ -8049,7 +8262,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:09:26.718303Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1057/s41599-025-04532-5",
@@ -8066,7 +8280,7 @@
       "year": 2025,
       "publication_date": "2025-05-28",
       "venue": "Humanities and Social Sciences Communications",
-      "citation_count": 58,
+      "citation_count": 111,
       "doi": "10.1057/s41599-025-04532-5",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -8086,7 +8300,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:09:55.362644Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.62487/saimsarae9e6a55a",
@@ -8119,7 +8334,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:09:55.362644Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "content_hash:a5b7c8454f3ca1e91d5618cb5615475b85d84bcdca0d791148ef41fd87402366",
@@ -8153,7 +8369,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:09:55.362644Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1057/s41599-025-05389-4",
@@ -8169,7 +8386,7 @@
       "year": 2025,
       "publication_date": "2025-07-08",
       "venue": "Humanities and Social Sciences Communications",
-      "citation_count": 3,
+      "citation_count": 2,
       "doi": "10.1057/s41599-025-05389-4",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -8189,7 +8406,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:10:46.474644Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.48550/arxiv.2501.11786",
@@ -8203,7 +8421,7 @@
       "year": 2025,
       "publication_date": "2025-01-20",
       "venue": "ArXiv.org",
-      "citation_count": 0,
+      "citation_count": 4,
       "doi": "10.48550/arxiv.2501.11786",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -8223,7 +8441,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:10:46.474644Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.55041/isjem01393",
@@ -8236,7 +8455,7 @@
       "year": 2024,
       "publication_date": "2024-03-23",
       "venue": "International Scientific Journal of Engineering and Management",
-      "citation_count": 63,
+      "citation_count": 0,
       "doi": "10.55041/isjem01393",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -8256,7 +8475,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:11:12.390258Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1057/s41599-024-02647-9",
@@ -8270,7 +8490,7 @@
       "year": 2024,
       "publication_date": "2024-01-18",
       "venue": "Humanities and Social Sciences Communications",
-      "citation_count": 187,
+      "citation_count": 153,
       "doi": "10.1057/s41599-024-02647-9",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -8290,7 +8510,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:11:12.390258Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.30574/wjarr.2023.18.3.1056",
@@ -8304,7 +8525,7 @@
       "year": 2023,
       "publication_date": "2023-06-07",
       "venue": "World Journal of Advanced Research and Reviews",
-      "citation_count": 19,
+      "citation_count": 13,
       "doi": "10.30574/wjarr.2023.18.3.1056",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -8324,7 +8545,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:11:12.390258Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1007/s00168-024-01317-7",
@@ -8339,7 +8561,7 @@
       "year": 2024,
       "publication_date": "2024-11-02",
       "venue": "The Annals of Regional Science",
-      "citation_count": 2,
+      "citation_count": 4,
       "doi": "10.1007/s00168-024-01317-7",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -8359,7 +8581,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:12:06.442118Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.51244/ijrsi.2025.1210000295",
@@ -8392,7 +8615,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:12:06.442118Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.26803/ijhss.17.2.1",
@@ -8425,7 +8649,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:12:06.442118Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1016/j.accinf.2023.100626",
@@ -8440,7 +8665,7 @@
       "year": 2023,
       "publication_date": "2023-05-25",
       "venue": "International Journal of Accounting Information Systems",
-      "citation_count": 29,
+      "citation_count": 25,
       "doi": "10.1016/j.accinf.2023.100626",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -8460,7 +8685,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:11:45.048647Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.11648/j.iedu.20260101.19",
@@ -8493,7 +8719,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:11:45.048647Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.21606/drs.2022.157",
@@ -8506,7 +8733,7 @@
       "year": 2022,
       "publication_date": "2022-06-16",
       "venue": "Proceedings of DRS",
-      "citation_count": 40,
+      "citation_count": 33,
       "doi": "10.21606/drs.2022.157",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -8526,7 +8753,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:11:45.048647Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.3390/su16114579",
@@ -8541,7 +8769,7 @@
       "year": 2024,
       "publication_date": "2024-05-28",
       "venue": "Sustainability",
-      "citation_count": 15,
+      "citation_count": 17,
       "doi": "10.3390/su16114579",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -8561,7 +8789,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:12:31.638431Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.32752/1993-6788-2026-1-296-256-265",
@@ -8594,7 +8823,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:12:31.638431Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.58229/jissbd.v3i1.286",
@@ -8613,7 +8843,7 @@
       "year": 2025,
       "publication_date": "2025-03-07",
       "venue": "Journal Integration of Social Studies and Business Development",
-      "citation_count": 1,
+      "citation_count": 0,
       "doi": "10.58229/jissbd.v3i1.286",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -8633,7 +8863,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:12:31.638431Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.48550/arxiv.2403.03788",
@@ -8650,7 +8881,7 @@
       "year": 2024,
       "publication_date": "2024-03-06",
       "venue": "arXiv (Cornell University)",
-      "citation_count": 0,
+      "citation_count": 13,
       "doi": "10.48550/arxiv.2403.03788",
       "arxiv_id": "2403.03788v1",
       "semantic_scholar_id": null,
@@ -8670,7 +8901,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:13:29.833388Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "arxiv_id:2506.06874v4",
@@ -8708,7 +8940,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:13:29.833388Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.55248/gengpi.6.0325.12185",
@@ -8721,7 +8954,7 @@
       "year": 2025,
       "publication_date": "2025-03-01",
       "venue": "International Journal of Research Publication and Reviews",
-      "citation_count": 20,
+      "citation_count": 27,
       "doi": "10.55248/gengpi.6.0325.12185",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -8741,7 +8974,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:13:22.086530Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1145/3617694.3623226",
@@ -8757,7 +8991,7 @@
       "year": 2023,
       "publication_date": "2023-10-29",
       "venue": "arXiv (Cornell University)",
-      "citation_count": 46,
+      "citation_count": 82,
       "doi": "10.1145/3617694.3623226",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -8777,7 +9011,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:13:22.086530Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.21428/cb6ab371.3347bcba",
@@ -8811,7 +9046,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:13:22.086530Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.30574/wjarr.2024.23.2.2508",
@@ -8825,7 +9061,7 @@
       "year": 2024,
       "publication_date": "2024-08-26",
       "venue": "World Journal of Advanced Research and Reviews",
-      "citation_count": 4,
+      "citation_count": 11,
       "doi": "10.30574/wjarr.2024.23.2.2508",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -8845,7 +9081,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:13:05.346976Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.54660/.ijfmr.2024.5.2.148-153",
@@ -8883,7 +9120,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:13:05.346976Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.54660/.ijmrge.2023.4.6.1418-1429",
@@ -8900,7 +9138,7 @@
       "year": 2023,
       "publication_date": "2023-01-01",
       "venue": "International Journal of Multidisciplinary Research and Growth Evaluation",
-      "citation_count": 6,
+      "citation_count": 1,
       "doi": "10.54660/.ijmrge.2023.4.6.1418-1429",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -8920,7 +9158,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:13:50.749555Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1007/s11417-025-09477-x",
@@ -8935,7 +9174,7 @@
       "year": 2025,
       "publication_date": "2025-11-28",
       "venue": "Asian Journal of Criminology",
-      "citation_count": 5,
+      "citation_count": 7,
       "doi": "10.1007/s11417-025-09477-x",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -8955,7 +9194,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:13:50.749555Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1109/icrito66076.2025.11241946",
@@ -8973,7 +9213,7 @@
       "year": 2025,
       "publication_date": "2025-09-18",
       "venue": "",
-      "citation_count": 1,
+      "citation_count": 0,
       "doi": "10.1109/icrito66076.2025.11241946",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -8993,7 +9233,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:13:50.749555Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1609/aies.v7i1.31745",
@@ -9009,7 +9250,7 @@
       "year": 2024,
       "publication_date": "2024-10-16",
       "venue": "Proceedings of the AAAI/ACM Conference on AI Ethics and Society",
-      "citation_count": 11,
+      "citation_count": 22,
       "doi": "10.1609/aies.v7i1.31745",
       "arxiv_id": "2410.13042v1",
       "semantic_scholar_id": null,
@@ -9029,7 +9270,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:13:58.401033Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.36745/ijca.598",
@@ -9042,7 +9284,7 @@
       "year": 2025,
       "publication_date": "2025-01-01",
       "venue": "International Journal for Court Administration",
-      "citation_count": 9,
+      "citation_count": 14,
       "doi": "10.36745/ijca.598",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -9062,7 +9304,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:13:58.401033Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1017/dap.2025.17",
@@ -9096,7 +9339,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:13:58.401033Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.5281/zenodo.17987333",
@@ -9115,7 +9359,7 @@
       "semantic_scholar_id": null,
       "url": "https://doi.org/10.5281/zenodo.17987333",
       "pdf_url": "https://doi.org/10.5281/zenodo.17987333",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "https://doi.org/10.5281/zenodo.17987333",
       "source": "openalex",
       "content_hash": "5423900babd71af04ffbe714700a94f47620ff33e84d5a639547a80b002986f9",
       "placements": [
@@ -9129,7 +9373,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:13:38.608094Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.32628/cseit24102149",
@@ -9164,7 +9409,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:13:40.125781Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1109/gcat66372.2025.11368510",
@@ -9178,7 +9424,7 @@
       "year": 2025,
       "publication_date": "2025-10-24",
       "venue": "",
-      "citation_count": 1,
+      "citation_count": 2,
       "doi": "10.1109/gcat66372.2025.11368510",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -9198,7 +9444,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:14:24.969428Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.31235/osf.io/bv4f6_v1",
@@ -9232,7 +9479,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:14:24.969428Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1080/23268743.2022.2086163",
@@ -9265,7 +9513,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:14:24.969428Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.63056/acad.004.04.1441",
@@ -9298,7 +9547,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:14:03.074882Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.52641/cadcajv10i5.1213",
@@ -9336,7 +9586,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:14:03.074882Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.63163/jpehss.v3i3.513",
@@ -9352,7 +9603,7 @@
       "year": 2025,
       "publication_date": "2025-07-06",
       "venue": "Physical Education Health and Social Sciences",
-      "citation_count": 0,
+      "citation_count": 1,
       "doi": "10.63163/jpehss.v3i3.513",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -9372,7 +9623,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:14:03.074882Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1111/gove.12751",
@@ -9386,7 +9638,7 @@
       "year": 2022,
       "publication_date": "2022-11-28",
       "venue": "Governance",
-      "citation_count": 34,
+      "citation_count": 22,
       "doi": "10.1111/gove.12751",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -9406,7 +9658,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:14:24.413071Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1080/14672715.2020.1822194",
@@ -9419,7 +9672,7 @@
       "year": 2020,
       "publication_date": "2020-09-30",
       "venue": "Critical Asian Studies",
-      "citation_count": 61,
+      "citation_count": 44,
       "doi": "10.1080/14672715.2020.1822194",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -9439,7 +9692,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:14:24.413071Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1017/lsi.2021.56",
@@ -9453,7 +9707,7 @@
       "year": 2021,
       "publication_date": "2021-12-09",
       "venue": "Law & Social Inquiry",
-      "citation_count": 44,
+      "citation_count": 38,
       "doi": "10.1017/lsi.2021.56",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -9473,7 +9727,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:14:24.413071Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1080/14650045.2025.2456019",
@@ -9489,13 +9744,13 @@
       "year": 2025,
       "publication_date": "2025-01-28",
       "venue": "Geopolitics",
-      "citation_count": 27,
+      "citation_count": 24,
       "doi": "10.1080/14650045.2025.2456019",
       "arxiv_id": null,
       "semantic_scholar_id": null,
       "url": "https://doi.org/10.1080/14650045.2025.2456019",
       "pdf_url": "",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "https://doi.org/10.1080/14650045.2025.2456019",
       "source": "openalex",
       "content_hash": "7e03709ccc67165ed7c26b831933f2ccd35acca6242390deb94c2cd16a906889",
       "placements": [
@@ -9509,7 +9764,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:14:39.445182Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "arxiv_id:2604.18380v1",
@@ -9543,7 +9799,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:14:39.445182Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.31945/iprij.250103",
@@ -9576,7 +9833,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:14:39.445182Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1002/asi.24867",
@@ -9595,7 +9853,7 @@
       "semantic_scholar_id": null,
       "url": "https://doi.org/10.1002/asi.24867",
       "pdf_url": "",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "https://dr.ntu.edu.sg/bitstream/10356/174650/2/%e2%80%9cHe%20looks%20very%20real%e2%80%9d%20Media%2c%20knowledge%2c%20and%20search-based%20strategies%20for%20deepfake%20identification.pdf",
       "source": "openalex",
       "content_hash": "a8e65387f332a99fbe69457f7df3258341431ac4dca59b3f476cd9d8bf53b097",
       "placements": [
@@ -9609,7 +9867,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:14:47.711182Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.48550/arxiv.2406.01862",
@@ -9622,7 +9881,7 @@
       "year": 2024,
       "publication_date": "2024-06-04",
       "venue": "arXiv (Cornell University)",
-      "citation_count": 1,
+      "citation_count": 14,
       "doi": "10.48550/arxiv.2406.01862",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -9642,7 +9901,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:14:47.711182Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1177/1461444820925811",
@@ -9656,7 +9916,7 @@
       "year": 2020,
       "publication_date": "2020-06-05",
       "venue": "New Media & Society",
-      "citation_count": 162,
+      "citation_count": 195,
       "doi": "10.1177/1461444820925811",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -9676,7 +9936,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:14:47.711182Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "arxiv_id:2410.09181v1",
@@ -9714,7 +9975,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:15:11.853201Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "content_hash:7384e51c54e88caeecebdae5a3e8f3b9faf96228dd424e3be0553c417cb6e92b",
@@ -9750,7 +10012,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:14:59.283434Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.64229/d8g06y36",
@@ -9787,7 +10050,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:14:59.283434Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.36676/ijl.2023-v1i1-06",
@@ -9800,7 +10064,7 @@
       "year": 2023,
       "publication_date": "2023-11-10",
       "venue": "Indian Journal of Law.",
-      "citation_count": 11,
+      "citation_count": 4,
       "doi": "10.36676/ijl.2023-v1i1-06",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -9820,7 +10084,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:14:59.283434Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "content_hash:99fa823592ea125c6d4461083c4a28307b19b94f2a41ebe5f72b7e7058e5cd96",
@@ -9853,7 +10118,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:15:22.640497Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "content_hash:b7703e1dcbace6a198a986712ad7ab50718649bb6183ff32325613357e2c5e98",
@@ -9886,7 +10152,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:15:22.640497Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.30582/kdps.2025.38.4.5",
@@ -9920,7 +10187,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:15:22.640497Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1109/cai59869.2024.00179",
@@ -9938,7 +10206,7 @@
       "year": 2024,
       "publication_date": "2024-06-25",
       "venue": "arXiv",
-      "citation_count": 15,
+      "citation_count": 22,
       "doi": "10.1109/cai59869.2024.00179",
       "arxiv_id": "2403.16808v2",
       "semantic_scholar_id": null,
@@ -9958,7 +10226,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:15:43.998373Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1017/err.2025.10032",
@@ -9973,7 +10242,7 @@
       "year": 2025,
       "publication_date": "2025-07-23",
       "venue": "European Journal of Risk Regulation",
-      "citation_count": 7,
+      "citation_count": 12,
       "doi": "10.1017/err.2025.10032",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -9993,7 +10262,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:15:43.998373Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.5281/zenodo.19147739",
@@ -10012,7 +10282,7 @@
       "semantic_scholar_id": null,
       "url": "https://doi.org/10.5281/zenodo.19147739",
       "pdf_url": "https://doi.org/10.5281/zenodo.19147739",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "https://doi.org/10.5281/zenodo.19147739",
       "source": "openalex",
       "content_hash": "26799a1c5ec1ee14ed4b8ec3838df8a0b0b1dcd21861166987cf6531f339047a",
       "placements": [
@@ -10026,7 +10296,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:15:43.998373Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.52907/jipit.v5i1.544",
@@ -10060,7 +10331,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:15:36.916540Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.51204/zbornik_umkp_25135a",
@@ -10093,7 +10365,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:15:36.916540Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.18178/ijbta.2023.1.1.15-22",
@@ -10129,7 +10402,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:15:36.916540Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.70593/deepsci.0202033",
@@ -10162,7 +10436,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:15:27.441828Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.5120/ijais2024452009",
@@ -10175,7 +10450,7 @@
       "year": 2025,
       "publication_date": "2025-03-01",
       "venue": "International Journal of Applied Information Systems",
-      "citation_count": 1,
+      "citation_count": 3,
       "doi": "10.5120/ijais2024452009",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -10195,7 +10470,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:15:43.196523Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.66241/iuker",
@@ -10228,7 +10504,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:15:40.061674Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.34218/fpmhs_06_03_003",
@@ -10261,7 +10538,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:15:57.928688Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1016/j.jebo.2025.107159",
@@ -10295,7 +10573,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:15:57.928688Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.36227/techrxiv.175099896.64071258/v1",
@@ -10328,7 +10607,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:15:57.928688Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.66962/bsm2026.12",
@@ -10361,7 +10641,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:16:16.342461Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "content_hash:7007bfd1a96fb6712c0067bde58ab96f53bff829489393dd32a5639146a6bfa3",
@@ -10395,7 +10676,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:16:16.342461Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1007/s12553-022-00708-0",
@@ -10410,7 +10692,7 @@
       "year": 2022,
       "publication_date": "2022-11-01",
       "venue": "Health and Technology",
-      "citation_count": 24,
+      "citation_count": 20,
       "doi": "10.1007/s12553-022-00708-0",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -10430,7 +10712,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:16:16.342461Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.37394/23202.2024.23.46",
@@ -10443,7 +10726,7 @@
       "year": 2024,
       "publication_date": "2024-12-31",
       "venue": "WSEAS TRANSACTIONS ON SYSTEMS",
-      "citation_count": 22,
+      "citation_count": 21,
       "doi": "10.37394/23202.2024.23.46",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -10463,7 +10746,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:16:53.950717Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1109/greens66463.2025.00014",
@@ -10479,7 +10763,7 @@
       "year": 2025,
       "publication_date": "2025-04-29",
       "venue": "arXiv (Cornell University)",
-      "citation_count": 7,
+      "citation_count": 10,
       "doi": "10.1109/greens66463.2025.00014",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -10509,7 +10793,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:16:40.237416Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.3390/en19030642",
@@ -10525,7 +10810,7 @@
       "year": 2026,
       "publication_date": "2026-01-26",
       "venue": "Energies",
-      "citation_count": 1,
+      "citation_count": 2,
       "doi": "10.3390/en19030642",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -10545,7 +10830,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:16:53.950717Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.70917/jcc-2025-035",
@@ -10580,7 +10866,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:16:05.283851Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.18653/v1/2021.sustainlp-1.2",
@@ -10596,7 +10883,7 @@
       "year": 2021,
       "publication_date": "2021-01-01",
       "venue": "",
-      "citation_count": 83,
+      "citation_count": 106,
       "doi": "10.18653/v1/2021.sustainlp-1.2",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -10616,7 +10903,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:16:40.237416Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1109/ict4s68164.2025.00020",
@@ -10652,7 +10940,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:16:40.237416Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1093/pnasnexus/pgaf107",
@@ -10667,7 +10956,7 @@
       "year": 2025,
       "publication_date": "2025-03-27",
       "venue": "PNAS Nexus",
-      "citation_count": 9,
+      "citation_count": 13,
       "doi": "10.1093/pnasnexus/pgaf107",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -10687,7 +10976,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:16:50.210622Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.58217/joce-ip.v17i2.350",
@@ -10720,7 +11010,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:16:50.210622Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1371/journal.pone.0266326",
@@ -10734,7 +11025,7 @@
       "year": 2022,
       "publication_date": "2022-05-05",
       "venue": "PLoS ONE",
-      "citation_count": 16,
+      "citation_count": 15,
       "doi": "10.1371/journal.pone.0266326",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -10754,7 +11045,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:16:50.210622Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "arxiv_id:2508.19258v3",
@@ -10789,7 +11081,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:17:34.178584Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1145/3772318.3791149",
@@ -10806,7 +11099,7 @@
       "year": 2026,
       "publication_date": "2026-04-13",
       "venue": "",
-      "citation_count": 3,
+      "citation_count": 6,
       "doi": "10.1145/3772318.3791149",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -10826,7 +11119,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:17:34.178584Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1609/aies.v8i1.36561",
@@ -10840,7 +11134,7 @@
       "year": 2025,
       "publication_date": "2025-10-15",
       "venue": "Proceedings of the AAAI/ACM Conference on AI Ethics and Society",
-      "citation_count": 1,
+      "citation_count": 2,
       "doi": "10.1609/aies.v8i1.36561",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -10860,7 +11154,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:17:34.178584Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.5281/zenodo.18736700",
@@ -10879,7 +11174,7 @@
       "semantic_scholar_id": null,
       "url": "https://doi.org/10.5281/zenodo.18736700",
       "pdf_url": "https://doi.org/10.5281/zenodo.18736700",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "https://doi.org/10.5281/zenodo.18736700",
       "source": "openalex",
       "content_hash": "73ea7a0985954059b264b8f646920aa9083804caf413a6559ef91ceb5188bc43",
       "placements": [
@@ -10893,7 +11188,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:17:02.025088Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.36347/sjmcr.2025.v13i11.029",
@@ -10910,7 +11206,7 @@
       "year": 2025,
       "publication_date": "2025-11-15",
       "venue": "Scholars Journal of Medical Case Reports",
-      "citation_count": 0,
+      "citation_count": 1,
       "doi": "10.36347/sjmcr.2025.v13i11.029",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -10930,7 +11226,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:17:02.025088Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1007/s10639-024-13151-7",
@@ -10943,7 +11240,7 @@
       "year": 2024,
       "publication_date": "2024-11-11",
       "venue": "Education and Information Technologies",
-      "citation_count": 79,
+      "citation_count": 81,
       "doi": "10.1007/s10639-024-13151-7",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -10963,7 +11260,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:17:44.843852Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.3390/educsci15050611",
@@ -10979,7 +11277,7 @@
       "year": 2025,
       "publication_date": "2025-05-16",
       "venue": "Education Sciences",
-      "citation_count": 31,
+      "citation_count": 46,
       "doi": "10.3390/educsci15050611",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -10999,7 +11297,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:17:44.843852Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1016/j.ijme.2023.100818",
@@ -11012,7 +11311,7 @@
       "year": 2023,
       "publication_date": "2023-05-02",
       "venue": "The International Journal of Management Education",
-      "citation_count": 87,
+      "citation_count": 80,
       "doi": "10.1016/j.ijme.2023.100818",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -11032,7 +11331,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:17:44.843852Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.18653/v1/2025.acl-long.1249",
@@ -11066,7 +11366,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:17:33.507967Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1145/3639474.3640084",
@@ -11082,7 +11383,7 @@
       "year": 2024,
       "publication_date": "2024-04-14",
       "venue": "",
-      "citation_count": 10,
+      "citation_count": 17,
       "doi": "10.1145/3639474.3640084",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -11102,7 +11403,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:17:33.507967Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1145/3597503.3639192",
@@ -11118,7 +11420,7 @@
       "year": 2024,
       "publication_date": "2024-04-12",
       "venue": "",
-      "citation_count": 7,
+      "citation_count": 15,
       "doi": "10.1145/3597503.3639192",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -11138,7 +11440,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:17:33.507967Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.56177/eon.6.3.2025.art.1",
@@ -11172,7 +11475,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:17:24.359248Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.5281/zenodo.19044633",
@@ -11191,7 +11495,7 @@
       "semantic_scholar_id": null,
       "url": "https://doi.org/10.5281/zenodo.19044633",
       "pdf_url": "https://doi.org/10.5281/zenodo.19044633",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "https://doi.org/10.5281/zenodo.19044633",
       "source": "openalex",
       "content_hash": "6e4ded4c796c2234283c6c8cbcd00044b1024315d93600181d2abe77c3ec3eab",
       "placements": [
@@ -11205,7 +11509,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:18:48.737849Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "arxiv_id:2605.15871v1",
@@ -11245,7 +11550,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:18:48.737849Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.48550/arxiv.2202.05780",
@@ -11267,7 +11573,7 @@
       "semantic_scholar_id": null,
       "url": "http://hdl.handle.net/10754/686558",
       "pdf_url": "https://arxiv.org/pdf/2202.05780",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "https://arxiv.org/pdf/2202.05780",
       "source": "openalex",
       "content_hash": "9682935cddad62f09e37f02230d36ba0d9d4ea14453def66f177136f87d7ba59",
       "placements": [
@@ -11281,7 +11587,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:18:48.737849Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.48550/arxiv.2401.07836",
@@ -11300,7 +11607,7 @@
       "semantic_scholar_id": null,
       "url": "http://arxiv.org/abs/2401.07836",
       "pdf_url": "https://arxiv.org/pdf/2401.07836",
-      "oa_pdf_url": "",
+      "oa_pdf_url": "https://arxiv.org/pdf/2401.07836",
       "source": "openalex",
       "content_hash": "01102fa1f400ad551ec58abcee4d5830eec6e6e29d44c18213d7a7de56a24e54",
       "placements": [
@@ -11314,7 +11621,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:18:17.979453Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.70777/si.v2i5.15579",
@@ -11347,7 +11655,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:18:17.979453Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.48550/arxiv.2504.05259",
@@ -11363,7 +11672,7 @@
       "year": 2025,
       "publication_date": "2025-04-07",
       "venue": "ArXiv.org",
-      "citation_count": 0,
+      "citation_count": 21,
       "doi": "10.48550/arxiv.2504.05259",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -11383,7 +11692,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:18:17.979453Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1007/s00146-024-01930-2",
@@ -11396,7 +11706,7 @@
       "year": 2024,
       "publication_date": "2024-04-14",
       "venue": "AI & Society",
-      "citation_count": 23,
+      "citation_count": 34,
       "doi": "10.1007/s00146-024-01930-2",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -11416,7 +11726,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:18:44.758775Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1007/s00146-025-02233-w",
@@ -11449,7 +11760,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:18:44.758775Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1145/3706598.3713329",
@@ -11465,7 +11777,7 @@
       "year": 2025,
       "publication_date": "2025-04-24",
       "venue": "arXiv (Cornell University)",
-      "citation_count": 10,
+      "citation_count": 21,
       "doi": "10.1145/3706598.3713329",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -11485,7 +11797,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:18:44.758775Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1007/s11098-025-02301-3",
@@ -11498,7 +11811,7 @@
       "year": 2025,
       "publication_date": "2025-03-30",
       "venue": "Philosophical Studies",
-      "citation_count": 25,
+      "citation_count": 55,
       "doi": "10.1007/s11098-025-02301-3",
       "arxiv_id": "2401.07836v3",
       "semantic_scholar_id": null,
@@ -11518,7 +11831,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:18:32.397178Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.48550/arxiv.2501.16946",
@@ -11536,7 +11850,7 @@
       "year": 2025,
       "publication_date": "2025-01-28",
       "venue": "ArXiv.org",
-      "citation_count": 12,
+      "citation_count": 55,
       "doi": "10.48550/arxiv.2501.16946",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -11556,7 +11870,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:18:32.397178Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1007/s00146-024-02036-5",
@@ -11569,7 +11884,7 @@
       "year": 2024,
       "publication_date": "2024-08-06",
       "venue": "AI & Society",
-      "citation_count": 9,
+      "citation_count": 4,
       "doi": "10.1007/s00146-024-02036-5",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -11589,7 +11904,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:18:32.397178Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.29121/shodhkosh.v5.i1.2024.1659",
@@ -11622,7 +11938,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:18:56.407379Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.3389/fcomp.2023.1113903",
@@ -11638,7 +11955,7 @@
       "year": 2023,
       "publication_date": "2023-03-16",
       "venue": "Frontiers in Computer Science",
-      "citation_count": 122,
+      "citation_count": 117,
       "doi": "10.3389/fcomp.2023.1113903",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -11658,7 +11975,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:19:42.023699Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1186/s12910-024-01066-4",
@@ -11673,7 +11991,7 @@
       "year": 2024,
       "publication_date": "2024-06-22",
       "venue": "BMC Medical Ethics",
-      "citation_count": 115,
+      "citation_count": 101,
       "doi": "10.1186/s12910-024-01066-4",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -11693,7 +12011,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:19:42.023699Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1177/20539517221092956",
@@ -11708,7 +12027,7 @@
       "year": 2022,
       "publication_date": "2022-01-01",
       "venue": "Big Data & Society",
-      "citation_count": 184,
+      "citation_count": 139,
       "doi": "10.1177/20539517221092956",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -11728,7 +12047,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:19:42.023699Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1007/s43681-024-00483-w",
@@ -11741,7 +12061,7 @@
       "year": 2024,
       "publication_date": "2024-05-06",
       "venue": "AI and Ethics",
-      "citation_count": 31,
+      "citation_count": 26,
       "doi": "10.1007/s43681-024-00483-w",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -11761,7 +12081,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:19:19.458166Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.1007/s43681-024-00461-2",
@@ -11778,7 +12099,7 @@
       "year": 2024,
       "publication_date": "2024-04-02",
       "venue": "AI and Ethics",
-      "citation_count": 52,
+      "citation_count": 66,
       "doi": "10.1007/s43681-024-00461-2",
       "arxiv_id": null,
       "semantic_scholar_id": null,
@@ -11798,7 +12119,8 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:19:19.458166Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     },
     {
       "key": "doi:10.31234/osf.io/aue4m_v1",
@@ -11832,7 +12154,19 @@
           "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
           "generated_at": "2026-05-30T14:19:19.458166Z"
         }
-      ]
+      ],
+      "last_refreshed": "2026-06-02"
     }
-  ]
+  ],
+  "refreshes": [
+    {
+      "refresh_id": "refresh-2026-06-02",
+      "refreshed_at": "2026-06-02T19:25:29.764224+00:00",
+      "papers_examined": 323,
+      "citations_updated": 194,
+      "total_citation_delta": 9750,
+      "oa_links_added": 36
+    }
+  ],
+  "last_refreshed_at": "2026-06-02T19:25:29.764224+00:00"
 }
