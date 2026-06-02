@@ -36,9 +36,7 @@ def _corpus(papers):
         "taxonomy_version": "1.0",
         "corpus_updated_at": "2026-05-30T00:00:00Z",
         "runs": [{"run_id": "r1", "finished_at": "2026-05-30T00:00:00Z"}],
-        "taxonomy": [
-            {"category_id": "safety", "category_name": "Safety", "subcategories": ["X"]}
-        ],
+        "taxonomy": [{"category_id": "safety", "category_name": "Safety", "subcategories": ["X"]}],
         "papers": papers,
     }
 
@@ -68,6 +66,7 @@ def _s2(cites, oa_url=None):
 def test_s2_updates_citations_and_backfills_oa():
     papers = [_paper("doi:10.1/a", doi="10.1/a", cites=10, oa="")]
     stats = _stats()
+
     def post(u, b, h=None):
         return _s2(42, "https://oa.example/a.pdf")
 
@@ -84,6 +83,7 @@ def test_s2_updates_citations_and_backfills_oa():
 def test_existing_oa_not_overwritten():
     papers = [_paper("doi:10.1/b", doi="10.1/b", cites=5, oa="https://keep.example/b.pdf")]
     stats = _stats()
+
     def post(u, b, h=None):
         return _s2(5, "https://new.example/b.pdf")
 
@@ -98,6 +98,7 @@ def test_existing_oa_not_overwritten():
 def test_failed_batch_leaves_papers_untouched():
     papers = [_paper("doi:10.1/c", doi="10.1/c", cites=7)]
     stats = _stats()
+
     def post(u, b, h=None):
         return None  # whole batch failed
 
@@ -113,6 +114,7 @@ def test_openalex_only_hits_unresolved_papers():
     papers = [resolved, missed]
     stats = _stats(s2_hit=["doi:10.1/d"])
     hit = {"ids": {"doi": "https://doi.org/10.1/e"}, "cited_by_count": 99, "open_access": {}}
+
     def get(u, h=None):
         return {"results": [hit]}
 
@@ -142,6 +144,7 @@ def test_end_to_end_main_writes_valid_corpus():
     with tempfile.TemporaryDirectory() as d:
         path = Path(d) / "corpus.json"
         path.write_text(json.dumps(_corpus(papers)), encoding="utf-8")
+
         def post(u, b, h=None):
             return _s2(50, "https://oa.example/z.pdf")
 
