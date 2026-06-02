@@ -34,6 +34,7 @@ import argparse
 import json
 import os
 import re
+import socket
 import sys
 import time
 from urllib.error import HTTPError
@@ -45,6 +46,20 @@ CREATE_TIMEOUT = 240.0
 USER_AGENT = "ai-risk-discovery/1.0 (+github-actions)"
 
 DEFAULT_IMAGE = "runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04"
+
+# Start command for a bare image: guarantee sshd is up with our key, regardless
+# of the image's default behaviour. Runs sshd in the foreground so the pod stays
+# alive for us to SSH in. $PUBLIC_KEY is read from the pod's env at runtime.
+SSHD_BOOTSTRAP = (
+    "set -e; "
+    "mkdir -p /root/.ssh && chmod 700 /root/.ssh; "
+    'printf "%s\\n" "$PUBLIC_KEY" >> /root/.ssh/authorized_keys; '
+    "chmod 600 /root/.ssh/authorized_keys; "
+    "command -v sshd >/dev/null 2>&1 || { apt-get update && "
+    "DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends openssh-server; }; "
+    "ssh-keygen -A; mkdir -p /run/sshd; "
+    "exec /usr/sbin/sshd -D -e"
+)
 
 # Curated >=24GB GPUs, in rough order of availability/value. These are standard
 # RunPod REST gpuTypeIds; if any is stale, the enum self-correction handles it.
@@ -132,14 +147,31 @@ def _ports(pod: dict) -> list[dict]:
     return []
 
 
+_PRIVATE_IP_PREFIXES = ("10.", "172.16.", "172.17.", "172.18.", "192.168.", "100.64.", "127.")
+
+
 def _ssh_endpoint(pod: dict) -> tuple[str, int] | None:
     for p in _ports(pod):
         if not isinstance(p, dict):
             continue
-        public = p.get("isIpPublic") or p.get("isPublic")
-        if public and p.get("privatePort") == 22 and p.get("ip") and p.get("publicPort"):
-            return str(p["ip"]), int(p["publicPort"])
+        priv = p.get("privatePort") or p.get("PrivatePort")
+        pub = p.get("publicPort") or p.get("PublicPort")
+        ip = p.get("ip") or p.get("IP")
+        flagged_public = p.get("isIpPublic") or p.get("isPublic") or p.get("public")
+        if priv != 22 or not pub or not ip:
+            continue
+        looks_public = flagged_public or not str(ip).startswith(_PRIVATE_IP_PREFIXES)
+        if looks_public:
+            return str(ip), int(pub)
     return None
+
+
+def _tcp_open(host: str, port: int, timeout: float = 5.0) -> bool:
+    try:
+        with socket.create_connection((host, port), timeout=timeout):
+            return True
+    except OSError:
+        return False
 
 
 def _is_running(pod: dict) -> bool:
@@ -221,6 +253,7 @@ def cmd_create() -> int:
         base_body["templateId"] = template_id
     else:
         base_body["imageName"] = os.environ.get("POD_IMAGE", DEFAULT_IMAGE)
+        base_body["dockerStartCmd"] = ["bash", "-lc", SSHD_BOOTSTRAP]
 
     worst_status: int | None = None
     for cloud in clouds:
@@ -248,18 +281,28 @@ def cmd_create() -> int:
 
 def cmd_wait(pod_id: str, timeout_s: int, interval_s: int) -> int:
     deadline = time.time() + timeout_s
+    shown_ports = False
+    last_pod: dict | None = None
     while time.time() < deadline:
         pod = _api("GET", f"/pods/{pod_id}")
-        if isinstance(pod, dict) and _is_running(pod):
-            ep = _ssh_endpoint(pod)
-            if ep:
-                print(f"{ep[0]} {ep[1]}")
-                return 0
-            print("  running, no public SSH (port 22) yet...", file=sys.stderr)
-        else:
-            print("  pod not running yet...", file=sys.stderr)
+        if isinstance(pod, dict):
+            last_pod = pod
+            if _is_running(pod):
+                if not shown_ports:
+                    # Print the real port shape once so the log shows ground truth.
+                    print(f"  pod running; ports = {json.dumps(_ports(pod))}", file=sys.stderr)
+                    shown_ports = True
+                ep = _ssh_endpoint(pod)
+                if ep:
+                    if _tcp_open(ep[0], ep[1]):
+                        print(f"{ep[0]} {ep[1]}")
+                        return 0
+                    print("  ssh port mapped but not accepting yet...", file=sys.stderr)
         time.sleep(interval_s)
-    print(f"timed out after {timeout_s}s waiting for pod {pod_id} SSH", file=sys.stderr)
+    print(f"timed out after {timeout_s}s waiting for public SSH on pod {pod_id}", file=sys.stderr)
+    if last_pod is not None:
+        print("  last pod state (truncated):", file=sys.stderr)
+        print(json.dumps(last_pod, indent=2)[:4000], file=sys.stderr)
     return 1
 
 

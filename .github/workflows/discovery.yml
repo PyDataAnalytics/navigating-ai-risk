@@ -77,6 +77,7 @@ jobs:
           POD_TEMPLATE_ID: ${{ inputs.template_id }}
           POD_IMAGE: ${{ inputs.image || 'runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04' }}
           POD_NAME: ai-risk-discovery-${{ github.run_number }}
+          POD_CLOUD_TYPE: "SECURE"
           CONTAINER_DISK_GB: "40"
           VOLUME_GB: "40"
         run: |
@@ -117,10 +118,19 @@ jobs:
           UNPAYWALL_EMAIL: ${{ secrets.UNPAYWALL_EMAIL }}
           SERPAPI_API_KEY: ${{ secrets.SERPAPI_API_KEY }}
         run: |
-          ssh -i ~/.ssh/runpod_key -p "$RP_PORT" \
-            -o StrictHostKeyChecking=accept-new \
-            -o ServerAliveInterval=60 -o ServerAliveCountMax=60 \
-            "root@$RP_HOST" \
+          SSH_OPTS="-i ~/.ssh/runpod_key -p $RP_PORT \
+            -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/dev/null \
+            -o ConnectTimeout=15 -o ServerAliveInterval=60 -o ServerAliveCountMax=60"
+          # sshd may need a few seconds after the port opens - confirm auth works first.
+          n=0
+          until ssh $SSH_OPTS "root@$RP_HOST" true 2>/dev/null; do
+            n=$((n + 1))
+            if [ "$n" -ge 10 ]; then echo "SSH never became reachable" >&2; exit 1; fi
+            echo "waiting for sshd to accept connections (attempt $n)..."
+            sleep 15
+          done
+          echo "SSH is up; running the pipeline on the pod."
+          ssh $SSH_OPTS "root@$RP_HOST" \
             "WORKDIR='$REMOTE_WORKDIR' CONFIG='${{ inputs.config || 'config/ci.yaml' }}' \
              SEMANTIC_SCHOLAR_API_KEY='$SEMANTIC_SCHOLAR_API_KEY' \
              OPENALEX_MAILTO='$OPENALEX_MAILTO' \
@@ -133,7 +143,8 @@ jobs:
         run: |
           mkdir -p data/output
           scp -i ~/.ssh/runpod_key -P "$RP_PORT" \
-            -o StrictHostKeyChecking=accept-new \
+            -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/dev/null \
+            -o ConnectTimeout=15 \
             "root@$RP_HOST:$REMOTE_WORKDIR/data/output/latest.json" \
             data/output/latest.json
 
