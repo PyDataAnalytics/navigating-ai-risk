@@ -12,7 +12,7 @@ from __future__ import annotations
 
 import abc
 import hashlib
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from typing import Any
 
 import httpx
@@ -66,7 +66,7 @@ class PaperSource(abc.ABC):
 
     @staticmethod
     def now() -> datetime:
-        return datetime.now(UTC)
+        return datetime.now(timezone.utc)
 
     def http_client(self) -> httpx.AsyncClient:
         return httpx.AsyncClient(

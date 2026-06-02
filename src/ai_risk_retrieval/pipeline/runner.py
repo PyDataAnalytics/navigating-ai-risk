@@ -12,7 +12,7 @@ from __future__ import annotations
 
 import asyncio
 import uuid
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 
 import structlog
 
@@ -202,14 +202,14 @@ async def run_subcategory(
         selected_papers=selected,
         candidate_count=len(candidates),
         shortlist_count=len(shortlist),
-        generated_at=datetime.now(UTC),
+        generated_at=datetime.now(timezone.utc),
     )
 
 
 def _filter_candidates(papers: list[Paper], config: AppConfig) -> list[Paper]:
     """Apply basic quality filters before dedup."""
     out = []
-    current_year = datetime.now(UTC).year
+    current_year = datetime.now(timezone.utc).year
     max_age = config.retrieval.max_age_years
     min_abs = config.retrieval.min_abstract_chars
 
@@ -261,7 +261,7 @@ async def run_full(
         if not pairs:
             raise ValueError(f"no subcategory found matching {subcategory_filter!r}")
 
-    started = datetime.now(UTC)
+    started = datetime.now(timezone.utc)
     sem = asyncio.Semaphore(config.runtime.concurrency)
 
     async def _run_one(c: Category, s) -> SubcategoryResult:
@@ -287,7 +287,7 @@ async def run_full(
     except Exception as e:
         log.warning("unpaywall_enrichment_skipped", error=str(e))
 
-    finished = datetime.now(UTC)
+    finished = datetime.now(timezone.utc)
 
     return RetrievalRun(
         run_id=str(uuid.uuid4()),

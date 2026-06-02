@@ -24,7 +24,7 @@ Two ranking steps:
 from __future__ import annotations
 
 import math
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 
 from ..config import ScoringConfig
 from ..models import LLMJudgement, Paper, ScoredPaper
@@ -47,7 +47,7 @@ def shortlist_for_judging(
     """
     if not papers:
         return []
-    year_now = current_year or datetime.now(UTC).year
+    year_now = current_year or datetime.now(timezone.utc).year
 
     def heuristic_score(p: Paper) -> float:
         # Citation velocity: log(citations / max(1, age_years)). This corrects
@@ -85,7 +85,7 @@ def compute_composite_scores(
     """
     if not judged:
         return []
-    year_now = current_year or datetime.now(UTC).year
+    year_now = current_year or datetime.now(timezone.utc).year
     w = config.weights
 
     # Citation velocity (per-year). We compute log(velocity+1) for each paper,

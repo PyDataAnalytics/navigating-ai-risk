@@ -40,7 +40,7 @@ from __future__ import annotations
 
 import hashlib
 import json
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -158,7 +158,7 @@ class BinaryScreener:
         )
 
         prompt_record = {
-            "ts": datetime.now(UTC).isoformat(),
+            "ts": datetime.now(timezone.utc).isoformat(),
             "stage": "screen",
             "model": self.config.model,
             "subcategory": subcategory.name,
