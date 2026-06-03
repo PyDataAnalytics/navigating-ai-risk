@@ -117,7 +117,7 @@
         <div class="sub">
           <div class="sub__h" style="--c:${col}">${s.name} <span class="n">${s.papers.length}</span></div>
           <ul>${s.papers.map(p=>{
-            const tip = `${p.title} — ${p.authors.join(", ")}${p.nAuthors>p.authors.length?" et al.":""}${p.year?", "+p.year:""}`;
+            const tip = `${p.title} — ${p.authors.join(", ")}${p.nAuthors>p.authors.length?" et al.":""}${(p.published||p.year)?", "+(p.published||p.year):""}`;
             return p.url
               ? `<li><a href="${p.url}" target="_blank" rel="noopener" title="${tip.replace(/"/g,'&quot;')}">${p.title}</a></li>`
               : `<li><span class="t" title="${tip.replace(/"/g,'&quot;')}">${p.title}</span></li>`;

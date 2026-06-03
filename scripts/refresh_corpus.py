@@ -7,7 +7,9 @@ This is the *incremental* half of the pipeline. The expensive *discovery* half
 GPU (Ollama is local-only) — see `.github/workflows/discovery.yml`. THIS script
 runs every week on a free CPU runner and keeps the existing corpus alive:
 
-  • citation counts        — re-pulled from Semantic Scholar (batch) + OpenAlex
+  • citation counts        — Dimensions (preferred, DOI-keyed) → Semantic Scholar
+                             (batch) → OpenAlex; the first source to resolve a
+                             paper wins, counts are never summed across sources
   • open-access PDF links   — backfilled from Semantic Scholar + Unpaywall
   • a `last_refreshed` clock — added per paper, alongside the immutable first_seen
   • a `refreshes` history    — one append-only record per run, so the corpus
@@ -27,12 +29,17 @@ Design goals (mirrors merge_corpus.py):
                        corpus refreshes in seconds.
 
 Credentials (all optional — the script degrades gracefully):
+  DIMENSIONS_API_KEY        enables the preferred Dimensions citation source
+                            (Analytics API; free for non-commercial use on
+                            approval — https://ds.digital-science.com/NoCostAgreement)
+  DIMENSIONS_API_URL        Dimensions instance URL (default https://app.dimensions.ai;
+                            only set if you access a different instance)
   SEMANTIC_SCHOLAR_API_KEY  lifts the S2 rate limit (sent as x-api-key header)
   OPENALEX_MAILTO           enters OpenAlex's faster "polite pool"
   UNPAYWALL_EMAIL           enables Unpaywall OA backfill (the API needs a contact)
 
 With NO credentials set the script still refreshes citations via the key-less
-S2/OpenAlex paths; it only skips the Unpaywall OA backfill.
+S2/OpenAlex paths; it only skips Dimensions and the Unpaywall OA backfill.
 
 Copyright: we read and store *metadata only* (citation counts, OA link URLs).
 We never fetch or republish full text — exactly the corpus's existing stance.
@@ -58,10 +65,15 @@ from urllib.request import Request, urlopen
 S2_BATCH_URL = "https://api.semanticscholar.org/graph/v1/paper/batch"
 OPENALEX_URL = "https://api.openalex.org/works"
 UNPAYWALL_URL = "https://api.unpaywall.org/v2"
+# Dimensions Analytics API. The instance host is configurable; the auth + query
+# paths are fixed. Auth: POST {"key": ...} -> {"token": ...}; query: POST a
+# plain-text DSL body with header `Authorization: JWT <token>`. 30 req/min cap.
+DIMENSIONS_DEFAULT_URL = "https://app.dimensions.ai"
 USER_AGENT = "ai-risk-retrieval/0.1 (corpus refresh; metadata only)"
 
 S2_BATCH_SIZE = 500  # S2 batch endpoint accepts up to 500 ids per request
 OA_PAGE_SIZE = 50  # OpenAlex OR-filter page size
+DIMENSIONS_BATCH = 200  # DOIs per DSL query (the API caps results at 1000/query)
 HTTP_TIMEOUT = 30.0
 
 
@@ -92,6 +104,13 @@ def _post(url: str, body: dict, headers: dict | None = None) -> dict | list | No
     h.update(headers or {})
     data = json.dumps(body).encode("utf-8")
     return _http(Request(url, data=data, headers=h, method="POST"))
+
+
+def _post_text(url: str, body: str, headers: dict | None = None) -> dict | list | None:
+    """POST a plain-text body (Dimensions DSL queries are sent as raw text)."""
+    h = {"User-Agent": USER_AGENT, "Accept": "application/json", "Content-Type": "text/plain"}
+    h.update(headers or {})
+    return _http(Request(url, data=body.encode("utf-8"), headers=h, method="POST"))
 
 
 # --------------------------------------------------------------------------- #
@@ -128,9 +147,58 @@ def _oa_url(open_access_pdf) -> str | None:
 # --------------------------------------------------------------------------- #
 # source refreshers — each mutates `entry` dicts in place, returns counts
 # --------------------------------------------------------------------------- #
+def refresh_from_dimensions(papers: list[dict], stats: dict) -> None:
+    """
+    Preferred citation source: Dimensions (Analytics API, DOI-keyed).
+
+    Runs before S2/OpenAlex; every paper it resolves is added to
+    stats["_cite_resolved"], so the later sources only fill the gaps — counts
+    are never summed across providers. DOI-only (Dimensions is matched on DOI).
+    Skipped entirely when DIMENSIONS_API_KEY is unset, leaving today's
+    S2 → OpenAlex behavior unchanged.
+    """
+    key = os.environ.get("DIMENSIONS_API_KEY", "").strip()
+    if not key:
+        print("  Dimensions: DIMENSIONS_API_KEY not set — skipping (S2/OpenAlex cover citations)")
+        return
+    todo = [p for p in papers if p.get("doi") and p.get("key") not in stats["_cite_resolved"]]
+    if not todo:
+        return
+
+    base = (os.environ.get("DIMENSIONS_API_URL", "") or DIMENSIONS_DEFAULT_URL).strip().rstrip("/")
+    auth = _post(f"{base}/api/auth.json", {"key": key})
+    token = auth.get("token") if isinstance(auth, dict) else None
+    if not token:
+        print("  Dimensions: authentication failed — skipping", file=sys.stderr)
+        return
+    headers = {"Authorization": f"JWT {token}"}  # token lasts ~1-2h; a run is seconds
+    dsl_url = f"{base}/api/dsl.json"
+    by_doi = {p["doi"].lower(): p for p in todo}
+
+    for batch in _chunks(list(by_doi), DIMENSIONS_BATCH):
+        # DSL: the DOI list sits inside a double-quoted [...] filter; strip stray quotes.
+        doi_list = ", ".join('"' + d.replace('"', "") + '"' for d in batch)
+        query = (
+            f"search publications where doi in [{doi_list}] "
+            f"return publications[doi+times_cited] limit 1000"
+        )
+        resp = _post_text(dsl_url, query, headers)
+        pubs = (resp or {}).get("publications", []) if isinstance(resp, dict) else []
+        for rec in pubs:
+            entry = by_doi.get((rec.get("doi") or "").lower())
+            if entry:
+                _apply_citation(entry, _valid_citation(rec.get("times_cited")), stats, "dimensions")
+        time.sleep(2.1)  # stay under the 30 requests/minute Dimensions limit
+
+
 def refresh_from_s2(papers: list[dict], stats: dict) -> None:
     """Batch-refresh citation_count (and backfill oa_pdf_url) from Semantic Scholar."""
-    targets = [(p, qid) for p in papers if (qid := s2_query_id(p))]
+    # Skip papers a higher-priority source (Dimensions) already resolved.
+    targets = [
+        (p, qid)
+        for p in papers
+        if p.get("key") not in stats["_cite_resolved"] and (qid := s2_query_id(p))
+    ]
     if not targets:
         return
     headers = {}
@@ -146,14 +214,14 @@ def refresh_from_s2(papers: list[dict], stats: dict) -> None:
         for (entry, _), rec in zip(batch, resp, strict=False):  # response aligns to input order
             if not isinstance(rec, dict):
                 continue  # null = not found
-            _apply_citation(entry, _valid_citation(rec.get("citationCount")), stats)
+            _apply_citation(entry, _valid_citation(rec.get("citationCount")), stats, "semantic_scholar")
             _apply_oa(entry, _oa_url(rec.get("openAccessPdf")), stats)
         time.sleep(1.0)  # polite to the shared endpoint between batches
 
 
 def refresh_from_openalex(papers: list[dict], stats: dict) -> None:
     """Fallback citation refresh via OpenAlex (no key needed) for papers with a DOI."""
-    todo = [p for p in papers if p.get("doi") and p.get("key") not in stats["_s2_hit"]]
+    todo = [p for p in papers if p.get("doi") and p.get("key") not in stats["_cite_resolved"]]
     if not todo:
         return
     mailto = os.environ.get("OPENALEX_MAILTO", "").strip()
@@ -173,7 +241,7 @@ def refresh_from_openalex(papers: list[dict], stats: dict) -> None:
             entry = by_doi.get(doi)
             if not entry:
                 continue
-            _apply_citation(entry, _valid_citation(rec.get("cited_by_count")), stats)
+            _apply_citation(entry, _valid_citation(rec.get("cited_by_count")), stats, "openalex")
             oa = rec.get("open_access") or {}
             _apply_oa(entry, oa.get("oa_url") if oa.get("is_oa") else None, stats)
         time.sleep(0.2)
@@ -205,10 +273,15 @@ def refresh_oa_from_unpaywall(papers: list[dict], stats: dict, workers: int = 8)
 # --------------------------------------------------------------------------- #
 # mutation + bookkeeping
 # --------------------------------------------------------------------------- #
-def _apply_citation(entry: dict, fresh: int | None, stats: dict) -> None:
+def _apply_citation(entry: dict, fresh: int | None, stats: dict, source: str = "") -> None:
     if fresh is None:
         return
-    stats["_s2_hit"].add(entry.get("key"))  # mark as resolved (skip OpenAlex fallback)
+    key = entry.get("key")
+    first = key not in stats["_cite_resolved"]
+    stats["_cite_resolved"].add(key)  # resolved → later (lower-priority) sources skip it
+    if source and first:
+        entry["citation_source"] = source  # provenance; counts are never summed
+        stats["by_source"][source] = stats["by_source"].get(source, 0) + 1
     old = entry.get("citation_count") or 0
     if fresh != old:
         entry["citation_count"] = fresh
@@ -274,20 +347,26 @@ def main() -> int:
         "citations_updated": 0,
         "total_citation_delta": 0,
         "oa_links_added": 0,
-        "_s2_hit": set(),
+        "by_source": {},          # {source: papers it resolved} — provenance, not sums
+        "_cite_resolved": set(),  # keys already resolved by a higher-priority source
     }
 
     print(f"Refreshing {len(papers)} papers (corpus has {prev_count})...")
+    refresh_from_dimensions(papers, stats)
+    if stats["by_source"].get("dimensions"):
+        print(f"  Dimensions: resolved {stats['by_source']['dimensions']} papers (preferred, DOI-keyed)")
     refresh_from_s2(papers, stats)
-    print(f"  Semantic Scholar: resolved {len(stats['_s2_hit'])} papers")
+    print(f"  Semantic Scholar: resolved {stats['by_source'].get('semantic_scholar', 0)} more")
     refresh_from_openalex(papers, stats)
+    if stats["by_source"].get("openalex"):
+        print(f"  OpenAlex: resolved {stats['by_source']['openalex']} more")
     refresh_oa_from_unpaywall(papers, stats, workers=a.workers)
 
     # stamp a per-paper refresh clock on everything we examined (first_seen untouched)
     for p in papers:
         p["last_refreshed"] = today
 
-    stats.pop("_s2_hit")
+    stats.pop("_cite_resolved")  # set → not JSON-serializable; by_source stays in the record
     refresh_record = {
         "refresh_id": f"refresh-{today}",
         "refreshed_at": datetime.datetime.now(datetime.UTC).isoformat(),

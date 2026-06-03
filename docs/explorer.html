@@ -266,7 +266,7 @@
         <p class="sub-sub">${papers.length} ${papers.length===1?'paper':'papers'}${all?` across ${coveredN} subcategories`:` · ${c.name}`} · by ${sortBy}</p>
         ${papers.map(p=>{
           const auth = p.authors.join(", ") + (p.nAuthors>p.authors.length ? `, +${p.nAuthors-p.authors.length}` : "");
-          const meta = [p.venue, p.year].filter(Boolean).join(" · ");
+          const meta = [p.venue, p.published||p.year].filter(Boolean).join(" · ");
           const titleEl = p.url ? `<a class="paper__title" href="${p.url}" target="_blank" rel="noopener">${p.title}<span class="ext">↗</span></a>` : `<span class="paper__title">${p.title}</span>`;
           return `<article class="paper">
             ${all?`<div class="paper__sub">${p.__sub}</div>`:''}

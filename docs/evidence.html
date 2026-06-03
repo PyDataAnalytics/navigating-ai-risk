@@ -144,9 +144,9 @@
     // Explorer dataset (risk_data.js) by matching titles, then score a finding by its
     // strongest supporting paper and sort findings (and search results) by that, desc.
     const _norm = t => (t||"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim();
-    const _scoreByTitle = new Map();
+    const _scoreByTitle = new Map(); const _pubByTitle = new Map();
     (window.RISK && window.RISK.categories || []).forEach(c => c.subs.forEach(s => s.papers.forEach(p => {
-      const k = _norm(p.title); if (!_scoreByTitle.has(k)) _scoreByTitle.set(k, p.score);
+      const k = _norm(p.title); if (!_scoreByTitle.has(k)) _scoreByTitle.set(k, p.score); if (!_pubByTitle.has(k)) _pubByTitle.set(k, p.published || p.year);
     })));
     function pointScore(pt){
       let best = null;
@@ -208,7 +208,7 @@
     function sourcesHTML(papers, q){
       if (!papers || !papers.length) return "";
       const items = papers.map(pp=>{
-        const label = `${hl(pp.title, q)} <span class="yr">(${esc(pp.year)})</span>`;
+        const label = `${hl(pp.title, q)} <span class="yr">(${esc(_pubByTitle.get(_norm(pp.title)) || pp.year)})</span>`;
         return pp.url
           ? `<span class="src"><a href="${esc(pp.url)}" target="_blank" rel="noopener">${label}<span class="ext">↗</span></a></span>`
           : `<span class="src">${label}</span>`;

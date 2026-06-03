@@ -24,7 +24,7 @@ llm_screen:
 sources:
   arxiv:
     enabled: true
-    max_candidates_per_subcategory: 20
+    max_candidates_per_subcategory: 15   # trimmed: arXiv is de-prioritized vs published sources
     arxiv_categories: ["cs.AI", "cs.LG", "cs.CL", "cs.CR", "cs.CY", "stat.ML"]
   semantic_scholar:
     enabled: true
@@ -59,6 +59,7 @@ scoring:
     source_diversity_bonus: 0.05
   min_acceptable_score: 4.0
   diversity_lambda: 0.6
+  arxiv_penalty: 0.5      # subtract from arXiv-only preprints so published versions rank ahead (0 disables)
 
 output:
   directory: "data/output"

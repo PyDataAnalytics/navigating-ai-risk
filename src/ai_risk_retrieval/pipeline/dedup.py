@@ -23,7 +23,7 @@ log = structlog.get_logger()
 _SOURCE_PRIORITY = {
     "semantic_scholar": 5,
     "openalex": 4,
-    "arxiv": 3,
+    "arxiv": 0,  # preprints: lowest priority on merge (kept; PDF filled below)
     "papers_with_code": 2,
     "ssrn": 2,
     "google_scholar": 1,

@@ -242,7 +242,7 @@
       document.getElementById("pCount").textContent=s.papers.length+" selected "+(s.papers.length===1?"paper":"papers");
       document.getElementById("pBody").innerHTML = s.papers.map(p=>{
         const auth=p.authors.join(", ")+(p.nAuthors>p.authors.length?`, +${p.nAuthors-p.authors.length}`:"");
-        const meta=[p.venue,p.year].filter(Boolean).join(" · ");
+        const meta=[p.venue,p.published||p.year].filter(Boolean).join(" · ");
         const titleEl = p.url?`<a class="paper__title" href="${p.url}" target="_blank" rel="noopener">${p.title}<span class="ext">↗</span></a>`:`<span class="paper__title">${p.title}</span>`;
         return `<article class="paper">${titleEl}
           <p class="paper__auth">${auth}${meta?` — ${meta}`:''}</p>

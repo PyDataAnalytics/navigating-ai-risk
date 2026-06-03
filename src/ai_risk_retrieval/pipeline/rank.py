@@ -29,6 +29,7 @@ from datetime import datetime, timezone
 from ..config import ScoringConfig
 from ..models import LLMJudgement, Paper, ScoredPaper
 
+
 # ─── Pre-LLM shortlist ──────────────────────────────────────────────────────
 
 
@@ -126,6 +127,14 @@ def compute_composite_scores(
             + w.citations * cite_component
             + w.recency * recency_component
         )
+
+        # arXiv de-prioritization: demote papers whose canonical source is still
+        # arXiv (a preprint that didn't merge into a published record during
+        # dedup). Published/indexed papers are untouched; preprints are lowered,
+        # not removed. getattr keeps this a no-op if arxiv_penalty isn't set.
+        penalty = getattr(config, "arxiv_penalty", 0.0)
+        if penalty and paper.source == "arxiv":
+            base = max(0.0, base - penalty)
 
         components = {
             "llm_relevance": llm_component,

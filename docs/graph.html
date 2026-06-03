@@ -240,7 +240,7 @@
       if (n && n.type==="theme"){
         document.getElementById("pCat").textContent = n.data.cat;
         document.getElementById("pTitle").textContent = n.data.sub.name;
-        document.getElementById("pList").innerHTML = n.data.sub.papers.map(p=>`<li><span class="panel__t">${p.url?`<a href="${p.url}" target="_blank" rel="noopener" style="color:inherit">${p.title} ↗</a>`:p.title}</span><span class="panel__u">${p.year||""}</span></li>`).join("");
+        document.getElementById("pList").innerHTML = n.data.sub.papers.map(p=>`<li><span class="panel__t">${p.url?`<a href="${p.url}" target="_blank" rel="noopener" style="color:inherit">${p.title} ↗</a>`:p.title}</span><span class="panel__u">${p.published||p.year||""}</span></li>`).join("");
         panel.classList.add("show");
       }
     }

@@ -25,6 +25,12 @@ class GoogleScholarSource(PaperSource):
     name = "google_scholar"
     base_url = "https://serpapi.com/search"
 
+    # Tripped (process-wide, for the rest of a run) the first time SerpApi
+    # reports it is out of searches. Once set, every later subcategory skips
+    # the API entirely and the free sources (OpenAlex, Semantic Scholar, arXiv,
+    # Papers with Code, SSRN) carry the remainder of the run. Fresh per process.
+    _quota_exhausted: bool = False
+
     async def fetch(self, subcategory: Subcategory) -> list[Paper]:
         if not self.config.enabled or self.config.max_candidates_per_subcategory == 0:
             return []
@@ -38,6 +44,11 @@ class GoogleScholarSource(PaperSource):
             )
             return []
 
+        # SerpApi quota already spent earlier in this run → don't call the API;
+        # the free sources cover the remaining subcategories.
+        if GoogleScholarSource._quota_exhausted:
+            return []
+
         query = self.build_query(subcategory)
         params = {
             "engine": "google_scholar",
@@ -49,7 +60,35 @@ class GoogleScholarSource(PaperSource):
         try:
             data = await self._get(params)
         except Exception as e:
-            log.warning("scholar_fetch_failed", subcategory=subcategory.name, error=str(e))
+            # HTTP 429 from SerpApi == out of searches / rate limit. Trip the
+            # run-wide flag so we stop hammering a spent quota and fall back to
+            # the free sources for every remaining subcategory.
+            status = getattr(getattr(e, "response", None), "status_code", None)
+            if status == 429:
+                GoogleScholarSource._quota_exhausted = True
+                log.warning(
+                    "scholar_quota_exhausted",
+                    detail="SerpApi returned 429; disabling Scholar for the rest of "
+                    "this run and falling back to the free sources.",
+                )
+            else:
+                log.warning("scholar_fetch_failed", subcategory=subcategory.name, error=str(e))
+            return []
+
+        # SerpApi also reports a spent quota in the JSON body (HTTP 200 with an
+        # `error` string), not only via 429 — catch both.
+        err = data.get("error")
+        if err:
+            low = err.lower()
+            if any(k in low for k in ("run out", "ran out", "exceed", "quota", "limit", "no searches")):
+                GoogleScholarSource._quota_exhausted = True
+                log.warning(
+                    "scholar_quota_exhausted",
+                    error=err,
+                    detail="disabling Scholar for the rest of this run; free sources continue.",
+                )
+            else:
+                log.warning("scholar_api_error", error=err)
             return []
 
         papers: list[Paper] = []
@@ -83,7 +122,6 @@ class GoogleScholarSource(PaperSource):
         year: int | None = None
         if pub_info:
             import re
-
             m = re.search(r"\b(19|20)\d{2}\b", pub_info)
             if m:
                 year = int(m.group(0))

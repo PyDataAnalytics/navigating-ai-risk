@@ -147,6 +147,11 @@ class ScoringConfig(BaseModel):
     # default for content diversity; 0.5 pushes harder toward variety; lower
     # than 0.3 starts surfacing oddities. See pipeline/diversify.py.
     diversity_lambda: float = Field(default=0.6, ge=0.0, le=1.0)
+    # Flat penalty subtracted from an arXiv-sourced paper's composite score so
+    # peer-reviewed venues outrank preprints of equal merit. arXiv is still
+    # retrieved and kept - only demoted; 0.0 disables. Applied in
+    # pipeline/rank.py via getattr, so configs lacking this field act as 0.0.
+    arxiv_penalty: float = Field(default=0.5, ge=0.0, le=10.0)
 
 
 class OutputConfig(BaseModel):
