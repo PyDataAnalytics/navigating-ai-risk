@@ -1,0 +1,13 @@
+version: 2
+updates:
+  # Keeps the SHA-pinned actions current: Dependabot opens PRs that bump the
+  # pinned commit (and the trailing `# vX` comment) when a new release lands.
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+  # Bumps Python dependency floors in pyproject.toml.
+  - package-ecosystem: pip
+    directory: "/"
+    schedule:
+      interval: weekly

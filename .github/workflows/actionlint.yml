@@ -1,0 +1,28 @@
+name: actionlint
+# Lints the workflow files themselves (syntax, expression mistakes, and - via the
+# bundled shellcheck - the embedded `run:` shell). Read-only, no secrets.
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/**'
+  pull_request:
+    paths:
+      - '.github/workflows/**'
+permissions:
+  contents: read
+jobs:
+  actionlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - name: Run actionlint
+        # Pinned (bump deliberately) instead of :latest, so a new image can't
+        # change CI behaviour out from under you.
+        uses: docker://rhysd/actionlint:1.7.7
+        with:
+          # -shellcheck= turns OFF the bundled shellcheck. discovery.yml relies on
+          # intentional unquoted word-splitting ($SSH_OPTS), which shellcheck would
+          # flag (SC2086) and redden the run. actionlint still checks workflow
+          # syntax + GitHub expression mistakes, which is the point here.
+          args: -color -shellcheck=

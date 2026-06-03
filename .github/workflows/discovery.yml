@@ -1,5 +1,4 @@
 name: discovery
-
 # NEW-paper discovery on your own GPU. Creates a FRESH RunPod pod, runs the real
 # Ollama pipeline ON the pod (keeping the "no third-party LLM" posture), pulls the
 # run back, folds it into the corpus, commits, and ALWAYS terminates the pod.
@@ -11,10 +10,19 @@ name: discovery
 # the run SKIPS cleanly (green) instead of erroring - so a capacity blip never
 # reddens the repo. Real bugs (bad API key, bad request) still fail loudly.
 #
-# Required repo secrets:  RUNPOD_API_KEY, RUNPOD_SSH_KEY (base64 private key)
-# Optional (forwarded to the pod): SEMANTIC_SCHOLAR_API_KEY, OPENALEX_MAILTO,
-#                                  UNPAYWALL_EMAIL, SERPAPI_API_KEY
-
+# SECURITY (hardened):
+#   * SSH keypair is generated FRESH PER RUN (ephemeral). No long-lived private
+#     key is stored as a secret; the throwaway public key is injected into the
+#     pod at create time and the private key dies with the runner.
+#   * API keys are written to a 0600 env file, scp'd to the pod, then sourced and
+#     deleted there - they never appear on any process command line.
+#   * The Ollama installer is downloaded + sha256-verified on the pod (see
+#     pod_discovery.sh); pin it via the OLLAMA_INSTALL_SHA256 repo variable.
+#
+# Required repo secret:   RUNPOD_API_KEY
+# Optional repo secrets (forwarded to the pod): SEMANTIC_SCHOLAR_API_KEY,
+#                                  OPENALEX_MAILTO, UNPAYWALL_EMAIL, SERPAPI_API_KEY
+# Optional repo variables: OLLAMA_VERSION, OLLAMA_INSTALL_SHA256
 on:
   schedule:
     - cron: "0 4 * * 0"   # 04:00 UTC every Sunday (refresh runs Monday - no clash)
@@ -32,43 +40,31 @@ on:
       config:
         description: "Pipeline config on the pod"
         default: "config/ci.yaml"
-
 permissions:
   contents: write
-
 concurrency:
   group: discovery
   cancel-in-progress: false
-
 env:
   REMOTE_WORKDIR: /workspace/ai-risk-retrieval-work/navigating-ai-risk
-
 jobs:
   discover:
     runs-on: ubuntu-latest
     timeout-minutes: 240
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
-
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: "3.11"
-
-      - name: Write SSH keypair
-        env:
-          RUNPOD_SSH_KEY_B64: ${{ secrets.RUNPOD_SSH_KEY }}
+      - name: Generate ephemeral SSH keypair
         run: |
-          if [ -z "$RUNPOD_SSH_KEY_B64" ]; then
-            echo "RUNPOD_SSH_KEY secret is not set" >&2; exit 1
-          fi
           mkdir -p ~/.ssh && chmod 700 ~/.ssh
-          # base64-encoded so Windows/PowerShell encoding quirks can't corrupt it.
-          printf '%s' "$RUNPOD_SSH_KEY_B64" | base64 -d > ~/.ssh/runpod_key
+          # Fresh throwaway key per run - nothing long-lived is stored as a secret.
+          # The public half is injected into the pod by the create step below.
+          ssh-keygen -t ed25519 -N '' -q -f ~/.ssh/runpod_key
           chmod 600 ~/.ssh/runpod_key
-          ssh-keygen -y -f ~/.ssh/runpod_key > ~/.ssh/runpod_key.pub
-
       - name: Create pod
         id: create
         env:
@@ -99,7 +95,6 @@ jobs:
           echo "RP_POD_ID=$POD_ID" >> "$GITHUB_ENV"
           echo "proceed=true" >> "$GITHUB_OUTPUT"
           echo "Created pod: $POD_ID"
-
       - name: Wait for SSH
         if: steps.create.outputs.proceed == 'true'
         env:
@@ -109,7 +104,6 @@ jobs:
           echo "RP_HOST=$(echo "$EP" | cut -d' ' -f1)" >> "$GITHUB_ENV"
           echo "RP_PORT=$(echo "$EP" | cut -d' ' -f2)" >> "$GITHUB_ENV"
           echo "Pod SSH at $EP"
-
       - name: Run discovery on the pod
         if: steps.create.outputs.proceed == 'true'
         env:
@@ -129,15 +123,27 @@ jobs:
             echo "waiting for sshd to accept connections (attempt $n)..."
             sleep 15
           done
-          echo "SSH is up; running the pipeline on the pod."
+          echo "SSH is up; shipping a 0600 env file (keys never touch a command line) and running the pipeline."
+          # Secrets go into a 0600 file -> scp -> sourced and deleted on the pod.
+          # This keeps them out of the remote process's argv (visible via 'ps').
+          umask 077
+          cat > disc_env <<EOF
+          export WORKDIR='$REMOTE_WORKDIR'
+          export CONFIG='${{ inputs.config || 'config/ci.yaml' }}'
+          export OLLAMA_VERSION='${{ vars.OLLAMA_VERSION }}'
+          export OLLAMA_INSTALL_SHA256='${{ vars.OLLAMA_INSTALL_SHA256 }}'
+          export SEMANTIC_SCHOLAR_API_KEY='$SEMANTIC_SCHOLAR_API_KEY'
+          export OPENALEX_MAILTO='$OPENALEX_MAILTO'
+          export UNPAYWALL_EMAIL='$UNPAYWALL_EMAIL'
+          export SERPAPI_API_KEY='$SERPAPI_API_KEY'
+          EOF
+          scp -i ~/.ssh/runpod_key -P "$RP_PORT" \
+            -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/dev/null \
+            -o ConnectTimeout=15 \
+            disc_env "root@$RP_HOST:/root/disc_env"
+          rm -f disc_env
           ssh $SSH_OPTS "root@$RP_HOST" \
-            "WORKDIR='$REMOTE_WORKDIR' CONFIG='${{ inputs.config || 'config/ci.yaml' }}' \
-             SEMANTIC_SCHOLAR_API_KEY='$SEMANTIC_SCHOLAR_API_KEY' \
-             OPENALEX_MAILTO='$OPENALEX_MAILTO' \
-             UNPAYWALL_EMAIL='$UNPAYWALL_EMAIL' \
-             SERPAPI_API_KEY='$SERPAPI_API_KEY' \
-             bash -s" < scripts/pod_discovery.sh
-
+            'set -a; . /root/disc_env; rm -f /root/disc_env; bash -s' < scripts/pod_discovery.sh
       - name: Fetch run back from the pod
         if: steps.create.outputs.proceed == 'true'
         run: |
@@ -147,13 +153,11 @@ jobs:
             -o ConnectTimeout=15 \
             "root@$RP_HOST:$REMOTE_WORKDIR/data/output/latest.json" \
             data/output/latest.json
-
       - name: Merge into corpus + rebuild site data
         if: steps.create.outputs.proceed == 'true'
         run: |
           python merge_corpus.py --run data/output/latest.json --corpus corpus.json --snapshot-dir snapshots
           python build_data.py -i corpus.json -o docs/risk_data.js -e excerpts.json
-
       - name: Commit results
         if: steps.create.outputs.proceed == 'true'
         run: |
@@ -166,7 +170,6 @@ jobs:
             git commit -m "feat(data): discovery run $(date -u +%Y-%m-%d)"
             git push || { git pull --rebase --autostash && git push; }
           fi
-
       # CRITICAL cost safety: terminate no matter what. Terminate by id if we have
       # one, then sweep by this run's unique pod name to catch any pod a slow create
       # may have left without returning an id.
@@ -180,10 +183,9 @@ jobs:
             python scripts/runpod_pod.py terminate --pod-id "$RP_POD_ID"
           fi
           python scripts/runpod_pod.py cleanup --name "$POD_NAME"
-
       - name: Upload run artifact
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: discovery-results
           path: data/output/
