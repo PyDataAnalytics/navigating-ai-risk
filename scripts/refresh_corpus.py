@@ -152,7 +152,7 @@ def refresh_from_dimensions(papers: list[dict], stats: dict) -> None:
     Preferred citation source: Dimensions (Analytics API, DOI-keyed).
 
     Runs before S2/OpenAlex; every paper it resolves is added to
-    stats["_cite_resolved"], so the later sources only fill the gaps — counts
+    stats["_s2_hit"], so the later sources only fill the gaps — counts
     are never summed across providers. DOI-only (Dimensions is matched on DOI).
     Skipped entirely when DIMENSIONS_API_KEY is unset, leaving today's
     S2 → OpenAlex behavior unchanged.
@@ -161,7 +161,7 @@ def refresh_from_dimensions(papers: list[dict], stats: dict) -> None:
     if not key:
         print("  Dimensions: DIMENSIONS_API_KEY not set — skipping (S2/OpenAlex cover citations)")
         return
-    todo = [p for p in papers if p.get("doi") and p.get("key") not in stats["_cite_resolved"]]
+    todo = [p for p in papers if p.get("doi") and p.get("key") not in stats["_s2_hit"]]
     if not todo:
         return
 
@@ -197,7 +197,7 @@ def refresh_from_s2(papers: list[dict], stats: dict) -> None:
     targets = [
         (p, qid)
         for p in papers
-        if p.get("key") not in stats["_cite_resolved"] and (qid := s2_query_id(p))
+        if p.get("key") not in stats["_s2_hit"] and (qid := s2_query_id(p))
     ]
     if not targets:
         return
@@ -221,7 +221,7 @@ def refresh_from_s2(papers: list[dict], stats: dict) -> None:
 
 def refresh_from_openalex(papers: list[dict], stats: dict) -> None:
     """Fallback citation refresh via OpenAlex (no key needed) for papers with a DOI."""
-    todo = [p for p in papers if p.get("doi") and p.get("key") not in stats["_cite_resolved"]]
+    todo = [p for p in papers if p.get("doi") and p.get("key") not in stats["_s2_hit"]]
     if not todo:
         return
     mailto = os.environ.get("OPENALEX_MAILTO", "").strip()
@@ -277,11 +277,12 @@ def _apply_citation(entry: dict, fresh: int | None, stats: dict, source: str = "
     if fresh is None:
         return
     key = entry.get("key")
-    first = key not in stats["_cite_resolved"]
-    stats["_cite_resolved"].add(key)  # resolved → later (lower-priority) sources skip it
+    first = key not in stats["_s2_hit"]
+    stats["_s2_hit"].add(key)  # resolved → later (lower-priority) sources skip it
     if source and first:
         entry["citation_source"] = source  # provenance; counts are never summed
-        stats["by_source"][source] = stats["by_source"].get(source, 0) + 1
+        bs = stats.setdefault("by_source", {})
+        bs[source] = bs.get(source, 0) + 1
     old = entry.get("citation_count") or 0
     if fresh != old:
         entry["citation_count"] = fresh
@@ -348,7 +349,7 @@ def main() -> int:
         "total_citation_delta": 0,
         "oa_links_added": 0,
         "by_source": {},          # {source: papers it resolved} — provenance, not sums
-        "_cite_resolved": set(),  # keys already resolved by a higher-priority source
+        "_s2_hit": set(),  # keys already resolved by a higher-priority source
     }
 
     print(f"Refreshing {len(papers)} papers (corpus has {prev_count})...")
@@ -366,7 +367,7 @@ def main() -> int:
     for p in papers:
         p["last_refreshed"] = today
 
-    stats.pop("_cite_resolved")  # set → not JSON-serializable; by_source stays in the record
+    stats.pop("_s2_hit")  # set → not JSON-serializable; by_source stays in the record
     refresh_record = {
         "refresh_id": f"refresh-{today}",
         "refreshed_at": datetime.datetime.now(datetime.UTC).isoformat(),

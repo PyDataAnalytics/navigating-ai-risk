@@ -29,7 +29,6 @@ from datetime import datetime, timezone
 from ..config import ScoringConfig
 from ..models import LLMJudgement, Paper, ScoredPaper
 
-
 # ─── Pre-LLM shortlist ──────────────────────────────────────────────────────
 
 

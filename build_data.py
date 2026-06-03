@@ -11,7 +11,10 @@ through so the views can flag what's new. No abstract (corpus is abstract-free).
 
 Usage: python build_data.py -i corpus.json -o docs/risk_data.js
 """
-import argparse, json, os, datetime
+import argparse
+import datetime
+import json
+import os
 from collections import defaultdict
 
 # --- split of technical_reliability's subcategories (edit freely) ---
@@ -143,8 +146,10 @@ def main():
     runs = corpus.get("runs", [])
     last = runs[-1] if runs else {}
     def fmt(iso):
-        try: return datetime.datetime.fromisoformat((iso or "").replace("Z","+00:00")).strftime("%d %B %Y")
-        except Exception: return iso or ""
+        try:
+            return datetime.datetime.fromisoformat((iso or "").replace("Z","+00:00")).strftime("%d %B %Y")
+        except Exception:
+            return iso or ""
 
     RISK = {
         "generated": fmt(last.get("finished_at") or corpus.get("corpus_updated_at")),
