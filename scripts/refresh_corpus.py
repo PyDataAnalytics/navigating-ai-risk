@@ -195,9 +195,7 @@ def refresh_from_s2(papers: list[dict], stats: dict) -> None:
     """Batch-refresh citation_count (and backfill oa_pdf_url) from Semantic Scholar."""
     # Skip papers a higher-priority source (Dimensions) already resolved.
     targets = [
-        (p, qid)
-        for p in papers
-        if p.get("key") not in stats["_s2_hit"] and (qid := s2_query_id(p))
+        (p, qid) for p in papers if p.get("key") not in stats["_s2_hit"] and (qid := s2_query_id(p))
     ]
     if not targets:
         return
@@ -214,7 +212,9 @@ def refresh_from_s2(papers: list[dict], stats: dict) -> None:
         for (entry, _), rec in zip(batch, resp, strict=False):  # response aligns to input order
             if not isinstance(rec, dict):
                 continue  # null = not found
-            _apply_citation(entry, _valid_citation(rec.get("citationCount")), stats, "semantic_scholar")
+            _apply_citation(
+                entry, _valid_citation(rec.get("citationCount")), stats, "semantic_scholar"
+            )
             _apply_oa(entry, _oa_url(rec.get("openAccessPdf")), stats)
         time.sleep(1.0)  # polite to the shared endpoint between batches
 
@@ -348,14 +348,16 @@ def main() -> int:
         "citations_updated": 0,
         "total_citation_delta": 0,
         "oa_links_added": 0,
-        "by_source": {},          # {source: papers it resolved} — provenance, not sums
+        "by_source": {},  # {source: papers it resolved} — provenance, not sums
         "_s2_hit": set(),  # keys already resolved by a higher-priority source
     }
 
     print(f"Refreshing {len(papers)} papers (corpus has {prev_count})...")
     refresh_from_dimensions(papers, stats)
     if stats["by_source"].get("dimensions"):
-        print(f"  Dimensions: resolved {stats['by_source']['dimensions']} papers (preferred, DOI-keyed)")
+        print(
+            f"  Dimensions: resolved {stats['by_source']['dimensions']} papers (preferred, DOI-keyed)"
+        )
     refresh_from_s2(papers, stats)
     print(f"  Semantic Scholar: resolved {stats['by_source'].get('semantic_scholar', 0)} more")
     refresh_from_openalex(papers, stats)

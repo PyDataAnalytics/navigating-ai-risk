@@ -80,7 +80,9 @@ class GoogleScholarSource(PaperSource):
         err = data.get("error")
         if err:
             low = err.lower()
-            if any(k in low for k in ("run out", "ran out", "exceed", "quota", "limit", "no searches")):
+            if any(
+                k in low for k in ("run out", "ran out", "exceed", "quota", "limit", "no searches")
+            ):
                 GoogleScholarSource._quota_exhausted = True
                 log.warning(
                     "scholar_quota_exhausted",
@@ -122,6 +124,7 @@ class GoogleScholarSource(PaperSource):
         year: int | None = None
         if pub_info:
             import re
+
             m = re.search(r"\b(19|20)\d{2}\b", pub_info)
             if m:
                 year = int(m.group(0))
