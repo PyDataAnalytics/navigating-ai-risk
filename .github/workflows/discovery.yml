@@ -111,9 +111,12 @@ jobs:
           OPENALEX_MAILTO: ${{ secrets.OPENALEX_MAILTO }}
           UNPAYWALL_EMAIL: ${{ secrets.UNPAYWALL_EMAIL }}
           SERPAPI_API_KEY: ${{ secrets.SERPAPI_API_KEY }}
+          CONFIG: ${{ inputs.config || 'config/ci.yaml' }}
+          OLLAMA_VERSION: ${{ vars.OLLAMA_VERSION }}
+          OLLAMA_INSTALL_SHA256: ${{ vars.OLLAMA_INSTALL_SHA256 }}
         run: |
           SSH_OPTS="-i ~/.ssh/runpod_key -p $RP_PORT \
-            -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/dev/null \
+            -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=~/.ssh/rp_known_hosts \
             -o ConnectTimeout=15 -o ServerAliveInterval=60 -o ServerAliveCountMax=60"
           # sshd may need a few seconds after the port opens - confirm auth works first.
           n=0
@@ -129,16 +132,16 @@ jobs:
           umask 077
           cat > disc_env <<EOF
           export WORKDIR='$REMOTE_WORKDIR'
-          export CONFIG='${{ inputs.config || 'config/ci.yaml' }}'
-          export OLLAMA_VERSION='${{ vars.OLLAMA_VERSION }}'
-          export OLLAMA_INSTALL_SHA256='${{ vars.OLLAMA_INSTALL_SHA256 }}'
+          export CONFIG='$CONFIG'
+          export OLLAMA_VERSION='$OLLAMA_VERSION'
+          export OLLAMA_INSTALL_SHA256='$OLLAMA_INSTALL_SHA256'
           export SEMANTIC_SCHOLAR_API_KEY='$SEMANTIC_SCHOLAR_API_KEY'
           export OPENALEX_MAILTO='$OPENALEX_MAILTO'
           export UNPAYWALL_EMAIL='$UNPAYWALL_EMAIL'
           export SERPAPI_API_KEY='$SERPAPI_API_KEY'
           EOF
           scp -i ~/.ssh/runpod_key -P "$RP_PORT" \
-            -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/dev/null \
+            -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=~/.ssh/rp_known_hosts \
             -o ConnectTimeout=15 \
             disc_env "root@$RP_HOST:/root/disc_env"
           rm -f disc_env
@@ -149,7 +152,7 @@ jobs:
         run: |
           mkdir -p data/output
           scp -i ~/.ssh/runpod_key -P "$RP_PORT" \
-            -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/dev/null \
+            -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=~/.ssh/rp_known_hosts \
             -o ConnectTimeout=15 \
             "root@$RP_HOST:$REMOTE_WORKDIR/data/output/latest.json" \
             data/output/latest.json

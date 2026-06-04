@@ -63,21 +63,34 @@ fi
 # print + verify its sha256, then run it with the version pinned. This removes
 # blind execution of a remote script and makes the install reproducible.
 if ! command -v ollama >/dev/null 2>&1; then
-  retry curl -fsSL https://ollama.com/install.sh -o /tmp/ollama_install.sh
-  observed="$(sha256sum /tmp/ollama_install.sh | cut -d' ' -f1)"
-  echo "::pod:: ollama install.sh sha256=${observed}"
-  if [ -n "${OLLAMA_INSTALL_SHA256}" ]; then
-    if [ "${observed}" != "${OLLAMA_INSTALL_SHA256}" ]; then
-      echo "::pod:: install.sh checksum mismatch (expected ${OLLAMA_INSTALL_SHA256}); refusing to run installer" >&2
-      exit 1
-    fi
-  else
-    echo "::pod:: WARNING: OLLAMA_INSTALL_SHA256 not set - installer NOT verified. Pin it to the sha above." >&2
+  # Verified, pinned install: pull the release tarball straight from GitHub
+  # Releases and check it against the sha256 GitHub publishes for that asset,
+  # fail-closed. This verifies the actual binary (not just a fetch script)
+  # against an upstream-published checksum. Both pins are REQUIRED.
+  if [ -z "${OLLAMA_VERSION}" ] || [ -z "${OLLAMA_INSTALL_SHA256}" ]; then
+    echo "::pod:: OLLAMA_VERSION and OLLAMA_INSTALL_SHA256 must both be set (pin a version + its published sha256); refusing to install" >&2
+    exit 1
   fi
-  OLLAMA_VERSION="${OLLAMA_VERSION}" sh /tmp/ollama_install.sh
-  rm -f /tmp/ollama_install.sh
+  case "$(uname -m)" in
+    x86_64)        OARCH=amd64 ;;
+    aarch64|arm64) OARCH=arm64 ;;
+    *) echo "::pod:: unsupported arch $(uname -m)" >&2; exit 1 ;;
+  esac
+  ol_url="https://github.com/ollama/ollama/releases/download/v${OLLAMA_VERSION}/ollama-linux-${OARCH}.tar.zst"
+  echo "::pod:: downloading pinned Ollama v${OLLAMA_VERSION} from ${ol_url}"
+  retry curl -fsSL "${ol_url}" -o /tmp/ollama.tar.zst
+  observed="$(sha256sum /tmp/ollama.tar.zst | cut -d' ' -f1)"
+  echo "::pod:: ollama-linux-${OARCH}.tar.zst sha256=${observed}"
+  if [ "${observed}" != "${OLLAMA_INSTALL_SHA256}" ]; then
+    echo "::pod:: checksum mismatch (expected ${OLLAMA_INSTALL_SHA256}); refusing to install" >&2
+    exit 1
+  fi
+  zstd -dc /tmp/ollama.tar.zst | tar -C /usr -x
+  rm -f /tmp/ollama.tar.zst
+  command -v ollama >/dev/null 2>&1 || { echo "::pod:: ollama not on PATH after extract" >&2; exit 1; }
 fi
 echo "::pod:: starting Ollama if needed"
+export OLLAMA_HOST="127.0.0.1:11434"   # localhost-only bind (defense-in-depth; pod exposes :22 only)
 if ! curl -fsS http://127.0.0.1:11434/api/tags >/dev/null 2>&1; then
   nohup ollama serve >/tmp/ollama.log 2>&1 &
   for _ in $(seq 1 60); do
@@ -99,7 +112,12 @@ else
 fi
 cd "${WORKDIR}"
 echo "::pod:: ensuring package installed"
-command -v ai-risk-retrieval >/dev/null 2>&1 || retry pip install -e . -q
+if ! command -v ai-risk-retrieval >/dev/null 2>&1; then
+  # Supply-chain: install deps from a hash-pinned lock (fail-closed on any
+  # altered/unverified package), then the package itself with no re-resolution.
+  retry pip install --require-hashes -r requirements.lock -q
+  pip install -e . --no-deps -q
+fi
 echo "::pod:: validating config"
 ai-risk-retrieval validate-config -c "${CONFIG}" -t config/taxonomy.yaml
 echo "::pod:: running full retrieval"
