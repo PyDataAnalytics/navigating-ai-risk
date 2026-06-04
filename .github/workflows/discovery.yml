@@ -36,7 +36,7 @@ on:
         default: ""
       image:
         description: "Container image (used only if template_id is blank)"
-        default: "runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04"
+        default: "runpod/pytorch@sha256:2594f25beeef751aeebcc207ba4c45a382ba174655f01e15cbbfad0e2bdb5ef8"
       config:
         description: "Pipeline config on the pod"
         default: "config/ci.yaml"
@@ -71,7 +71,7 @@ jobs:
           RUNPOD_API_KEY: ${{ secrets.RUNPOD_API_KEY }}
           GPU_TYPE_IDS: ${{ inputs.gpu_types || 'NVIDIA GeForce RTX 4090,NVIDIA RTX A5000,NVIDIA A40,NVIDIA L40S,NVIDIA GeForce RTX 3090' }}
           POD_TEMPLATE_ID: ${{ inputs.template_id }}
-          POD_IMAGE: ${{ inputs.image || 'runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04' }}
+          POD_IMAGE: ${{ inputs.image || 'runpod/pytorch@sha256:2594f25beeef751aeebcc207ba4c45a382ba174655f01e15cbbfad0e2bdb5ef8' }}
           POD_NAME: ai-risk-discovery-${{ github.run_number }}
           POD_CLOUD_TYPE: "SECURE"
           CONTAINER_DISK_GB: "40"
