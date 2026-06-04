@@ -56,12 +56,20 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add corpus.json docs/risk_data.js
-          if git diff --cached --quiet; then
-            echo "No changes this week."
-          else
-            # Data commits are skipped by CI via paths-ignore (see ci.yml); GitHub
-            # Pages "deploy from branch" still rebuilds on the push.
+          # corpus.json/risk_data.js are GENERATED; never line-merge them against a
+          # parallel run. On a push race, reset to origin/main and re-run the refresh
+          # on the updated corpus, then retry.
+          # (Data commits are skipped by CI via paths-ignore; Pages still redeploys.)
+          for attempt in 1 2 3 4 5; do
+            git add corpus.json docs/risk_data.js
+            if git diff --cached --quiet; then echo "No changes this week."; exit 0; fi
             git commit -m "chore(data): weekly refresh $(date -u +%Y-%m-%d)"
-            git push || { git pull --rebase --autostash && git push; }
-          fi
+            if git push; then echo "pushed."; exit 0; fi
+            echo "push rejected (attempt $attempt) - re-running refresh onto latest origin/main"
+            git fetch origin main
+            git reset --hard origin/main
+            python scripts/refresh_corpus.py --corpus corpus.json
+            python build_data.py -i corpus.json -o docs/risk_data.js -e excerpts.json
+          done
+          echo "still could not push after 5 attempts" >&2
+          exit 1

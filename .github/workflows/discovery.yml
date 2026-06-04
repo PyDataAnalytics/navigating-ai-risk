@@ -166,13 +166,23 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add corpus.json docs/risk_data.js snapshots
-          if git diff --cached --quiet; then
-            echo "No new papers this run."
-          else
+          # corpus.json/risk_data.js are GENERATED, so they can never be line-merged
+          # against a parallel run. On a push race, reset to origin/main and re-fold
+          # THIS run's papers into the now-updated corpus (accretive = union), then
+          # retry. Survives two discovery runs (or a refresh) landing data at once.
+          for attempt in 1 2 3 4 5; do
+            git add corpus.json docs/risk_data.js snapshots
+            if git diff --cached --quiet; then echo "No new papers this run."; exit 0; fi
             git commit -m "feat(data): discovery run $(date -u +%Y-%m-%d)"
-            git push || { git pull --rebase --autostash && git push; }
-          fi
+            if git push; then echo "pushed."; exit 0; fi
+            echo "push rejected (attempt $attempt) - re-merging onto latest origin/main"
+            git fetch origin main
+            git reset --hard origin/main
+            python merge_corpus.py --run data/output/latest.json --corpus corpus.json --snapshot-dir snapshots
+            python build_data.py -i corpus.json -o docs/risk_data.js -e excerpts.json
+          done
+          echo "still could not push after 5 attempts" >&2
+          exit 1
       # CRITICAL cost safety: terminate no matter what. Terminate by id if we have
       # one, then sweep by this run's unique pod name to catch any pod a slow create
       # may have left without returning an id.
