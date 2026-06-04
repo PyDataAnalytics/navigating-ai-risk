@@ -45,7 +45,9 @@ TIMEOUT = 60.0
 CREATE_TIMEOUT = 240.0
 USER_AGENT = "ai-risk-discovery/1.0 (+github-actions)"
 
-DEFAULT_IMAGE = "runpod/pytorch@sha256:2594f25beeef751aeebcc207ba4c45a382ba174655f01e15cbbfad0e2bdb5ef8"
+DEFAULT_IMAGE = (
+    "runpod/pytorch@sha256:2594f25beeef751aeebcc207ba4c45a382ba174655f01e15cbbfad0e2bdb5ef8"
+)
 
 # Start command for a bare image: guarantee sshd is up with our key, regardless
 # of the image's default behaviour. Runs sshd in the foreground so the pod stays
