@@ -111,6 +111,8 @@
   <script src="risk_data.js"></script>
   <script>
     const R = window.RISK, cats = R.categories;
+    const esc = s => (s==null?"":String(s)).replace(/[&<>"]/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+    const safeUrl = u => { u=(u==null?"":String(u)).trim(); return /^https?:\/\//i.test(u) ? u : ""; };
     const totalSubs = cats.reduce((a,c)=>a+c.subs.length,0);
     const coveredSubs = cats.reduce((a,c)=>a+c.subs.filter(s=>s.papers.length>0).length,0);
 
@@ -140,7 +142,7 @@
       }).join("");
       return `<section class="crow">
         <div class="cinfo">
-          <h2 class="cinfo__name"><a href="explorer.html?c=${c.id}">${c.name}</a></h2>
+          <h2 class="cinfo__name"><a href="explorer.html?c=${c.id}">${esc(c.name)}</a></h2>
           <div class="cinfo__meta"><b>${cov}</b>/${c.subs.length} subcats · <b>${c.papers}</b> papers · <b>${c.subs.length-cov}</b> gaps</div>
           <div class="covbar"><i style="width:${pct}%"></i></div>
         </div>

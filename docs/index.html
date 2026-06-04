@@ -70,6 +70,8 @@
   <script src="risk_data.js"></script>
   <script>
     const R = window.RISK, cats = R.categories;
+    const esc = s => (s==null?"":String(s)).replace(/[&<>"]/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+    const safeUrl = u => { u=(u==null?"":String(u)).trim(); return /^https?:\/\//i.test(u) ? u : ""; };
     const totalSubs = cats.reduce((a,c)=>a+c.subs.length,0);
     const covered = cats.reduce((a,c)=>a+c.subs.filter(s=>s.papers.length>0).length,0);
 
@@ -85,7 +87,7 @@
       .reduce((a,b)=> b.gap>a.gap ? b : a);
     const msIdx = cats.indexOf(mostStudied);
     document.getElementById("highlight").innerHTML =
-      `Most studied — <a href="explorer.html?c=${mostStudied.id}"><b>${mostStudied.name}</b></a> (${mostStudied.papers} papers).&nbsp; Thinnest coverage — <a href="coverage.html"><b>${biggestGap.c.name}</b></a> (${biggestGap.gap} of ${biggestGap.c.subs.length} subcategories with no papers).`;
+      `Most studied — <a href="explorer.html?c=${mostStudied.id}"><b>${esc(mostStudied.name)}</b></a> (${mostStudied.papers} papers).&nbsp; Thinnest coverage — <a href="coverage.html"><b>${esc(biggestGap.c.name)}</b></a> (${biggestGap.gap} of ${biggestGap.c.subs.length} subcategories with no papers).`;
 
     const VIEWS = [
       { n:"01", name:"Explorer", file:"explorer.html", d:"Browse the taxonomy — category to subcategory to ranked papers, with search, sort, and export." },

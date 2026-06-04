@@ -240,10 +240,12 @@
       document.getElementById("pCat").textContent=c.name;
       document.getElementById("pTitle").textContent=s.name;
       document.getElementById("pCount").textContent=s.papers.length+" selected "+(s.papers.length===1?"paper":"papers");
+      const esc = s => (s==null?"":String(s)).replace(/[&<>"]/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+      const safeUrl = u => { u=(u==null?"":String(u)).trim(); return /^https?:\/\//i.test(u) ? u : ""; };
       document.getElementById("pBody").innerHTML = s.papers.map(p=>{
-        const auth=p.authors.join(", ")+(p.nAuthors>p.authors.length?`, +${p.nAuthors-p.authors.length}`:"");
-        const meta=[p.venue,p.published||p.year].filter(Boolean).join(" · ");
-        const titleEl = p.url?`<a class="paper__title" href="${p.url}" target="_blank" rel="noopener">${p.title}<span class="ext">↗</span></a>`:`<span class="paper__title">${p.title}</span>`;
+        const auth=esc(p.authors.join(", "))+(p.nAuthors>p.authors.length?`, +${p.nAuthors-p.authors.length}`:"");
+        const meta=[esc(p.venue),p.published||p.year].filter(Boolean).join(" · ");
+        const titleEl = p.url?`<a class="paper__title" href="${esc(safeUrl(p.url))}" target="_blank" rel="noopener">${esc(p.title)}<span class="ext">↗</span></a>`:`<span class="paper__title">${esc(p.title)}</span>`;
         return `<article class="paper">${titleEl}
           <p class="paper__auth">${auth}${meta?` — ${meta}`:''}</p>
           <div class="paper__chips">
@@ -251,7 +253,7 @@
             ${p.relevance!=null?`<span class="chip">Rel <b>${p.relevance.toFixed(0)}/10</b></span>`:''}
             <span class="chip"><b>${p.citations.toLocaleString()}</b> cites</span>
           </div>
-          ${p.rationale?`<p class="paper__why"><em>Why it's here</em>${p.rationale}</p>`:''}
+          ${p.rationale?`<p class="paper__why"><em>Why it's here</em>${esc(p.rationale)}</p>`:''}
         </article>`;
       }).join("");
       panel.classList.add("show");

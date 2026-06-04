@@ -177,6 +177,7 @@
     elCatCount.textContent = cats.length;
 
     const esc = s => (s==null?"":String(s)).replace(/[&<>"]/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+    const safeUrl = u => { u=(u==null?"":String(u)).trim(); return /^https?:\/\//i.test(u) ? u : ""; };
     function hl(text, q){
       const safe = esc(text);
       if (!q) return safe;
@@ -210,7 +211,7 @@
       const items = papers.map(pp=>{
         const label = `${hl(pp.title, q)} <span class="yr">(${esc(_pubByTitle.get(_norm(pp.title)) || pp.year)})</span>`;
         return pp.url
-          ? `<span class="src"><a href="${esc(pp.url)}" target="_blank" rel="noopener">${label}<span class="ext">↗</span></a></span>`
+          ? `<span class="src"><a href="${esc(safeUrl(pp.url))}" target="_blank" rel="noopener">${label}<span class="ext">↗</span></a></span>`
           : `<span class="src">${label}</span>`;
       }).join("");
       return `<div class="sources"><div class="sources__label">Sources</div><div class="sources__list">${items}</div></div>`;

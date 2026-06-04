@@ -99,6 +99,8 @@
   <script src="risk_data.js"></script>
   <script>
     const R = window.RISK, cats = R.categories;
+    const esc = s => (s==null?"":String(s)).replace(/[&<>"]/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+    const safeUrl = u => { u=(u==null?"":String(u)).trim(); return /^https?:\/\//i.test(u) ? u : ""; };
     document.getElementById("meta").innerHTML = `<b>${cats.length}</b> categories · <b>${R.totalPapers}</b> papers`;
 
     const sheet = document.getElementById("sheet");
@@ -115,17 +117,17 @@
         const col = PALETTE[gi++ % PALETTE.length];
         return `
         <div class="sub">
-          <div class="sub__h" style="--c:${col}">${s.name} <span class="n">${s.papers.length}</span></div>
+          <div class="sub__h" style="--c:${col}">${esc(s.name)} <span class="n">${s.papers.length}</span></div>
           <ul>${s.papers.map(p=>{
             const tip = `${p.title} — ${p.authors.join(", ")}${p.nAuthors>p.authors.length?" et al.":""}${(p.published||p.year)?", "+(p.published||p.year):""}`;
             return p.url
-              ? `<li><a href="${p.url}" target="_blank" rel="noopener" title="${tip.replace(/"/g,'&quot;')}">${p.title}</a></li>`
-              : `<li><span class="t" title="${tip.replace(/"/g,'&quot;')}">${p.title}</span></li>`;
+              ? `<li><a href="${esc(safeUrl(p.url))}" target="_blank" rel="noopener" title="${tip.replace(/"/g,'&quot;')}">${esc(p.title)}</a></li>`
+              : `<li><span class="t" title="${tip.replace(/"/g,'&quot;')}">${esc(p.title)}</span></li>`;
           }).join("")}</ul>
         </div>`;
       }).join("");
       return `<section class="cat">
-        <div class="cat__h"><span class="cat__name">${c.name}</span><span class="cat__n">${c.papers}</span></div>
+        <div class="cat__h"><span class="cat__name">${esc(c.name)}</span><span class="cat__n">${c.papers}</span></div>
         ${subsHtml}
       </section>`;
     }).join("");

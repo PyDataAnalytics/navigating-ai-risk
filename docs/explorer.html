@@ -165,6 +165,8 @@
   <script>
     const R = window.RISK;
     const cats = R.categories;
+    const esc = s => (s==null?"":String(s)).replace(/[&<>"]/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+    const safeUrl = u => { u=(u==null?"":String(u)).trim(); return /^https?:\/\//i.test(u) ? u : ""; };
     let activeCat = 0, activeSub = 0, query = "", hideEmpty = true, sortBy = "score", minRel = 0;
 
     document.getElementById("meta").innerHTML =
@@ -183,7 +185,7 @@
     function renderCats(){
       elCat.innerHTML = cats.map((c,i)=>`
         <button class="row ${i===activeCat&&!query?'is-active':''}" data-i="${i}">
-          <span class="row__name">${c.name}</span>
+          <span class="row__name">${esc(c.name)}</span>
           <span class="row__n">${c.papers}</span>
         </button>`).join("");
       elCat.querySelectorAll(".row").forEach(b=>b.onclick=()=>{ activeCat=+b.dataset.i; query=""; document.getElementById("q").value=""; pickFirstSub(); renderAll(); setStep(1); });
@@ -214,11 +216,11 @@
       const q = query.trim();
       elSubLabel.textContent = q ? "Results" : "Subcategories";
       const list = matchSubs();
-      if (!list.length){ elSub.innerHTML = `<div class="placeholder">No subcategories${q?' match “'+q+'”':''}.</div>`; return; }
+      if (!list.length){ elSub.innerHTML = `<div class="placeholder">No subcategories${q?' match “'+esc(q)+'”':''}.</div>`; return; }
       const allRow = !q ? `<button class="row ${activeSub===-1?'is-active':''}" data-ci="${activeCat}" data-si="-1"><span class="row__name"><em>All papers</em></span><span class="row__n">${cats[activeCat].papers}</span></button>` : "";
       elSub.innerHTML = allRow + list.map(it=>`
         <button class="row ${(it.ci===activeCat&&it.si===activeSub)?'is-active':''} ${it.n===0?'dim':''}" data-ci="${it.ci}" data-si="${it.si}">
-          <span class="row__name">${q?`<span class="row__cat">${it.cat}</span>`:''}${it.name}</span>
+          <span class="row__name">${q?`<span class="row__cat">${esc(it.cat)}</span>`:''}${esc(it.name)}</span>
           <span class="row__n">${it.n}</span>
         </button>`).join("");
       elSub.querySelectorAll(".row").forEach(b=>b.onclick=()=>{ activeCat=+b.dataset.ci; activeSub=+b.dataset.si; renderCats(); markSub(); renderPapers(); setStep(2); });
@@ -253,7 +255,7 @@
       const c = cats[activeCat];
       const all = activeSub === -1;
       const s = all ? null : c.subs[activeSub];
-      elCrumb.innerHTML = `<b>${c.name}</b><span>›</span>${all ? "All papers" : s.name}`;
+      elCrumb.innerHTML = `<b>${esc(c.name)}</b><span>›</span>${all ? "All papers" : esc(s.name)}`;
       const papers = currentPapers = getPapers();
       const body = document.querySelector(".pane:last-child .pane__body");
       if (!papers.length){
@@ -262,14 +264,14 @@
       }
       const coveredN = c.subs.filter(x=>x.papers.length).length;
       elPapers.innerHTML = `
-        <h2 class="sub-title">${all ? c.name : s.name}</h2>
+        <h2 class="sub-title">${all ? esc(c.name) : esc(s.name)}</h2>
         <p class="sub-sub">${papers.length} ${papers.length===1?'paper':'papers'}${all?` across ${coveredN} subcategories`:` · ${c.name}`} · by ${sortBy}</p>
         ${papers.map(p=>{
-          const auth = p.authors.join(", ") + (p.nAuthors>p.authors.length ? `, +${p.nAuthors-p.authors.length}` : "");
-          const meta = [p.venue, p.published||p.year].filter(Boolean).join(" · ");
-          const titleEl = p.url ? `<a class="paper__title" href="${p.url}" target="_blank" rel="noopener">${p.title}<span class="ext">↗</span></a>` : `<span class="paper__title">${p.title}</span>`;
+          const auth = esc(p.authors.join(", ")) + (p.nAuthors>p.authors.length ? `, +${p.nAuthors-p.authors.length}` : "");
+          const meta = [esc(p.venue), p.published||p.year].filter(Boolean).join(" · ");
+          const titleEl = p.url ? `<a class="paper__title" href="${esc(safeUrl(p.url))}" target="_blank" rel="noopener">${esc(p.title)}<span class="ext">↗</span></a>` : `<span class="paper__title">${esc(p.title)}</span>`;
           return `<article class="paper">
-            ${all?`<div class="paper__sub">${p.__sub}</div>`:''}
+            ${all?`<div class="paper__sub">${esc(p.__sub)}</div>`:''}
             ${titleEl}
             <p class="paper__auth">${auth}${meta?` — ${meta}`:''}</p>
             <div class="paper__chips">
@@ -277,8 +279,8 @@
               ${p.relevance!=null?`<span class="chip">Relevance <b>${p.relevance.toFixed(0)}/10</b></span>`:''}
               <span class="chip"><b>${p.citations.toLocaleString()}</b> citations</span>
             </div>
-            ${p.rationale?`<p class="paper__why"><em>Why it's here</em>${p.rationale}</p>`:''}
-            ${p.abstract?`<p class="paper__abs">${p.abstract}</p>`:''}
+            ${p.rationale?`<p class="paper__why"><em>Why it's here</em>${esc(p.rationale)}</p>`:''}
+            ${p.abstract?`<p class="paper__abs">${esc(p.abstract)}</p>`:''}
           </article>`;
         }).join("")}`;
       body.scrollTop = 0;
