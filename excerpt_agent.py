@@ -124,7 +124,7 @@ def summarize(llm, text, context):
 # ---------------- EXTRACTOR (format-agnostic; PDF here) ----------------
 def fetch_bytes(url, timeout=60):
     headers = {
-        "User-Agent": "ai-risk-retrieval excerpt-agent (mailto:marta.iwaszuk.work@gmail.com)"
+        "User-Agent": "ai-risk-retrieval excerpt-agent (+https://github.com/PyDataAnalytics/navigating-ai-risk)"
     }
     r = requests.get(url, headers=headers, timeout=timeout)
     r.raise_for_status()
