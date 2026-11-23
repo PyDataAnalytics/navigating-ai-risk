@@ -65,9 +65,14 @@ SSHD_BOOTSTRAP = (
     "-o PubkeyAuthentication=yes -o PermitRootLogin=prohibit-password"
 )
 
-# Curated >=24GB GPUs, cheap/plentiful only (an 8B model needs nothing more).
-# Expensive H100/A100 cards are deliberately excluded so an "availability" pick
-# can't land you on a $3+/hr GPU. Add them to GPU_TYPE_IDS if you ever want them.
+# Curated >=16GB GPUs, cheap/plentiful only. The pipeline holds llama3.1:8b
+# (Q4_K_M, ~5GB) and llama3.2:3b (~2GB) - about 8GB resident - so a 16GB card
+# is comfortable and the old >=24GB floor was ~3x more than needed. It also
+# excluded the most plentiful cheap cards, L4 above all.
+# Expensive H100/A100/B200 cards are deliberately excluded so an "availability"
+# pick can't land you on a $3+/hr GPU. Add them to GPU_TYPE_IDS if you want them.
+# Unknown names here are HARMLESS: _create_in_cloud intersects this list with
+# RunPod's live enum (learned from its own 400) before retrying.
 DEFAULT_GPU_IDS = [
     "NVIDIA GeForce RTX 4090",
     "NVIDIA RTX A5000",
@@ -76,6 +81,12 @@ DEFAULT_GPU_IDS = [
     "NVIDIA L40",
     "NVIDIA GeForce RTX 3090",
     "NVIDIA RTX A6000",
+    "NVIDIA L4",
+    "NVIDIA RTX A4500",
+    "NVIDIA RTX A4000",
+    "NVIDIA RTX 4000 Ada Generation",
+    "NVIDIA RTX 2000 Ada Generation",
+    "NVIDIA A30",
 ]
 
 _LAST_STATUS: int | None = None
@@ -228,8 +239,19 @@ def _create_in_cloud(
     if status == 400 and "gpuTypeIds" in err:
         allowed = _enum_from_error(err)
         if allowed:
-            fixed = [g for g in gpu_ids if g in allowed] or allowed
-            if fixed and fixed != gpu_ids:
+            # Intersect ONLY. Never substitute RunPod's full enum: with
+            # gpuTypePriority=availability that can rent an H100/B200 at
+            # $3+/hr, which DEFAULT_GPU_IDS exists to prevent.
+            fixed = [g for g in gpu_ids if g in allowed]
+            if not fixed:
+                print(
+                    "create: none of the requested GPU ids are in RunPod's current "
+                    "enum - refusing to rent an arbitrary (possibly expensive) GPU. "
+                    "Update DEFAULT_GPU_IDS against RunPod's catalog.",
+                    file=sys.stderr,
+                )
+                return None, status
+            if fixed != gpu_ids:
                 print(
                     f"create: retrying with RunPod-accepted GPU ids "
                     f"({len(fixed)} of {len(allowed)} allowed)",
