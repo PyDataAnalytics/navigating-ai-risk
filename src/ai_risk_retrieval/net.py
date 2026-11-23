@@ -1,10 +1,9 @@
 """
 Network-safety helpers: URL vetting and secret redaction.
 
-Single source of truth on purpose. The duplicated Ollama host validator in
-config.py is how a weak check (`startswith("ollama")`) ended up in two places
-and was fixed in only one; URL vetting lives here so there is one
-implementation to review and one place to harden.
+Single source of truth on purpose: URL vetting lives here so there is one
+implementation to review and one place to harden, rather than a copy per
+caller that can drift.
 
 Two jobs:
 

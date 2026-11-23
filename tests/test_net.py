@@ -1,5 +1,8 @@
 """Tests for the shared URL-safety and redaction helpers (src/.../net.py)."""
 
+import re
+from urllib.parse import urlparse
+
 import httpx
 import pytest
 
@@ -12,7 +15,7 @@ from ai_risk_retrieval.net import (
     safe_http_url,
 )
 
-# --- URLs that the previous `startswith("http")` check let through -----------
+# --- URLs a prefix test such as startswith("http") would admit -----------
 
 
 @pytest.mark.parametrize(
@@ -80,7 +83,12 @@ def test_redact_exc_strips_serpapi_key():
     redacted = redact_exc(caught.value)
     assert "SERPAPI-SECRET-abc123" not in redacted
     assert "REDACTED" in redacted
-    assert "serpapi.com" in redacted  # still diagnosable
+    # The host must survive redaction so the error stays diagnosable. Parse it out
+    # and compare exactly: `"serpapi.com" in redacted` would also be satisfied by
+    # a host such as serpapi.com.evil.test, which is the shape of the real bug this
+    # assertion would otherwise model.
+    hosts = {urlparse(u).hostname for u in re.findall(r"https?://[^\s'\"]+", redacted)}
+    assert any(h == "serpapi.com" for h in hosts)
 
 
 def test_redact_url_covers_pii_params():
