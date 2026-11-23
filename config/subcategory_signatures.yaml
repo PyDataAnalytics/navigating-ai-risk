@@ -1,5 +1,5 @@
-# Compact retrieval signatures per subcategory: the one-line summary plus the
-# signals that distinguish it from its neighbours. Used for query expansion.
+# AI Risk Taxonomy config — step 3 of 3: + governance_and_oversight (complete)
+# Regenerated file: replaces the repo copy wholesale. Drag into GitHub as-is.
 version: '2.0'
 signatures:
 - name: Hallucinations

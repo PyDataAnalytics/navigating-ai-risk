@@ -1,9 +1,5 @@
-# Per-subcategory adversary axis, orthogonal to the layer in taxonomy.yaml:
-#   none      - no adversary; the risk is inherent to the system or its operation
-#   inbound   - an adversary acts against the AI system
-#   outbound  - the AI system is the instrument used against someone else
-#
-# Keyed by subcategory name, which is unique across the whole taxonomy.
+# AI Risk Taxonomy config — step 3 of 3: + governance_and_oversight (complete)
+# Regenerated file: replaces the repo copy wholesale. Drag into GitHub as-is.
 version: '1.0'
 axis: adversary
 values:
