@@ -1,5 +1,13 @@
-# AI Risk Taxonomy config — step 3 of 3: + governance_and_oversight (complete)
-# Regenerated file: replaces the repo copy wholesale. Drag into GitHub as-is.
+# The risk taxonomy the pipeline searches against: categories, each with its
+# subcategories, keywords and exclusions.
+#
+# Two layers, set per category by `layer`:
+#   adversarial  (default) - risks arising from an adversary or from model behaviour
+#   operational            - running, governing and controlling AI in an organisation,
+#                            grouped by `band`: service_operations,
+#                            risk_and_compliance, governance_and_oversight
+#
+# A paper may be placed in both layers when it genuinely fits both.
 version: '1.0'
 default_target_papers: 3
 categories:
