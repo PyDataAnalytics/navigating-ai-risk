@@ -16,17 +16,22 @@ log = structlog.get_logger()
 
 
 # Priority order when merging: source with higher priority "wins" for fields
-# like citation_count. arXiv often has the canonical PDF; S2 has citations.
-# OpenAlex has broad coverage and reliable citation counts — placed between
-# S2 and arXiv. Adjust if you observe one source giving systematically worse
-# metadata in your domain.
+# like citation_count. Semantic Scholar and OpenAlex have the most reliable
+# citation counts, so they rank highest. arXiv is a preprint server and sits
+# last so a peer-reviewed record wins the merge when one exists — but arXiv's
+# canonical PDF is not lost: _merge_group below fills pdf_url (and any other
+# blank field) from lower-priority sources. Adjust if you observe one source
+# giving systematically worse metadata in your domain.
+#
+# Listed in descending priority. Order here is documentation only: lookups go
+# through _SOURCE_PRIORITY.get(), so reordering cannot change behaviour.
 _SOURCE_PRIORITY = {
     "semantic_scholar": 5,
     "openalex": 4,
-    "arxiv": 0,  # preprints: lowest priority on merge (kept; PDF filled below)
     "papers_with_code": 2,
     "ssrn": 2,
     "google_scholar": 1,
+    "arxiv": 0,  # preprints: lowest priority on merge (kept; PDF filled below)
 }
 
 
@@ -102,7 +107,10 @@ def _merge_group(group: list[Paper]) -> Paper:
                 val = getattr(other, field, None)
                 if val:
                     data[field] = val
-        # Prefer the highest citation count if primary lacked one
+        # Fill citation_count from the highest-PRIORITY secondary that has
+        # one. Note this is not the largest count, and a primary already
+        # reporting 0 blocks the fill (0 is not None) — intentional, since a
+        # trusted source reporting 0 citations is data, not a missing value.
         if data.get("citation_count") is None and other.citation_count is not None:
             data["citation_count"] = other.citation_count
         # Union authors if primary list was empty

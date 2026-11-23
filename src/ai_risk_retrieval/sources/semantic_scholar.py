@@ -11,6 +11,7 @@ from typing import Any
 import structlog
 
 from ..models import Paper, Subcategory
+from ..net import redact_exc
 from .base import PaperSource, retryable, safe_text
 
 log = structlog.get_logger()
@@ -41,7 +42,7 @@ class SemanticScholarSource(PaperSource):
         try:
             data = await self._get(params, headers)
         except Exception as e:
-            log.warning("s2_fetch_failed", subcategory=subcategory.name, error=str(e))
+            log.warning("s2_fetch_failed", subcategory=subcategory.name, error=redact_exc(e))
             return []
 
         papers: list[Paper] = []
@@ -51,7 +52,7 @@ class SemanticScholarSource(PaperSource):
                 if paper:
                     papers.append(paper)
             except Exception as e:
-                log.debug("s2_parse_failed", error=str(e))
+                log.debug("s2_parse_failed", error=redact_exc(e))
         return papers
 
     @retryable

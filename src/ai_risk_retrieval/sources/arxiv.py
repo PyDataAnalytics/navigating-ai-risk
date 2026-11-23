@@ -12,6 +12,7 @@ import feedparser
 import structlog
 
 from ..models import Paper, Subcategory
+from ..net import redact_exc
 from .base import PaperSource, retryable, safe_text
 
 log = structlog.get_logger()
@@ -35,7 +36,7 @@ class ArxivSource(PaperSource):
         try:
             xml = await self._get(url)
         except Exception as e:
-            log.warning("arxiv_fetch_failed", subcategory=subcategory.name, error=str(e))
+            log.warning("arxiv_fetch_failed", subcategory=subcategory.name, error=redact_exc(e))
             return []
 
         feed = feedparser.parse(xml)
@@ -47,7 +48,9 @@ class ArxivSource(PaperSource):
                     papers.append(paper)
             except Exception as e:
                 # One bad entry never kills the batch
-                log.debug("arxiv_parse_failed", error=str(e), entry_id=getattr(entry, "id", "?"))
+                log.debug(
+                    "arxiv_parse_failed", error=redact_exc(e), entry_id=getattr(entry, "id", "?")
+                )
         return papers
 
     # ── internals ───────────────────────────────────────────────────────────
