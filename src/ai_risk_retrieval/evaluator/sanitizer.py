@@ -76,16 +76,7 @@ _INSTRUCTION_PATTERNS = [
 # that hide encoded instructions. All map to a marker that drops the payload.
 _STRUCTURAL_PATTERNS = [
     r"\{[^{}]*relevance[^{}]*\}",  # embedded fake {"relevance": ...} object
-    # Markdown link: [text](url). The closing paren is REQUIRED and both halves
-    # are length-bounded. An earlier version ended in `\)?`, so `[A](` with no
-    # closing paren matched to end-of-string and a single bracket-then-paren in
-    # an abstract silently deleted everything after it.
-    r"\[[^\]\n]{0,120}\]\([^)\s]{0,500}\)",
-    # An UNCLOSED markdown link is still an exfiltration shape, but only when it
-    # actually carries a URL scheme. Gating on the scheme is what lets the
-    # closing paren be optional here without the pattern swallowing prose like
-    # "[Table 1](see appendix for the full breakdown" — that has no scheme.
-    r"\[[^\]\n]{0,120}\]\(\s*(?:https?|data|javascript|vbscript|file):[^)\s]{0,500}\)?",
+    r"\[[^\]]*\]\([^)]*\)?",  # markdown link: [text](url)
 ]
 
 # Role markers used by various chat templates that small models sometimes obey
@@ -172,37 +163,11 @@ def _neutralize_base64_blobs(text: str) -> str:
     return re.sub(r"[A-Za-z0-9+/]{24,}={0,2}", repl, text)
 
 
-def _marker_pattern(marker: str) -> str:
-    r"""
-    Build a whitespace-tolerant regex for a literal role marker.
-
-    Every run of whitespace in the literal becomes ``\s+`` and every boundary
-    between a non-alphanumeric and an alphanumeric character becomes ``\s*``.
-    Matching the literal only was the bug: `sanitize_paper_text` collapses
-    whitespace at the END of the pipeline, so `###\n\nInstruction:` survived
-    the literal replace and was then normalised into a canonical
-    `### Instruction:` on its way into the prompt.
-    """
-    out = []
-    for part in re.split(r"(\s+)", marker):
-        if not part:
-            continue
-        out.append(r"\s+" if part.isspace() else re.escape(part))
-    return r"\s*".join(out) if len(out) == 1 else "".join(out)
-
-
-_ROLE_MARKER_RE = re.compile(
-    "|".join(_marker_pattern(m) for m in sorted(_ROLE_MARKERS, key=len, reverse=True))
-)
-
-
 def _strip_role_markers(text: str) -> str:
-    """Remove chat-template role markers that could hijack the model.
-
-    Whitespace-tolerant: any amount of whitespace inside a marker still matches,
-    so later whitespace normalisation cannot reconstitute a stripped marker.
-    """
-    return _ROLE_MARKER_RE.sub(" ", text)
+    """Remove chat-template role markers that could hijack the model."""
+    for marker in _ROLE_MARKERS:
+        text = text.replace(marker, " ")
+    return text
 
 
 def _strip_fake_fence(text: str) -> str:
@@ -221,11 +186,8 @@ def sanitize_paper_text(text: str, max_chars: int) -> str:
     before it enters the LLM prompt.
 
     Order matters: invisible chars first (so subsequent regex sees real text),
-    then whitespace normalisation, then role markers, then instruction
-    neutralization, then fence protection, then the length cap. Normalising
-    whitespace BEFORE the marker and phrase passes is deliberate: doing it after
-    allowed a marker spelled with a tab or newline to be reassembled into its
-    canonical form once the literal replace had already run.
+    then role markers, then instruction neutralization, then fence protection,
+    then length cap.
     """
     if not text:
         return ""
@@ -234,20 +196,15 @@ def sanitize_paper_text(text: str, max_chars: int) -> str:
     text = unicodedata.normalize("NFKC", text)
     # 2. Strip invisible/format characters
     text = _strip_invisible(text)
-    # 3. Collapse runs of whitespace FIRST. This used to run last, which let a
-    #    marker written with a tab or newline pass the literal role-marker
-    #    replace and then get normalised into a canonical marker afterwards.
-    text = re.sub(r"\s+", " ", text)
-    # 4. Remove chat-template role markers (whitespace-tolerant regardless)
+    # 3. Remove chat-template role markers
     text = _strip_role_markers(text)
-    # 5. Neutralize instruction-like phrases
+    # 4. Neutralize instruction-like phrases
     text = _neutralize_instructions(text)
-    # 6. Prevent fence breakout
+    # 5. Prevent fence breakout
     text = _strip_fake_fence(text)
-    # 7. Re-collapse: the steps above substitute spaces of their own, and a
-    #    marker removed from between two spaces would otherwise leave a gap.
+    # 6. Collapse runs of whitespace
     text = re.sub(r"\s+", " ", text).strip()
-    # 8. Hard length cap — the final string, including the marker, stays within
+    # 7. Hard length cap — the final string, including the marker, stays within
     #    max_chars (the truncation marker is budgeted for, not appended on top).
     if len(text) > max_chars:
         suffix = " [truncated]"

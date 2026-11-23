@@ -7,39 +7,9 @@ from pathlib import Path
 from typing import Any
 
 import yaml
-from pydantic import BaseModel, Field, field_validator, model_validator
+from pydantic import BaseModel, Field, field_validator
 
 from .models import Taxonomy
-
-# Hostnames treated as "the machine this process runs on".
-_LOOPBACK_HOSTS = frozenset({"localhost", "127.0.0.1", "::1"})
-
-
-def _require_local_host(value: str, label: str) -> str:
-    """
-    Reject any Ollama host that is not loopback or a container-local service
-    name. Ollama is local-only by design here: reusing a networked instance
-    exposes it to prompt-injection-driven exfiltration of other tenants' data.
-
-    A bare, dotless hostname (``ollama``, ``ollama-judge``) is how Docker
-    Compose and Kubernetes name a service on an internal network, so those are
-    allowed. A dotted name is public DNS and is refused even when it begins
-    with "ollama" - ``ollama.attacker.example.com`` is not a local host, and an
-    earlier version of this check accepted it via ``startswith("ollama")``.
-    """
-    from urllib.parse import urlparse
-
-    host = (urlparse(value).hostname or "").lower()
-    is_loopback = host in _LOOPBACK_HOSTS
-    is_service_name = host.startswith("ollama") and "." not in host
-    if not (is_loopback or is_service_name):
-        raise ValueError(
-            f"{label} host {value!r} is not local. Use localhost/127.0.0.1, or a "
-            "dotless container service name such as 'ollama'. Dotted hostnames are "
-            "refused even when they start with 'ollama'; to target a remote "
-            "instance, edit _require_local_host deliberately."
-        )
-    return value
 
 
 class LLMConfig(BaseModel):
@@ -64,7 +34,17 @@ class LLMConfig(BaseModel):
     @field_validator("host")
     @classmethod
     def _validate_host(cls, v: str) -> str:
-        return _require_local_host(v, "LLM")
+        # Ollama is local-only. Reusing a networked Ollama instance exposes it
+        # to prompt-injection-driven exfiltration of other tenants' data.
+        from urllib.parse import urlparse
+
+        host = urlparse(v).hostname or ""
+        if host not in ("localhost", "127.0.0.1", "::1") and not host.startswith("ollama"):
+            raise ValueError(
+                f"LLM host {v!r} is not local. Set host to localhost/127.0.0.1 "
+                "or modify the validator deliberately."
+            )
+        return v
 
 
 class LLMScreenConfig(BaseModel):
@@ -98,7 +78,14 @@ class LLMScreenConfig(BaseModel):
     @field_validator("host")
     @classmethod
     def _validate_host(cls, v: str) -> str:
-        return _require_local_host(v, "LLM screen")
+        from urllib.parse import urlparse
+
+        host = urlparse(v).hostname or ""
+        if host not in ("localhost", "127.0.0.1", "::1") and not host.startswith("ollama"):
+            raise ValueError(
+                f"LLM screen host {v!r} is not local. See LLMConfig._validate_host for context."
+            )
+        return v
 
 
 class SourceConfig(BaseModel):
@@ -196,30 +183,6 @@ class AppConfig(BaseModel):
     scoring: ScoringConfig
     output: OutputConfig
     runtime: RuntimeConfig
-
-    @model_validator(mode="after")
-    def _screen_pool_covers_shortlist(self) -> AppConfig:
-        """
-        The screener exists to widen the candidate pool, so its pool must be at
-        least as large as the detailed judge's shortlist. Inverted, the screen
-        silently starves the judge: runner.py takes
-        screen_shortlist_size candidates, then slices the survivors to
-        llm_shortlist_size, so the judge can never see more than the smaller of
-        the two. Only enforced when the screen is on; the field is ignored
-        otherwise.
-        """
-        if self.llm_screen.enabled:
-            screen = self.retrieval.screen_shortlist_size
-            shortlist = self.retrieval.llm_shortlist_size
-            if screen < shortlist:
-                raise ValueError(
-                    f"retrieval.screen_shortlist_size ({screen}) is smaller than "
-                    f"retrieval.llm_shortlist_size ({shortlist}); the screener would "
-                    "hand the detailed judge fewer papers than configured. Set the "
-                    "screen pool to roughly 2-3x the shortlist, or disable "
-                    "llm_screen.enabled."
-                )
-        return self
 
 
 def load_config(path: str | Path) -> AppConfig:

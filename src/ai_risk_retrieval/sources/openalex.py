@@ -25,7 +25,6 @@ from typing import Any
 import structlog
 
 from ..models import Paper, Subcategory
-from ..net import redact_exc
 from .base import PaperSource, retryable, safe_text
 
 log = structlog.get_logger()
@@ -63,7 +62,7 @@ class OpenAlexSource(PaperSource):
         try:
             data = await self._get(params)
         except Exception as e:
-            log.warning("openalex_fetch_failed", subcategory=subcategory.name, error=redact_exc(e))
+            log.warning("openalex_fetch_failed", subcategory=subcategory.name, error=str(e))
             return []
 
         papers: list[Paper] = []
@@ -73,7 +72,7 @@ class OpenAlexSource(PaperSource):
                 if paper:
                     papers.append(paper)
             except Exception as e:
-                log.debug("openalex_parse_failed", error=redact_exc(e))
+                log.debug("openalex_parse_failed", error=str(e))
         return papers
 
     @retryable

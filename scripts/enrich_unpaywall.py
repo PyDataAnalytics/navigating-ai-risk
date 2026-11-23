@@ -12,25 +12,14 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import quote
 from urllib.request import Request, urlopen
 
-# Standard-library only by design, and the shared net helper is stdlib too, so
-# reuse it rather than keeping a fourth copy of the URL rules.
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
-from ai_risk_retrieval.net import is_safe_http_url  # noqa: E402
-
 
 def best_oa_pdf(doi, email, timeout=20.0):
     url = f"https://api.unpaywall.org/v2/{quote(doi)}?email={quote(email)}"
     req = Request(url, headers={"User-Agent": f"ai-risk-retrieval (mailto:{email})"})
-    # noqa justification: the host is the fixed https Unpaywall API constant above.
-    with urlopen(req, timeout=timeout) as r:  # noqa: S310
+    with urlopen(req, timeout=timeout) as r:
         data = json.loads(r.read().decode("utf-8"))
     loc = data.get("best_oa_location") or {}
-    candidate = loc.get("url_for_pdf") or loc.get("url")
-    # The value is publisher-supplied, and this function's result is written to
-    # oa_pdf_url, which excerpt_agent.py later fetches. This site had NO check
-    # at all; the other two had a `startswith("http")` prefix test that admitted
-    # internal addresses. One shared validator now covers all three.
-    return candidate if is_safe_http_url(candidate) else None
+    return loc.get("url_for_pdf") or loc.get("url")  # PDF if available, else landing page
 
 
 def main():

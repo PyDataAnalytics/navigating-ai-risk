@@ -27,7 +27,6 @@ from ..models import (
     SubcategoryResult,
     Taxonomy,
 )
-from ..net import redact_exc
 from ..sources import (
     ArxivSource,
     GoogleScholarSource,
@@ -98,9 +97,7 @@ async def run_subcategory(
             )
         except Exception as e:
             # Expansion is best-effort. Never let it fail the whole run.
-            log.warning(
-                "expansion_failed_using_base", subcategory=subcategory.name, error=redact_exc(e)
-            )
+            log.warning("expansion_failed_using_base", subcategory=subcategory.name, error=str(e))
 
     # 1. Fetch from all sources concurrently
     fetch_tasks = [s.fetch(fetch_subcategory) for s in sources]
@@ -288,7 +285,7 @@ async def run_full(
                 oa_links_added=added,
             )
     except Exception as e:
-        log.warning("unpaywall_enrichment_skipped", error=redact_exc(e))
+        log.warning("unpaywall_enrichment_skipped", error=str(e))
 
     finished = datetime.now(timezone.utc)
 

@@ -19,22 +19,13 @@ addresses, and what it explicitly does not.
 3. *Compromised dependency.* A malicious package update to one of our deps
    (defended by lockfile + verified PyPI; not in scope for code here).
 4. *Operator misconfiguration.* Pointing the judge at an untrusted Ollama
-   instance shared with other workloads. Enforced by `net`-backed host checks in
-   `config.py`, `excerpt_agent.py` and `synthesize_findings.py`: the
-   `--ollama-url` / `--host` flags accept only a vetted local endpoint.
+   instance shared with other workloads.
 
 **Out of scope**
-- A THIRD-PARTY webapp consuming our output is responsible for its own
-  rendering security (e.g., escaping `rationale` when displayed as HTML). We
-  strip obvious HTML in `LLMJudgement` as defense in depth, but such consumers
+- The webapp consuming our output is responsible for its own rendering
+  security (e.g., escaping `rationale` when displayed as HTML). We strip
+  obvious HTML in `LLMJudgement` as defense in depth, but webapps still
   must treat all string fields as untrusted.
-
-  `docs/` is NOT a third party — it is this repo's own site, published from
-  this repo, and it is in scope. It escapes external fields with `esc()` and
-  constrains links with `safeUrl()`. As defense in depth, every path that
-  publishes model output — the judge, the excerpt agent and the synthesis step —
-  bounds field length, caps list sizes and strips control characters and
-  HTML-like spans before the value reaches `docs/risk_data.js`.
 - DoS via volume of papers; rate limits and per-source caps mitigate but
   don't eliminate.
 
@@ -43,13 +34,7 @@ addresses, and what it explicitly does not.
 ### Layer 1: Source fetching
 - **Bounded budgets**: each source has a per-subcategory candidate cap.
 - **Strict schemas**: every paper passes through Pydantic with regex validation
-  on DOI and arXiv ID. `url` and `pdf_url` are `HttpUrl`, so only `http(s)://`
-  is accepted. `oa_pdf_url` stays a plain string because the enrichment step
-  assigns it after construction, but `Paper` sets
-  `model_config = ConfigDict(validate_assignment=True)`, so the assigned value is
-  length-bounded and vetted by `net.safe_http_url`. This matters because
-  `excerpt_agent.py` prefers `oa_pdf_url` over `pdf_url` when choosing what to
-  fetch.
+  on DOI and arXiv ID (URL-injection vectors disabled — only `http(s)://`).
 - **Field length caps** on title, abstract, authors prevent any one paper
   from monopolizing memory or downstream prompts.
 - **Control-character stripping** on every API field.
@@ -127,12 +112,11 @@ the attacker control the final output.
 pods, which costs money. Treat it accordingly — use a dedicated key for CI, set a RunPod
 billing alert, and rotate it on a schedule. The discovery workflow always terminates the
 pod it creates (`if: always()`), but a RunPod billing alert is still the backstop if a
-pod ever escapes cleanup. There is no SSH secret: the workflow generates an
-ephemeral keypair per run and injects only the public half into the pod it creates,
-so the private key never leaves that runner. Do not add an SSH secret: a stored
-private key would be long-lived for no benefit.
-`RUNPOD_API_KEY` is an encrypted Actions secret and, because `discovery` runs only
-on `schedule` and `workflow_dispatch`, is never exposed to pull requests. The discovery job's
+pod ever escapes cleanup. `RUNPOD_SSH_KEY` is a private SSH key
+scoped to one pod; generate a fresh keypair for CI rather than reusing a personal
+key, and remove its public half from the pod if you retire the automation. Both
+are encrypted Actions secrets and, because `discovery` runs only on `schedule` and
+`workflow_dispatch`, are never exposed to pull requests. The discovery job's
 `Stop pod` step runs with `if: always()`, so a crashed or cancelled run cannot
 leave a GPU billing indefinitely.
 

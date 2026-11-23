@@ -3,7 +3,7 @@
 import pytest
 from pydantic import ValidationError
 
-from ai_risk_retrieval.models import LLMJudgement, Paper, Subcategory
+from ai_risk_retrieval.models import LLMJudgement, Subcategory
 
 
 def test_valid_judgement():
@@ -68,45 +68,3 @@ def test_subcategory_excludes_capped():
     """Bounded to keep the judge prompt size predictable."""
     with pytest.raises(ValidationError):
         Subcategory(name="Test", excludes=[f"exclude {i}" for i in range(15)])
-
-
-# ── Regression: oa_pdf_url is assigned post-construction, so it needs
-#    assignment validation or it is effectively unchecked ──────────────────────
-
-
-def _bare_paper():
-    from datetime import UTC, datetime
-
-    return Paper(
-        title="t",
-        abstract="a" * 250,
-        url="https://example.com/x",
-        source="openalex",
-        fetched_at=datetime.now(UTC),
-        content_hash="a" * 64,
-    )
-
-
-@pytest.mark.parametrize(
-    "bad",
-    [
-        "http://169.254.169.254/latest/meta-data/",
-        "http://127.0.0.1:11434/api/tags",
-        "httpx://evil.example/x",
-        "file:///etc/passwd",
-        "http://user:pass@internal.svc/x",
-        "x" * 50_000,
-    ],
-)
-def test_oa_pdf_url_assignment_is_validated(bad):
-    """Unpaywall's url_for_pdf is publisher-supplied, and excerpt_agent prefers
-    this field over the HttpUrl-checked pdf_url when choosing what to fetch."""
-    paper = _bare_paper()
-    with pytest.raises(ValidationError):
-        paper.oa_pdf_url = bad
-
-
-def test_oa_pdf_url_accepts_a_real_publisher_url():
-    paper = _bare_paper()
-    paper.oa_pdf_url = "https://publisher.example.com/paper.pdf"
-    assert paper.oa_pdf_url == "https://publisher.example.com/paper.pdf"

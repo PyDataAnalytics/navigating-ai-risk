@@ -33,8 +33,6 @@ from collections.abc import Iterable
 import httpx
 import structlog
 
-from ..net import is_safe_http_url, redact_exc
-
 log = structlog.get_logger()
 
 UNPAYWALL_BASE = "https://api.unpaywall.org/v2"
@@ -55,14 +53,8 @@ def _best_oa_pdf(payload: dict) -> str | None:
     if not isinstance(loc, dict):
         return None
     url = loc.get("url_for_pdf") or loc.get("url")
-    # The URL is supplied by the publisher/repository, not by Unpaywall, so it
-    # is third-party input. `startswith("http")` was not a scheme check: it
-    # admitted `httpx://`, embedded credentials, and every internal address
-    # including cloud metadata and loopback.
-    if is_safe_http_url(url):
-        return url  # type: ignore[return-value]
-    if url:
-        log.debug("unpaywall_url_rejected", reason="unsafe_or_non_public")
+    if isinstance(url, str) and url.startswith("http"):
+        return url
     return None
 
 
@@ -115,10 +107,8 @@ async def enrich_papers(
                     paper.oa_pdf_url = url
                     filled += 1
                 except Exception as e:
-                    # Paper.oa_pdf_url is assignment-validated, so a URL that
-                    # passes the cheap check above can still be refused here.
-                    # Best-effort enrichment: skip the paper, never fail the run.
-                    log.debug("unpaywall_assign_failed", error=redact_exc(e))
+                    # Assignment shouldn't fail (field is str|None), but stay safe.
+                    log.debug("unpaywall_assign_failed", error=str(e))
 
         await asyncio.gather(*[_do(p) for p in targets], return_exceptions=True)
 

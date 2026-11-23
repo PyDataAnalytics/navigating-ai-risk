@@ -33,7 +33,6 @@ except ImportError:  # pragma: no cover - ollama is a required dep, but keep tes
 
 from ..config import LLMConfig
 from ..models import LLMJudgement, Paper, Subcategory
-from ..net import redact_exc
 from .llm_client import LLMClient
 from .sanitizer import fence, sanitize_paper_text
 
@@ -150,8 +149,8 @@ class LLMJudge:
             self._audit({**prompt_record, "error": "timeout"})
             return None
         except Exception as e:
-            log.warning("llm_call_failed", error=redact_exc(e), subcategory=subcategory.name)
-            self._audit({**prompt_record, "error": f"call_failed: {redact_exc(e)}"})
+            log.warning("llm_call_failed", error=str(e), subcategory=subcategory.name)
+            self._audit({**prompt_record, "error": f"call_failed: {e!r}"})
             return None
 
         raw = (
@@ -208,4 +207,4 @@ class LLMJudge:
             with self.audit_log_path.open("a", encoding="utf-8") as fh:
                 fh.write(json.dumps(record, default=str) + "\n")
         except OSError as e:
-            log.warning("audit_write_failed", error=redact_exc(e))
+            log.warning("audit_write_failed", error=str(e))
