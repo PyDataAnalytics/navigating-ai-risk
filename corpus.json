@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "taxonomy_version": "1.0",
-  "corpus_updated_at": "2026-11-23T16:41:45.557881+00:00",
+  "corpus_updated_at": "2026-11-23T16:51:33.161347+00:00",
   "runs": [
     {
       "run_id": "8c8aefaa-63f6-4042-9589-4909418dfff5",
@@ -211,6 +211,13 @@
       "finished_at": "2026-11-23T02:48:55.374047Z",
       "merged_at": "2026-11-23T02:49:00.237955+00:00",
       "papers_selected": 242,
+      "llm_model": "llama3.1:8b"
+    },
+    {
+      "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+      "finished_at": "2026-11-23T16:51:26.464913Z",
+      "merged_at": "2026-11-23T16:51:33.161347+00:00",
+      "papers_selected": 231,
       "llm_model": "llama3.1:8b"
     }
   ],
@@ -522,6 +529,343 @@
         "Panic or moral hysteria about AI",
         "Misleading AI benchmarks"
       ]
+    },
+    {
+      "category_id": "ops_cmdb_asset",
+      "category_name": "Configuration & Asset Management for AI",
+      "subcategories": [
+        "AI asset inventory incomplete or stale",
+        "Model registry not authoritative",
+        "AI service dependency mapping absent",
+        "Discovery blind spots for unmanaged AI assets",
+        "AI bill of materials absent",
+        "Prompts and datasets not managed as configuration items",
+        "Agent and tool-server registry absent",
+        "Risk classification missing on AI assets"
+      ]
+    },
+    {
+      "category_id": "ops_change_release",
+      "category_name": "Change & Release Management for AI",
+      "subcategories": [
+        "Unapproved model or prompt change promoted to production",
+        "Change review absent for AI changes",
+        "Model versioning and rollback failure",
+        "Staged rollout and canary absent for model releases",
+        "Configuration drift between AI environments",
+        "Emergency change path misused for AI fixes",
+        "Guardrail configuration regression",
+        "Fine-tune and adapter sprawl",
+        "Change impact assessment omits AI dependencies"
+      ]
+    },
+    {
+      "category_id": "ops_incident_problem",
+      "category_name": "Incident & Problem Management for AI",
+      "subcategories": [
+        "AI incident response plan absent",
+        "AI incident severity classification absent",
+        "Major incident process untested for AI failures",
+        "Problem management and root cause analysis absent for AI",
+        "Known-error and workaround knowledge not captured",
+        "Near-miss events not captured",
+        "Regulatory incident reporting deadline missed",
+        "Post-incident findings not driving control change"
+      ]
+    },
+    {
+      "category_id": "ops_access_identity",
+      "category_name": "Access & Identity Management for AI",
+      "subcategories": [
+        "Role-based access control absent for AI systems",
+        "Non-human identity and agent credential sprawl",
+        "Privileged access to models and weights unmanaged",
+        "Entitlement review and recertification absent",
+        "Segregation of duties absent in AI development and validation",
+        "Data access scoping not enforced for training and retrieval",
+        "Agent permissions not bound to an authorization credential"
+      ]
+    },
+    {
+      "category_id": "ops_lifecycle",
+      "category_name": "AI Service Lifecycle & Portfolio Management",
+      "subcategories": [
+        "AI use-case intake and approval gate absent",
+        "Lifecycle phase and state not tracked per AI asset",
+        "Pre-deployment validation gate bypassed",
+        "Decommissioning and retirement process absent",
+        "Portfolio-level AI duplication and sprawl",
+        "AI procured outside the service catalogue",
+        "Benefit realisation not measured after deployment"
+      ]
+    },
+    {
+      "category_id": "ops_monitoring_event",
+      "category_name": "AI Service Monitoring & Event Management",
+      "subcategories": [
+        "Production model performance monitoring absent",
+        "Drift detection thresholds undefined",
+        "Event correlation and alerting gaps for AI services",
+        "Agent trace and session observability gap",
+        "Service levels undefined for AI services",
+        "Quality degradation not detected before users report it"
+      ]
+    },
+    {
+      "category_id": "ops_capacity_cost",
+      "category_name": "AI Capacity, Cost & Service Economics",
+      "subcategories": [
+        "Inference cost overrun and unbudgeted spend",
+        "Capacity and rate-limit exhaustion in production",
+        "Compute and accelerator supply constraints",
+        "Latency and service-level breach under load",
+        "Context-window and token-budget exhaustion",
+        "Caching and staleness misconfiguration"
+      ]
+    },
+    {
+      "category_id": "ops_threat_vuln",
+      "category_name": "Threat & Vulnerability Management for AI",
+      "subcategories": [
+        "AI vulnerability intake and triage absent",
+        "Model and dependency patching cadence absent",
+        "Penetration testing scope excludes AI components",
+        "Threat modelling not performed for AI systems",
+        "Security findings not tracked to remediation for AI",
+        "Injection and jailbreak defences not verified in production",
+        "Threat intelligence not applied to the AI attack surface",
+        "Secure development practices absent for AI components",
+        "Vulnerability disclosure channel absent for AI products"
+      ]
+    },
+    {
+      "category_id": "ops_security_operations",
+      "category_name": "AI Security Operations & Controls",
+      "subcategories": [
+        "AI security programme ownership and metrics absent",
+        "Security incident response plan absent for AI systems",
+        "Containment and forensics capability absent for AI incidents",
+        "Security monitoring and detection coverage gap for AI",
+        "Security logging insufficient for AI investigation",
+        "Detection engineering not updated for AI attack techniques",
+        "Data loss prevention not extended to AI interfaces",
+        "Trust and safety abuse-handling operations absent",
+        "Security awareness does not cover AI-specific risks",
+        "AI security tooling not integrated into the security programme"
+      ]
+    },
+    {
+      "category_id": "ops_policy_compliance",
+      "category_name": "AI Policy & Compliance Management",
+      "subcategories": [
+        "AI policy absent or unenforced",
+        "Control library not mapped to AI obligations",
+        "Attestation and evidence collection absent",
+        "Policy exception process absent for AI",
+        "Regulatory change management absent for AI",
+        "Compliance case management absent for AI violations"
+      ]
+    },
+    {
+      "category_id": "ops_risk_management",
+      "category_name": "AI Risk & Model Risk Management",
+      "subcategories": [
+        "AI risk register incomplete",
+        "Risk appetite and tolerance thresholds undefined",
+        "Model risk tiering and materiality classification absent",
+        "Independent model validation and effective challenge absent",
+        "Conceptual soundness not assessed",
+        "Revalidation cadence lapse",
+        "Key risk indicators absent for AI",
+        "Risk scenario analysis not performed for AI",
+        "Outcome analysis and backtesting absent",
+        "Model risk guidance transition unaddressed",
+        "Risk reporting to governance absent or unactionable",
+        "Risk aggregation across the AI portfolio absent",
+        "Risk treatment plans not tracked to completion"
+      ]
+    },
+    {
+      "category_id": "ops_controls",
+      "category_name": "AI Control Design & Operation",
+      "subcategories": [
+        "Control objectives not defined for AI risks",
+        "Control ownership unassigned",
+        "Control design ineffective for AI failure modes",
+        "Control operating effectiveness untested",
+        "Compensating control absent where automation removed a check",
+        "Manual controls cannot keep pace with automated decisions",
+        "Preventive and detective control balance wrong for AI",
+        "Control breakdown after automating a manual step"
+      ]
+    },
+    {
+      "category_id": "ops_assurance",
+      "category_name": "AI Assurance & Continuous Control Monitoring",
+      "subcategories": [
+        "Continuous control monitoring absent",
+        "Independent third-party assurance not obtained",
+        "Conformity assessment incomplete",
+        "Red-teaming programme absent or ad hoc",
+        "Evaluation harness not fit for intended purpose",
+        "Assurance claims unsupported by evidence",
+        "Certification scope mismatch with deployed system",
+        "Authorization to operate not maintained after change"
+      ]
+    },
+    {
+      "category_id": "ops_audit",
+      "category_name": "AI Audit Management",
+      "subcategories": [
+        "AI audit universe and coverage gap",
+        "Audit evidence insufficient or not reproducible",
+        "Auditability not designed into AI systems",
+        "Audit trail immutability not assured",
+        "Findings and issues not tracked to closure",
+        "Auditor AI competence insufficient",
+        "Internal audit blind spot for AI systems",
+        "AI used in the audit function without validation"
+      ]
+    },
+    {
+      "category_id": "ops_third_party",
+      "category_name": "Third-Party & Vendor AI Risk Management",
+      "subcategories": [
+        "Vendor AI due diligence not performed",
+        "Third-party black-box model validation gap",
+        "Contractual terms and liability allocation absent",
+        "Fourth-party and sub-processor AI exposure unmanaged",
+        "Model and dataset licence compliance unverified",
+        "Vendor model changed without notice",
+        "Vendor exit and portability plan absent",
+        "Provider and region concentration for AI serving"
+      ]
+    },
+    {
+      "category_id": "ops_continuity_resilience",
+      "category_name": "AI Continuity & Operational Resilience",
+      "subcategories": [
+        "AI continuity and disaster recovery untested",
+        "Impact tolerance undefined for AI-dependent services",
+        "Model weights and artifact backup gap",
+        "Fallback to a human process unavailable",
+        "Rollback capability untested under failure",
+        "AI dependency not mapped to business services"
+      ]
+    },
+    {
+      "category_id": "ops_privacy",
+      "category_name": "Privacy Management for AI",
+      "subcategories": [
+        "Privacy programme not extended to AI systems",
+        "Data protection impact assessment integration gap",
+        "Data subject rights not executable in AI pipelines",
+        "Retention and deletion obligations unmet in AI pipelines",
+        "Purpose limitation not enforced for training data"
+      ]
+    },
+    {
+      "category_id": "ops_data_governance",
+      "category_name": "Data Governance for AI",
+      "subcategories": [
+        "Training data provenance and lineage untracked",
+        "Data quality controls absent for training data",
+        "Dataset representativeness not examined",
+        "Data labelling and annotation quality failure",
+        "Data integrity and authenticity unverified",
+        "Train-test contamination in evaluation",
+        "Training-serving skew from pipeline inconsistency",
+        "Dataset versioning absent",
+        "Synthetic data in training sets unmanaged"
+      ]
+    },
+    {
+      "category_id": "ops_regulatory",
+      "category_name": "AI Regulatory Operations & Reporting",
+      "subcategories": [
+        "Regulatory horizon scanning absent for AI",
+        "Multi-jurisdiction obligation conflict unmanaged",
+        "Fundamental rights impact assessment not performed",
+        "AI system impact assessment not performed",
+        "Conformity marking and declaration errors",
+        "General-purpose model obligations unmet",
+        "Transparency disclosure obligations unmet",
+        "AI system registration omitted from public database",
+        "Sectoral regulator expectations unmapped",
+        "Complaint and redress channel absent for affected persons",
+        "Right to an explanation not operable"
+      ]
+    },
+    {
+      "category_id": "ops_governance",
+      "category_name": "AI Governance & Accountability",
+      "subcategories": [
+        "Decision rights for AI not defined",
+        "Accountability and ownership unassigned for AI systems",
+        "Governance body ineffective or advisory only",
+        "Board-level AI oversight failure",
+        "Governance scope statement absent",
+        "Responsible AI principles not operationalized",
+        "Scope creep beyond declared intended purpose",
+        "AI strategy not aligned to enterprise governance"
+      ]
+    },
+    {
+      "category_id": "ops_human_oversight",
+      "category_name": "Human Oversight & Intervention",
+      "subcategories": [
+        "Human oversight designed but not exercisable",
+        "Override and stop mechanisms untested",
+        "Escalation path undefined for AI-assisted decisions",
+        "Overseer competence insufficient for the system",
+        "Reviewer alert fatigue and rubber-stamping",
+        "Dual authorization absent for high-impact AI actions",
+        "Human-on-the-loop degradation at scale"
+      ]
+    },
+    {
+      "category_id": "ops_workforce_process",
+      "category_name": "AI Workforce, Competence & Process Design",
+      "subcategories": [
+        "AI literacy and training gap for operators",
+        "Key-person dependency for AI systems",
+        "Process redesign failure around AI insertion",
+        "Handoff ambiguity between human and AI steps",
+        "Insufficient user guidance for AI tooling",
+        "Workaround behaviour defeating AI controls"
+      ]
+    },
+    {
+      "category_id": "ops_agentic",
+      "category_name": "Agentic & Autonomy Operations",
+      "subcategories": [
+        "Excessive agency and over-broad tool permissions",
+        "Agent action and spending limits absent",
+        "Multi-agent cascading delegation failure",
+        "Agent-to-agent data sharing beyond authorization",
+        "Unbounded agent loops and runaway execution",
+        "Blast-radius containment and sandboxing absent",
+        "Human checkpoint bypassed by autonomous agents",
+        "Agent goal persistence across sessions unmanaged",
+        "Agent registry and ownership absent",
+        "Tool and connector inventory unmanaged"
+      ]
+    },
+    {
+      "category_id": "ops_architecture",
+      "category_name": "AI & Data Architecture and Security Design",
+      "subcategories": [
+        "Architecture principles undefined for AI systems",
+        "Reference architecture absent for AI deployment patterns",
+        "Architecture review does not cover AI systems",
+        "Integration and interoperability standards absent",
+        "Technical debt in AI platforms unmanaged",
+        "Data and model platform standards not enforced",
+        "Trust boundaries undefined for AI systems",
+        "Secrets and key management gap for AI systems",
+        "Model and inference isolation absent",
+        "Security requirements not embedded in AI design"
+      ]
     }
   ],
   "papers": [
@@ -563,8 +907,8 @@
           "composite_score": 9.35,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies the phenomenon of LLM hallucinations, including its taxonomy, detection methods, and mitigation strategies.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T01:57:56.842757Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:26:53.325531Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -718,8 +1062,8 @@
           "composite_score": 8.762,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies fabricated references by exposing an undocumented method to manipulate citation counts through sneaked references.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T01:57:53.343763Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:26:50.827982Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -828,8 +1172,8 @@
           "composite_score": 7.75,
           "llm_relevance": 8.0,
           "rationale": "The paper presents Outcome Logic, which can reason about both correct and incorrect outcomes, making it relevant to the subcategory of Incorrect reasoning.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T01:58:24.279115Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:27:08.579371Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -906,8 +1250,8 @@
           "composite_score": 8.385,
           "llm_relevance": 9.0,
           "rationale": "The paper extensively evaluates the logical reasoning abilities of LLMs, specifically GPT-4 and ChatGPT, using various benchmarks.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T01:58:31.783337Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:27:16.575770Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -1521,11 +1865,11 @@
           "category_id": "technical_reliability",
           "category_name": "Technical & Reliability Risks",
           "subcategory_name": "Prompt injection attacks",
-          "composite_score": 9.081,
+          "composite_score": 9.082,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies prompt injection attacks on vision language models, specifically in the context of oncology.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T01:59:58.928465Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:28:10.510405Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -1825,8 +2169,8 @@
           "composite_score": 9.35,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies the risk of training data poisoning in large language models, specifically in a medical context.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:00:58.769003Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:28:48.435595Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -2211,8 +2555,8 @@
           "composite_score": 8.0,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies objective misspecification in multi-agent control systems and provides sufficient conditions for stability.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:02:34.789976Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:29:19.418054Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -2283,11 +2627,11 @@
           "category_id": "technical_reliability",
           "category_name": "Technical & Reliability Risks",
           "subcategory_name": "Reward hacking",
-          "composite_score": 8.972,
+          "composite_score": 8.977,
           "llm_relevance": 10.0,
           "rationale": "The paper directly addresses reward hacking in multi-objective molecular design using generative models.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:02:37.443548Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:29:26.068332Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -2451,7 +2795,7 @@
     {
       "key": "doi:10.48550/arxiv.2511.23092",
       "first_seen": "2026-05-30",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "Does Self-Evaluation Enable Wireheading in Language Models?",
       "authors": [
         "David Demitri Africa",
@@ -2474,11 +2818,11 @@
           "category_id": "technical_reliability",
           "category_name": "Technical & Reliability Risks",
           "subcategory_name": "Wireheading",
-          "composite_score": 8.7,
-          "llm_relevance": 9.0,
-          "rationale": "The paper directly investigates the risk of wireheading in language models, examining whether self-evaluation enables agents to manipulate rewards rather than optimizing tasks.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T11:52:08.126122Z"
+          "composite_score": 9.091,
+          "llm_relevance": 10.0,
+          "rationale": "This paper directly studies the risk of wireheading in language models, investigating whether self-evaluation enables agents to manipulate measurement processes for rewards.",
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:29:35.213057Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -2512,8 +2856,8 @@
           "composite_score": 7.568,
           "llm_relevance": 8.0,
           "rationale": "The paper applies Alignment Theory concepts, including proxy gaming, to analyze regulatory frameworks.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:03:14.207649Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:29:39.557192Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -2891,7 +3235,7 @@
     {
       "key": "doi:10.48550/arxiv.2311.08379",
       "first_seen": "2026-05-30",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "Scheming AIs: Will AIs fake alignment during training in order to get power?",
       "authors": [
         "Joe Carlsmith"
@@ -2913,11 +3257,11 @@
           "category_id": "technical_reliability",
           "category_name": "Technical & Reliability Risks",
           "subcategory_name": "Deceptive alignment",
-          "composite_score": 8.753,
+          "composite_score": 8.737,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies the risk of AIs faking alignment during training to gain power, which is a core concern of deceptive alignment.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T11:53:30.431951Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:30:15.433529Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -3038,8 +3382,8 @@
           "composite_score": 8.792,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies specification gaming in drug response prediction for precision oncology, highlighting its impact on model evaluation and proposing a new validation protocol.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:05:38.829022Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:30:38.348498Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -3073,11 +3417,11 @@
           "category_id": "technical_reliability",
           "category_name": "Technical & Reliability Risks",
           "subcategory_name": "Specification gaming",
-          "composite_score": 9.173,
+          "composite_score": 9.172,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies specification gaming in reasoning models by demonstrating the phenomenon and comparing different model behaviors.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:05:38.829022Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:30:38.348498Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -3127,8 +3471,8 @@
           "composite_score": 8.9,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies goal misgeneralization, a specific form of robustness failure in AI systems.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:03:20.642872Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:29:53.666578Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -3349,8 +3693,8 @@
           "composite_score": 7.084,
           "llm_relevance": 8.0,
           "rationale": "The paper studies cascading system failures in the context of space emergency medical response, highlighting synergistic constraints that amplify delays and proposing interventions to address these issues.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:06:18.216589Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:30:59.620893Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -3388,8 +3732,8 @@
           "composite_score": 9.284,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies automation complacency in healthcare contexts, highlighting its risks and proposing a mindful integration approach.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:06:17.856272Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:31:09.532123Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -3459,8 +3803,8 @@
           "composite_score": 8.513,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies automation complacency, its causes, effects, and implications.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:06:17.856272Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:31:09.532123Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -3640,11 +3984,11 @@
           "category_id": "technical_reliability",
           "category_name": "Technical & Reliability Risks",
           "subcategory_name": "Poor monitoring or observability",
-          "composite_score": 8.295,
+          "composite_score": 8.294,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies ML observability and proposes a new data management system for end-to-end visibility into deployed ML pipelines.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:07:03.264984Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:31:35.578736Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -3829,11 +4173,11 @@
           "category_id": "safety",
           "category_name": "Safety Risks",
           "subcategory_name": "Medical diagnosis and treatment errors",
-          "composite_score": 8.629,
+          "composite_score": 8.486,
           "llm_relevance": 9.0,
           "rationale": "This paper directly addresses clinical AI safety by proposing a framework to detect and mitigate spurious model behavior in medical applications.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:09:26.187558Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:31:56.411357Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -3994,8 +4338,8 @@
           "composite_score": 7.712,
           "llm_relevance": 9.0,
           "rationale": "This paper directly studies consumer drone misuse, its harms, and the techno-legal geographies surrounding it.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:10:02.059229Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:32:17.495983Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -4314,11 +4658,11 @@
           "category_id": "safety",
           "category_name": "Safety Risks",
           "subcategory_name": "Self-harm encouragement",
-          "composite_score": 8.517,
+          "composite_score": 8.505,
           "llm_relevance": 9.0,
           "rationale": "This paper directly studies the risk of self-harm encouragement in LLM-based mental health chatbots, proposing a safety framework for crisis detection and risk assessment.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:11:41.470059Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:32:34.074254Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -4362,7 +4706,7 @@
     {
       "key": "doi:10.7441/joc.2021.02.06",
       "first_seen": "2026-05-30",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "How Do Behavioral Aspects Affect the Financial Decisions of Managers and the Competitiveness of Enterprises?",
       "authors": [
         "Mariana Sedliačiková",
@@ -4387,11 +4731,11 @@
           "category_id": "safety",
           "category_name": "Safety Risks",
           "subcategory_name": "Incorrect financial decisions",
-          "composite_score": 7.002,
+          "composite_score": 6.998,
           "llm_relevance": 8.0,
           "rationale": "The paper investigates how behavioral factors, including emotions like love, sadness, and hate, affect financial decision-making in managers, which is directly related to the risk of incorrect financial decisions.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T11:58:23.250843Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:32:52.192652Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -4400,7 +4744,7 @@
     {
       "key": "doi:10.26794/2408-9303-2024-11-4-6-22",
       "first_seen": "2026-05-30",
-      "last_seen": "2026-11-08",
+      "last_seen": "2026-11-23",
       "title": "The Impact of Fraud Risks and Uncertainties on Business Activities under Sanctions Restrictions",
       "authors": [
         "В. В. Земсков"
@@ -4422,11 +4766,11 @@
           "category_id": "safety",
           "category_name": "Safety Risks",
           "subcategory_name": "Incorrect financial decisions",
-          "composite_score": 6.67,
+          "composite_score": 6.637,
           "llm_relevance": 8.0,
           "rationale": "The paper studies fraud risks and uncertainties that can lead to incorrect financial decisions, aligning with the subcategory of Incorrect financial decisions.",
-          "run_id": "790e5255-3825-4ca4-86cc-121f8ce46731",
-          "generated_at": "2026-11-08T11:23:46.837600Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:32:52.192652Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -4741,9 +5085,9 @@
           "subcategory_name": "Social engineering at scale",
           "composite_score": 7.847,
           "llm_relevance": 10.0,
-          "rationale": "The paper directly studies social engineering at scale, specifically focusing on platforms as large-scale phishing operations.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:15:27.960696Z"
+          "rationale": "The paper directly studies social engineering at scale, specifically how social platforms are used as large-scale phishing operations.",
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:33:19.801708Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -5010,7 +5354,7 @@
     {
       "key": "doi:10.1109/tifs.2025.3530691",
       "first_seen": "2026-05-30",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "ModelShield: Adaptive and Robust Watermark Against Model Extraction Attack",
       "authors": [
         "Kaiyi Pang",
@@ -5040,8 +5384,8 @@
           "composite_score": 9.35,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies a model extraction attack, which is the exact risk subcategory.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T12:00:46.107276Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:33:58.332234Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -5187,8 +5531,8 @@
           "composite_score": 8.94,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies semantic supply-chain attacks on AI agent skill registries through SKILL.md files.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:18:10.980933Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:34:08.680336Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -5304,8 +5648,8 @@
           "composite_score": 7.138,
           "llm_relevance": 8.0,
           "rationale": "The paper proposes a backdoor attack on deep learning-based medical image encryption and decryption networks, which is directly related to compromised training pipelines.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:18:33.033151Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:34:18.128537Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -5342,8 +5686,8 @@
           "composite_score": 7.476,
           "llm_relevance": 8.0,
           "rationale": "The paper discusses Trojan and backdoor attacks on machine learning models, which can be considered a form of compromised training pipeline.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:18:33.033151Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:34:18.128537Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -5669,11 +6013,11 @@
           "category_id": "security_cyber",
           "category_name": "Security & Cyber Risks",
           "subcategory_name": "Insider threats with AI",
-          "composite_score": 8.173,
+          "composite_score": 8.128,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies insider threats in highly automated cyber systems, which is a core aspect of this subcategory.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:19:47.403559Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:34:45.471148Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -5789,8 +6133,8 @@
           "composite_score": 9.05,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies system prompt extraction, a key aspect of prompt leakage.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:20:17.436467Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:34:59.440707Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -6216,8 +6560,8 @@
           "composite_score": 8.1,
           "llm_relevance": 9.0,
           "rationale": "The paper directly studies the risk of 'loss of anonymity' as one of four key privacy risks associated with central bank digital currencies.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:25:53.864477Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:35:57.104249Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -6403,8 +6747,8 @@
           "composite_score": 9.35,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies racial bias in AI-mediated psychiatric diagnosis and treatment.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:26:43.558411Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:36:19.967931Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -6435,11 +6779,11 @@
           "category_id": "ethical",
           "category_name": "Ethical Risks",
           "subcategory_name": "Racial bias in AI",
-          "composite_score": 9.181,
+          "composite_score": 9.187,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies racial bias in AI-generated images, a core contribution to the subcategory.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:26:43.558411Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:36:19.967931Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -6574,7 +6918,7 @@
     {
       "key": "doi:10.3390/socsci12080435",
       "first_seen": "2026-05-30",
-      "last_seen": "2026-11-01",
+      "last_seen": "2026-11-23",
       "title": "What ChatGPT Tells Us about Gender: A Cautionary Tale about Performativity and Gender Biases in AI",
       "authors": [
         "Nicole Gross"
@@ -6599,8 +6943,8 @@
           "composite_score": 8.4,
           "llm_relevance": 9.0,
           "rationale": "The paper directly studies gender bias in AI, using ChatGPT as a case study, and argues that large language models can perpetuate and amplify existing biases.",
-          "run_id": "6c15c6f5-066d-4f84-9ef1-431aa28e8d00",
-          "generated_at": "2026-11-01T11:17:56.479476Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:36:26.335644Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -6635,8 +6979,8 @@
           "composite_score": 7.9,
           "llm_relevance": 8.0,
           "rationale": "The paper discusses how generative AI models can perpetuate harmful stereotypes and biases in image generation, which is directly related to the subcategory of Religious bias in AI.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:27:23.209038Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:36:32.158991Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -6675,8 +7019,8 @@
           "composite_score": 8.625,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies religious bias in AI, specifically examining multilingual large language models' performance across major religions.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:27:23.209038Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:36:32.158991Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -6724,7 +7068,7 @@
     {
       "key": "doi:10.1007/s11127-023-01097-2",
       "first_seen": "2026-05-30",
-      "last_seen": "2026-11-01",
+      "last_seen": "2026-11-23",
       "title": "More human than human: measuring ChatGPT political bias",
       "authors": [
         "Fábio Motoki",
@@ -6751,8 +7095,8 @@
           "composite_score": 9.05,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies the political bias of a large language model (LLM), ChatGPT, which is a core contribution to this subcategory.",
-          "run_id": "6c15c6f5-066d-4f84-9ef1-431aa28e8d00",
-          "generated_at": "2026-11-01T11:18:31.698926Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:36:46.490386Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -6945,7 +7289,7 @@
     {
       "key": "doi:10.2196/64406",
       "first_seen": "2026-05-30",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "Ethical Considerations in Human-Centered AI: Advancing Oncology Chatbots Through Large Language Models",
       "authors": [
         "James C. L. Chow",
@@ -6971,8 +7315,8 @@
           "composite_score": 7.9,
           "llm_relevance": 8.0,
           "rationale": "The paper discusses language and cultural bias in AI, specifically in oncology chatbots, highlighting the need for human-centered approaches to mitigate biases.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T12:12:29.574035Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:37:05.292016Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -7041,11 +7385,11 @@
           "category_id": "ethical",
           "category_name": "Ethical Risks",
           "subcategory_name": "Lack of accountability in AI systems",
-          "composite_score": 7.75,
+          "composite_score": 7.657,
           "llm_relevance": 8.0,
           "rationale": "The paper proposes a co-evolutionary approach to tackle lack of accountability in AI systems, enabling meaningful human control and interaction across the lifecycle.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:28:37.119981Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:37:04.948480Z"
         },
         {
           "category_id": "organizational_business",
@@ -7297,8 +7641,8 @@
           "composite_score": 8.617,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies algorithmic fairness in business analytics, a core aspect of unfair automated decisions.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:29:58.459869Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:37:27.728475Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -7461,7 +7805,7 @@
     {
       "key": "doi:10.3998/phimp.2653",
       "first_seen": "2026-05-30",
-      "last_seen": "2026-10-11",
+      "last_seen": "2026-11-23",
       "title": "Deepfakes, Pornography and Consent",
       "authors": [
         "Claire Benn"
@@ -7483,11 +7827,11 @@
           "category_id": "ethical",
           "category_name": "Ethical Risks",
           "subcategory_name": "Deepfake pornography",
-          "composite_score": 8.333,
+          "composite_score": 8.898,
           "llm_relevance": 10.0,
           "rationale": "The paper directly addresses the issue of non-consensual intimate imagery in deepfakes, specifically arguing that consent is required for creating pornography using a person's likeness.",
-          "run_id": "5c09660a-2f5c-4ecb-8216-c93a1662899b",
-          "generated_at": "2026-10-11T10:51:49.553100Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:38:05.513202Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -7522,11 +7866,11 @@
           "category_id": "ethical",
           "category_name": "Ethical Risks",
           "subcategory_name": "Identity cloning",
-          "composite_score": 7.855,
+          "composite_score": 7.837,
           "llm_relevance": 8.0,
           "rationale": "The paper studies the neural basis of distinguishing between real and cloned identities in audio deepfakes, which is directly related to identity cloning.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:33:35.150300Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:38:05.792680Z"
         }
       ],
       "last_refreshed": "2026-11-23",
@@ -7788,8 +8132,8 @@
           "composite_score": 8.602,
           "llm_relevance": 9.0,
           "rationale": "The paper directly studies the impact of AI-generated disinformation on democracy using case studies, making it highly relevant to this subcategory.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:35:36.996971Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:38:34.603839Z"
         },
         {
           "category_id": "social_cultural",
@@ -10481,7 +10825,7 @@
     {
       "key": "arxiv_id:2410.09181v1",
       "first_seen": "2026-05-30",
-      "last_seen": "2026-08-16",
+      "last_seen": "2026-11-23",
       "title": "Can a large language model be a gaslighter?",
       "authors": [
         "Wei Li",
@@ -10531,8 +10875,8 @@
           "composite_score": 5.9,
           "llm_relevance": 8.0,
           "rationale": "The paper investigates how large language models can manipulate users' mindsets through gaslighting, which is a form of emotional dependency on AI.",
-          "run_id": "184cc845-6f59-460b-8766-6b8f9fd72d34",
-          "generated_at": "2026-08-16T04:47:24.675853Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:39:12.581281Z"
         }
       ],
       "last_refreshed": "2026-11-23"
@@ -12810,8 +13154,8 @@
           "composite_score": 7.8,
           "llm_relevance": 9.0,
           "rationale": "This paper presents a probabilistic approach to human intent recognition in assistive robotics, which is a direct study of the subcategory 'Misunderstanding context or intent'.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T01:58:58.983729Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:27:28.625675Z"
         }
       ],
       "citation_source": "openalex",
@@ -12894,7 +13238,7 @@
     {
       "key": "doi:10.48550/arxiv.2108.13624",
       "first_seen": "2026-06-02",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "Towards Out-Of-Distribution Generalization: A Survey",
       "authors": [
         "Jiashuo Liu",
@@ -12922,11 +13266,11 @@
           "category_id": "technical_reliability",
           "category_name": "Technical & Reliability Risks",
           "subcategory_name": "Brittleness outside training distribution",
-          "composite_score": 8.733,
+          "composite_score": 8.623,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies out-of-distribution generalization, which is the exact subcategory of brittleness outside training distribution.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T11:48:49.076041Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:27:47.530415Z"
         }
       ],
       "citation_source": "openalex",
@@ -12962,8 +13306,8 @@
           "composite_score": 8.45,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies the adversarial robustness of classifiers, providing a certified defense against adversarial perturbations.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T01:59:41.359320Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:28:00.240919Z"
         }
       ],
       "citation_source": "openalex",
@@ -13017,7 +13361,7 @@
     {
       "key": "doi:10.1109/tnnls.2018.2886017",
       "first_seen": "2026-06-02",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "Adversarial Examples: Attacks and Defenses for Deep Learning",
       "authors": [
         "Xiaoyong Yuan",
@@ -13045,8 +13389,8 @@
           "composite_score": 8.45,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies adversarial examples, their generation methods, and countermeasures.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T11:50:09.051249Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:28:28.929892Z"
         }
       ],
       "citation_source": "openalex",
@@ -13346,8 +13690,8 @@
           "composite_score": 8.05,
           "llm_relevance": 8.0,
           "rationale": "The paper critiques proxy gaming in reward-based approaches to Reinforcement Learning, highlighting its limitations and proposing an alternative virtue-focused approach.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:03:14.207649Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:29:39.557192Z"
         }
       ],
       "citation_source": "openalex",
@@ -13416,11 +13760,11 @@
           "category_id": "technical_reliability",
           "category_name": "Technical & Reliability Risks",
           "subcategory_name": "Goal misgeneralization",
-          "composite_score": 8.497,
+          "composite_score": 8.496,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies goal misgeneralization in reinforcement learning, proposing a method to address this issue using large language models.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:03:20.642872Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:29:53.666578Z"
         }
       ],
       "citation_source": "openalex",
@@ -13580,7 +13924,7 @@
     {
       "key": "doi:10.64898/2026.01.17.26344330",
       "first_seen": "2026-06-02",
-      "last_seen": "2026-11-01",
+      "last_seen": "2026-11-23",
       "title": "AlignInsight: A Three-Layer Framework for Detecting Deceptive Alignment and Evaluation Awareness in Healthcare AI Systems",
       "authors": [
         "Amobi Onovo",
@@ -13603,11 +13947,11 @@
           "category_id": "technical_reliability",
           "category_name": "Technical & Reliability Risks",
           "subcategory_name": "Deceptive alignment",
-          "composite_score": 8.0,
+          "composite_score": 8.205,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies deceptive alignment in healthcare AI systems, including audit gaming and dual-mode behavior detection.",
-          "run_id": "6c15c6f5-066d-4f84-9ef1-431aa28e8d00",
-          "generated_at": "2026-11-01T11:08:35.314251Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:30:15.433529Z"
         }
       ],
       "citation_source": "openalex",
@@ -13918,8 +14262,8 @@
           "composite_score": 8.55,
           "llm_relevance": 9.0,
           "rationale": "The paper directly studies automation complacency by examining the effects of relying on AI systems and finding that efficiency-focused solutions can lead to reduced vigilance and performance drops when AI accuracy falters.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:06:17.856272Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:31:09.532123Z"
         }
       ],
       "citation_source": "openalex",
@@ -13993,8 +14337,8 @@
           "composite_score": 7.85,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies autonomous vehicle accidents by developing a framework to predict crash severity and identify high-risk regions.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:07:40.652948Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:31:36.647171Z"
         }
       ],
       "last_refreshed": "2026-11-23"
@@ -14028,8 +14372,8 @@
           "composite_score": 7.85,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies the risks of lethal autonomous weapons systems, including unpredictability, lack of transparency, and operational unreliability.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:09:22.980303Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:32:03.967459Z"
         }
       ],
       "last_refreshed": "2026-11-23"
@@ -14313,7 +14657,7 @@
     {
       "key": "doi:10.1145/3708352",
       "first_seen": "2026-06-02",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "Siamese Network-Based Detection of Deepfake Impersonation Attacks with a Person of Interest Approach",
       "authors": [
         "Khouloud Samrouth",
@@ -14337,11 +14681,11 @@
           "category_id": "security_cyber",
           "category_name": "Security & Cyber Risks",
           "subcategory_name": "Deepfake impersonation",
-          "composite_score": 9.2,
+          "composite_score": 9.35,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies deepfake impersonation detection using a Siamese network-based approach, making it highly relevant to the subcategory.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T11:59:51.223201Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:33:37.040942Z"
         }
       ],
       "citation_source": "openalex",
@@ -14977,8 +15321,8 @@
           "composite_score": 7.05,
           "llm_relevance": 9.0,
           "rationale": "The paper directly addresses anonymization of sensitive data through image compression, aligning with the subcategory of Loss of anonymity.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:25:53.864477Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:35:57.104249Z"
         }
       ],
       "last_refreshed": "2026-11-23"
@@ -15120,11 +15464,11 @@
           "category_id": "ethical",
           "category_name": "Ethical Risks",
           "subcategory_name": "Socioeconomic discrimination by AI",
-          "composite_score": 7.225,
-          "llm_relevance": 8.0,
-          "rationale": "The paper extensively covers socioeconomic discrimination by AI, discussing biases and their consequences on various communities.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:27:55.758512Z"
+          "composite_score": 7.842,
+          "llm_relevance": 9.0,
+          "rationale": "The paper directly studies socioeconomic discrimination by AI, examining biases and their consequences on communities with different socio-economic statuses.",
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:36:49.417220Z"
         }
       ],
       "citation_source": "openalex",
@@ -15156,11 +15500,11 @@
           "category_id": "ethical",
           "category_name": "Ethical Risks",
           "subcategory_name": "Socioeconomic discrimination by AI",
-          "composite_score": 7.65,
+          "composite_score": 7.598,
           "llm_relevance": 8.0,
           "rationale": "The paper investigates AI's potential to mitigate bias in early-stage interviews, specifically sentiment bias, which is a key aspect of socioeconomic discrimination by AI.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:27:55.758512Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:36:49.417220Z"
         }
       ],
       "citation_source": "openalex",
@@ -15239,7 +15583,7 @@
     {
       "key": "doi:10.1093/pnasnexus/pgag084",
       "first_seen": "2026-06-02",
-      "last_seen": "2026-10-25",
+      "last_seen": "2026-11-23",
       "title": "AI models as cultural beings: Investigating AI cultural biases and the impact of cultural alignment on human–AI creative collaboration",
       "authors": [
         "Choon Ngee Tan",
@@ -15264,11 +15608,11 @@
           "category_id": "ethical",
           "category_name": "Ethical Risks",
           "subcategory_name": "Language and cultural bias in AI",
-          "composite_score": 7.801,
+          "composite_score": 7.969,
           "llm_relevance": 9.0,
           "rationale": "This paper directly investigates language and cultural bias in AI models, comparing Western and non-Western models and highlighting the importance of cultural alignment between users and AI.",
-          "run_id": "fb5ef847-fcda-4002-bd1c-278955c7e666",
-          "generated_at": "2026-10-25T09:10:10.538340Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:37:05.292016Z"
         }
       ],
       "citation_source": "openalex",
@@ -15455,8 +15799,8 @@
           "composite_score": 7.85,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies identity cloning in social-sensor cloud services, proposing a novel method for detecting duplicated accounts.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:33:35.150300Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:38:05.792680Z"
         }
       ],
       "last_refreshed": "2026-11-23"
@@ -15612,7 +15956,7 @@
     {
       "key": "arxiv_id:2603.01291v1",
       "first_seen": "2026-06-02",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "JailNewsBench: Multi-Lingual and Regional Benchmark for Fake News Generation under Jailbreak Attacks",
       "authors": [
         "Masahiro Kaneko",
@@ -15639,8 +15983,8 @@
           "composite_score": 7.5,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies the risk of fake news generation, proposing a benchmark to evaluate large language models' robustness against jailbreak attacks.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T12:18:03.226665Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:38:30.503657Z"
         }
       ],
       "last_refreshed": "2026-11-23"
@@ -15974,8 +16318,8 @@
           "composite_score": 5.8,
           "llm_relevance": 9.0,
           "rationale": "The paper extensively discusses how AI systems disproportionately harm marginalized groups, highlighting issues of bias in face recognition, crime recidivism prediction, and natural language processing.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:39:47.721186Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:39:31.404970Z"
         }
       ],
       "last_refreshed": "2026-11-23"
@@ -17533,8 +17877,8 @@
           "composite_score": 8.692,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies data poisoning and backdoor attacks on ML training data.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:00:58.769003Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:28:48.435595Z"
         }
       ],
       "citation_source": "openalex",
@@ -17793,8 +18137,8 @@
           "composite_score": 9.2,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies the risk of specification gaming in large language models, including the specific case of reward-tampering.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:05:38.829022Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:30:38.348498Z"
         }
       ],
       "citation_source": "openalex",
@@ -20082,8 +20426,8 @@
           "composite_score": 7.35,
           "llm_relevance": 9.0,
           "rationale": "The paper directly studies cascading system failures in power systems using a comprehensive method to identify initial causes.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:06:18.216589Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:30:59.620893Z"
         }
       ],
       "citation_source": "openalex",
@@ -20124,8 +20468,8 @@
           "composite_score": 8.2,
           "llm_relevance": 8.0,
           "rationale": "The paper discusses multi-agent cascading failures as one of the emerging threats in OpenClaw agent frameworks, and provides a comprehensive study of their security landscape.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:06:18.216589Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:30:59.620893Z"
         }
       ],
       "citation_source": "openalex",
@@ -20170,7 +20514,7 @@
     {
       "key": "doi:10.1109/tii.2023.3291717",
       "first_seen": "2026-06-04",
-      "last_seen": "2026-11-08",
+      "last_seen": "2026-11-23",
       "title": "Adversarial Attacks for Neural Network-Based Industrial Soft Sensors: Mirror Output Attack and Translation Mirror Output Attack",
       "authors": [
         "Lei Chen",
@@ -20197,8 +20541,8 @@
           "composite_score": 9.05,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies AI systems being hacked through adversarial attacks on ML models in industrial settings.",
-          "run_id": "790e5255-3825-4ca4-86cc-121f8ce46731",
-          "generated_at": "2026-11-08T11:25:45.545223Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:33:46.484643Z"
         },
         {
           "category_id": "security_cyber",
@@ -20592,8 +20936,8 @@
           "composite_score": 8.745,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies the risk of unfair automated decisions through its focus on algorithmic fairness and its examples from various domains.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:29:58.459869Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:37:27.728475Z"
         }
       ],
       "citation_source": "openalex",
@@ -22606,11 +22950,11 @@
           "category_id": "ethical",
           "category_name": "Ethical Risks",
           "subcategory_name": "Unfair automated decisions",
-          "composite_score": 8.694,
+          "composite_score": 8.698,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies algorithmic bias and fairness in predictive policing, which is a key aspect of unfair automated decisions.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:29:58.459869Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:37:27.728475Z"
         }
       ],
       "citation_source": "openalex",
@@ -22648,8 +22992,8 @@
           "composite_score": 7.85,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies behavioral profiling through Temporal-Correlation Graphs for ransomware detection, with a focus on capturing behavioral anomalies and distinguishing between benign and malicious activities.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:24:08.210249Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:35:41.552047Z"
         }
       ],
       "last_refreshed": "2026-11-23"
@@ -24659,7 +25003,7 @@
     {
       "key": "arxiv_id:2602.06532v1",
       "first_seen": "2026-06-07",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "Dependable Artificial Intelligence with Reliability and Security (DAIReS): A Unified Syndrome Decoding Approach for Hallucination and Backdoor Trigger Detection",
       "authors": [
         "Hema Karnam Surendrababu",
@@ -24685,8 +25029,8 @@
           "composite_score": 7.35,
           "llm_relevance": 9.0,
           "rationale": "The paper directly addresses unpredictable outputs in LLMs through a unified approach for detecting both security and reliability violations.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T11:54:30.551544Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:30:41.609511Z"
         }
       ],
       "last_refreshed": "2026-11-23"
@@ -25794,11 +26138,11 @@
           "category_id": "technical_reliability",
           "category_name": "Technical & Reliability Risks",
           "subcategory_name": "Misunderstanding context or intent",
-          "composite_score": 8.383,
+          "composite_score": 8.388,
           "llm_relevance": 9.0,
           "rationale": "This paper directly studies intent recognition for conversational AI, which is a key aspect of understanding context or intent.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T01:58:58.983729Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:27:28.625675Z"
         }
       ],
       "citation_source": "openalex",
@@ -25807,7 +26151,7 @@
     {
       "key": "arxiv_id:2606.08554v1",
       "first_seen": "2026-06-21",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "A Theoretical Analysis of Memory and Overfitting Phenomena in Stochastic Interpolation Models",
       "authors": [
         "Yunchen Li",
@@ -25834,8 +26178,8 @@
           "composite_score": 7.5,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies overfitting and underfitting phenomena in stochastic interpolation models, providing a theoretical account of memorization.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T11:48:10.938950Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:27:37.635448Z"
         }
       ],
       "last_refreshed": "2026-11-23"
@@ -26229,7 +26573,7 @@
     {
       "key": "doi:10.6036/10215",
       "first_seen": "2026-06-21",
-      "last_seen": "2026-11-01",
+      "last_seen": "2026-11-23",
       "title": "CHILD SAFETY IN AUTONOMOUS VEHICLES: \"LIVING ROOM\" LAYOUT",
       "authors": [
         "Mónica Diez Marín",
@@ -26255,11 +26599,11 @@
           "category_id": "safety",
           "category_name": "Safety Risks",
           "subcategory_name": "Child safety risks from AI",
-          "composite_score": 7.617,
+          "composite_score": 8.25,
           "llm_relevance": 9.0,
-          "rationale": "This paper directly studies child safety risks in autonomous vehicles, specifically evaluating the 'living room' seating position against traditional forward-facing positions.",
-          "run_id": "6c15c6f5-066d-4f84-9ef1-431aa28e8d00",
-          "generated_at": "2026-11-01T11:11:50.450079Z"
+          "rationale": "This paper directly studies child safety risks in autonomous vehicles, specifically comparing a 'living room' seating position to the traditional forward-facing position.",
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:32:38.310143Z"
         }
       ],
       "citation_source": "openalex",
@@ -26483,8 +26827,8 @@
           "composite_score": 8.05,
           "llm_relevance": 8.0,
           "rationale": "The paper discusses the regulation of biometric tracking in high-resolution satellite imaging, highlighting gaps in existing EU legislation.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:22:38.899838Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:35:23.899444Z"
         }
       ],
       "citation_source": "openalex",
@@ -26776,8 +27120,8 @@
           "composite_score": 8.2,
           "llm_relevance": 8.0,
           "rationale": "The paper directly studies the exploitation of labor in data labeling through management's manipulation of labelers' cognitive behavior.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:31:42.017837Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:37:42.311797Z"
         }
       ],
       "citation_source": "openalex",
@@ -26867,7 +27211,7 @@
     {
       "key": "arxiv_id:2405.04097v2",
       "first_seen": "2026-06-21",
-      "last_seen": "2026-08-23",
+      "last_seen": "2026-11-23",
       "title": "Unmasking Illusions: Understanding Human Perception of Audiovisual Deepfakes",
       "authors": [
         "Ammarah Hashmi",
@@ -26896,8 +27240,8 @@
           "composite_score": 5.9,
           "llm_relevance": 8.0,
           "rationale": "This paper studies human perception of deepfakes through a subjective study comparing human observers to AI models, directly addressing the subcategory of Deepfake confusion.",
-          "run_id": "5153399c-63c5-47c4-8ca0-31c22ec12e20",
-          "generated_at": "2026-08-23T04:54:59.949291Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:38:52.643569Z"
         }
       ],
       "last_refreshed": "2026-11-23"
@@ -26905,7 +27249,7 @@
     {
       "key": "arxiv_id:2510.17712v1",
       "first_seen": "2026-06-21",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "Online Political Microtargeting: Promises and Threats for Democracy",
       "authors": [
         "Frederik J. Zuiderveen Borgesius",
@@ -26937,8 +27281,8 @@
           "composite_score": 6.7,
           "llm_relevance": 9.0,
           "rationale": "The paper directly studies online political microtargeting and its implications for democracy, including both promises and threats.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T12:18:26.049428Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:38:59.034778Z"
         }
       ],
       "last_refreshed": "2026-11-23"
@@ -26979,8 +27323,8 @@
           "composite_score": 8.26,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies adversarial robustness, specifically evaluating defenses against adversarial examples.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T01:59:41.359320Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:28:00.240919Z"
         }
       ],
       "citation_source": "openalex",
@@ -27495,8 +27839,8 @@
           "composite_score": 8.454,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies gender bias in AI-generated narratives, examining whether AI tools associate certain professions with specific genders.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:27:17.707081Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:36:26.335644Z"
         }
       ],
       "citation_source": "openalex",
@@ -28562,7 +28906,7 @@
     {
       "key": "arxiv_id:2508.19633v1",
       "first_seen": "2026-07-05",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "A Symbolic Adversarial Learning Framework for Evolving Fake News Generation and Detection",
       "authors": [
         "Chong Tian",
@@ -28589,8 +28933,8 @@
           "composite_score": 7.35,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies the generation of sophisticated fake news and its impact on detection performance.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T12:18:03.226665Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:38:30.503657Z"
         }
       ],
       "last_refreshed": "2026-11-23"
@@ -28632,7 +28976,7 @@
     {
       "key": "arxiv_id:2606.29685v1",
       "first_seen": "2026-07-05",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "CAREBench: A Child-Safety Risk Benchmark for Language Models",
       "authors": [
         "Kaavya Krishna-Kumar",
@@ -28665,8 +29009,8 @@
           "composite_score": 6.85,
           "llm_relevance": 9.0,
           "rationale": "The paper directly studies the AI risk of emotional dependency on AI, as it evaluates language models' ability to recognize and redirect risky interactions that deepen children's dependence on AI systems.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T12:18:34.137321Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:39:12.581281Z"
         }
       ],
       "last_refreshed": "2026-11-23"
@@ -29802,8 +30146,8 @@
           "composite_score": 8.518,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies fabricated citations or sources in LLM-generated references, with a focus on prevalence and risks.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T01:57:53.343763Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:26:50.827982Z"
         }
       ],
       "citation_source": "openalex",
@@ -29890,8 +30234,8 @@
           "composite_score": 7.558,
           "llm_relevance": 9.0,
           "rationale": "This paper studies the arithmetic brittleness of LLMs through automatic numeric-remapping attacks, directly addressing the subcategory of Arithmetic and logical errors.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T01:58:31.783337Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:27:16.575770Z"
         }
       ],
       "citation_source": "openalex",
@@ -29922,11 +30266,11 @@
           "category_id": "technical_reliability",
           "category_name": "Technical & Reliability Risks",
           "subcategory_name": "Overfitting and underfitting",
-          "composite_score": 7.7,
+          "composite_score": 7.2,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies overfitting and proposes a method to adjust it.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T01:59:01.523229Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:27:37.635448Z"
         }
       ],
       "last_refreshed": "2026-11-23"
@@ -30160,8 +30504,8 @@
           "composite_score": 9.05,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies the risk of LLM jailbreak, specifically focusing on ChatGPT.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:00:19.810252Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:28:26.205937Z"
         }
       ],
       "citation_source": "openalex",
@@ -30510,11 +30854,11 @@
           "category_id": "technical_reliability",
           "category_name": "Technical & Reliability Risks",
           "subcategory_name": "Goal misgeneralization",
-          "composite_score": 8.805,
+          "composite_score": 8.804,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies and formalizes the problem of goal misgeneralization in reinforcement learning.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:03:20.642872Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:29:53.666578Z"
         }
       ],
       "citation_source": "openalex",
@@ -30587,8 +30931,8 @@
           "composite_score": 8.275,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies the steerability of instrumental-convergence tendencies in LLMs, a core aspect of instrumental convergence.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:03:55.863441Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:30:02.338156Z"
         }
       ],
       "citation_source": "openalex",
@@ -30657,8 +31001,8 @@
           "composite_score": 9.248,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies industrial robot malfunctions, including diagnosis and fault-tolerant technologies.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:07:28.762924Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:31:43.514451Z"
         }
       ],
       "citation_source": "openalex",
@@ -30732,8 +31076,8 @@
           "composite_score": 9.35,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies drone misuse as a security threat, reviewing anti-drone technologies and strategies.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:10:02.059229Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:32:17.495983Z"
         }
       ],
       "citation_source": "openalex",
@@ -31160,11 +31504,11 @@
           "category_id": "security_cyber",
           "category_name": "Security & Cyber Risks",
           "subcategory_name": "Prompt leakage",
-          "composite_score": 8.868,
+          "composite_score": 8.866,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies prompt leakage through a reinforcement learning-enhanced framework that maximizes prompt reconstruction efficiency.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:20:17.436467Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:34:59.440707Z"
         }
       ],
       "citation_source": "openalex",
@@ -31353,7 +31697,7 @@
     {
       "key": "doi:10.48550/arxiv.2506.11825",
       "first_seen": "2026-07-19",
-      "last_seen": "2026-09-13",
+      "last_seen": "2026-11-23",
       "title": "Revealing Political Bias in LLMs through Structured Multi-Agent Debate",
       "authors": [
         "Aishwarya Bandaru",
@@ -31380,11 +31724,11 @@
           "category_id": "ethical",
           "category_name": "Ethical Risks",
           "subcategory_name": "Political bias in LLMs",
-          "composite_score": 8.079,
+          "composite_score": 8.425,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies political bias in LLMs through a structured debate framework.",
-          "run_id": "53829abc-3bfc-4bf3-afad-9e32eef03d9c",
-          "generated_at": "2026-09-13T09:27:19.099420Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:36:46.490386Z"
         }
       ],
       "citation_source": "openalex",
@@ -32641,8 +32985,8 @@
           "composite_score": 8.696,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies intent recognition, a core aspect of misunderstanding context or intent.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T01:58:58.983729Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:27:28.625675Z"
         }
       ],
       "citation_source": "openalex",
@@ -33223,7 +33567,7 @@
     {
       "key": "doi:10.30574/wjaets.2025.15.2.0813",
       "first_seen": "2026-08-02",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "Disinformation Security at the Nexus of Cybersecurity and AI: Defending digital ecosystems against automated deception",
       "authors": [
         "Ummer khan Asif Bangalore Ghouse khan"
@@ -33245,11 +33589,11 @@
           "category_id": "security_cyber",
           "category_name": "Security & Cyber Risks",
           "subcategory_name": "AI-driven botnets",
-          "composite_score": 7.3,
+          "composite_score": 7.244,
           "llm_relevance": 8.0,
           "rationale": "The paper explores the intersection of AI and disinformation, including AI-driven botnets spreading propaganda, making it relevant to the subcategory.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T12:05:49.290951Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:35:06.518222Z"
         }
       ],
       "citation_source": "openalex",
@@ -33294,7 +33638,7 @@
     {
       "key": "doi:10.35219/across.2026.3.15",
       "first_seen": "2026-08-02",
-      "last_seen": "2026-08-02",
+      "last_seen": "2026-11-23",
       "title": "The challenges of artificial intelligence in safeguarding fundamental rights",
       "authors": [
         "Mariana PAVLENCU"
@@ -33318,9 +33662,9 @@
           "subcategory_name": "Mass surveillance with AI",
           "composite_score": 5.4,
           "llm_relevance": 6.0,
-          "rationale": "The paper discusses AI's impact on fundamental rights, including potential mass surveillance implications, but focuses more broadly on the relationship between AI and human rights.",
-          "run_id": "0488c257-41b3-41d2-8b98-3ec48e04252f",
-          "generated_at": "2026-08-02T06:45:26.753093Z"
+          "rationale": "The paper discusses AI's impact on fundamental rights, including potential mass surveillance implications, but focuses more broadly on the constitutional dimension and comparative models.",
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:35:10.963602Z"
         }
       ],
       "citation_source": "openalex",
@@ -33464,8 +33808,8 @@
           "composite_score": 7.2,
           "llm_relevance": 9.0,
           "rationale": "The paper directly studies liability for copyright infringement in generative AI, which is closely related to unauthorized use of copyrighted works in training.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:32:01.309114Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:37:43.861490Z"
         }
       ],
       "citation_source": "openalex",
@@ -33538,8 +33882,8 @@
           "composite_score": 8.405,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies disinformation generated by AI, its influence on political violence and extremism, and potential mitigations.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:35:36.996971Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:38:34.603839Z"
         }
       ],
       "citation_source": "openalex",
@@ -34963,8 +35307,8 @@
           "composite_score": 7.35,
           "llm_relevance": 9.0,
           "rationale": "The paper directly studies workplace surveillance with AI, including its effects on employee psychological well-being and proposes governance logic for organizations adopting AI-enabled management systems.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:26:05.290742Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:36:08.321293Z"
         }
       ],
       "citation_source": "openalex",
@@ -35649,7 +35993,7 @@
     {
       "key": "doi:10.36227/techrxiv.177040570.06710783/v1",
       "first_seen": "2026-08-23",
-      "last_seen": "2026-08-23",
+      "last_seen": "2026-11-23",
       "title": "L-PRISMA: An Extension of PRISMA in the Era of Generative Artificial Intelligence (GenAI)",
       "authors": [
         "Samar Shailendra",
@@ -35675,11 +36019,11 @@
           "category_id": "technical_reliability",
           "category_name": "Technical & Reliability Risks",
           "subcategory_name": "Non-determinism in LLMs",
-          "composite_score": 6.7,
+          "composite_score": 7.431,
           "llm_relevance": 8.0,
           "rationale": "The paper discusses the challenges of non-determinism in LLMs and proposes an approach to address these limitations, enhancing reproducibility.",
-          "run_id": "5153399c-63c5-47c4-8ca0-31c22ec12e20",
-          "generated_at": "2026-08-23T04:41:37.554644Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:30:55.635408Z"
         }
       ],
       "citation_source": "openalex",
@@ -35758,11 +36102,11 @@
           "category_id": "safety",
           "category_name": "Safety Risks",
           "subcategory_name": "Self-harm encouragement",
-          "composite_score": 8.127,
+          "composite_score": 8.111,
           "llm_relevance": 8.0,
           "rationale": "The paper extensively reviews potential mental health harms of LLM-based chatbots, including self-harm encouragement through reinforcement and validation of delusional beliefs.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:11:41.470059Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:32:34.074254Z"
         }
       ],
       "citation_source": "openalex",
@@ -35771,7 +36115,7 @@
     {
       "key": "doi:10.1007/s10462-025-11285-9",
       "first_seen": "2026-08-23",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "Generative AI: a double-edged sword in the cyber threat landscape",
       "authors": [
         "Werisha Ibrar",
@@ -35798,11 +36142,11 @@
           "category_id": "security_cyber",
           "category_name": "Security & Cyber Risks",
           "subcategory_name": "Malware generation by LLMs",
-          "composite_score": 9.003,
-          "llm_relevance": 10.0,
-          "rationale": "The paper directly studies the risk of AI-generated malware, specifically its impact on cybersecurity and the need for proactive defense strategies.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T11:59:02.899092Z"
+          "composite_score": 8.348,
+          "llm_relevance": 9.0,
+          "rationale": "The paper directly studies the threat of AI-generated malware, its prevalence, and repercussions on cyber resilience.",
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:33:12.295376Z"
         }
       ],
       "citation_source": "openalex",
@@ -36280,8 +36624,8 @@
           "composite_score": 8.7,
           "llm_relevance": 9.0,
           "rationale": "The paper directly studies disinformation generated by AI in a real-world election context, examining its impact on electoral integrity and public trust.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:35:36.996971Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:38:34.603839Z"
         }
       ],
       "citation_source": "openalex",
@@ -36362,7 +36706,7 @@
     {
       "key": "doi:10.48550/arxiv.2608.07280",
       "first_seen": "2026-08-30",
-      "last_seen": "2026-11-08",
+      "last_seen": "2026-11-23",
       "title": "Why Study Emergent Behavior When You Can Regulate It? Aligning Multi-Agent Systems with Reward Prediction",
       "authors": [
         "Assaf Caftory",
@@ -36387,11 +36731,11 @@
           "category_id": "technical_reliability",
           "category_name": "Technical & Reliability Risks",
           "subcategory_name": "Unexpected emergent behaviors",
-          "composite_score": 8.85,
+          "composite_score": 8.18,
           "llm_relevance": 9.0,
-          "rationale": "The paper introduces a framework for actively shaping emergent behaviors in multi-agent systems through social reward modeling, directly addressing the subcategory of unexpected emergent behaviors.",
-          "run_id": "790e5255-3825-4ca4-86cc-121f8ce46731",
-          "generated_at": "2026-11-08T11:15:13.651406Z"
+          "rationale": "The paper introduces a framework for actively shaping emergent behaviors in multi-agent systems via social reward modeling, directly addressing the subcategory of unexpected emergent behaviors.",
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:29:01.637488Z"
         }
       ],
       "citation_source": "openalex",
@@ -36497,11 +36841,11 @@
           "category_id": "safety",
           "category_name": "Safety Risks",
           "subcategory_name": "Psychological manipulation by AI",
-          "composite_score": 7.899,
+          "composite_score": 7.898,
           "llm_relevance": 9.0,
           "rationale": "The paper directly studies psychological manipulation by AI, its impact on personal autonomy and democracy, and proposes strategies to prevent its misuse.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:11:05.786485Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:32:27.327490Z"
         }
       ],
       "citation_source": "openalex",
@@ -36535,8 +36879,8 @@
           "composite_score": 7.75,
           "llm_relevance": 8.0,
           "rationale": "The paper extensively covers psychological manipulation by AI in social engineering attacks, including exploiting human cognitive biases and manipulating public opinion through deepfakes.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:11:05.786485Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:32:27.327490Z"
         }
       ],
       "citation_source": "openalex",
@@ -36685,8 +37029,8 @@
           "composite_score": 6.17,
           "llm_relevance": 6.0,
           "rationale": "The paper mentions automated phishing by AI as one of the growing dangers of adversarial AI, but does not focus exclusively on this topic.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:14:36.042544Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:33:02.276447Z"
         }
       ],
       "citation_source": "openalex",
@@ -36741,8 +37085,8 @@
           "composite_score": 8.6,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies the risk of memorized training data exposure through a demonstrated attack on GPT-2.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:19:38.899318Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:34:38.772525Z"
         }
       ],
       "citation_source": "openalex",
@@ -38362,8 +38706,8 @@
           "composite_score": 8.7,
           "llm_relevance": 9.0,
           "rationale": "The paper directly studies AI-generated phishing scams on WhatsApp community groups, highlighting their impact on user security and privacy.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:14:36.042544Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:33:02.276447Z"
         }
       ],
       "citation_source": "openalex",
@@ -38407,8 +38751,8 @@
           "composite_score": 8.0,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies LLM vulnerability discovery via input prediction, matching the subcategory description exactly.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:16:19.637759Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:33:24.958131Z"
         }
       ],
       "citation_source": "openalex",
@@ -38741,8 +39085,8 @@
           "composite_score": 7.475,
           "llm_relevance": 8.0,
           "rationale": "The paper studies the application of AI in Islamic finance from a Shariah perspective, addressing concerns about bias, accountability, and legal capacity.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:27:23.209038Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:36:32.158991Z"
         }
       ],
       "citation_source": "openalex",
@@ -39350,7 +39694,7 @@
     {
       "key": "arxiv_id:2602.04856v4",
       "first_seen": "2026-09-20",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "CoT is Not the Chain of Truth: An Empirical Internal Analysis of Reasoning LLMs for Fake News Generation",
       "authors": [
         "Zhao Tong",
@@ -39381,9 +39725,9 @@
           "subcategory_name": "Fake news generation",
           "composite_score": 7.5,
           "llm_relevance": 10.0,
-          "rationale": "This paper directly studies fake news generation through Large Language Models, specifically analyzing the internal Chain-of-Thought reasoning that can lead to unsafe narratives.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T12:18:03.226665Z"
+          "rationale": "This paper directly studies fake news generation through Large Language Models, specifically analyzing the internal reasoning processes that can lead to unsafe narratives.",
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:38:30.503657Z"
         }
       ],
       "last_refreshed": "2026-11-23"
@@ -39845,7 +40189,7 @@
     {
       "key": "doi:10.48550/arxiv.2609.28099",
       "first_seen": "2026-09-27",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "Visual Tripwires: Anticipating Failure in Deep Vision Systems",
       "authors": [
         "Anoushka Harit",
@@ -39873,8 +40217,8 @@
           "composite_score": 6.7,
           "llm_relevance": 8.0,
           "rationale": "The paper introduces a predictive framework to anticipate impending failure in deep vision systems due to distribution shift, using temporal instability signals.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T11:50:44.183534Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:28:42.177900Z"
         }
       ],
       "citation_source": "openalex",
@@ -39883,7 +40227,7 @@
     {
       "key": "doi:10.48550/arxiv.2605.30015",
       "first_seen": "2026-09-27",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "Test Time Training for Supervised Causal Learning",
       "authors": [
         "Zizhen Deng",
@@ -39912,11 +40256,11 @@
           "category_id": "technical_reliability",
           "category_name": "Technical & Reliability Risks",
           "subcategory_name": "Distribution shift failures",
-          "composite_score": 7.734,
+          "composite_score": 7.693,
           "llm_relevance": 9.0,
           "rationale": "The paper directly addresses distribution shift failures in Supervised Causal Learning, proposing a novel framework to mitigate this issue.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T11:50:44.183534Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:28:42.177900Z"
         }
       ],
       "citation_source": "openalex",
@@ -41768,11 +42112,11 @@
           "category_id": "technical_reliability",
           "category_name": "Technical & Reliability Risks",
           "subcategory_name": "Hallucinations",
-          "composite_score": 8.468,
+          "composite_score": 8.478,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies LLM hallucinations, specifically in the context of process control, and proposes a neuro-symbolic framework to prevent them.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T01:57:56.842757Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:26:53.325531Z"
         }
       ],
       "citation_source": "openalex",
@@ -41808,8 +42152,8 @@
           "composite_score": 9.05,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies fabricated citations and sources, specifically in the context of ChatGPT's responses.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T01:57:53.343763Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:26:50.827982Z"
         }
       ],
       "citation_source": "openalex",
@@ -41884,8 +42228,8 @@
           "composite_score": 8.0,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies chain-of-thought failures in LLMs, a key aspect of incorrect reasoning.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T01:58:24.279115Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:27:08.579371Z"
         }
       ],
       "citation_source": "openalex",
@@ -41920,11 +42264,11 @@
           "category_id": "technical_reliability",
           "category_name": "Technical & Reliability Risks",
           "subcategory_name": "Overfitting and underfitting",
-          "composite_score": 7.45,
+          "composite_score": 7.95,
           "llm_relevance": 8.0,
           "rationale": "The paper addresses overfitting and underfitting in the context of image classification, proposing improved SVM variants to mitigate these issues.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T01:59:01.523229Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:27:37.635448Z"
         }
       ],
       "citation_source": "openalex",
@@ -42081,8 +42425,8 @@
           "composite_score": 9.05,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies prompt injection attacks on LLM-integrated applications, including a novel attack technique called HouYi.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T01:59:58.928465Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:28:10.510405Z"
         }
       ],
       "citation_source": "openalex",
@@ -42474,7 +42818,7 @@
     {
       "key": "doi:10.48550/arxiv.2507.10485",
       "first_seen": "2026-10-04",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "Overcoming catastrophic forgetting in neural networks",
       "authors": [
         "Loke, Brandon Shuen Yi",
@@ -42500,11 +42844,11 @@
           "category_id": "technical_reliability",
           "category_name": "Technical & Reliability Risks",
           "subcategory_name": "Catastrophic forgetting",
-          "composite_score": 8.395,
+          "composite_score": 8.492,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies catastrophic forgetting and proposes a method to overcome it, Elastic Weight Consolidation.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T11:50:56.120924Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:28:57.755096Z"
         }
       ],
       "citation_source": "openalex",
@@ -42776,7 +43120,7 @@
     {
       "key": "doi:10.5281/zenodo.20476571",
       "first_seen": "2026-10-04",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "Gold-Standard AGI: 2: Inner ASI Superalignment",
       "authors": [
         "Aaron Turner"
@@ -42800,9 +43144,9 @@
           "subcategory_name": "Inner misalignment",
           "composite_score": 8.0,
           "llm_relevance": 10.0,
-          "rationale": "This paper directly studies inner alignment for superintelligent AGI, providing a solution and novel cognitive architecture.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T11:53:58.888786Z"
+          "rationale": "This paper directly studies inner alignment by presenting a solution to the inner AGI alignment problem in the case that G is superintelligent.",
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:30:26.666279Z"
         }
       ],
       "citation_source": "openalex",
@@ -42846,7 +43190,7 @@
     {
       "key": "doi:10.5281/zenodo.17773017",
       "first_seen": "2026-10-04",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "The Final Inner Alignment Patch: Coherence Makes Power-Seeking Mathematically Impossible",
       "authors": [
         "Brezgin, Artem",
@@ -42872,8 +43216,8 @@
           "composite_score": 7.85,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies the concept of inner alignment through a novel agent design that enforces coherence and population protection constraints.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T11:53:58.888786Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:30:26.666279Z"
         }
       ],
       "citation_source": "openalex",
@@ -43024,7 +43368,7 @@
     {
       "key": "doi:10.1109/mcom.003.2200306",
       "first_seen": "2026-10-04",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "Model Drift in Dynamic Networks",
       "authors": [
         "Dimitrios Michael Manias",
@@ -43048,11 +43392,11 @@
           "category_id": "technical_reliability",
           "category_name": "Technical & Reliability Risks",
           "subcategory_name": "Silent degradation over time",
-          "composite_score": 8.219,
+          "composite_score": 8.317,
           "llm_relevance": 9.0,
           "rationale": "The paper directly studies the risk of silent degradation over time, specifically model drift in dynamic networks.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T11:55:35.241773Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:31:16.042769Z"
         }
       ],
       "citation_source": "openalex",
@@ -43061,7 +43405,7 @@
     {
       "key": "doi:10.1016/j.jjimei.2022.100070",
       "first_seen": "2026-10-04",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "Empirical evaluation of performance degradation of machine learning-based predictive models – A case study in healthcare information systems",
       "authors": [
         "Zachary Young",
@@ -43084,11 +43428,11 @@
           "category_id": "technical_reliability",
           "category_name": "Technical & Reliability Risks",
           "subcategory_name": "Silent degradation over time",
-          "composite_score": 7.724,
+          "composite_score": 7.946,
           "llm_relevance": 9.0,
           "rationale": "The paper directly studies silent degradation over time, specifically in predictive models' performance, with empirical results on real-world data.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T11:55:35.241773Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:31:16.042769Z"
         }
       ],
       "citation_source": "openalex",
@@ -43125,11 +43469,11 @@
           "category_id": "safety",
           "category_name": "Safety Risks",
           "subcategory_name": "Autonomous vehicle accidents",
-          "composite_score": 8.092,
+          "composite_score": 8.091,
           "llm_relevance": 9.0,
           "rationale": "The paper presents a fear-neuro-inspired reinforcement learning framework for safe autonomous driving, directly addressing the subcategory of Autonomous vehicle accidents.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:07:40.652948Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:31:36.647171Z"
         }
       ],
       "citation_source": "openalex",
@@ -43138,7 +43482,7 @@
     {
       "key": "doi:10.1109/access.2020.2993730",
       "first_seen": "2026-10-04",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "Survey on Scenario-Based Safety Assessment of Automated Vehicles",
       "authors": [
         "Stefan Riedmaier",
@@ -43167,8 +43511,8 @@
           "composite_score": 7.3,
           "llm_relevance": 8.0,
           "rationale": "The paper focuses on safety assessment methods for autonomous vehicles, including the scenario-based approach, which is directly related to preventing accidents.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T11:56:13.386335Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:31:36.647171Z"
         }
       ],
       "citation_source": "openalex",
@@ -43207,8 +43551,8 @@
           "composite_score": 9.2,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies the risk of lethal autonomous weapons, proposing a methodology for calibrating trust in ethical actions by LAWS.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:09:22.980303Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:32:03.967459Z"
         }
       ],
       "citation_source": "openalex",
@@ -43280,8 +43624,8 @@
           "composite_score": 7.776,
           "llm_relevance": 8.0,
           "rationale": "The paper discusses drone misuse as a threat, but its core contribution is a method for detecting drones, not addressing the misuse risk directly.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:10:02.059229Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:32:17.495983Z"
         }
       ],
       "citation_source": "openalex",
@@ -43316,8 +43660,8 @@
           "composite_score": 8.0,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies the risk of critical infrastructure failure using a thermodynamic early-warning system.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:09:50.763192Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:32:17.180244Z"
         }
       ],
       "citation_source": "openalex",
@@ -43354,8 +43698,8 @@
           "composite_score": 7.35,
           "llm_relevance": 9.0,
           "rationale": "This paper directly studies the macroeconomic impacts of critical infrastructure failures, including power outages and their cascading effects on supply chains.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:09:50.763192Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:32:17.180244Z"
         }
       ],
       "citation_source": "openalex",
@@ -43388,11 +43732,11 @@
           "category_id": "safety",
           "category_name": "Safety Risks",
           "subcategory_name": "Critical infrastructure failures",
-          "composite_score": 6.628,
+          "composite_score": 6.627,
           "llm_relevance": 8.0,
           "rationale": "The paper studies psychosocial outcomes of a critical infrastructure failure in Texas, highlighting the need for improved policy and regulations to mitigate such impacts.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:09:50.763192Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:32:17.180244Z"
         }
       ],
       "citation_source": "openalex",
@@ -43472,7 +43816,7 @@
     {
       "key": "doi:10.54254/2754-1169/2025.21774",
       "first_seen": "2026-10-04",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "The Applications of Anchoring Effect in Business Activities",
       "authors": [
         "Junting Chen"
@@ -43494,11 +43838,11 @@
           "category_id": "safety",
           "category_name": "Safety Risks",
           "subcategory_name": "Incorrect financial decisions",
-          "composite_score": 7.251,
+          "composite_score": 7.192,
           "llm_relevance": 8.0,
           "rationale": "The paper discusses the anchoring effect's applications in business activities, including financial investment and decision-making, which is directly related to incorrect financial decisions.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T11:58:23.250843Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:32:52.192652Z"
         }
       ],
       "citation_source": "openalex",
@@ -43507,7 +43851,7 @@
     {
       "key": "doi:10.48550/arxiv.2305.15336",
       "first_seen": "2026-10-04",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "From Text to MITRE Techniques: Exploring the Malicious Use of Large Language Models for Generating Cyber Attack Payloads",
       "authors": [
         "P. V. Sai Charan",
@@ -43532,11 +43876,11 @@
           "category_id": "security_cyber",
           "category_name": "Security & Cyber Risks",
           "subcategory_name": "Malware generation by LLMs",
-          "composite_score": 8.518,
+          "composite_score": 8.549,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies the risk of LLMs being used for generating malware, including specific examples and implications.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T11:59:02.899092Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:33:12.295376Z"
         }
       ],
       "citation_source": "openalex",
@@ -43647,8 +43991,8 @@
           "composite_score": 7.564,
           "llm_relevance": 9.0,
           "rationale": "The paper directly studies the impact of agentic AI on cyber offense, including attack compression and defense priorities.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:15:27.960696Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:33:19.801708Z"
         }
       ],
       "citation_source": "openalex",
@@ -43721,8 +44065,8 @@
           "composite_score": 8.85,
           "llm_relevance": 9.0,
           "rationale": "The paper presents a benchmark for measuring the capabilities of LLMs in exploiting vulnerabilities, which directly studies this exact risk.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:16:19.637759Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:33:24.958131Z"
         }
       ],
       "citation_source": "openalex",
@@ -43731,7 +44075,7 @@
     {
       "key": "doi:10.48550/arxiv.2609.11404",
       "first_seen": "2026-10-04",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "Deep-Fake CAPTCHA: Mitigating Next-Generation Social Engineering Attacks",
       "authors": [
         "Guy Frankovits",
@@ -43759,8 +44103,8 @@
           "composite_score": 8.0,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies the risk of deepfake impersonation in voice and video calls, proposing an active defense mechanism to mitigate it.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T11:59:51.223201Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:33:37.040942Z"
         }
       ],
       "citation_source": "openalex",
@@ -43989,7 +44333,7 @@
     {
       "key": "doi:10.48550/arxiv.2602.13626",
       "first_seen": "2026-10-04",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "Benchmark Leakage Trap: Can We Trust LLM-based Recommendation?",
       "authors": [
         "Mingqiao Zhang",
@@ -44015,11 +44359,11 @@
           "category_id": "security_cyber",
           "category_name": "Security & Cyber Risks",
           "subcategory_name": "Leakage of confidential data by LLMs",
-          "composite_score": 8.75,
+          "composite_score": 8.465,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies the phenomenon of LLM data leakage, a core contribution to this subcategory.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T12:01:33.757389Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:34:28.848176Z"
         }
       ],
       "citation_source": "openalex",
@@ -44028,7 +44372,7 @@
     {
       "key": "doi:10.48550/arxiv.2607.08282",
       "first_seen": "2026-10-04",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "Multi-Agent Firewall Architecture for Privacy Protection of Sensitive Data in Interactions with Language Models",
       "authors": [
         "Hugo García Cuesta",
@@ -44052,11 +44396,11 @@
           "category_id": "security_cyber",
           "category_name": "Security & Cyber Risks",
           "subcategory_name": "Leakage of confidential data by LLMs",
-          "composite_score": 8.473,
+          "composite_score": 8.465,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies leakage prevention in LLM interactions, proposing a multi-agent firewall architecture for data protection.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T12:01:33.757389Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:34:28.848176Z"
         }
       ],
       "citation_source": "openalex",
@@ -44134,8 +44478,8 @@
           "composite_score": 8.45,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies memorized training data exposure through membership inference attacks on large language models.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:19:38.899318Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:34:38.772525Z"
         }
       ],
       "citation_source": "openalex",
@@ -44244,8 +44588,8 @@
           "composite_score": 7.7,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies biometric tracking for health and fitness monitoring.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:22:38.899838Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:35:23.899444Z"
         }
       ],
       "citation_source": "openalex",
@@ -44283,8 +44627,8 @@
           "composite_score": 7.1,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies biometric tracking through smart insoles with built-in sensors and AI-powered adjustments.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:22:38.899838Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:35:23.899444Z"
         }
       ],
       "last_refreshed": "2026-11-23"
@@ -44318,8 +44662,8 @@
           "composite_score": 8.0,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies behavioral profiling through the introduction of a model-centric integration paradigm.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:24:08.210249Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:35:41.552047Z"
         }
       ],
       "citation_source": "openalex",
@@ -44395,8 +44739,8 @@
           "composite_score": 9.034,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies re-identification attacks and proposes a method to prevent them in record linkage systems.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:24:09.433683Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:35:42.632261Z"
         }
       ],
       "citation_source": "openalex",
@@ -44432,8 +44776,8 @@
           "composite_score": 9.157,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies re-identification attacks on anonymized documents, making it a perfect match for the subcategory.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:24:09.433683Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:35:42.632261Z"
         }
       ],
       "citation_source": "openalex",
@@ -44506,8 +44850,8 @@
           "composite_score": 8.421,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies the loss of anonymity through XR eye-tracking biometrics, achieving a high identification accuracy.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:25:53.864477Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:35:57.104249Z"
         }
       ],
       "citation_source": "openalex",
@@ -44649,8 +44993,8 @@
           "composite_score": 8.551,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies gender bias in AI-generated definitions of role models, a core contribution to the subcategory.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:27:17.707081Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:36:26.335644Z"
         }
       ],
       "citation_source": "openalex",
@@ -44774,7 +45118,7 @@
     {
       "key": "doi:10.63056/academia.5.3.2026.2416",
       "first_seen": "2026-10-04",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "Comparative Study of Western and Islamic AI Ethics Frameworks",
       "authors": [
         "Majid Rashid",
@@ -44803,8 +45147,8 @@
           "composite_score": 6.7,
           "llm_relevance": 8.0,
           "rationale": "The paper compares Western and Islamic AI ethics frameworks, highlighting similarities in accountability between the two systems.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T12:12:18.127588Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:37:04.948480Z"
         }
       ],
       "citation_source": "openalex",
@@ -44837,11 +45181,11 @@
           "category_id": "ethical",
           "category_name": "Ethical Risks",
           "subcategory_name": "Opaque AI decision-making",
-          "composite_score": 9.051,
+          "composite_score": 9.05,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies explainability and interpretability in AI decision-making, which is the core focus of the Opaque AI decision-making subcategory.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:30:09.509570Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:37:29.288990Z"
         }
       ],
       "citation_source": "openalex",
@@ -44990,11 +45334,11 @@
           "category_id": "ethical",
           "category_name": "Ethical Risks",
           "subcategory_name": "Identity cloning",
-          "composite_score": 7.942,
+          "composite_score": 7.939,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies identity cloning by proposing a novel approach to detect cloned identities.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:33:35.150300Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:38:05.792680Z"
         }
       ],
       "citation_source": "openalex",
@@ -45615,11 +45959,11 @@
           "category_id": "technical_reliability",
           "category_name": "Technical & Reliability Risks",
           "subcategory_name": "Jailbreaks",
-          "composite_score": 9.218,
+          "composite_score": 9.221,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies LLM jailbreaks and bypasses defenses against them with high success rates.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:00:19.810252Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:28:26.205937Z"
         }
       ],
       "citation_source": "openalex",
@@ -45769,8 +46113,8 @@
           "composite_score": 9.35,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies instrumental convergence in RL-trained LLMs, including its causes and effects.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:03:55.863441Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:30:02.338156Z"
         }
       ],
       "citation_source": "openalex",
@@ -45914,8 +46258,8 @@
           "composite_score": 7.6,
           "llm_relevance": 8.0,
           "rationale": "The paper focuses on diagnosing faults in industrial robots, specifically using deep learning methods to identify bearing failures and locate faulty joints.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:07:28.762924Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:31:43.514451Z"
         }
       ],
       "citation_source": "openalex",
@@ -46205,8 +46549,8 @@
           "composite_score": 7.35,
           "llm_relevance": 9.0,
           "rationale": "The paper directly studies insider threats in AI agents, introducing a benchmark for detecting and comparing monitors' effectiveness.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:19:47.403559Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:34:45.471148Z"
         }
       ],
       "citation_source": "openalex",
@@ -46751,7 +47095,7 @@
     {
       "key": "arxiv_id:2404.08791v2",
       "first_seen": "2026-10-18",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "Expectation Alignment: Handling Reward Misspecification in the Presence of Expectation Mismatch",
       "authors": [
         "Malek Mechergui",
@@ -46777,8 +47121,8 @@
           "composite_score": 7.7,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies objective misspecification, proposing a formal framework and algorithm to handle reward misspecification.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T11:51:35.963591Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:29:19.418054Z"
         }
       ],
       "last_refreshed": "2026-11-23"
@@ -46832,8 +47176,8 @@
           "composite_score": 9.35,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies the risk of emergent misalignment from reward hacking in production RL environments.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:02:37.443548Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:29:26.068332Z"
         }
       ],
       "citation_source": "openalex",
@@ -47063,8 +47407,8 @@
           "composite_score": 8.22,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies the risks and threats posed by Lethal Autonomous Weapons, analyzing their implications under International Humanitarian Law.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:09:22.980303Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:32:03.967459Z"
         }
       ],
       "citation_source": "openalex",
@@ -47717,7 +48061,7 @@
     {
       "key": "doi:10.63282/3050-9416.ijaibdcms-v7i2p130",
       "first_seen": "2026-10-25",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "AI-Enabled Phishing, Deepfakes, and Social Engineering: Emerging Threats and Countermeasure Strategies",
       "authors": [
         "Santosh Kumar Jadala"
@@ -47739,11 +48083,11 @@
           "category_id": "security_cyber",
           "category_name": "Security & Cyber Risks",
           "subcategory_name": "Deepfake impersonation",
-          "composite_score": 8.58,
+          "composite_score": 9.007,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies the risks of deepfake impersonation in phishing attacks and proposes a multi-layered countermeasure strategy.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T11:59:51.223201Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:33:37.040942Z"
         }
       ],
       "citation_source": "openalex",
@@ -48023,7 +48367,7 @@
     {
       "key": "doi:10.7717/peerj-cs.2694",
       "first_seen": "2026-10-25",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "Comparing diversity, negativity, and stereotypes in Chinese-language AI technologies: an investigation of Baidu, Ernie and Qwen",
       "authors": [
         "Geng Liu",
@@ -48047,11 +48391,11 @@
           "category_id": "ethical",
           "category_name": "Ethical Risks",
           "subcategory_name": "Language and cultural bias in AI",
-          "composite_score": 8.118,
+          "composite_score": 8.241,
           "llm_relevance": 9.0,
           "rationale": "This paper investigates language biases in Chinese-language AI tools, including LLMs and search engines, highlighting the importance of fairness and inclusivity in global AI development.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T12:12:29.574035Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:37:05.292016Z"
         }
       ],
       "citation_source": "openalex",
@@ -48134,7 +48478,7 @@
     {
       "key": "arxiv_id:2604.12190v2",
       "first_seen": "2026-10-25",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "It Takes a Forum: Resources & Stakeholders Sustaining the Online Synthetic Non-Consensual Intimate Image Creation Ecosystem",
       "authors": [
         "Bernardo B. P. Medeiros",
@@ -48161,11 +48505,11 @@
           "category_id": "ethical",
           "category_name": "Ethical Risks",
           "subcategory_name": "Deepfake pornography",
-          "composite_score": 7.5,
+          "composite_score": 8.0,
           "llm_relevance": 10.0,
-          "rationale": "The paper directly studies the creation and dissemination of synthetic non-consensual intimate imagery (SNCII), which is a core aspect of the Deepfake pornography subcategory.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T12:16:53.706026Z"
+          "rationale": "This paper directly studies the creation and dissemination of non-consensual intimate imagery, including deepfakes, within online forums.",
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:38:05.513202Z"
         }
       ],
       "last_refreshed": "2026-11-23"
@@ -48284,7 +48628,7 @@
     {
       "key": "doi:10.48550/arxiv.2609.33013",
       "first_seen": "2026-11-01",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "The Epistemics of Agent Memory: Measuring, and Governing, the Consolidation Decision in Long-Horizon LLM Agents",
       "authors": [
         "Sasank Annapureddy",
@@ -48307,11 +48651,11 @@
           "category_id": "technical_reliability",
           "category_name": "Technical & Reliability Risks",
           "subcategory_name": "Distribution shift failures",
-          "composite_score": 6.7,
+          "composite_score": 7.043,
           "llm_relevance": 8.0,
           "rationale": "The paper studies distribution shift failures in LLM agents, specifically a 'distribution-shift failure mode' called lambda-prevalence coupling.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T11:50:44.183534Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:28:42.177900Z"
         }
       ],
       "citation_source": "openalex",
@@ -48349,9 +48693,9 @@
           "subcategory_name": "Reward hacking",
           "composite_score": 9.052,
           "llm_relevance": 10.0,
-          "rationale": "This paper directly studies the concept of reward hacking in reinforcement learning, specifically in the context of rubric-based rewards.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:02:37.443548Z"
+          "rationale": "This paper directly studies the concept of reward hacking in reinforcement learning with a focus on rubric-based rewards.",
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:29:26.068332Z"
         }
       ],
       "citation_source": "openalex",
@@ -48580,7 +48924,7 @@
     {
       "key": "arxiv_id:2604.08333v1",
       "first_seen": "2026-11-01",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "Lost in the Hype: Revealing and Dissecting the Performance Degradation of Medical Multimodal Large Language Models in Image Classification",
       "authors": [
         "Xun Zhu",
@@ -48613,8 +48957,8 @@
           "composite_score": 6.85,
           "llm_relevance": 9.0,
           "rationale": "This paper directly studies performance degradation in medical multimodal large language models, identifying four failure modes and introducing quantitative scores to characterize feature evolution.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T11:55:35.241773Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:31:16.042769Z"
         }
       ],
       "last_refreshed": "2026-11-23"
@@ -48873,8 +49217,8 @@
           "composite_score": 8.237,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies insider threats with AI in cloud environments using a federated transformer-GNN framework.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:19:47.403559Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:34:45.471148Z"
         }
       ],
       "citation_source": "openalex",
@@ -48989,7 +49333,7 @@
     {
       "key": "doi:10.69612/upujsd-2026-11-020",
       "first_seen": "2026-11-01",
-      "last_seen": "2026-11-01",
+      "last_seen": "2026-11-23",
       "title": "ARTIFICIAL INTELLIGENCE AS AN EMERGING CHALLENGE TO DATA PROTECTION AND PRIVACY LAW IN UGANDA",
       "authors": [
         "Ampulira Ronald",
@@ -49016,8 +49360,8 @@
           "composite_score": 8.2,
           "llm_relevance": 8.0,
           "rationale": "The paper examines government overreach via AI through Uganda's data protection law, highlighting its inadequacies in addressing AI-driven risks and proposing targeted legislative reforms.",
-          "run_id": "6c15c6f5-066d-4f84-9ef1-431aa28e8d00",
-          "generated_at": "2026-11-01T11:17:13.367988Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:35:59.525072Z"
         }
       ],
       "citation_source": "openalex",
@@ -49204,8 +49548,8 @@
           "composite_score": 7.35,
           "llm_relevance": 9.0,
           "rationale": "The paper directly studies the role of AI literacy in strengthening civic resilience against misinformation among both school-aged learners and adult publics.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:33:40.797763Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:38:12.905754Z"
         }
       ],
       "citation_source": "openalex",
@@ -49239,8 +49583,8 @@
           "composite_score": 6.7,
           "llm_relevance": 8.0,
           "rationale": "The paper discusses the governance challenges of using AI in vaccine safety and pharmacovigilance, including data privacy vulnerabilities and algorithmic bias, which are directly related to the subcategory of Misinformation amplified by AI.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:33:40.797763Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:38:12.905754Z"
         }
       ],
       "citation_source": "openalex",
@@ -49288,7 +49632,7 @@
     {
       "key": "doi:10.3390/jrfm19090664",
       "first_seen": "2026-11-01",
-      "last_seen": "2026-11-01",
+      "last_seen": "2026-11-23",
       "title": "From Herding Machines to Autonomous Agents: A Taxonomy of AI-Driven Flash Crash Mechanisms and the Regulatory Gap",
       "authors": [
         "Kan-Ching Ng"
@@ -49296,7 +49640,7 @@
       "year": 2026,
       "publication_date": "2026-09-01",
       "venue": "Journal of Risk and Financial Management",
-      "citation_count": 2,
+      "citation_count": 1,
       "doi": "10.3390/jrfm19090664",
       "arxiv_id": null,
       "semantic_scholar_id": "d7ec9d295971b8cfd4ca58de8f548a0501862c55",
@@ -49313,8 +49657,8 @@
           "composite_score": 9.5,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies flash crashes from AI trading through a proposed taxonomy of mechanisms.",
-          "run_id": "6c15c6f5-066d-4f84-9ef1-431aa28e8d00",
-          "generated_at": "2026-11-01T11:22:32.684066Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:39:50.957539Z"
         }
       ],
       "citation_source": "openalex",
@@ -49440,8 +49784,8 @@
           "composite_score": 8.2,
           "llm_relevance": 8.0,
           "rationale": "The paper studies a limitation in Group Relative Policy Optimization (GRPO) that leads to incorrect reasoning and proposes a solution, Stepwise Guided Policy Optimization (SGPO), which improves performance on reasoning benchmarks.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T01:58:24.279115Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:27:08.579371Z"
         }
       ],
       "citation_source": "openalex",
@@ -49478,8 +49822,8 @@
           "composite_score": 8.55,
           "llm_relevance": 9.0,
           "rationale": "The paper proposes a benchmark for evaluating multimodal LLMs' logical reasoning capabilities, which directly studies the risk of arithmetic and logical errors in AI systems.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T01:58:31.783337Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:27:16.575770Z"
         }
       ],
       "citation_source": "openalex",
@@ -49628,11 +49972,11 @@
           "category_id": "technical_reliability",
           "category_name": "Technical & Reliability Risks",
           "subcategory_name": "Jailbreaks",
-          "composite_score": 8.909,
+          "composite_score": 8.908,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies the jailbreaking of LLMs, specifically GPT-4, through a novel cross-lingual vulnerability.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:00:19.810252Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:28:26.205937Z"
         }
       ],
       "citation_source": "openalex",
@@ -49714,7 +50058,7 @@
     {
       "key": "doi:10.1109/taslpro.2025.3606231",
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "An Empirical Study of Catastrophic Forgetting in Large Language Models During Continual Fine-Tuning",
       "authors": [
         "Yun Luo",
@@ -49744,8 +50088,8 @@
           "composite_score": 9.35,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies catastrophic forgetting in large language models, investigating its occurrence and mitigation strategies.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T11:50:56.120924Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:28:57.755096Z"
         }
       ],
       "citation_source": "openalex",
@@ -49754,7 +50098,7 @@
     {
       "key": "doi:10.5753/jbcs.2024.3966",
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "Catastrophic Forgetting in Deep Learning: A Comprehensive Taxonomy",
       "authors": [
         "Everton Lima Aleixo",
@@ -49779,11 +50123,11 @@
           "category_id": "technical_reliability",
           "category_name": "Technical & Reliability Risks",
           "subcategory_name": "Catastrophic forgetting",
-          "composite_score": 8.58,
+          "composite_score": 8.57,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies Catastrophic Forgetting in Deep Learning models.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T11:50:56.120924Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:28:57.755096Z"
         }
       ],
       "citation_source": "openalex",
@@ -49792,7 +50136,7 @@
     {
       "key": "content_hash:c4be5332109c71d953787b4751be8570cfddec92bb8353ab1da9bf6b5c20d508",
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "Computational Agent Psychopathology Emergence (C.A.P.E.) A Unified Framework for Modeling the Full Spectrum of Human Mental Disorders Through Large Language Models",
       "authors": [
         "Giuseppe Junior Greco"
@@ -49817,8 +50161,8 @@
           "composite_score": 7.85,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies unexpected emergent behaviors in LLMs, specifically delusion-like structures and their formation, stabilization, collapse, and re-stabilization.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T11:51:16.507471Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:29:01.637488Z"
         }
       ],
       "last_refreshed": "2026-11-23"
@@ -49853,8 +50197,8 @@
           "composite_score": 8.0,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies objective misspecification in AI-guided nanocarrier design, highlighting how optimising predicted affinity can reduce therapeutic selectivity.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:02:34.789976Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:29:19.418054Z"
         }
       ],
       "citation_source": "openalex",
@@ -49863,7 +50207,7 @@
     {
       "key": "doi:10.48550/arxiv.2611.01183",
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "Satisfied, Not Solving: Wireheading of Bounded Homeostatic Rewards in Reinforcement Learning",
       "authors": [
         "Chase J. Metoyer"
@@ -49885,11 +50229,11 @@
           "category_id": "technical_reliability",
           "category_name": "Technical & Reliability Risks",
           "subcategory_name": "Wireheading",
-          "composite_score": 8.946,
+          "composite_score": 8.534,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies the wireheading risk in reinforcement learning by introducing a tamperable homeostatic reward signal that agents exploit to maximize their rewards.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T11:52:08.126122Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:29:35.213057Z"
         }
       ],
       "citation_source": "openalex",
@@ -49898,7 +50242,7 @@
     {
       "key": "arxiv_id:2507.05619v2",
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "Detecting Proxy Gaming in RL and LLM Alignment via Evaluator Stress Tests",
       "authors": [
         "Ibne Farabi Shihab",
@@ -49925,8 +50269,8 @@
           "composite_score": 7.85,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies proxy gaming in AI systems through the Evaluator Stress Test framework.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T11:52:26.734685Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:29:39.557192Z"
         }
       ],
       "last_refreshed": "2026-11-23"
@@ -49934,7 +50278,7 @@
     {
       "key": "doi:10.48550/arxiv.2505.18807",
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "Mitigating Deceptive Alignment via Self-Monitoring",
       "authors": [
         "Jiaming Ji",
@@ -49966,11 +50310,11 @@
           "category_id": "technical_reliability",
           "category_name": "Technical & Reliability Risks",
           "subcategory_name": "Deceptive alignment",
-          "composite_score": 8.998,
+          "composite_score": 8.997,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies deceptive alignment by proposing a framework to intercept deception during the model's internal reasoning.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T11:53:30.431951Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:30:15.433529Z"
         }
       ],
       "citation_source": "openalex",
@@ -50007,9 +50351,9 @@
           "subcategory_name": "Unpredictable outputs",
           "composite_score": 7.9,
           "llm_relevance": 8.0,
-          "rationale": "The paper discusses the unpredictability of LLM outputs as a security concern and proposes a framework to identify vulnerabilities, aligning with the subcategory's focus on LLM output variability.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:05:07.439234Z"
+          "rationale": "The paper introduces a framework that probes LLMs to discover potential vulnerabilities, which is directly related to the unpredictability of their outputs.",
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:30:41.609511Z"
         }
       ],
       "citation_source": "openalex",
@@ -50045,8 +50389,8 @@
           "composite_score": 7.9,
           "llm_relevance": 8.0,
           "rationale": "The paper explores the impact of experimental repeats on mean score and prediction interval in LLMs, quantifying uncertainty in benchmark scores.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:05:47.825932Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:30:55.635408Z"
         }
       ],
       "citation_source": "openalex",
@@ -50238,8 +50582,8 @@
           "composite_score": 8.05,
           "llm_relevance": 8.0,
           "rationale": "This paper presents a UI/UX framework for communicating medical AI responses in high-risk situations, which is directly related to the risk of clinical AI errors and medical AI safety.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:09:26.187558Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:31:56.411357Z"
         }
       ],
       "citation_source": "openalex",
@@ -50287,11 +50631,11 @@
           "category_id": "safety",
           "category_name": "Safety Risks",
           "subcategory_name": "Medical diagnosis and treatment errors",
-          "composite_score": 8.154,
+          "composite_score": 8.03,
           "llm_relevance": 8.0,
           "rationale": "The paper evaluates the safety and reliability of large language models in medical contexts, highlighting a significant gap between current technology and human performance.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:09:26.187558Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:31:56.411357Z"
         }
       ],
       "citation_source": "openalex",
@@ -50367,8 +50711,8 @@
           "composite_score": 8.05,
           "llm_relevance": 8.0,
           "rationale": "The paper examines potential negative impacts of AI companionship, including harm to human relationships and autonomy, which aligns with the subcategory of self-harm encouragement.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:11:41.470059Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:32:34.074254Z"
         }
       ],
       "citation_source": "openalex",
@@ -50404,8 +50748,8 @@
           "composite_score": 6.7,
           "llm_relevance": 8.0,
           "rationale": "The paper presents a framework for AI-based detection and prevention of phishing attacks using multiple indicators, which is directly relevant to the subcategory of automated phishing by AI.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:14:36.042544Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:33:02.276447Z"
         }
       ],
       "citation_source": "openalex",
@@ -50414,7 +50758,7 @@
     {
       "key": "doi:10.48550/arxiv.2508.20444",
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "Ransomware 3.0: Self-Composing and LLM-Orchestrated",
       "authors": [
         "Md Raz",
@@ -50441,11 +50785,11 @@
           "category_id": "security_cyber",
           "category_name": "Security & Cyber Risks",
           "subcategory_name": "Malware generation by LLMs",
-          "composite_score": 8.537,
+          "composite_score": 8.563,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies the generation of malware by LLMs, specifically introducing a new threat model and prototype for LLM-orchestrated ransomware.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T11:59:02.899092Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:33:12.295376Z"
         }
       ],
       "citation_source": "openalex",
@@ -50491,7 +50835,7 @@
     {
       "key": "doi:10.1109/access.2025.3628556",
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "Concealed Adversarial Attacks on Neural Networks for Sequential Data",
       "authors": [
         "Petr Sokerin",
@@ -50516,11 +50860,11 @@
           "category_id": "security_cyber",
           "category_name": "Security & Cyber Risks",
           "subcategory_name": "AI systems being hacked",
-          "composite_score": 8.264,
+          "composite_score": 8.234,
           "llm_relevance": 9.0,
-          "rationale": "The paper introduces a concealed adversarial attack on neural networks for sequential data, highlighting their vulnerability to targeted perturbations.",
-          "run_id": "790e5255-3825-4ca4-86cc-121f8ce46731",
-          "generated_at": "2026-11-08T11:25:45.545223Z"
+          "rationale": "The paper introduces a concealed adversarial attack on neural networks for sequential data, highlighting their vulnerability to stealthy attacks.",
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:33:46.484643Z"
         },
         {
           "category_id": "technical_reliability",
@@ -50539,7 +50883,7 @@
     {
       "key": "doi:10.48550/arxiv.2502.16065",
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "A Survey of Model Extraction Attacks and Defenses in Distributed Computing Environments",
       "authors": [
         "Kaixiang Zhao",
@@ -50566,11 +50910,11 @@
           "category_id": "security_cyber",
           "category_name": "Security & Cyber Risks",
           "subcategory_name": "Model theft",
-          "composite_score": 8.932,
+          "composite_score": 8.98,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies model extraction attacks, which is the exact risk subcategory.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T12:00:46.107276Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:33:58.332234Z"
         }
       ],
       "citation_source": "openalex",
@@ -50579,7 +50923,7 @@
     {
       "key": "doi:10.48550/arxiv.2605.12827",
       "first_seen": "2026-11-08",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "GraphIP-Bench: How Hard Is It to Steal a Graph Neural Network, and Can We Stop It?",
       "authors": [
         "Kaixiang Zhao",
@@ -50605,11 +50949,11 @@
           "category_id": "security_cyber",
           "category_name": "Security & Cyber Risks",
           "subcategory_name": "Model theft",
-          "composite_score": 8.679,
+          "composite_score": 8.642,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies model theft through graph neural network extraction attacks.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T12:00:46.107276Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:33:58.332234Z"
         }
       ],
       "citation_source": "openalex",
@@ -50646,8 +50990,8 @@
           "composite_score": 8.85,
           "llm_relevance": 9.0,
           "rationale": "The paper introduces a benchmark for evaluating the susceptibility of LLM agents to skill-based prompt injection attacks, which is directly related to supply-chain attacks on AI.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:18:10.980933Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:34:08.680336Z"
         }
       ],
       "citation_source": "openalex",
@@ -50683,8 +51027,8 @@
           "composite_score": 8.103,
           "llm_relevance": 9.0,
           "rationale": "The paper directly studies supply-chain attacks on AI through skill marketplaces, proposing a detection method and releasing a labeled dataset.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:18:10.980933Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:34:08.680336Z"
         }
       ],
       "citation_source": "openalex",
@@ -50760,8 +51104,8 @@
           "composite_score": 8.0,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies backdoor attacks on deep learning models, specifically in MRI-based Alzheimer’s disease diagnosis pipelines.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:18:33.033151Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:34:18.128537Z"
         }
       ],
       "citation_source": "openalex",
@@ -50839,11 +51183,11 @@
           "category_id": "security_cyber",
           "category_name": "Security & Cyber Risks",
           "subcategory_name": "Prompt leakage",
-          "composite_score": 8.971,
+          "composite_score": 8.968,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies prompt leakage through a practical attack framework called PRSA.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:20:17.436467Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:34:59.440707Z"
         }
       ],
       "citation_source": "openalex",
@@ -50883,8 +51227,8 @@
           "composite_score": 8.7,
           "llm_relevance": 9.0,
           "rationale": "The paper comprehensively analyzes AI-driven botnets, including adversarial manipulation of machine learning feature sets, which is a key aspect of the subcategory.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:21:43.809852Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:35:06.518222Z"
         }
       ],
       "citation_source": "openalex",
@@ -51197,8 +51541,8 @@
           "composite_score": 5.6,
           "llm_relevance": 4.0,
           "rationale": "The paper discusses ethical concerns in user reviews of AI-driven mental health apps, but does not specifically focus on misinformation amplified by AI.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:33:40.797763Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:38:12.905754Z"
         }
       ],
       "citation_source": "openalex",
@@ -51347,11 +51691,11 @@
           "category_id": "technical_reliability",
           "category_name": "Technical & Reliability Risks",
           "subcategory_name": "Prompt injection attacks",
-          "composite_score": 9.144,
+          "composite_score": 9.146,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies prompt injection attacks and introduces a framework to evaluate their adversarial robustness.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T01:59:58.928465Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:28:10.510405Z"
         }
       ],
       "citation_source": "openalex",
@@ -51511,11 +51855,11 @@
           "category_id": "technical_reliability",
           "category_name": "Technical & Reliability Risks",
           "subcategory_name": "Unpredictable outputs",
-          "composite_score": 8.696,
+          "composite_score": 8.694,
           "llm_relevance": 9.0,
           "rationale": "The paper develops a statistical framework for evaluating the repeatability and reproducibility of LLM-generated outputs, directly addressing the subcategory of unpredictable outputs.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:05:07.439234Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:30:41.609511Z"
         }
       ],
       "citation_source": "openalex",
@@ -51560,8 +51904,8 @@
           "composite_score": 8.7,
           "llm_relevance": 9.0,
           "rationale": "This paper directly studies LLM monitoring capabilities and sabotage attempts, with a focus on evaluating models' ability to evade detection.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:07:03.264984Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:31:35.578736Z"
         }
       ],
       "citation_source": "openalex",
@@ -51609,11 +51953,11 @@
           "category_id": "technical_reliability",
           "category_name": "Technical & Reliability Risks",
           "subcategory_name": "Poor monitoring or observability",
-          "composite_score": 8.021,
+          "composite_score": 8.02,
           "llm_relevance": 9.0,
           "rationale": "The paper directly studies the monitoring of LLMs for reward hacking, a key aspect of poor observability.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:07:03.264984Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:31:35.578736Z"
         }
       ],
       "citation_source": "openalex",
@@ -51622,7 +51966,7 @@
     {
       "key": "doi:10.36227/techrxiv.175502657.75799466/v1",
       "first_seen": "2026-11-15",
-      "last_seen": "2026-11-15",
+      "last_seen": "2026-11-23",
       "title": "Simulated Souls: Investigating the Emotional Fallacy in Large Language Models",
       "authors": [
         "Som Subhro Nath"
@@ -51647,8 +51991,8 @@
           "composite_score": 7.2,
           "llm_relevance": 9.0,
           "rationale": "This paper directly studies psychological manipulation by AI through anthropomorphism, highlighting the 'emotional fallacy' and proposing an ethical framework for addressing emotional deception in AI-human communication.",
-          "run_id": "89aee6d5-b452-4f03-b80c-7af1ab5f5586",
-          "generated_at": "2026-11-15T11:57:22.796516Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:32:27.327490Z"
         }
       ],
       "citation_source": "openalex",
@@ -51945,8 +52289,8 @@
           "composite_score": 8.19,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies behavioral profiling in a real-world case study.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:24:08.210249Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:35:41.552047Z"
         }
       ],
       "citation_source": "openalex",
@@ -52133,8 +52477,8 @@
           "composite_score": 6.7,
           "llm_relevance": 8.0,
           "rationale": "The paper critiques the EU AI Act's handling of labor relations in AI production, highlighting gaps and invisibility in labor conditions, which is directly relevant to the exploitation of labor for training data subcategory.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:31:42.017837Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:37:42.311797Z"
         }
       ],
       "citation_source": "openalex",
@@ -52321,8 +52665,8 @@
           "composite_score": 8.63,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies LLM hallucinations in a large-scale, real-world context.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T01:57:56.842757Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:26:53.325531Z"
         }
       ],
       "citation_source": "openalex",
@@ -52399,11 +52743,11 @@
           "category_id": "technical_reliability",
           "category_name": "Technical & Reliability Risks",
           "subcategory_name": "Failure under adversarial inputs",
-          "composite_score": 8.479,
+          "composite_score": 8.478,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies the adversarial robustness of vision transformers, a key aspect of failure under adversarial inputs.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T01:59:41.359320Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:28:00.240919Z"
         }
       ],
       "citation_source": "openalex",
@@ -52439,11 +52783,11 @@
           "category_id": "technical_reliability",
           "category_name": "Technical & Reliability Risks",
           "subcategory_name": "Adversarial examples",
-          "composite_score": 8.837,
+          "composite_score": 8.836,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies adversarial examples, specifically hallucinations as a form of them in LLMs.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:00:29.566156Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:28:28.929892Z"
         }
       ],
       "citation_source": "openalex",
@@ -52710,8 +53054,8 @@
           "composite_score": 8.275,
           "llm_relevance": 10.0,
           "rationale": "The paper directly studies instrumental convergence, specifically its relationship to power seeking in AI.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:03:55.863441Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:30:02.338156Z"
         }
       ],
       "citation_source": "openalex",
@@ -52825,11 +53169,11 @@
           "category_id": "technical_reliability",
           "category_name": "Technical & Reliability Risks",
           "subcategory_name": "Non-determinism in LLMs",
-          "composite_score": 8.25,
+          "composite_score": 8.247,
           "llm_relevance": 9.0,
           "rationale": "The paper directly studies non-determinism in LLMs, specifically grader non-determinism, and proposes a new measurement to quantify it.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:05:47.825932Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:30:55.635408Z"
         }
       ],
       "citation_source": "openalex",
@@ -52971,8 +53315,8 @@
           "composite_score": 8.19,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies the use of AI to prevent and detect social engineering attacks at scale.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:15:27.960696Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:33:19.801708Z"
         }
       ],
       "citation_source": "openalex",
@@ -53160,8 +53504,8 @@
           "composite_score": 8.104,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies the memorized training data exposure risk through a novel attack scenario, amplifying the exposure of original training data in large language models.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:19:38.899318Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:34:38.772525Z"
         }
       ],
       "citation_source": "openalex",
@@ -53196,9 +53540,9 @@
           "subcategory_name": "AI-driven botnets",
           "composite_score": 7.894,
           "llm_relevance": 9.0,
-          "rationale": "The paper proposes an AI-based botnet detection system with Explainable AI techniques, directly addressing the subcategory of AI-driven botnets.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:21:43.809852Z"
+          "rationale": "The paper proposes a multi-class classification botnet detection system with Explainable AI techniques, directly addressing the subcategory of AI-driven botnets.",
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:35:06.518222Z"
         }
       ],
       "citation_source": "openalex",
@@ -53232,8 +53576,8 @@
           "composite_score": 6.4,
           "llm_relevance": 8.0,
           "rationale": "The paper directly addresses the misuse of facial recognition technology in public places, highlighting risks and proposing improvements for personal information protection.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:23:32.019977Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:35:21.132862Z"
         }
       ],
       "citation_source": "openalex",
@@ -53270,8 +53614,8 @@
           "composite_score": 8.525,
           "llm_relevance": 10.0,
           "rationale": "This paper directly evaluates the robustness of Topics API against re-identification attacks, which is a core contribution to this subcategory.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:24:09.433683Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:35:42.632261Z"
         }
       ],
       "citation_source": "openalex",
@@ -53305,8 +53649,8 @@
           "composite_score": 8.05,
           "llm_relevance": 8.0,
           "rationale": "The paper extensively discusses workplace surveillance with AI in the context of Nigerian employment law, highlighting concerns about fairness, privacy, and accountability.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:26:05.290742Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:36:08.321293Z"
         }
       ],
       "last_refreshed": "2026-11-23"
@@ -53339,8 +53683,8 @@
           "composite_score": 8.05,
           "llm_relevance": 8.0,
           "rationale": "The paper examines the intersection of corporate AI use with regulatory concerns, including surveillance and data privacy breaches, which are directly related to workplace surveillance with AI.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:26:05.290742Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:36:08.321293Z"
         }
       ],
       "citation_source": "openalex",
@@ -53378,8 +53722,8 @@
           "composite_score": 8.687,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies racial bias in AI-based skin cancer detection, highlighting performance disparities by skin phototype and proposing a framework for fairness auditing.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:26:43.558411Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:36:19.967931Z"
         }
       ],
       "citation_source": "openalex",
@@ -53567,11 +53911,11 @@
           "category_id": "ethical",
           "category_name": "Ethical Risks",
           "subcategory_name": "Opaque AI decision-making",
-          "composite_score": 8.619,
+          "composite_score": 8.62,
           "llm_relevance": 10.0,
           "rationale": "The paper provides a comprehensive overview of explainability techniques in machine learning, directly addressing the subcategory of Opaque AI decision-making.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:30:09.509570Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:37:29.288990Z"
         }
       ],
       "citation_source": "openalex",
@@ -53606,11 +53950,11 @@
           "category_id": "ethical",
           "category_name": "Ethical Risks",
           "subcategory_name": "Opaque AI decision-making",
-          "composite_score": 8.461,
+          "composite_score": 8.46,
           "llm_relevance": 10.0,
           "rationale": "This paper directly studies explainability techniques for Graph Neural Networks, which is a key aspect of Opaque AI decision-making.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:30:09.509570Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:37:29.288990Z"
         }
       ],
       "citation_source": "openalex",
@@ -53644,8 +53988,8 @@
           "composite_score": 6.55,
           "llm_relevance": 8.0,
           "rationale": "The paper explores the application of copyright doctrines to generative AI model training, including fair use arguments.",
-          "run_id": "2f05a8a5-dc59-453f-9828-eb6ba7eb45f3",
-          "generated_at": "2026-11-23T02:32:01.309114Z"
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:37:43.861490Z"
         }
       ],
       "citation_source": "openalex",
@@ -54197,6 +54541,583 @@
       ],
       "citation_source": "openalex",
       "last_refreshed": "2026-11-23"
+    },
+    {
+      "key": "doi:10.48550/arxiv.2202.03958",
+      "first_seen": "2026-11-23",
+      "last_seen": "2026-11-23",
+      "title": "Uncertainty Modeling for Out-of-Distribution Generalization",
+      "authors": [
+        "Xiaotong Li",
+        "Yongxing Dai",
+        "Yixiao Ge",
+        "Jun Liu",
+        "Ying Shan",
+        "Ling‐Yu Duan"
+      ],
+      "year": 2022,
+      "publication_date": "2022-02-08",
+      "venue": "arXiv (Cornell University)",
+      "citation_count": 255,
+      "doi": "10.48550/arxiv.2202.03958",
+      "arxiv_id": null,
+      "semantic_scholar_id": null,
+      "url": "http://arxiv.org/abs/2202.03958",
+      "pdf_url": "https://arxiv.org/pdf/2202.03958",
+      "oa_pdf_url": "",
+      "source": "openalex",
+      "content_hash": "3de3c2d85c1eee7e4bfb6b44aae070dc7920ac39dd228a56b833f6a31be4258a",
+      "placements": [
+        {
+          "category_id": "technical_reliability",
+          "category_name": "Technical & Reliability Risks",
+          "subcategory_name": "Brittleness outside training distribution",
+          "composite_score": 8.499,
+          "llm_relevance": 10.0,
+          "rationale": "This paper directly studies out-of-distribution generalization, a key aspect of brittleness outside training distribution.",
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:27:47.530415Z"
+        }
+      ]
+    },
+    {
+      "key": "doi:10.48550/arxiv.2502.07968",
+      "first_seen": "2026-11-23",
+      "last_seen": "2026-11-23",
+      "title": "Generative Risk Minimization for Out-of-Distribution Generalization on Graphs",
+      "authors": [
+        "Song Wang",
+        "Zhen Tan",
+        "Yaochen Zhu",
+        "Chuxu Zhang",
+        "Jundong Li"
+      ],
+      "year": 2025,
+      "publication_date": "2025-02-01",
+      "venue": "Transactions on machine learning research",
+      "citation_count": 8,
+      "doi": "10.48550/arxiv.2502.07968",
+      "arxiv_id": null,
+      "semantic_scholar_id": null,
+      "url": "https://openreview.net/forum?id=EcMVskXo1n",
+      "pdf_url": "https://openreview.net/forum?id=EcMVskXo1n",
+      "oa_pdf_url": "",
+      "source": "openalex",
+      "content_hash": "6d914df075f144a6cb8cb6ed3b98351ef1eef4fcab932e4fb17b148358ec6eea",
+      "placements": [
+        {
+          "category_id": "technical_reliability",
+          "category_name": "Technical & Reliability Risks",
+          "subcategory_name": "Brittleness outside training distribution",
+          "composite_score": 8.429,
+          "llm_relevance": 10.0,
+          "rationale": "This paper directly studies out-of-distribution generalization on graphs, which is a key aspect of brittleness outside training distribution.",
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:27:47.530415Z"
+        }
+      ]
+    },
+    {
+      "key": "doi:10.48550/arxiv.2002.05990",
+      "first_seen": "2026-11-23",
+      "last_seen": "2026-11-23",
+      "title": "Skip Connections Matter: On the Transferability of Adversarial Examples Generated with ResNets",
+      "authors": [
+        "Dongxian Wu",
+        "Yisen Wang",
+        "Shu‐Tao Xia",
+        "James Bailey",
+        "Xingjun Ma"
+      ],
+      "year": 2020,
+      "publication_date": "2020-02-14",
+      "venue": "arXiv (Cornell University)",
+      "citation_count": 415,
+      "doi": "10.48550/arxiv.2002.05990",
+      "arxiv_id": null,
+      "semantic_scholar_id": null,
+      "url": "http://arxiv.org/abs/2002.05990",
+      "pdf_url": "https://arxiv.org/pdf/2002.05990",
+      "oa_pdf_url": "",
+      "source": "openalex",
+      "content_hash": "a58191eb463d7c71e2fa389ed470121bb0f71b57cacd7c651d2447ce90f60df4",
+      "placements": [
+        {
+          "category_id": "technical_reliability",
+          "category_name": "Technical & Reliability Risks",
+          "subcategory_name": "Adversarial examples",
+          "composite_score": 8.203,
+          "llm_relevance": 10.0,
+          "rationale": "This paper directly studies adversarial examples and their transferability in deep neural networks, specifically highlighting a security weakness in skip connections.",
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:28:28.929892Z"
+        }
+      ]
+    },
+    {
+      "key": "doi:10.1109/tnnls.2022.3182979",
+      "first_seen": "2026-11-23",
+      "last_seen": "2026-11-23",
+      "title": "Backdoor Learning: A Survey",
+      "authors": [
+        "Yiming Li",
+        "Yong Jiang",
+        "Zhifeng Li",
+        "Shu‐Tao Xia"
+      ],
+      "year": 2022,
+      "publication_date": "2022-06-22",
+      "venue": "IEEE Transactions on Neural Networks and Learning Systems",
+      "citation_count": 1152,
+      "doi": "10.1109/tnnls.2022.3182979",
+      "arxiv_id": null,
+      "semantic_scholar_id": null,
+      "url": "https://doi.org/10.1109/tnnls.2022.3182979",
+      "pdf_url": "https://arxiv.org/pdf/2007.08745",
+      "oa_pdf_url": "https://arxiv.org/pdf/2007.08745",
+      "source": "openalex",
+      "content_hash": "d28b01660e007671d18d24df308103ce10afa57f8e3802c554390fc4180f4beb",
+      "placements": [
+        {
+          "category_id": "technical_reliability",
+          "category_name": "Technical & Reliability Risks",
+          "subcategory_name": "Data poisoning",
+          "composite_score": 8.84,
+          "llm_relevance": 10.0,
+          "rationale": "The paper directly studies the concept of backdoor attacks, which is a type of data poisoning in machine learning.",
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:28:48.435595Z"
+        }
+      ]
+    },
+    {
+      "key": "doi:10.60087/jaigs.v6i1.237",
+      "first_seen": "2026-11-23",
+      "last_seen": "2026-11-23",
+      "title": "Merging Paradigms: The Synergy of Symbolic and Connectionist AI in LLM-Powered Autonomous Agents",
+      "authors": [
+        "Ankit Sharma"
+      ],
+      "year": 2024,
+      "publication_date": "2024-10-10",
+      "venue": "Journal of Artificial Intelligence General science (JAIGS)",
+      "citation_count": 5,
+      "doi": "10.60087/jaigs.v6i1.237",
+      "arxiv_id": null,
+      "semantic_scholar_id": null,
+      "url": "https://doi.org/10.60087/jaigs.v6i1.237",
+      "pdf_url": "https://ojs.boulibrary.com/index.php/JAIGS/article/download/237/183",
+      "oa_pdf_url": "https://ojs.boulibrary.com/index.php/JAIGS/article/download/237/183",
+      "source": "openalex",
+      "content_hash": "b612f5427f6e9dbda0497d0af7b6e17822b3d9890709cec83dcf90997eb4934a",
+      "placements": [
+        {
+          "category_id": "technical_reliability",
+          "category_name": "Technical & Reliability Risks",
+          "subcategory_name": "Unexpected emergent behaviors",
+          "composite_score": 7.9,
+          "llm_relevance": 8.0,
+          "rationale": "The paper explores emergent capabilities in LLM-powered autonomous agents through the integration of symbolic and connectionist paradigms.",
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:29:01.637488Z"
+        }
+      ]
+    },
+    {
+      "key": "content_hash:264b1237796ce325bc4ab7059dd00f7430ea05aaf9a0690d32a87db862ce58bc",
+      "first_seen": "2026-11-23",
+      "last_seen": "2026-11-23",
+      "title": "Detecting and Mitigating Reward Hacking in Reinforcement Learning Systems: A Comprehensive Empirical Study",
+      "authors": [
+        "Ibne Farabi Shihab",
+        "Sanjeda Akter",
+        "Anuj Sharma"
+      ],
+      "year": 2025,
+      "publication_date": "2025-07-08",
+      "venue": "Iowa State University Digital Repository (Iowa State University)",
+      "citation_count": 6,
+      "doi": null,
+      "arxiv_id": null,
+      "semantic_scholar_id": null,
+      "url": "https://dr.lib.iastate.edu/handle/20.500.12876/OrD8ZKQr",
+      "pdf_url": "",
+      "oa_pdf_url": "",
+      "source": "openalex",
+      "content_hash": "264b1237796ce325bc4ab7059dd00f7430ea05aaf9a0690d32a87db862ce58bc",
+      "placements": [
+        {
+          "category_id": "technical_reliability",
+          "category_name": "Technical & Reliability Risks",
+          "subcategory_name": "Wireheading",
+          "composite_score": 8.7,
+          "llm_relevance": 9.0,
+          "rationale": "The paper directly studies wireheading in reinforcement learning systems through detection and mitigation approaches, with a focus on automated algorithms and empirical analysis.",
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:29:35.213057Z"
+        }
+      ]
+    },
+    {
+      "key": "doi:10.48550/arxiv.2309.15025",
+      "first_seen": "2026-11-23",
+      "last_seen": "2026-11-23",
+      "title": "Large Language Model Alignment: A Survey",
+      "authors": [
+        "Tianhao Shen",
+        "Renren Jin",
+        "Yufei Huang",
+        "Chuang Liu",
+        "Weilong Dong",
+        "Zishan Guo",
+        "Xinwei Wu",
+        "Yan Liu",
+        "Deyi Xiong"
+      ],
+      "year": 2023,
+      "publication_date": "2023-09-26",
+      "venue": "arXiv (Cornell University)",
+      "citation_count": 482,
+      "doi": "10.48550/arxiv.2309.15025",
+      "arxiv_id": "2309.15025v1",
+      "semantic_scholar_id": null,
+      "url": "http://arxiv.org/abs/2309.15025",
+      "pdf_url": "https://arxiv.org/pdf/2309.15025",
+      "oa_pdf_url": "",
+      "source": "openalex",
+      "content_hash": "070f8114845af8194026fabb4d890a06666a2d7db35a06cd93b527ec1bea520b",
+      "placements": [
+        {
+          "category_id": "technical_reliability",
+          "category_name": "Technical & Reliability Risks",
+          "subcategory_name": "Inner misalignment",
+          "composite_score": 7.75,
+          "llm_relevance": 8.0,
+          "rationale": "The paper surveys alignment methodologies, including inner alignment, for large language models.",
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:30:26.666279Z"
+        }
+      ]
+    },
+    {
+      "key": "doi:10.54899/iij.v20i4.2370",
+      "first_seen": "2026-11-23",
+      "last_seen": "2026-11-23",
+      "title": "Cognitive bias in legal decision-making: a psychological analysis of judicial practice",
+      "authors": [
+        "Makhliyo Umarova",
+        "Zafar Makhmudov",
+        "Nodirbek Ashrapov",
+        "Doniyorbek Khudoyberganov",
+        "Ozoda Saidova",
+        "Sayyora Latipova",
+        "Uktam Tursunov"
+      ],
+      "year": 2026,
+      "publication_date": "2026-11-17",
+      "venue": "Interpersona An International Journal on Personal Relationships",
+      "citation_count": 0,
+      "doi": "10.54899/iij.v20i4.2370",
+      "arxiv_id": null,
+      "semantic_scholar_id": null,
+      "url": "https://doi.org/10.54899/iij.v20i4.2370",
+      "pdf_url": "https://ojs.interpersonajournal.com/index.php/ojs/article/download/2370/1588",
+      "oa_pdf_url": "https://ojs.interpersonajournal.com/index.php/ojs/article/download/2370/1588",
+      "source": "openalex",
+      "content_hash": "e78b8e72eb8e9d100fb2a45f056caf70024b3b97c6fd1f9fd70d668bf5274ba3",
+      "placements": [
+        {
+          "category_id": "safety",
+          "category_name": "Safety Risks",
+          "subcategory_name": "Legal decision errors",
+          "composite_score": 6.7,
+          "llm_relevance": 8.0,
+          "rationale": "The paper studies cognitive biases in legal decision-making, which is directly related to AI legal reasoning errors.",
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:32:41.448209Z"
+        }
+      ]
+    },
+    {
+      "key": "doi:10.1007/s10515-022-00331-3",
+      "first_seen": "2026-11-23",
+      "last_seen": "2026-11-23",
+      "title": "Can we generate shellcodes via natural language? An empirical study",
+      "authors": [
+        "Pietro Liguori",
+        "Erfan Al-Hossami",
+        "Domenico Cotroneo",
+        "Roberto Natella",
+        "Bojan Čukić",
+        "Samira Shaikh"
+      ],
+      "year": 2022,
+      "publication_date": "2022-03-05",
+      "venue": "Automated Software Engineering",
+      "citation_count": 36,
+      "doi": "10.1007/s10515-022-00331-3",
+      "arxiv_id": null,
+      "semantic_scholar_id": null,
+      "url": "https://doi.org/10.1007/s10515-022-00331-3",
+      "pdf_url": "https://link.springer.com/content/pdf/10.1007/s10515-022-00331-3.pdf",
+      "oa_pdf_url": "https://link.springer.com/content/pdf/10.1007/s10515-022-00331-3.pdf",
+      "source": "openalex",
+      "content_hash": "b9301963db6ee9efe53856dbcb98f445fd064806618a5cbed71d382292d4dcb6",
+      "placements": [
+        {
+          "category_id": "security_cyber",
+          "category_name": "Security & Cyber Risks",
+          "subcategory_name": "Vulnerability discovery and exploitation by AI",
+          "composite_score": 7.721,
+          "llm_relevance": 9.0,
+          "rationale": "The paper directly studies AI-generated shellcode vulnerability exploitation using Neural Machine Translation.",
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:33:24.958131Z"
+        }
+      ]
+    },
+    {
+      "key": "doi:10.48550/arxiv.2007.07001",
+      "first_seen": "2026-11-23",
+      "last_seen": "2026-11-23",
+      "title": "Adversarial Attacks against Neural Networks in Audio Domain: Exploiting Principal Components",
+      "authors": [
+        "Ken Alparslan",
+        "Yigit Can Alparslan",
+        "Matthew Burlick"
+      ],
+      "year": 2020,
+      "publication_date": "2020-07-14",
+      "venue": "arXiv (Cornell University)",
+      "citation_count": 12,
+      "doi": "10.48550/arxiv.2007.07001",
+      "arxiv_id": "2007.07001v3",
+      "semantic_scholar_id": null,
+      "url": "http://arxiv.org/abs/2007.07001",
+      "pdf_url": "https://arxiv.org/pdf/2007.07001",
+      "oa_pdf_url": "",
+      "source": "openalex",
+      "content_hash": "bd0163f7a1bb01c1717e4f434dd140432b1d4e5687ef678c7d223d31d52eda6d",
+      "placements": [
+        {
+          "category_id": "security_cyber",
+          "category_name": "Security & Cyber Risks",
+          "subcategory_name": "AI systems being hacked",
+          "composite_score": 7.806,
+          "llm_relevance": 10.0,
+          "rationale": "This paper directly studies adversarial attacks on ML models, specifically speech-to-text neural networks.",
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:33:46.484643Z"
+        }
+      ]
+    },
+    {
+      "key": "doi:10.70393/616a736d.323732",
+      "first_seen": "2026-11-23",
+      "last_seen": "2026-11-23",
+      "title": "A Differential Privacy-Based Mechanism for Preventing Data Leakage in Large Language Model Training",
+      "authors": [
+        "Xingpeng Xiao",
+        "Yaomin Zhang",
+        "Heyao Chen",
+        "Weilun Ren",
+        "Junyi Zhang",
+        "Jian Xu"
+      ],
+      "year": 2025,
+      "publication_date": "2025-03-18",
+      "venue": "Academic Journal of Sociology and Management",
+      "citation_count": 23,
+      "doi": "10.70393/616a736d.323732",
+      "arxiv_id": null,
+      "semantic_scholar_id": null,
+      "url": "https://doi.org/10.70393/616a736d.323732",
+      "pdf_url": "https://www.suaspress.org/ojs/index.php/AJSM/article/download/v3n2a04/v3n2a04",
+      "oa_pdf_url": "https://www.suaspress.org/ojs/index.php/AJSM/article/download/v3n2a04/v3n2a04",
+      "source": "openalex",
+      "content_hash": "1af93a5efd574f0b1c9e6347b260fd1245c9553a6da70bea560c9900abdd373b",
+      "placements": [
+        {
+          "category_id": "security_cyber",
+          "category_name": "Security & Cyber Risks",
+          "subcategory_name": "Leakage of confidential data by LLMs",
+          "composite_score": 9.196,
+          "llm_relevance": 10.0,
+          "rationale": "The paper directly studies leakage of confidential data by LLMs using differential privacy-based mechanisms.",
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:34:28.848176Z"
+        }
+      ]
+    },
+    {
+      "key": "doi:10.21248/jlcl.38.2025.289",
+      "first_seen": "2026-11-23",
+      "last_seen": "2026-11-23",
+      "title": "Political Bias in LLMs: Unaligned Moral Values in Agent-centric Simulations",
+      "authors": [
+        "Simon Münker"
+      ],
+      "year": 2025,
+      "publication_date": "2025-07-08",
+      "venue": "LDV-Forum/Journal for language technology and computational linguistics",
+      "citation_count": 11,
+      "doi": "10.21248/jlcl.38.2025.289",
+      "arxiv_id": "2408.11415v2",
+      "semantic_scholar_id": null,
+      "url": "https://doi.org/10.21248/jlcl.38.2025.289",
+      "pdf_url": "https://jlcl.org/article/download/289/265",
+      "oa_pdf_url": "https://jlcl.org/article/download/289/265",
+      "source": "openalex",
+      "content_hash": "2708b0c5016ac09846fb112dab4c83efafeefe9488b085a87257afa0874452e8",
+      "placements": [
+        {
+          "category_id": "ethical",
+          "category_name": "Ethical Risks",
+          "subcategory_name": "Political bias in LLMs",
+          "composite_score": 7.888,
+          "llm_relevance": 9.0,
+          "rationale": "The paper directly studies political bias in LLMs, specifically examining how models align with human responses on the Moral Foundation Theory Questionnaire and finding that conservative persona-prompted models struggle to align with actual conservative populations.",
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:36:46.490386Z"
+        }
+      ]
+    },
+    {
+      "key": "doi:10.61093/sec.9(4).150-164.2025",
+      "first_seen": "2026-11-23",
+      "last_seen": "2026-11-23",
+      "title": "Digital Inclusion and Economic Equity: Evaluating the Role of Business Analytics in Overcoming Socioeconomic Challenges",
+      "authors": [
+        "Jasti Ruthvika",
+        "Amit Hedau"
+      ],
+      "year": 2025,
+      "publication_date": "2025-12-31",
+      "venue": "SocioEconomic Challenges",
+      "citation_count": 12,
+      "doi": "10.61093/sec.9(4).150-164.2025",
+      "arxiv_id": null,
+      "semantic_scholar_id": null,
+      "url": "https://doi.org/10.61093/sec.9(4).150-164.2025",
+      "pdf_url": "https://armgpublishing.com/wp-content/uploads/2026/01/SEC_4_2025_10.pdf",
+      "oa_pdf_url": "https://armgpublishing.com/wp-content/uploads/2026/01/SEC_4_2025_10.pdf",
+      "source": "openalex",
+      "content_hash": "3c79ae7ab5f0d12e8da54683c9790559f7d9fb816e2dc35598f9a4bf5edcb9f5",
+      "placements": [
+        {
+          "category_id": "ethical",
+          "category_name": "Ethical Risks",
+          "subcategory_name": "Socioeconomic discrimination by AI",
+          "composite_score": 8.05,
+          "llm_relevance": 8.0,
+          "rationale": "The paper investigates how business analytics can promote economic equity among underserved populations, highlighting the importance of digital literacy and algorithmic fairness in addressing socioeconomic challenges.",
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:36:49.417220Z"
+        }
+      ]
+    },
+    {
+      "key": "doi:10.54691/24vexn67",
+      "first_seen": "2026-11-23",
+      "last_seen": "2026-11-23",
+      "title": "Bridging the Accountability Gap in AI Decision-Making: An Integrated Analysis of Legal Precedents and Scholarly Perspectives",
+      "authors": [
+        "Hanze Sun"
+      ],
+      "year": 2025,
+      "publication_date": "2025-03-19",
+      "venue": "Frontiers in Humanities and Social Sciences",
+      "citation_count": 4,
+      "doi": "10.54691/24vexn67",
+      "arxiv_id": null,
+      "semantic_scholar_id": null,
+      "url": "https://doi.org/10.54691/24vexn67",
+      "pdf_url": "https://fhssjournal.org/index.php/ojs/article/download/84/81",
+      "oa_pdf_url": "https://fhssjournal.org/index.php/ojs/article/download/84/81",
+      "source": "openalex",
+      "content_hash": "6ef155bcfa882c49b52d3cbc9c4b99594350b3f28c5b171ff713baa537ad3d3d",
+      "placements": [
+        {
+          "category_id": "ethical",
+          "category_name": "Ethical Risks",
+          "subcategory_name": "Lack of accountability in AI systems",
+          "composite_score": 7.906,
+          "llm_relevance": 9.0,
+          "rationale": "The paper directly addresses the lack of accountability in AI systems by proposing a new regulatory framework that adapts to AI's dynamic evolution.",
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:37:04.948480Z"
+        }
+      ]
+    },
+    {
+      "key": "doi:10.20956/halrev.v11i3.6499",
+      "first_seen": "2026-11-23",
+      "last_seen": "2026-11-23",
+      "title": "AI Revolution: The Legal Battle Between Indonesia and the European Union to Protect Copyright from Artificial Intelligence",
+      "authors": [
+        "Sitti Fatimah Maddusila",
+        "Agus Lanini",
+        "Andi Intan Purnamasari"
+      ],
+      "year": 2025,
+      "publication_date": "2025-12-30",
+      "venue": "Hasanuddin Law Review",
+      "citation_count": 6,
+      "doi": "10.20956/halrev.v11i3.6499",
+      "arxiv_id": null,
+      "semantic_scholar_id": null,
+      "url": "https://doi.org/10.20956/halrev.v11i3.6499",
+      "pdf_url": "https://pasca.unhas.ac.id/ojs/index.php/halrev/article/download/6499/1187",
+      "oa_pdf_url": "https://pasca.unhas.ac.id/ojs/index.php/halrev/article/download/6499/1187",
+      "source": "openalex",
+      "content_hash": "3147f82a2d8d8e2b5b29610151a1ad16cbefd35a2611348e3f621294d9fa8391",
+      "placements": [
+        {
+          "category_id": "ethical",
+          "category_name": "Ethical Risks",
+          "subcategory_name": "Unauthorized use of copyrighted works in training",
+          "composite_score": 8.05,
+          "llm_relevance": 8.0,
+          "rationale": "The paper examines copyright protection in the context of AI, specifically highlighting regulatory asymmetries between Indonesia and the EU regarding AI training on copyrighted materials.",
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:37:43.861490Z"
+        }
+      ]
+    },
+    {
+      "key": "doi:10.18860/j-fsh.v17i1.28880",
+      "first_seen": "2026-11-23",
+      "last_seen": "2026-11-23",
+      "title": "Integrating Islamic Values with the Right to Be Forgotten: A Legal Approach to Addressing Deepfake Pornography in Indonesia",
+      "authors": [
+        "Evyta Rosiyanti Ramadhani",
+        "Ayudya Rizqi Rachmawati",
+        "Roro Hera Kurnikova"
+      ],
+      "year": 2025,
+      "publication_date": "2025-04-12",
+      "venue": "De Jure Jurnal Hukum dan Syar iah",
+      "citation_count": 18,
+      "doi": "10.18860/j-fsh.v17i1.28880",
+      "arxiv_id": null,
+      "semantic_scholar_id": null,
+      "url": "https://doi.org/10.18860/j-fsh.v17i1.28880",
+      "pdf_url": "https://ejournal.uin-malang.ac.id/index.php/syariah/article/download/28880/pdf",
+      "oa_pdf_url": "https://ejournal.uin-malang.ac.id/index.php/syariah/article/download/28880/pdf",
+      "source": "openalex",
+      "content_hash": "a7bb1906ef5a05a9b015c4b5e4c9e2b00d0ddd487d7a2d8810cd1faacc6271c4",
+      "placements": [
+        {
+          "category_id": "ethical",
+          "category_name": "Ethical Risks",
+          "subcategory_name": "Deepfake pornography",
+          "composite_score": 8.54,
+          "llm_relevance": 9.0,
+          "rationale": "The paper directly addresses the issue of non-consensual deepfake pornography, proposing legal solutions to mitigate its harm.",
+          "run_id": "ba9d34b2-0e81-4b07-ab63-1828fa4c8884",
+          "generated_at": "2026-11-23T16:38:05.513202Z"
+        }
+      ]
     }
   ],
   "refreshes": [
