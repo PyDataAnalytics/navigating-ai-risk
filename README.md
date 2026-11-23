@@ -24,6 +24,7 @@ The taxonomy has ~150 leaf subcategories. Manual curation doesn't scale; pure ke
 - **Citation velocity, not absolute citations.** A 2024 paper with 30 cites/year beats a 2015 paper with the same accumulated total. Both the pre-LLM shortlist and the post-LLM composite score use velocity.
 - **Two-stage judging.** A cheap screen model filters an extended shortlist (default 50) down to the budget for the detailed judge (default 20). Better recall at the same wall-clock cost on the expensive model. Disable by setting `llm_screen.enabled: false`.
 - **Negative anchors.** Each taxonomy entry can declare `excludes: [...]` — phrases that shouldn't match. Threaded into both screen and judge prompts. Especially useful for ambiguous names ("Hallucinations", "Wireheading", "Drone misuse").
+- **Preprint de-prioritization.** A paper still sourced from arXiv after dedup has a flat `scoring.arxiv_penalty` (default 0.5) subtracted from its composite score, so a peer-reviewed record outranks a preprint of equal merit. Preprints are demoted, not dropped. Set to 0.0 to score both identically.
 - **MMR diversification.** Final pick is greedy MMR over candidates above the min-score floor. λ=1.0 reproduces the original pure-score behavior; λ=0.6 (default) avoids near-duplicate selections while still respecting score. Set per-deployment via `scoring.diversity_lambda`.
 
 ## Security posture
@@ -169,7 +170,7 @@ two separate workflows:
 
 **1. Weekly refresh — automatic, GPU-free** (`.github/workflows/weekly-refresh.yml`)
 
-Runs every Monday on a free `ubuntu-latest` runner in seconds. It does *not*
+Runs every Wednesday on a free `ubuntu-latest` runner in seconds. It does *not*
 discover new papers; it keeps the existing corpus alive:
 
 - re-pulls **citation counts** (Semantic Scholar batch endpoint, OpenAlex fallback),
@@ -185,6 +186,9 @@ validates before writing (paper count constant, `first_seen` never mutated, no
 abstract leak), and writes atomically. Run it locally with `make refresh`.
 
 **2. Discovery — weekly, on your RunPod GPU** (`.github/workflows/discovery.yml`)
+
+Runs every Tuesday (with two same-day retries if no GPU capacity is free),
+the day before the Wednesday refresh folds the results in.
 
 Finding *new* papers runs the LLM judge/screener on Ollama, which needs a GPU.
 Instead of paying for an always-on runner, this job wakes a **stopped** RunPod pod
@@ -206,9 +210,10 @@ available (`gpuTypePriority`/`dataCenterPriority: availability`).
 
 ### Weekly discovery on RunPod — one-time setup
 
-1. **SSH key**: generate a keypair (`ssh-keygen -t ed25519 -f runpod_key`, empty
-   passphrase). The workflow injects the **public** half into each fresh pod at create
-   time (via the pod's `PUBLIC_KEY` env), so you don't pre-register it anywhere.
+1. **SSH key**: nothing to do. The workflow runs `ssh-keygen` itself at the start of
+   every run and injects the fresh **public** half into the pod it creates (via the
+   pod's `PUBLIC_KEY` env). The private half lives only on that runner and dies with
+   it, so there is no SSH secret to create and no key to rotate.
 2. **GPU access**: nothing to provision in advance — the workflow creates an on-demand
    pod each run. Optionally grab a **template id** from a known-good pod (Console →
    your pod → its template) to pin the exact image/ports/env; pass it as the
@@ -217,14 +222,12 @@ available (`gpuTypePriority`/`dataCenterPriority: availability`).
 
    | Secret | Purpose |
    |---|---|
-   | `RUNPOD_API_KEY` | create / wait / terminate the pod via the RunPod REST API |
-   | `RUNPOD_SSH_KEY` | the **private** key from step 1, **base64-encoded** (see command below) |
+   | `RUNPOD_API_KEY` | create / wait / terminate the pod via the RunPod REST API. The only required secret. |
    | `SEMANTIC_SCHOLAR_API_KEY` / `OPENALEX_MAILTO` / `UNPAYWALL_EMAIL` / `SERPAPI_API_KEY` | optional; forwarded into the run on the pod |
 
-   Encode the private key for the `RUNPOD_SSH_KEY` secret (base64 avoids any
-   line-ending corruption): on Windows PowerShell,
-   `[Convert]::ToBase64String([IO.File]::ReadAllBytes("$HOME\.ssh\runpod_key")) | Set-Clipboard`,
-   then paste it into the secret's value field.
+   There is no SSH secret to create. If a `RUNPOD_SSH_KEY` secret exists in your
+   repository you can delete it: no workflow reads one, and a stored private key
+   would be long-lived for no benefit.
 
 4. **First run**: trigger it manually (Actions → discovery → Run workflow). You can
    override `gpu_types`, `template_id`, or `image` per run. The pod's working dir is
@@ -258,8 +261,11 @@ All optional — the workflows degrade gracefully if any are unset:
 | `OPENALEX_MAILTO` | both | Joins OpenAlex's faster "polite pool" (any contact email). |
 | `UNPAYWALL_EMAIL` | both | Enables the Unpaywall OA backfill (the free API needs a contact email). |
 | `SERPAPI_API_KEY` | discovery | Enables the Google Scholar source. |
-| `RUNPOD_API_KEY` | discovery | Creates/terminates the on-demand GPU pod via the RunPod REST API. |
-| `RUNPOD_SSH_KEY` | discovery | Private SSH key (base64-encoded); its public half is injected into each fresh pod. |
+| `RUNPOD_API_KEY` | discovery | Creates/terminates the on-demand GPU pod via the RunPod REST API. **Required** for discovery. |
+
+Two optional repository **variables** (same settings page, Variables tab) pin the
+Ollama installer on the pod: `OLLAMA_VERSION` and `OLLAMA_INSTALL_SHA256`. Unset,
+the pod installs the current release and skips the checksum comparison.
 
 GitHub Actions secrets are encrypted and are **not** exposed to pull requests
 from forks; both workflows are `schedule`/`workflow_dispatch` only, so there is no

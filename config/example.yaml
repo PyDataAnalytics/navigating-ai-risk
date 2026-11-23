@@ -130,6 +130,12 @@ scoring:
   # 0.6 = recommended default — clearly diversifies near-ties without
   # surfacing oddities. Lower (0.3–0.5) pushes harder toward variety.
   diversity_lambda: 0.6
+  # Flat penalty subtracted from the composite score of a paper whose canonical
+  # source is still arXiv after dedup, so a peer-reviewed venue outranks a
+  # preprint of equal merit. Preprints are demoted, never dropped. 0.0 disables.
+  # NOTE: this defaults to 0.5 when omitted — set it explicitly to 0.0 if you
+  # want preprints and published papers scored identically.
+  arxiv_penalty: 0.5
 
 # ── Output ───────────────────────────────────────────────────────────────────
 output:

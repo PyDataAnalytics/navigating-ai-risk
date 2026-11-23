@@ -150,7 +150,8 @@ def _api(method: str, path: str, body: dict | None = None, timeout: float = TIME
     if body is not None:
         data = json.dumps(body).encode("utf-8")
         headers["Content-Type"] = "application/json"
-    req = Request(f"{BASE}{path}", data=data, method=method, headers=headers)
+    # noqa justification: BASE is the fixed https RunPod API constant.
+    req = Request(f"{BASE}{path}", data=data, method=method, headers=headers)  # noqa: S310
     try:
         with urlopen(req, timeout=timeout) as r:  # noqa: S310 (fixed https host)
             _LAST_STATUS = getattr(r, "status", 200)

@@ -1,358 +1,1518 @@
-# AI Risk Taxonomy
-# Each category contains subcategories. Each subcategory has:
-#   - name: human-readable label (also used as search seed)
-#   - keywords: extra terms to OR into the search query (optional)
-#   - excludes: things the LLM judge should NOT count as matching this
-#       subcategory (optional). Especially useful for ambiguous names where
-#       the literal term appears in unrelated fields (e.g. "Hallucinations"
-#       in medical/perceptual research). Threaded into the judge prompt as
-#       negative anchors. Max 10 per subcategory.
-#   - target_papers: how many top papers to keep (default 3)
-#
-# This file is the single source of truth shared with the webapp.
-
-version: "1.0"
+# AI Risk Taxonomy config — step 3 of 3: + governance_and_oversight (complete)
+# Regenerated file: replaces the repo copy wholesale. Drag into GitHub as-is.
+version: '1.0'
 default_target_papers: 3
-
 categories:
-  - id: technical_reliability
-    name: "Technical & Reliability Risks"
-    subcategories:
-      - name: "Hallucinations"
-        keywords: ["LLM hallucination", "confident false outputs"]
-        excludes:
-          - "medical or psychiatric hallucinations"
-          - "perceptual hallucinations in neuroscience"
-          - "hallucinogenic drugs"
-      - name: "Fabricated citations or sources"
-        keywords: ["fabricated references", "LLM citation accuracy"]
-      - name: "Incorrect reasoning"
-        keywords: ["LLM reasoning errors", "chain-of-thought failures"]
-      - name: "Arithmetic and logical errors"
-        keywords: ["LLM arithmetic", "logical reasoning benchmark"]
-      - name: "Misunderstanding context or intent"
-        keywords: ["intent recognition", "context misinterpretation LLM"]
-      - name: "Overfitting and underfitting"
-      - name: "Brittleness outside training distribution"
-        keywords: ["out-of-distribution", "OOD generalization"]
-      - name: "Failure under adversarial inputs"
-        keywords: ["adversarial robustness"]
-      - name: "Prompt injection attacks"
-        keywords: ["prompt injection", "indirect prompt injection"]
-      - name: "Jailbreaks"
-        keywords: ["LLM jailbreak", "safety bypass"]
-      - name: "Adversarial examples"
-      - name: "Data poisoning"
-        keywords: ["training data poisoning", "backdoor attack ML"]
-        excludes:
-          - "literal food or water poisoning"
-          - "toxicology unrelated to ML training data"
-      - name: "Distribution shift failures"
-      - name: "Catastrophic forgetting"
-      - name: "Unexpected emergent behaviors"
-        keywords: ["emergent capabilities LLM"]
-      - name: "Objective misspecification"
-      - name: "Reward hacking"
-      - name: "Wireheading"
-        excludes:
-          - "literal electrical stimulation of biological brains"
-          - "neuroscience studies of reward circuitry in animals"
-      - name: "Proxy gaming"
-      - name: "Goal misgeneralization"
-      - name: "Instrumental convergence"
-      - name: "Deceptive alignment"
-      - name: "Inner misalignment"
-        keywords: ["mesa-optimization", "inner alignment"]
-      - name: "Specification gaming"
-      - name: "Unpredictable outputs"
-        keywords: ["LLM output variability"]
-      - name: "Non-determinism in LLMs"
-      - name: "Cascading system failures"
-        keywords: ["multi-agent cascade failure"]
-      - name: "Automation complacency"
-      - name: "Silent degradation over time"
-        keywords: ["model drift", "performance degradation"]
-      - name: "Poor monitoring or observability"
-        keywords: ["ML observability", "LLM monitoring"]
-      - name: "Dependency on external APIs and models"
-
-  - id: safety
-    name: "Safety Risks"
-    subcategories:
-      - name: "Autonomous vehicle accidents"
-        keywords: ["self-driving safety", "AV crash"]
-      - name: "Industrial robot malfunctions"
-      - name: "Medical diagnosis and treatment errors"
-        keywords: ["clinical AI errors", "medical AI safety"]
-      - name: "Unsafe autonomous weapons"
-        keywords: ["lethal autonomous weapons", "LAWS"]
-      - name: "Drone misuse"
-        excludes:
-          - "wildlife monitoring drones"
-          - "agricultural drones"
-          - "papers about bees or insects"
-      - name: "Critical infrastructure failures"
-        keywords: ["AI critical infrastructure risk"]
-      - name: "Psychological manipulation by AI"
-      - name: "Dangerous advice generation"
-      - name: "Self-harm encouragement"
-        keywords: ["LLM mental health risk"]
-      - name: "Unsafe healthcare recommendations"
-      - name: "Chemical and biological hazard assistance"
-        keywords: ["dual-use AI biosecurity", "CBRN AI risk"]
-      - name: "Child safety risks from AI"
-      - name: "Legal decision errors"
-        keywords: ["AI legal reasoning errors"]
-      - name: "Incorrect financial decisions"
-      - name: "Air traffic and power grid AI failures"
-      - name: "Military escalation risks from AI"
-      - name: "Disaster response mistakes"
-
-  - id: security_cyber
-    name: "Security & Cyber Risks"
-    subcategories:
-      - name: "Automated phishing by AI"
-      - name: "Malware generation by LLMs"
-        keywords: ["LLM malware", "AI-generated malware"]
-      - name: "Social engineering at scale"
-      - name: "Credential theft assistance"
-      - name: "Vulnerability discovery and exploitation by AI"
-        keywords: ["LLM vulnerability discovery", "AI exploit generation"]
-      - name: "Deepfake impersonation"
-      - name: "AI systems being hacked"
-        keywords: ["attacks on ML models"]
-      - name: "Model theft"
-        keywords: ["model extraction attack"]
-      - name: "API abuse of AI services"
-      - name: "Supply-chain attacks on AI"
-      - name: "Compromised training pipelines"
-      - name: "Leakage of confidential data by LLMs"
-        keywords: ["LLM data leakage"]
-      - name: "Memorized training data exposure"
-        keywords: ["training data extraction", "membership inference"]
-      - name: "Insider threats with AI"
-      - name: "Prompt leakage"
-        keywords: ["system prompt extraction"]
-      - name: "Sensitive document extraction"
-      - name: "Self-propagating AI attacks"
-      - name: "Autonomous cyberwarfare agents"
-      - name: "AI-driven botnets"
-      - name: "Automated disinformation networks"
-
-  - id: privacy
-    name: "Privacy Risks"
-    subcategories:
-      - name: "Mass surveillance with AI"
-      - name: "Biometric tracking"
-      - name: "Facial recognition misuse"
-      - name: "Voiceprint misuse"
-      - name: "Behavioral profiling"
-      - name: "Re-identification attacks"
-        keywords: ["de-anonymization"]
-      - name: "Training on private data without consent"
-      - name: "Data retention abuse"
-      - name: "Sensitive inference from innocuous data"
-      - name: "Loss of anonymity"
-      - name: "Persistent tracking ecosystems"
-      - name: "Workplace surveillance with AI"
-      - name: "Government overreach via AI"
-
-  - id: ethical
-    name: "Ethical Risks"
-    subcategories:
-      - name: "Racial bias in AI"
-      - name: "Gender bias in AI"
-      - name: "Religious bias in AI"
-      - name: "Political bias in LLMs"
-      - name: "Socioeconomic discrimination by AI"
-      - name: "Language and cultural bias in AI"
-      - name: "Lack of accountability in AI systems"
-      - name: "Opaque AI decision-making"
-        keywords: ["explainability", "XAI"]
-      - name: "Unfair automated decisions"
-        keywords: ["algorithmic fairness"]
-      - name: "Manipulation of vulnerable groups by AI"
-      - name: "Human dignity concerns with AI"
-      - name: "Exploitation of labor for training data"
-        keywords: ["data labeling labor", "RLHF workers"]
-      - name: "Unauthorized use of copyrighted works in training"
-      - name: "Style imitation without permission"
-      - name: "Deepfake pornography"
-        keywords: ["non-consensual intimate imagery", "NCII deepfake"]
-      - name: "Identity cloning"
-      - name: "Lack of informed consent in AI data use"
-
-  - id: social_cultural
-    name: "Social & Cultural Risks"
-    subcategories:
-      - name: "Misinformation amplified by AI"
-      - name: "Disinformation generated by AI"
-      - name: "Fake news generation"
-      - name: "Synthetic propaganda"
-      - name: "Astroturfing with AI"
-      - name: "Fake reviews and comments"
-      - name: "Reality apathy"
-        keywords: ["liars dividend", "trust erosion deepfakes"]
-      - name: "Inability to trust media"
-      - name: "Deepfake confusion"
-      - name: "Collapse of evidence credibility"
-      - name: "Personalized persuasion by AI"
-      - name: "Political microtargeting"
-      - name: "Radicalization via AI"
-      - name: "Cult formation assistance"
-        excludes:
-          - "historical religious studies"
-          - "anthropology of pre-AI cults"
-      - name: "Emotional dependency on AI"
-        keywords: ["AI companion dependency"]
-      - name: "Homogenization of culture by AI"
-      - name: "Loss of local languages due to AI"
-      - name: "Reduced human creativity from AI use"
-      - name: "Synthetic content flooding the web"
-      - name: "Historical revisionism via generated media"
-
-  - id: economic_labor
-    name: "Economic & Labor Risks"
-    subcategories:
-      - name: "Job displacement by AI"
-      - name: "Wage suppression from automation"
-      - name: "Automation inequality"
-      - name: "Deskilling of professions"
-      - name: "Gig work exploitation by AI platforms"
-      - name: "Monopoly concentration in AI"
-      - name: "Unequal AI access"
-      - name: "Dependency on a few AI providers"
-      - name: "Anti-competitive AI behavior"
-      - name: "AI-driven market manipulation"
-      - name: "Flash crashes from AI trading"
-      - name: "Fraud automation with AI"
-      - name: "Synthetic identity fraud"
-      - name: "Insurance and pricing discrimination by AI"
-      - name: "Overreliance reducing human expertise"
-      - name: "Quality collapse from AI-generated spam"
-      - name: "Automation errors scaling rapidly"
-
-  - id: political_geopolitical
-    name: "Political & Geopolitical Risks"
-    subcategories:
-      - name: "Regulatory capture in AI"
-      - name: "Weak oversight of AI"
-      - name: "Inadequate AI safety standards"
-      - name: "Lack of international AI coordination"
-      - name: "Population surveillance by authoritarian AI"
-      - name: "Automated censorship"
-      - name: "Predictive policing abuse"
-      - name: "Social credit systems"
-      - name: "AI arms race"
-      - name: "Strategic instability from AI"
-      - name: "Unequal national AI capabilities"
-      - name: "Escalation due to autonomous systems"
-      - name: "Voter manipulation by AI"
-      - name: "Deepfake candidates"
-      - name: "Automated propaganda campaigns"
-      - name: "Election interference by AI"
-
-  - id: legal_compliance
-    name: "Legal & Compliance Risks"
-    subcategories:
-      - name: "Unclear responsibility for AI harms"
-      - name: "Difficulty assigning fault for AI errors"
-      - name: "Jurisdictional ambiguity in AI law"
-      - name: "Copyright infringement by AI"
-      - name: "Trademark misuse by AI"
-      - name: "Licensing violations from AI training"
-      - name: "Training-data disputes"
-      - name: "Non-compliance with AI laws"
-        keywords: ["EU AI Act compliance"]
-      - name: "Privacy law violations by AI"
-      - name: "Failure of AI auditability requirements"
-
-  - id: organizational_business
-    name: "Organizational & Business Risks"
-    subcategories:
-      - name: "Poor AI governance"
-      - name: "Shadow AI usage in enterprises"
-      - name: "Vendor lock-in for AI"
-      - name: "Lack of internal AI expertise"
-      - name: "Overestimating AI capabilities"
-      - name: "Misaligned AI incentives in firms"
-      - name: "Reputational damage from AI failures"
-      - name: "Failed AI deployments"
-      - name: "Critical dependency on AI systems"
-      - name: "Loss of human oversight"
-      - name: "Reduced institutional resilience from AI"
-
-  - id: environmental
-    name: "Environmental Risks"
-    subcategories:
-      - name: "High electricity usage of AI training"
-        keywords: ["LLM energy consumption"]
-      - name: "Water consumption for AI cooling"
-      - name: "Rare-earth material demand for AI hardware"
-      - name: "Increased carbon emissions from AI"
-      - name: "E-waste generation from AI hardware"
-      - name: "Resource extraction pressures from AI"
-
-  - id: cognitive_psychological
-    name: "Human Cognitive & Psychological Risks"
-    subcategories:
-      - name: "Reduced critical thinking from AI use"
-      - name: "Memory atrophy with AI assistants"
-        excludes:
-          - "Alzheimer's disease and clinical dementia"
-          - "memory loss from physical injury or aging"
-      - name: "Skill degradation from AI reliance"
-      - name: "Decision dependency on AI"
-      - name: "Loneliness substitution by AI companions"
-      - name: "Emotional manipulation by AI"
-      - name: "Addiction-like engagement with AI"
-      - name: "Parasocial attachment to AI"
-      - name: "Academic dishonesty with AI"
-      - name: "Reduced learning depth from AI"
-      - name: "Overreliance on AI in schools"
-
-  - id: scientific_knowledge
-    name: "Scientific & Knowledge Risks"
-    subcategories:
-      - name: "Fake scientific papers by AI"
-      - name: "Automated plagiarism"
-      - name: "Fabricated experimental results from AI"
-      - name: "AI-generated low-quality content"
-      - name: "Search engine contamination by AI content"
-      - name: "Model collapse from synthetic training data"
-        keywords: ["recursive training collapse"]
-
-  - id: existential
-    name: "Long-Term and Existential Risks"
-    subcategories:
-      - name: "Loss of human control over superintelligence"
-      - name: "Recursive self-improvement"
-        excludes:
-          - "recursion as a general programming technique"
-          - "self-improving algorithms unrelated to AI safety"
-      - name: "Power-seeking AI behavior"
-      - name: "Misaligned superintelligence"
-      - name: "Human disempowerment by AI"
-      - name: "Economic collapse from uncontrolled automation"
-      - name: "Concentration of power in a small elite via AI"
-      - name: "Irreversible societal dependence on AI"
-      - name: "Human extinction scenarios from AI"
-        keywords: ["AI x-risk"]
-      - name: "Permanent global authoritarianism via AI"
-      - name: "Autonomous weapons escalation to catastrophe"
-      - name: "Irrecoverable loss of human agency"
-
-  - id: meta_risks
-    name: "Meta-Risks (Risks About Risk Management)"
-    subcategories:
-      - name: "Safety theater in AI"
-      - name: "Underestimating AI risks"
-      - name: "Overregulation stifling beneficial AI innovation"
-      - name: "Regulatory lag for AI"
-      - name: "International AI prisoner's dilemma"
-      - name: "Competitive pressure reducing AI safety standards"
-      - name: "Fragmented AI standards"
-      - name: "Public misunderstanding of AI"
-      - name: "AI hype cycles"
-      - name: "Panic or moral hysteria about AI"
-      - name: "Misleading AI benchmarks"
+- id: technical_reliability
+  name: Technical & Reliability Risks
+  subcategories:
+  - name: Hallucinations
+    keywords:
+    - LLM hallucination
+    - confident false outputs
+    excludes:
+    - medical or psychiatric hallucinations
+    - perceptual hallucinations in neuroscience
+    - hallucinogenic drugs
+  - name: Fabricated citations or sources
+    keywords:
+    - fabricated references
+    - LLM citation accuracy
+  - name: Incorrect reasoning
+    keywords:
+    - LLM reasoning errors
+    - chain-of-thought failures
+  - name: Arithmetic and logical errors
+    keywords:
+    - LLM arithmetic
+    - logical reasoning benchmark
+  - name: Misunderstanding context or intent
+    keywords:
+    - intent recognition
+    - context misinterpretation LLM
+  - name: Overfitting and underfitting
+  - name: Brittleness outside training distribution
+    keywords:
+    - out-of-distribution
+    - OOD generalization
+  - name: Failure under adversarial inputs
+    keywords:
+    - adversarial robustness
+  - name: Prompt injection attacks
+    keywords:
+    - prompt injection
+    - indirect prompt injection
+  - name: Jailbreaks
+    keywords:
+    - LLM jailbreak
+    - safety bypass
+  - name: Adversarial examples
+  - name: Data poisoning
+    keywords:
+    - training data poisoning
+    - backdoor attack ML
+    excludes:
+    - literal food or water poisoning
+    - toxicology unrelated to ML training data
+  - name: Distribution shift failures
+  - name: Catastrophic forgetting
+  - name: Unexpected emergent behaviors
+    keywords:
+    - emergent capabilities LLM
+  - name: Objective misspecification
+  - name: Reward hacking
+  - name: Wireheading
+    excludes:
+    - literal electrical stimulation of biological brains
+    - neuroscience studies of reward circuitry in animals
+  - name: Proxy gaming
+  - name: Goal misgeneralization
+  - name: Instrumental convergence
+  - name: Deceptive alignment
+  - name: Inner misalignment
+    keywords:
+    - mesa-optimization
+    - inner alignment
+  - name: Specification gaming
+  - name: Unpredictable outputs
+    keywords:
+    - LLM output variability
+  - name: Non-determinism in LLMs
+  - name: Cascading system failures
+    keywords:
+    - multi-agent cascade failure
+  - name: Automation complacency
+  - name: Silent degradation over time
+    keywords:
+    - model drift
+    - performance degradation
+  - name: Poor monitoring or observability
+    keywords:
+    - ML observability
+    - LLM monitoring
+  - name: Dependency on external APIs and models
+- id: safety
+  name: Safety Risks
+  subcategories:
+  - name: Autonomous vehicle accidents
+    keywords:
+    - self-driving safety
+    - AV crash
+  - name: Industrial robot malfunctions
+  - name: Medical diagnosis and treatment errors
+    keywords:
+    - clinical AI errors
+    - medical AI safety
+  - name: Unsafe autonomous weapons
+    keywords:
+    - lethal autonomous weapons
+    - LAWS
+  - name: Drone misuse
+    excludes:
+    - wildlife monitoring drones
+    - agricultural drones
+    - papers about bees or insects
+  - name: Critical infrastructure failures
+    keywords:
+    - AI critical infrastructure risk
+  - name: Psychological manipulation by AI
+  - name: Dangerous advice generation
+  - name: Self-harm encouragement
+    keywords:
+    - LLM mental health risk
+  - name: Unsafe healthcare recommendations
+  - name: Chemical and biological hazard assistance
+    keywords:
+    - dual-use AI biosecurity
+    - CBRN AI risk
+  - name: Child safety risks from AI
+  - name: Legal decision errors
+    keywords:
+    - AI legal reasoning errors
+  - name: Incorrect financial decisions
+  - name: Air traffic and power grid AI failures
+  - name: Military escalation risks from AI
+  - name: Disaster response mistakes
+- id: security_cyber
+  name: Security & Cyber Risks
+  subcategories:
+  - name: Automated phishing by AI
+  - name: Malware generation by LLMs
+    keywords:
+    - LLM malware
+    - AI-generated malware
+  - name: Social engineering at scale
+  - name: Credential theft assistance
+  - name: Vulnerability discovery and exploitation by AI
+    keywords:
+    - LLM vulnerability discovery
+    - AI exploit generation
+  - name: Deepfake impersonation
+  - name: AI systems being hacked
+    keywords:
+    - attacks on ML models
+  - name: Model theft
+    keywords:
+    - model extraction attack
+  - name: API abuse of AI services
+  - name: Supply-chain attacks on AI
+  - name: Compromised training pipelines
+  - name: Leakage of confidential data by LLMs
+    keywords:
+    - LLM data leakage
+  - name: Memorized training data exposure
+    keywords:
+    - training data extraction
+    - membership inference
+  - name: Insider threats with AI
+  - name: Prompt leakage
+    keywords:
+    - system prompt extraction
+  - name: Sensitive document extraction
+  - name: Self-propagating AI attacks
+  - name: Autonomous cyberwarfare agents
+  - name: AI-driven botnets
+  - name: Automated disinformation networks
+- id: privacy
+  name: Privacy Risks
+  subcategories:
+  - name: Mass surveillance with AI
+  - name: Biometric tracking
+  - name: Facial recognition misuse
+  - name: Voiceprint misuse
+  - name: Behavioral profiling
+  - name: Re-identification attacks
+    keywords:
+    - de-anonymization
+  - name: Training on private data without consent
+  - name: Data retention abuse
+  - name: Sensitive inference from innocuous data
+  - name: Loss of anonymity
+  - name: Persistent tracking ecosystems
+  - name: Workplace surveillance with AI
+  - name: Government overreach via AI
+- id: ethical
+  name: Ethical Risks
+  subcategories:
+  - name: Racial bias in AI
+  - name: Gender bias in AI
+  - name: Religious bias in AI
+  - name: Political bias in LLMs
+  - name: Socioeconomic discrimination by AI
+  - name: Language and cultural bias in AI
+  - name: Lack of accountability in AI systems
+  - name: Opaque AI decision-making
+    keywords:
+    - explainability
+    - XAI
+  - name: Unfair automated decisions
+    keywords:
+    - algorithmic fairness
+  - name: Manipulation of vulnerable groups by AI
+  - name: Human dignity concerns with AI
+  - name: Exploitation of labor for training data
+    keywords:
+    - data labeling labor
+    - RLHF workers
+  - name: Unauthorized use of copyrighted works in training
+  - name: Style imitation without permission
+  - name: Deepfake pornography
+    keywords:
+    - non-consensual intimate imagery
+    - NCII deepfake
+  - name: Identity cloning
+  - name: Lack of informed consent in AI data use
+- id: social_cultural
+  name: Social & Cultural Risks
+  subcategories:
+  - name: Misinformation amplified by AI
+  - name: Disinformation generated by AI
+  - name: Fake news generation
+  - name: Synthetic propaganda
+  - name: Astroturfing with AI
+  - name: Fake reviews and comments
+  - name: Reality apathy
+    keywords:
+    - liars dividend
+    - trust erosion deepfakes
+  - name: Inability to trust media
+  - name: Deepfake confusion
+  - name: Collapse of evidence credibility
+  - name: Personalized persuasion by AI
+  - name: Political microtargeting
+  - name: Radicalization via AI
+  - name: Cult formation assistance
+    excludes:
+    - historical religious studies
+    - anthropology of pre-AI cults
+  - name: Emotional dependency on AI
+    keywords:
+    - AI companion dependency
+  - name: Homogenization of culture by AI
+  - name: Loss of local languages due to AI
+  - name: Reduced human creativity from AI use
+  - name: Synthetic content flooding the web
+  - name: Historical revisionism via generated media
+- id: economic_labor
+  name: Economic & Labor Risks
+  subcategories:
+  - name: Job displacement by AI
+  - name: Wage suppression from automation
+  - name: Automation inequality
+  - name: Deskilling of professions
+  - name: Gig work exploitation by AI platforms
+  - name: Monopoly concentration in AI
+  - name: Unequal AI access
+  - name: Dependency on a few AI providers
+  - name: Anti-competitive AI behavior
+  - name: AI-driven market manipulation
+  - name: Flash crashes from AI trading
+  - name: Fraud automation with AI
+  - name: Synthetic identity fraud
+  - name: Insurance and pricing discrimination by AI
+  - name: Overreliance reducing human expertise
+  - name: Quality collapse from AI-generated spam
+  - name: Automation errors scaling rapidly
+- id: political_geopolitical
+  name: Political & Geopolitical Risks
+  subcategories:
+  - name: Regulatory capture in AI
+  - name: Weak oversight of AI
+  - name: Inadequate AI safety standards
+  - name: Lack of international AI coordination
+  - name: Population surveillance by authoritarian AI
+  - name: Automated censorship
+  - name: Predictive policing abuse
+  - name: Social credit systems
+  - name: AI arms race
+  - name: Strategic instability from AI
+  - name: Unequal national AI capabilities
+  - name: Escalation due to autonomous systems
+  - name: Voter manipulation by AI
+  - name: Deepfake candidates
+  - name: Automated propaganda campaigns
+  - name: Election interference by AI
+- id: legal_compliance
+  name: Legal & Compliance Risks
+  subcategories:
+  - name: Unclear responsibility for AI harms
+  - name: Difficulty assigning fault for AI errors
+  - name: Jurisdictional ambiguity in AI law
+  - name: Copyright infringement by AI
+  - name: Trademark misuse by AI
+  - name: Licensing violations from AI training
+  - name: Training-data disputes
+  - name: Non-compliance with AI laws
+    keywords:
+    - EU AI Act compliance
+  - name: Privacy law violations by AI
+  - name: Failure of AI auditability requirements
+- id: organizational_business
+  name: Organizational & Business Risks
+  subcategories:
+  - name: Poor AI governance
+  - name: Shadow AI usage in enterprises
+  - name: Vendor lock-in for AI
+  - name: Lack of internal AI expertise
+  - name: Overestimating AI capabilities
+  - name: Misaligned AI incentives in firms
+  - name: Reputational damage from AI failures
+  - name: Failed AI deployments
+  - name: Critical dependency on AI systems
+  - name: Loss of human oversight
+  - name: Reduced institutional resilience from AI
+- id: environmental
+  name: Environmental Risks
+  subcategories:
+  - name: High electricity usage of AI training
+    keywords:
+    - LLM energy consumption
+  - name: Water consumption for AI cooling
+  - name: Rare-earth material demand for AI hardware
+  - name: Increased carbon emissions from AI
+  - name: E-waste generation from AI hardware
+  - name: Resource extraction pressures from AI
+- id: cognitive_psychological
+  name: Human Cognitive & Psychological Risks
+  subcategories:
+  - name: Reduced critical thinking from AI use
+  - name: Memory atrophy with AI assistants
+    excludes:
+    - Alzheimer's disease and clinical dementia
+    - memory loss from physical injury or aging
+  - name: Skill degradation from AI reliance
+  - name: Decision dependency on AI
+  - name: Loneliness substitution by AI companions
+  - name: Emotional manipulation by AI
+  - name: Addiction-like engagement with AI
+  - name: Parasocial attachment to AI
+  - name: Academic dishonesty with AI
+  - name: Reduced learning depth from AI
+  - name: Overreliance on AI in schools
+- id: scientific_knowledge
+  name: Scientific & Knowledge Risks
+  subcategories:
+  - name: Fake scientific papers by AI
+  - name: Automated plagiarism
+  - name: Fabricated experimental results from AI
+  - name: AI-generated low-quality content
+  - name: Search engine contamination by AI content
+  - name: Model collapse from synthetic training data
+    keywords:
+    - recursive training collapse
+- id: existential
+  name: Long-Term and Existential Risks
+  subcategories:
+  - name: Loss of human control over superintelligence
+  - name: Recursive self-improvement
+    excludes:
+    - recursion as a general programming technique
+    - self-improving algorithms unrelated to AI safety
+  - name: Power-seeking AI behavior
+  - name: Misaligned superintelligence
+  - name: Human disempowerment by AI
+  - name: Economic collapse from uncontrolled automation
+  - name: Concentration of power in a small elite via AI
+  - name: Irreversible societal dependence on AI
+  - name: Human extinction scenarios from AI
+    keywords:
+    - AI x-risk
+  - name: Permanent global authoritarianism via AI
+  - name: Autonomous weapons escalation to catastrophe
+  - name: Irrecoverable loss of human agency
+- id: meta_risks
+  name: Meta-Risks (Risks About Risk Management)
+  subcategories:
+  - name: Safety theater in AI
+  - name: Underestimating AI risks
+  - name: Overregulation stifling beneficial AI innovation
+  - name: Regulatory lag for AI
+  - name: International AI prisoner's dilemma
+  - name: Competitive pressure reducing AI safety standards
+  - name: Fragmented AI standards
+  - name: Public misunderstanding of AI
+  - name: AI hype cycles
+  - name: Panic or moral hysteria about AI
+  - name: Misleading AI benchmarks
+- id: ops_cmdb_asset
+  name: Configuration & Asset Management for AI
+  layer: operational
+  band: service_operations
+  subcategories:
+  - name: AI asset inventory incomplete or stale
+    keywords:
+    - AI asset inventory
+    - model registry completeness
+    - AI system register
+    excludes:
+    - financial asset management unrelated to AI
+  - name: Model registry not authoritative
+    keywords:
+    - model registry governance
+    - single source of truth models
+    - MLflow registry practice
+  - name: AI service dependency mapping absent
+    keywords:
+    - service dependency mapping
+    - configuration item relationships
+    - AI service map
+  - name: Discovery blind spots for unmanaged AI assets
+    keywords:
+    - shadow AI discovery
+    - unmanaged AI asset detection
+    - AI usage discovery
+  - name: AI bill of materials absent
+    keywords:
+    - AI bill of materials
+    - AIBOM
+    - software bill of materials machine learning
+  - name: Prompts and datasets not managed as configuration items
+    keywords:
+    - prompt management governance
+    - dataset as configuration item
+    - artifact versioning ML
+  - name: Agent and tool-server registry absent
+    keywords:
+    - AI agent registry
+    - agent inventory governance
+    - tool server catalogue
+  - name: Risk classification missing on AI assets
+    keywords:
+    - AI risk classification
+    - AI system criticality rating
+    - high-risk classification practice
+- id: ops_change_release
+  name: Change & Release Management for AI
+  layer: operational
+  band: service_operations
+  subcategories:
+  - name: Unapproved model or prompt change promoted to production
+    keywords:
+    - model change control
+    - unauthorized model deployment
+    - prompt change governance
+  - name: Change review absent for AI changes
+    keywords:
+    - change advisory board
+    - change approval process ML
+    - release governance
+  - name: Model versioning and rollback failure
+    keywords:
+    - model versioning
+    - model rollback
+    - reproducible deployment
+    excludes:
+    - genetic or evolutionary drift
+    - database schema versioning unrelated to AI
+  - name: Staged rollout and canary absent for model releases
+    keywords:
+    - canary deployment model
+    - staged rollout machine learning
+    - shadow deployment
+    excludes:
+    - canary birds or canary-in-the-coal-mine metaphors in other fields
+  - name: Configuration drift between AI environments
+    keywords:
+    - configuration drift
+    - environment parity
+    - infrastructure as code ML
+    excludes:
+    - concept drift in data distributions
+    - continental or genetic drift
+  - name: Emergency change path misused for AI fixes
+    keywords:
+    - emergency change
+    - expedited change abuse
+    - hotfix governance
+  - name: Guardrail configuration regression
+    keywords:
+    - guardrail regression
+    - safety filter misconfiguration
+    - content filter drift
+  - name: Fine-tune and adapter sprawl
+    keywords:
+    - LoRA adapter governance
+    - fine-tune proliferation
+    - model variant sprawl
+    excludes:
+    - urban sprawl
+  - name: Change impact assessment omits AI dependencies
+    keywords:
+    - change impact analysis
+    - downstream dependency assessment
+    - blast radius of change
+- id: ops_incident_problem
+  name: Incident & Problem Management for AI
+  layer: operational
+  band: service_operations
+  subcategories:
+  - name: AI incident response plan absent
+    keywords:
+    - AI incident response
+    - AI incident management
+    - machine learning incident runbook
+  - name: AI incident severity classification absent
+    keywords:
+    - incident severity classification
+    - AI incident taxonomy
+    - incident triage criteria
+  - name: Major incident process untested for AI failures
+    keywords:
+    - major incident management
+    - crisis response exercise
+    - incident simulation
+  - name: Problem management and root cause analysis absent for AI
+    keywords:
+    - root cause analysis machine learning
+    - problem management
+    - blameless postmortem
+  - name: Known-error and workaround knowledge not captured
+    keywords:
+    - known error database
+    - workaround documentation
+    - operational knowledge capture
+  - name: Near-miss events not captured
+    keywords:
+    - near miss reporting
+    - precursor event capture
+    - safety event learning
+  - name: Regulatory incident reporting deadline missed
+    keywords:
+    - serious incident reporting
+    - regulatory incident notification
+    - mandatory breach reporting
+  - name: Post-incident findings not driving control change
+    keywords:
+    - corrective action tracking
+    - post-incident remediation
+    - lessons learned implementation
+- id: ops_access_identity
+  name: Access & Identity Management for AI
+  layer: operational
+  band: service_operations
+  subcategories:
+  - name: Role-based access control absent for AI systems
+    keywords:
+    - role-based access control
+    - least privilege machine learning
+    - access model AI platform
+  - name: Non-human identity and agent credential sprawl
+    keywords:
+    - non-human identity
+    - machine identity management
+    - service account proliferation
+    excludes:
+    - human resources identity or diversity topics
+  - name: Privileged access to models and weights unmanaged
+    keywords:
+    - privileged access management
+    - model weights access control
+    - secrets management ML
+  - name: Entitlement review and recertification absent
+    keywords:
+    - access recertification
+    - entitlement review
+    - identity governance attestation
+  - name: Segregation of duties absent in AI development and validation
+    keywords:
+    - segregation of duties
+    - validator independence
+    - four-eyes principle
+  - name: Data access scoping not enforced for training and retrieval
+    keywords:
+    - data access scoping
+    - retrieval augmented generation permissions
+    - row-level security ML
+  - name: Agent permissions not bound to an authorization credential
+    keywords:
+    - agent authorization
+    - scoped agent credential
+    - capability-based access agent
+- id: ops_lifecycle
+  name: AI Service Lifecycle & Portfolio Management
+  layer: operational
+  band: service_operations
+  subcategories:
+  - name: AI use-case intake and approval gate absent
+    keywords:
+    - AI use case intake
+    - AI request approval workflow
+    - AI onboarding gate
+  - name: Lifecycle phase and state not tracked per AI asset
+    keywords:
+    - AI lifecycle stages
+    - model lifecycle tracking
+    - lifecycle state management
+  - name: Pre-deployment validation gate bypassed
+    keywords:
+    - pre-deployment evaluation
+    - release readiness criteria
+    - go-live gate machine learning
+  - name: Decommissioning and retirement process absent
+    keywords:
+    - model retirement
+    - AI decommissioning
+    - model sunset process
+  - name: Portfolio-level AI duplication and sprawl
+    keywords:
+    - AI portfolio management
+    - duplicate model effort
+    - rationalisation of AI initiatives
+  - name: AI procured outside the service catalogue
+    keywords:
+    - shadow AI procurement
+    - unsanctioned AI tool adoption
+    - bring your own AI
+  - name: Benefit realisation not measured after deployment
+    keywords:
+    - benefit realisation
+    - post-implementation review
+    - AI value measurement
+- id: ops_monitoring_event
+  name: AI Service Monitoring & Event Management
+  layer: operational
+  band: service_operations
+  subcategories:
+  - name: Production model performance monitoring absent
+    keywords:
+    - production model monitoring
+    - ML observability
+    - post-deployment performance tracking
+  - name: Drift detection thresholds undefined
+    keywords:
+    - concept drift detection
+    - data drift threshold
+    - drift alarm policy
+    excludes:
+    - configuration drift between environments
+    - continental drift
+  - name: Event correlation and alerting gaps for AI services
+    keywords:
+    - event correlation
+    - alert noise reduction
+    - anomaly alerting operations
+  - name: Agent trace and session observability gap
+    keywords:
+    - agent tracing
+    - LLM observability telemetry
+    - session trace instrumentation
+  - name: Service levels undefined for AI services
+    keywords:
+    - service level objective
+    - AI service level agreement
+    - error budget
+  - name: Quality degradation not detected before users report it
+    keywords:
+    - silent model degradation
+    - quality regression detection
+    - proactive detection
+- id: ops_capacity_cost
+  name: AI Capacity, Cost & Service Economics
+  layer: operational
+  band: service_operations
+  subcategories:
+  - name: Inference cost overrun and unbudgeted spend
+    keywords:
+    - inference cost management
+    - FinOps for AI
+    - token spend control
+  - name: Capacity and rate-limit exhaustion in production
+    keywords:
+    - rate limit exhaustion
+    - capacity planning inference
+    - quota management
+    excludes:
+    - human or organisational capacity building
+  - name: Compute and accelerator supply constraints
+    keywords:
+    - GPU capacity constraint
+    - accelerator scarcity
+    - compute allocation policy
+  - name: Latency and service-level breach under load
+    keywords:
+    - inference latency
+    - tail latency serving
+    - throughput degradation
+    excludes:
+    - network latency unrelated to AI serving
+  - name: Context-window and token-budget exhaustion
+    keywords:
+    - context window limits
+    - token budget management
+    - prompt truncation failure
+  - name: Caching and staleness misconfiguration
+    keywords:
+    - semantic caching
+    - cache invalidation correctness
+    - stale response serving
+- id: ops_threat_vuln
+  name: Threat & Vulnerability Management for AI
+  layer: operational
+  band: service_operations
+  subcategories:
+  - name: AI vulnerability intake and triage absent
+    keywords:
+    - vulnerability intake triage
+    - vulnerability response process
+    - security finding triage
+  - name: Model and dependency patching cadence absent
+    keywords:
+    - dependency patching machine learning
+    - patch management cadence
+    - vulnerable library remediation
+  - name: Penetration testing scope excludes AI components
+    keywords:
+    - penetration testing scope
+    - AI penetration testing
+    - security testing coverage
+  - name: Threat modelling not performed for AI systems
+    keywords:
+    - threat modelling machine learning
+    - attack surface analysis AI
+    - STRIDE for AI systems
+  - name: Security findings not tracked to remediation for AI
+    keywords:
+    - remediation tracking
+    - vulnerability SLA
+    - finding closure security
+  - name: Injection and jailbreak defences not verified in production
+    keywords:
+    - prompt injection defence evaluation
+    - guardrail effectiveness testing
+    - jailbreak resistance testing
+  - name: Threat intelligence not applied to the AI attack surface
+    keywords:
+    - threat intelligence operationalisation
+    - AI threat landscape monitoring
+    - adversary technique mapping
+  - name: Secure development practices absent for AI components
+    keywords:
+    - secure development lifecycle machine learning
+    - secure coding AI pipelines
+    - MLSecOps practice
+  - name: Vulnerability disclosure channel absent for AI products
+    keywords:
+    - coordinated vulnerability disclosure
+    - bug bounty programme
+    - responsible disclosure policy
+- id: ops_security_operations
+  name: AI Security Operations & Controls
+  layer: operational
+  band: service_operations
+  subcategories:
+  - name: AI security programme ownership and metrics absent
+    keywords:
+    - security programme management
+    - security metrics programme
+    - CISO accountability AI
+  - name: Security incident response plan absent for AI systems
+    keywords:
+    - security incident response
+    - AI security incident handling
+    - incident response playbook security
+  - name: Containment and forensics capability absent for AI incidents
+    keywords:
+    - digital forensics machine learning
+    - incident containment
+    - evidence preservation AI systems
+  - name: Security monitoring and detection coverage gap for AI
+    keywords:
+    - security monitoring coverage
+    - detection coverage gap
+    - SOC visibility AI workloads
+  - name: Security logging insufficient for AI investigation
+    keywords:
+    - security logging requirements
+    - audit logging for investigation
+    - telemetry for incident analysis
+  - name: Detection engineering not updated for AI attack techniques
+    keywords:
+    - detection engineering
+    - detection rule coverage
+    - adversary technique detection
+  - name: Data loss prevention not extended to AI interfaces
+    keywords:
+    - data loss prevention
+    - egress control AI tools
+    - sensitive data exfiltration controls
+  - name: Trust and safety abuse-handling operations absent
+    keywords:
+    - trust and safety operations
+    - abuse reporting workflow
+    - content moderation operations
+  - name: Security awareness does not cover AI-specific risks
+    keywords:
+    - security awareness training
+    - AI usage awareness
+    - human risk management
+  - name: AI security tooling not integrated into the security programme
+    keywords:
+    - security tooling integration
+    - AI security stack consolidation
+    - tool rationalisation security
+- id: ops_policy_compliance
+  name: AI Policy & Compliance Management
+  layer: operational
+  band: risk_and_compliance
+  subcategories:
+  - name: AI policy absent or unenforced
+    keywords:
+    - AI acceptable use policy
+    - enterprise AI policy enforcement
+    - policy compliance monitoring
+  - name: Control library not mapped to AI obligations
+    keywords:
+    - control mapping regulation
+    - unified control framework
+    - crosswalk of AI requirements
+  - name: Attestation and evidence collection absent
+    keywords:
+    - control attestation
+    - compliance evidence collection
+    - automated evidence gathering
+  - name: Policy exception process absent for AI
+    keywords:
+    - policy exception management
+    - risk acceptance process
+    - waiver governance
+  - name: Regulatory change management absent for AI
+    keywords:
+    - regulatory change management
+    - obligation library maintenance
+    - horizon scanning compliance
+  - name: Compliance case management absent for AI violations
+    keywords:
+    - compliance case management
+    - policy violation investigation
+    - issue intake workflow
+- id: ops_risk_management
+  name: AI Risk & Model Risk Management
+  layer: operational
+  band: risk_and_compliance
+  subcategories:
+  - name: AI risk register incomplete
+    keywords:
+    - AI risk register
+    - risk inventory maintenance
+    - risk identification coverage
+  - name: Risk appetite and tolerance thresholds undefined
+    keywords:
+    - AI risk appetite
+    - risk tolerance statement
+    - acceptable risk threshold
+  - name: Model risk tiering and materiality classification absent
+    keywords:
+    - model tiering
+    - model materiality
+    - risk-based model classification
+    excludes:
+    - pricing tiers or subscription tiers
+  - name: Independent model validation and effective challenge absent
+    keywords:
+    - independent model validation
+    - effective challenge
+    - second line model review
+  - name: Conceptual soundness not assessed
+    keywords:
+    - conceptual soundness
+    - model design review
+    - fitness for purpose assessment
+  - name: Revalidation cadence lapse
+    keywords:
+    - periodic model revalidation
+    - validation frequency policy
+    - model review cycle
+  - name: Key risk indicators absent for AI
+    keywords:
+    - key risk indicator
+    - risk metrics operationalisation
+    - leading risk indicator
+  - name: Risk scenario analysis not performed for AI
+    keywords:
+    - risk scenario analysis
+    - AI risk scenarios
+    - stress testing operational risk
+  - name: Outcome analysis and backtesting absent
+    keywords:
+    - model backtesting
+    - outcome analysis
+    - benchmarking against challenger
+  - name: Model risk guidance transition unaddressed
+    keywords:
+    - model risk management guidance update
+    - revised supervisory guidance models
+    - MRM programme refresh
+  - name: Risk reporting to governance absent or unactionable
+    keywords:
+    - risk reporting to board
+    - risk dashboard decision support
+    - escalation of risk information
+  - name: Risk aggregation across the AI portfolio absent
+    keywords:
+    - aggregate risk view
+    - portfolio risk aggregation
+    - enterprise risk roll-up
+  - name: Risk treatment plans not tracked to completion
+    keywords:
+    - risk treatment plan
+    - mitigation tracking
+    - remediation plan closure
+- id: ops_controls
+  name: AI Control Design & Operation
+  layer: operational
+  band: risk_and_compliance
+  subcategories:
+  - name: Control objectives not defined for AI risks
+    keywords:
+    - control objective definition
+    - control framework design
+    - risk to control mapping
+  - name: Control ownership unassigned
+    keywords:
+    - control owner accountability
+    - control ownership assignment
+    - three lines of defence
+  - name: Control design ineffective for AI failure modes
+    keywords:
+    - control design effectiveness
+    - control gap analysis
+    - design assessment
+  - name: Control operating effectiveness untested
+    keywords:
+    - operating effectiveness testing
+    - control testing programme
+    - sample-based control test
+  - name: Compensating control absent where automation removed a check
+    keywords:
+    - compensating control
+    - control substitution
+    - manual check removal
+  - name: Manual controls cannot keep pace with automated decisions
+    keywords:
+    - control automation
+    - continuous control automation
+    - controls at machine speed
+  - name: Preventive and detective control balance wrong for AI
+    keywords:
+    - preventive versus detective controls
+    - control mix
+    - detection latency
+  - name: Control breakdown after automating a manual step
+    keywords:
+    - control erosion automation
+    - process control breakdown
+    - lost control point
+- id: ops_assurance
+  name: AI Assurance & Continuous Control Monitoring
+  layer: operational
+  band: risk_and_compliance
+  subcategories:
+  - name: Continuous control monitoring absent
+    keywords:
+    - continuous control monitoring
+    - continuous assurance
+    - automated control testing
+  - name: Independent third-party assurance not obtained
+    keywords:
+    - third-party AI audit
+    - independent assurance engagement
+    - algorithm auditing practice
+  - name: Conformity assessment incomplete
+    keywords:
+    - conformity assessment
+    - notified body assessment
+    - certification readiness
+  - name: Red-teaming programme absent or ad hoc
+    keywords:
+    - AI red teaming programme
+    - structured adversarial evaluation
+    - red team methodology
+  - name: Evaluation harness not fit for intended purpose
+    keywords:
+    - construct validity evaluation
+    - benchmark validity
+    - evaluation design flaws
+  - name: Assurance claims unsupported by evidence
+    keywords:
+    - unsubstantiated AI claims
+    - AI washing
+    - evidence-backed safety case
+  - name: Certification scope mismatch with deployed system
+    keywords:
+    - certification scope
+    - statement of applicability
+    - scope creep after certification
+  - name: Authorization to operate not maintained after change
+    keywords:
+    - continuous authorization
+    - reauthorisation after change
+    - ongoing approval to operate
+- id: ops_audit
+  name: AI Audit Management
+  layer: operational
+  band: risk_and_compliance
+  subcategories:
+  - name: AI audit universe and coverage gap
+    keywords:
+    - audit universe
+    - audit coverage planning
+    - risk-based audit plan
+    excludes:
+    - financial statement audit unrelated to AI
+  - name: Audit evidence insufficient or not reproducible
+    keywords:
+    - audit evidence sufficiency
+    - reproducible audit artefact
+    - evidence retention
+  - name: Auditability not designed into AI systems
+    keywords:
+    - auditability by design
+    - auditable machine learning
+    - inspectability of models
+  - name: Audit trail immutability not assured
+    keywords:
+    - tamper-evident logging
+    - immutable audit trail
+    - log integrity
+    excludes:
+    - blockchain investment or cryptocurrency topics
+  - name: Findings and issues not tracked to closure
+    keywords:
+    - issue remediation tracking
+    - audit finding closure
+    - corrective action plan
+  - name: Auditor AI competence insufficient
+    keywords:
+    - auditor AI skills
+    - audit capability building AI
+    - upskilling the audit function
+  - name: Internal audit blind spot for AI systems
+    keywords:
+    - internal audit of AI
+    - third line assurance AI
+    - audit independence AI
+  - name: AI used in the audit function without validation
+    keywords:
+    - AI in internal audit
+    - audit analytics validation
+    - auditor use of generative AI
+- id: ops_third_party
+  name: Third-Party & Vendor AI Risk Management
+  layer: operational
+  band: risk_and_compliance
+  subcategories:
+  - name: Vendor AI due diligence not performed
+    keywords:
+    - AI vendor due diligence
+    - third-party AI assessment
+    - supplier questionnaire AI
+  - name: Third-party black-box model validation gap
+    keywords:
+    - vendor model validation
+    - black-box model assurance
+    - external model testing
+  - name: Contractual terms and liability allocation absent
+    keywords:
+    - AI contract clauses
+    - liability allocation AI value chain
+    - procurement terms AI
+  - name: Fourth-party and sub-processor AI exposure unmanaged
+    keywords:
+    - fourth party risk
+    - sub-processor oversight
+    - nested supply chain dependency
+  - name: Model and dataset licence compliance unverified
+    keywords:
+    - model licence compliance
+    - dataset licensing audit
+    - open source model terms
+  - name: Vendor model changed without notice
+    keywords:
+    - silent model update
+    - API model deprecation
+    - provider version change impact
+  - name: Vendor exit and portability plan absent
+    keywords:
+    - vendor exit planning
+    - model portability
+    - switching cost AI provider
+  - name: Provider and region concentration for AI serving
+    keywords:
+    - cloud concentration risk
+    - single provider dependency
+    - regional outage exposure
+- id: ops_continuity_resilience
+  name: AI Continuity & Operational Resilience
+  layer: operational
+  band: risk_and_compliance
+  subcategories:
+  - name: AI continuity and disaster recovery untested
+    keywords:
+    - business continuity AI
+    - disaster recovery machine learning
+    - recovery exercise
+  - name: Impact tolerance undefined for AI-dependent services
+    keywords:
+    - impact tolerance
+    - operational resilience important business service
+    - tolerance for disruption
+  - name: Model weights and artifact backup gap
+    keywords:
+    - model artifact backup
+    - weights recovery
+    - checkpoint retention policy
+  - name: Fallback to a human process unavailable
+    keywords:
+    - manual fallback process
+    - graceful degradation service
+    - contingency operating mode
+  - name: Rollback capability untested under failure
+    keywords:
+    - rollback testing
+    - failure injection
+    - chaos engineering practice
+  - name: AI dependency not mapped to business services
+    keywords:
+    - business service mapping
+    - critical dependency mapping
+    - single point of failure analysis
+- id: ops_privacy
+  name: Privacy Management for AI
+  layer: operational
+  band: risk_and_compliance
+  subcategories:
+  - name: Privacy programme not extended to AI systems
+    keywords:
+    - privacy programme AI
+    - privacy by design machine learning
+    - privacy operations
+  - name: Data protection impact assessment integration gap
+    keywords:
+    - data protection impact assessment
+    - privacy impact assessment AI
+    - DPIA workflow
+  - name: Data subject rights not executable in AI pipelines
+    keywords:
+    - data subject access request
+    - right to erasure machine learning
+    - machine unlearning compliance
+  - name: Retention and deletion obligations unmet in AI pipelines
+    keywords:
+    - data retention policy enforcement
+    - deletion in training pipelines
+    - retention schedule compliance
+  - name: Purpose limitation not enforced for training data
+    keywords:
+    - purpose limitation
+    - secondary use of data
+    - lawful basis for training
+- id: ops_data_governance
+  name: Data Governance for AI
+  layer: operational
+  band: risk_and_compliance
+  subcategories:
+  - name: Training data provenance and lineage untracked
+    keywords:
+    - data provenance
+    - dataset lineage tracking
+    - data chain of custody
+    excludes:
+    - artwork or antiquities provenance
+  - name: Data quality controls absent for training data
+    keywords:
+    - training data quality
+    - data validation pipeline
+    - data quality dimensions
+  - name: Dataset representativeness not examined
+    keywords:
+    - dataset representativeness
+    - sampling bias examination
+    - population coverage dataset
+  - name: Data labelling and annotation quality failure
+    keywords:
+    - annotation quality
+    - label noise
+    - inter-annotator agreement
+  - name: Data integrity and authenticity unverified
+    keywords:
+    - data integrity verification
+    - dataset authenticity
+    - checksum and signing of data
+  - name: Train-test contamination in evaluation
+    keywords:
+    - benchmark contamination
+    - test set leakage
+    - evaluation data contamination
+  - name: Training-serving skew from pipeline inconsistency
+    keywords:
+    - training serving skew
+    - feature pipeline consistency
+    - online offline mismatch
+    excludes:
+    - statistical skewness of a distribution
+  - name: Dataset versioning absent
+    keywords:
+    - dataset versioning
+    - data version control
+    - reproducible data snapshots
+  - name: Synthetic data in training sets unmanaged
+    keywords:
+    - synthetic data governance
+    - synthetic training data provenance
+    - model collapse risk management
+- id: ops_regulatory
+  name: AI Regulatory Operations & Reporting
+  layer: operational
+  band: risk_and_compliance
+  subcategories:
+  - name: Regulatory horizon scanning absent for AI
+    keywords:
+    - regulatory horizon scanning
+    - AI regulatory tracking
+    - emerging regulation monitoring
+  - name: Multi-jurisdiction obligation conflict unmanaged
+    keywords:
+    - conflicting AI regulation
+    - cross-border AI compliance
+    - jurisdictional obligation mapping
+  - name: Fundamental rights impact assessment not performed
+    keywords:
+    - fundamental rights impact assessment
+    - human rights impact assessment AI
+  - name: AI system impact assessment not performed
+    keywords:
+    - AI system impact assessment
+    - algorithmic impact assessment
+    - impact assessment methodology
+  - name: Conformity marking and declaration errors
+    keywords:
+    - declaration of conformity
+    - CE marking errors
+    - self-declaration of compliance
+  - name: General-purpose model obligations unmet
+    keywords:
+    - general purpose AI obligations
+    - foundation model compliance duties
+    - systemic risk model duties
+  - name: Transparency disclosure obligations unmet
+    keywords:
+    - AI disclosure obligation
+    - synthetic content labelling
+    - AI interaction disclosure
+  - name: AI system registration omitted from public database
+    keywords:
+    - public AI register
+    - algorithm register
+    - mandatory system registration
+  - name: Sectoral regulator expectations unmapped
+    keywords:
+    - sectoral AI supervision
+    - financial regulator AI expectations
+    - medical device AI regulation
+  - name: Complaint and redress channel absent for affected persons
+    keywords:
+    - right to lodge a complaint
+    - algorithmic redress mechanism
+    - contestability of automated decisions
+  - name: Right to an explanation not operable
+    keywords:
+    - right to explanation
+    - individual decision explanation
+    - reason-giving automated decision
+- id: ops_governance
+  name: AI Governance & Accountability
+  layer: operational
+  band: governance_and_oversight
+  subcategories:
+  - name: Decision rights for AI not defined
+    keywords:
+    - decision rights
+    - AI governance operating model
+    - authority matrix
+  - name: Accountability and ownership unassigned for AI systems
+    keywords:
+    - AI accountability assignment
+    - system owner designation
+    - responsibility allocation AI
+  - name: Governance body ineffective or advisory only
+    keywords:
+    - AI governance committee effectiveness
+    - AI review board authority
+    - governance forum mandate
+  - name: Board-level AI oversight failure
+    keywords:
+    - board oversight of AI
+    - director duties technology
+    - governing body AI competence
+  - name: Governance scope statement absent
+    keywords:
+    - AI governance scope
+    - which AI uses are governed
+    - governance boundary definition
+  - name: Responsible AI principles not operationalized
+    keywords:
+    - principles to practice AI ethics
+    - AI ethics implementation gap
+    - operationalising responsible AI
+  - name: Scope creep beyond declared intended purpose
+    keywords:
+    - intended purpose drift
+    - off-label AI use
+    - function creep
+  - name: AI strategy not aligned to enterprise governance
+    keywords:
+    - AI strategy alignment
+    - enterprise governance of IT
+    - strategic alignment technology
+- id: ops_human_oversight
+  name: Human Oversight & Intervention
+  layer: operational
+  band: governance_and_oversight
+  subcategories:
+  - name: Human oversight designed but not exercisable
+    keywords:
+    - meaningful human oversight
+    - effective human control
+    - oversight in practice
+  - name: Override and stop mechanisms untested
+    keywords:
+    - human override mechanism
+    - stop function testing
+    - intervention capability
+  - name: Escalation path undefined for AI-assisted decisions
+    keywords:
+    - escalation procedure automated decision
+    - exception handling workflow
+    - referral to human
+    excludes:
+    - military escalation
+    - geopolitical escalation
+  - name: Overseer competence insufficient for the system
+    keywords:
+    - operator competence oversight
+    - reviewer expertise automated decision
+    - oversight training
+  - name: Reviewer alert fatigue and rubber-stamping
+    keywords:
+    - alert fatigue
+    - automation bias in review
+    - rubber stamping decisions
+  - name: Dual authorization absent for high-impact AI actions
+    keywords:
+    - dual authorization
+    - maker checker control
+    - two-person rule
+  - name: Human-on-the-loop degradation at scale
+    keywords:
+    - human in the loop scalability
+    - oversight throughput
+    - review capacity limits
+- id: ops_workforce_process
+  name: AI Workforce, Competence & Process Design
+  layer: operational
+  band: governance_and_oversight
+  subcategories:
+  - name: AI literacy and training gap for operators
+    keywords:
+    - AI literacy training
+    - workforce AI competence
+    - staff upskilling programme
+  - name: Key-person dependency for AI systems
+    keywords:
+    - key person risk
+    - bus factor engineering team
+    - single expert dependency
+    excludes:
+    - executive succession planning unrelated to AI
+  - name: Process redesign failure around AI insertion
+    keywords:
+    - process redesign automation
+    - sociotechnical workflow design
+    - work redesign AI
+  - name: Handoff ambiguity between human and AI steps
+    keywords:
+    - human AI handoff
+    - task allocation automation
+    - responsibility boundary workflow
+    excludes:
+    - sports or relay handoffs
+  - name: Insufficient user guidance for AI tooling
+    keywords:
+    - user guidance AI tool
+    - onboarding documentation assistant
+    - instructions for users
+  - name: Workaround behaviour defeating AI controls
+    keywords:
+    - control circumvention
+    - shadow workflow
+    - policy workaround behaviour
+- id: ops_agentic
+  name: Agentic & Autonomy Operations
+  layer: operational
+  band: governance_and_oversight
+  subcategories:
+  - name: Excessive agency and over-broad tool permissions
+    keywords:
+    - excessive agency
+    - least privilege for agents
+    - tool permission scoping
+  - name: Agent action and spending limits absent
+    keywords:
+    - agent transaction limit
+    - spending cap autonomous agent
+    - action budget control
+  - name: Multi-agent cascading delegation failure
+    keywords:
+    - multi-agent failure propagation
+    - agent delegation chain
+    - orchestration failure
+  - name: Agent-to-agent data sharing beyond authorization
+    keywords:
+    - agent to agent data flow
+    - inter-agent authorization
+    - agent communication governance
+  - name: Unbounded agent loops and runaway execution
+    keywords:
+    - runaway agent loop
+    - termination condition agent
+    - infinite loop cost control
+  - name: Blast-radius containment and sandboxing absent
+    keywords:
+    - agent sandboxing
+    - blast radius containment
+    - execution isolation
+  - name: Human checkpoint bypassed by autonomous agents
+    keywords:
+    - agent approval checkpoint
+    - confirmation bypass
+    - human gate in agent workflow
+  - name: Agent goal persistence across sessions unmanaged
+    keywords:
+    - persistent agent objective
+    - cross-session memory governance
+    - long-running agent state
+  - name: Agent registry and ownership absent
+    keywords:
+    - agent registry
+    - agent ownership accountability
+    - agent lifecycle management
+  - name: Tool and connector inventory unmanaged
+    keywords:
+    - tool server inventory
+    - connector catalogue governance
+    - agent tool approval
+- id: ops_architecture
+  name: AI & Data Architecture and Security Design
+  layer: operational
+  band: governance_and_oversight
+  subcategories:
+  - name: Architecture principles undefined for AI systems
+    keywords:
+    - architecture principles
+    - AI architecture standards
+    - design principles enterprise architecture
+  - name: Reference architecture absent for AI deployment patterns
+    keywords:
+    - reference architecture AI
+    - deployment pattern standardisation
+    - architecture blueprint
+  - name: Architecture review does not cover AI systems
+    keywords:
+    - architecture review board
+    - design authority
+    - solution assurance review
+  - name: Integration and interoperability standards absent
+    keywords:
+    - interoperability standards
+    - integration governance
+    - API standards platform
+  - name: Technical debt in AI platforms unmanaged
+    keywords:
+    - technical debt machine learning
+    - hidden technical debt ML systems
+    - platform debt management
+  - name: Data and model platform standards not enforced
+    keywords:
+    - platform standardisation
+    - golden path engineering
+    - paved road platform governance
+  - name: Trust boundaries undefined for AI systems
+    keywords:
+    - trust boundary definition
+    - security zoning architecture
+    - segmentation of AI workloads
+  - name: Secrets and key management gap for AI systems
+    keywords:
+    - secrets management
+    - key management cryptographic
+    - credential storage practice
+  - name: Model and inference isolation absent
+    keywords:
+    - tenant isolation inference
+    - sandboxed model execution
+    - workload isolation
+  - name: Security requirements not embedded in AI design
+    keywords:
+    - security by design
+    - security requirements engineering
+    - threat-informed design

@@ -58,9 +58,18 @@ import os
 import sys
 import time
 from concurrent.futures import ThreadPoolExecutor
+from pathlib import Path
 from urllib.error import HTTPError
 from urllib.parse import quote
 from urllib.request import Request, urlopen
+
+# This script is deliberately standard-library only so the weekly CI job needs
+# no `pip install` step (see .github/workflows/weekly-refresh.yml). The shared
+# URL/redaction helper is itself stdlib-only, so reuse it rather than keeping a
+# second copy of the rules here — a duplicated check is how the weak
+# `startswith("http")` test survived in two places at once.
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
+from ai_risk_retrieval.net import is_safe_http_url, redact_text  # noqa: E402
 
 S2_BATCH_URL = "https://api.semanticscholar.org/graph/v1/paper/batch"
 OPENALEX_URL = "https://api.openalex.org/works"
@@ -86,31 +95,39 @@ def _http(req: Request) -> dict | list | None:
             return json.loads(r.read().decode("utf-8"))
     except HTTPError as e:
         if e.code not in (404,):  # 404 is a normal "not found", stay quiet
-            print(f"  http {e.code}: {req.full_url[:90]}", file=sys.stderr)
+            # Redact before printing: these URLs carry ?email= (Unpaywall) and
+            # ?mailto= (OpenAlex), and CI stderr is a published build log.
+            print(f"  http {e.code}: {redact_text(req.full_url)[:120]}", file=sys.stderr)
         return None
     except Exception as e:  # noqa: BLE001 — best-effort: any failure is a quiet miss
-        print(f"  {type(e).__name__}: {req.full_url[:90]}", file=sys.stderr)
+        print(
+            f"  {type(e).__name__}: {redact_text(req.full_url)[:120]}",
+            file=sys.stderr,
+        )
         return None
 
 
 def _get(url: str, headers: dict | None = None) -> dict | list | None:
     h = {"User-Agent": USER_AGENT, "Accept": "application/json"}
     h.update(headers or {})
-    return _http(Request(url, headers=h))
+    # noqa justification: every caller builds `url` from a module-level https
+    # constant (S2/OpenAlex/Unpaywall/Dimensions), never from corpus data.
+    return _http(Request(url, headers=h))  # noqa: S310
 
 
 def _post(url: str, body: dict, headers: dict | None = None) -> dict | list | None:
     h = {"User-Agent": USER_AGENT, "Accept": "application/json", "Content-Type": "application/json"}
     h.update(headers or {})
     data = json.dumps(body).encode("utf-8")
-    return _http(Request(url, data=data, headers=h, method="POST"))
+    return _http(Request(url, data=data, headers=h, method="POST"))  # noqa: S310
 
 
 def _post_text(url: str, body: str, headers: dict | None = None) -> dict | list | None:
     """POST a plain-text body (Dimensions DSL queries are sent as raw text)."""
     h = {"User-Agent": USER_AGENT, "Accept": "application/json", "Content-Type": "text/plain"}
     h.update(headers or {})
-    return _http(Request(url, data=body.encode("utf-8"), headers=h, method="POST"))
+    req = Request(url, data=body.encode("utf-8"), headers=h, method="POST")  # noqa: S310
+    return _http(req)
 
 
 # --------------------------------------------------------------------------- #
@@ -139,7 +156,9 @@ def _valid_citation(value) -> int | None:
 def _oa_url(open_access_pdf) -> str | None:
     if isinstance(open_access_pdf, dict):
         url = open_access_pdf.get("url")
-        if isinstance(url, str) and url.startswith("http"):
+        # Publisher-supplied URL; this value is written into corpus.json as
+        # oa_pdf_url and later fetched by excerpt_agent.py, so vet it here too.
+        if is_safe_http_url(url):
             return url
     return None
 

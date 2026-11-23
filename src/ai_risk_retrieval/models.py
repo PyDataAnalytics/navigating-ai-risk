@@ -11,7 +11,9 @@ from __future__ import annotations
 from datetime import date, datetime
 from typing import Literal
 
-from pydantic import BaseModel, Field, HttpUrl, field_validator
+from pydantic import BaseModel, ConfigDict, Field, HttpUrl, field_validator, model_validator
+
+from .net import UnsafeUrlError, safe_http_url
 
 # ─── Taxonomy ────────────────────────────────────────────────────────────────
 
@@ -42,9 +44,43 @@ class Subcategory(BaseModel):
 
 
 class Category(BaseModel):
+    """A top-level risk category.
+
+    `layer` is the structural division of the taxonomy. The two layers answer
+    different questions and draw on different literatures, so they are kept
+    apart rather than interleaved:
+
+      adversarial  a hostile actor is required. Remove the attacker and the
+                   risk disappears. Attack-and-defence literature.
+      operational  no actor required. The risk is realised by a control being
+                   absent, mis-specified or unexecuted. Governance, assurance
+                   and service-management literature.
+
+    It defaults to "adversarial" so the v1.0 categories validate unchanged -
+    the existing taxonomy is deliberately left as it stands.
+
+    `band` groups the operational layer by where the work actually sits
+    (service operations / risk and compliance / governance and oversight). It
+    is None for the adversarial layer.
+
+    A paper may legitimately be selected in BOTH layers: the corpus is
+    paper-centric with one `placements` entry per slot, so a paper covering an
+    attack and its control is stored once with a placement in each.
+    """
+
     id: str = Field(pattern=r"^[a-z0-9_]+$", max_length=64)
     name: str = Field(min_length=2, max_length=200)
+    layer: Literal["adversarial", "operational"] = "adversarial"
+    band: str | None = Field(default=None, max_length=64)
     subcategories: list[Subcategory] = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def _band_only_on_operational(self) -> Category:
+        if self.band is not None and self.layer != "operational":
+            raise ValueError(
+                f"category {self.id!r}: `band` is only meaningful on the operational layer"
+            )
+        return self
 
 
 class Taxonomy(BaseModel):
@@ -54,6 +90,18 @@ class Taxonomy(BaseModel):
 
     def all_subcategories(self) -> list[tuple[Category, Subcategory]]:
         return [(c, s) for c in self.categories for s in c.subcategories]
+
+    def layer(self, name: str) -> list[Category]:
+        """Categories in one structural layer: "adversarial" or "operational"."""
+        return [c for c in self.categories if c.layer == name]
+
+    def bands(self) -> dict[str, list[Category]]:
+        """Operational-layer categories grouped by band, in declaration order."""
+        out: dict[str, list[Category]] = {}
+        for c in self.categories:
+            if c.layer == "operational":
+                out.setdefault(c.band or "ungrouped", []).append(c)
+        return out
 
     def find_subcategory(self, name: str) -> tuple[Category, Subcategory] | None:
         for c in self.categories:
@@ -76,7 +124,9 @@ class Paper(BaseModel):
 
     Constraints here defend against malformed or hostile source data:
     - Lengths are bounded so a single paper can't blow up a prompt.
-    - URLs are validated as HttpUrl, blocking javascript:/file:/data: schemes.
+    - URLs are validated: `url`/`pdf_url` as HttpUrl, and `oa_pdf_url` through
+      net.safe_http_url, which also refuses private, loopback and link-local
+      hosts and embedded credentials. Both block javascript:/file:/data:.
     - content_hash is computed by the fetcher; immutable through the pipeline.
     """
 
@@ -100,15 +150,39 @@ class Paper(BaseModel):
     url: HttpUrl
     pdf_url: HttpUrl | None = None
     # Legal open-access PDF located by Unpaywall (optional; populated only when
-    # UNPAYWALL_EMAIL is set — see enrichment/unpaywall.py). Typed as a plain
+    # UNPAYWALL_EMAIL is set — see enrichment/unpaywall.py). Kept as a plain
     # string rather than HttpUrl because it is assigned post-construction by the
-    # enrichment step; that sidesteps assignment-validation edge cases and it is
-    # only ever set to a real Unpaywall URL. None when not enriched.
+    # enrichment step, but it is NOT unchecked: `model_config` below turns on
+    # assignment validation and `_validate_oa_pdf_url` vets the value.
+    #
+    # The previous comment here reasoned that the field "is only ever set to a
+    # real Unpaywall URL". That conflated provenance with trust: the value is
+    # `best_oa_location.url_for_pdf`, which the PUBLISHER supplies, not
+    # Unpaywall. Without assignment validation this field accepted any string —
+    # `http://169.254.169.254/...` and a 50,000-character value both went
+    # through, and excerpt_agent.py prefers this field over the HttpUrl-checked
+    # `pdf_url` when choosing what to fetch.
     oa_pdf_url: str | None = Field(default=None, max_length=2000)
 
     source: SourceName
     fetched_at: datetime
     content_hash: str = Field(min_length=64, max_length=64)  # sha256 hex
+
+    # Assignment validation matters here specifically because `oa_pdf_url` is
+    # populated after construction; without it the field's own constraints and
+    # validator never run.
+    model_config = ConfigDict(validate_assignment=True)
+
+    @field_validator("oa_pdf_url")
+    @classmethod
+    def _validate_oa_pdf_url(cls, v: str | None) -> str | None:
+        """Vet the publisher-supplied open-access URL before anything fetches it."""
+        if v is None:
+            return None
+        try:
+            return safe_http_url(v, field="oa_pdf_url")
+        except UnsafeUrlError as exc:
+            raise ValueError(str(exc)) from exc
 
     @field_validator("publication_date", mode="before")
     @classmethod

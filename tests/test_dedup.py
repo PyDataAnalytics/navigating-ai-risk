@@ -3,7 +3,7 @@
 from datetime import UTC, datetime
 
 from ai_risk_retrieval.models import Paper
-from ai_risk_retrieval.pipeline.dedup import deduplicate
+from ai_risk_retrieval.pipeline.dedup import _SOURCE_PRIORITY, deduplicate
 
 
 def _make_paper(
@@ -62,3 +62,30 @@ def test_different_papers_not_merged():
 
 def test_empty_input():
     assert deduplicate([]) == []
+
+
+def test_arxiv_is_lowest_merge_priority():
+    """
+    Pins the contract the _SOURCE_PRIORITY comment describes: a peer-reviewed
+    record wins the merge over a preprint. Guards against a well-meaning
+    reorder of the dict silently changing the values.
+    """
+    assert _SOURCE_PRIORITY["arxiv"] == min(_SOURCE_PRIORITY.values())
+    assert _SOURCE_PRIORITY["semantic_scholar"] == max(_SOURCE_PRIORITY.values())
+    assert _SOURCE_PRIORITY["openalex"] > _SOURCE_PRIORITY["google_scholar"]
+
+
+def test_merge_prefers_peer_reviewed_but_keeps_arxiv_pdf():
+    """arXiv loses the merge yet still contributes its canonical PDF."""
+    preprint = _make_paper("Shared Title", "arxiv", doi="10.1234/x", citations=None)
+    preprint.pdf_url = "https://arxiv.org/pdf/1234.5678"
+    preprint.abstract = "Preprint abstract."
+    published = _make_paper("Shared Title", "semantic_scholar", doi="10.1234/x", citations=42)
+    published.pdf_url = None
+
+    merged = deduplicate([preprint, published])
+    assert len(merged) == 1
+    winner = merged[0]
+    assert winner.source == "semantic_scholar"
+    assert winner.citation_count == 42
+    assert str(winner.pdf_url) == "https://arxiv.org/pdf/1234.5678"

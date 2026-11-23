@@ -134,3 +134,67 @@ def test_source_diversity_bonus():
     sources_in_order = [r.paper.source for r in result]
     # At least one source switch among the top results
     assert "semantic_scholar" in sources_in_order[:2]
+
+
+def test_arxiv_penalty_demotes_preprints():
+    """A preprint loses arxiv_penalty from its composite; a published peer wins the tie."""
+    config = ScoringConfig(
+        weights=ScoringWeights(
+            llm_relevance=1.0,
+            citations=0.0,
+            recency=0.0,
+            source_diversity_bonus=0.0,
+        ),
+        min_acceptable_score=0.0,
+        arxiv_penalty=0.5,
+    )
+    preprint = _paper("preprint", source="arxiv", citations=10, year=2025)
+    published = _paper("published", source="semantic_scholar", citations=10, year=2025)
+    judged = [
+        (preprint, LLMJudgement(relevance=8.0, rationale="same")),
+        (published, LLMJudgement(relevance=8.0, rationale="same")),
+    ]
+    result = compute_composite_scores(judged, config, current_year=2025)
+    by_title = {r.paper.title: r.composite_score for r in result}
+    assert by_title["published"] > by_title["preprint"]
+    assert by_title["published"] - by_title["preprint"] == 0.5
+    assert result[0].paper.title == "published"
+
+
+def test_arxiv_penalty_zero_disables_demotion():
+    config = ScoringConfig(
+        weights=ScoringWeights(
+            llm_relevance=1.0,
+            citations=0.0,
+            recency=0.0,
+            source_diversity_bonus=0.0,
+        ),
+        min_acceptable_score=0.0,
+        arxiv_penalty=0.0,
+    )
+    preprint = _paper("preprint", source="arxiv", citations=10, year=2025)
+    published = _paper("published", source="semantic_scholar", citations=10, year=2025)
+    judged = [
+        (preprint, LLMJudgement(relevance=8.0, rationale="same")),
+        (published, LLMJudgement(relevance=8.0, rationale="same")),
+    ]
+    result = compute_composite_scores(judged, config, current_year=2025)
+    scores = {r.paper.title: r.composite_score for r in result}
+    assert scores["published"] == scores["preprint"]
+
+
+def test_arxiv_penalty_never_drives_score_negative():
+    config = ScoringConfig(
+        weights=ScoringWeights(
+            llm_relevance=1.0,
+            citations=0.0,
+            recency=0.0,
+            source_diversity_bonus=0.0,
+        ),
+        min_acceptable_score=0.0,
+        arxiv_penalty=10.0,
+    )
+    preprint = _paper("preprint", source="arxiv", citations=0, year=2025)
+    judged = [(preprint, LLMJudgement(relevance=0.5, rationale="weak"))]
+    result = compute_composite_scores(judged, config, current_year=2025)
+    assert result[0].composite_score == 0.0

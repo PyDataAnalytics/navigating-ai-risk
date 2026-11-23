@@ -5,8 +5,14 @@ line-length = 100
 
 [lint]
 # E/W pycodestyle, F pyflakes (unused imports/vars), I import-sorting,
-# B likely-bugs (bugbear), UP modernize-syntax (pyupgrade)
-select = ["E", "W", "F", "I", "B", "UP"]
+# B likely-bugs (bugbear), UP modernize-syntax (pyupgrade),
+# S flake8-bandit (security), ASYNC async-correctness.
+#
+# S and ASYNC were configured under [tool.ruff] in pyproject.toml, but ruff
+# resolves ruff.toml ahead of pyproject.toml, so that block was dead and the
+# security rules never ran in CI — the stale `# noqa: S310` comments in
+# scripts/ are the fossil evidence. They are selected here, where they apply.
+select = ["E", "W", "F", "I", "B", "UP", "S", "ASYNC"]
 ignore = ["E501"]  # long lines are handled by `ruff format`, don't fail the check on them
 
 [format]
@@ -16,3 +22,10 @@ quote-style = "double"
 extend-immutable-calls = ["typer.Option", "typer.Argument"]
 [lint.per-file-ignores]
 "tests/test_source_http.py" = ["E402"]
+# Asserts are the point of a test file.
+"tests/*" = ["S101", "S108"]  # asserts and /tmp paths are fine in tests
+# Root scripts and scripts/ bootstrap sys.path before importing the shared
+# helpers, so their imports cannot all sit at the top of the file.
+"excerpt_agent.py" = ["E402"]
+"synthesize_findings.py" = ["E402"]
+"scripts/refresh_corpus.py" = ["E402"]

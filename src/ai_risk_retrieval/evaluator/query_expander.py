@@ -46,6 +46,7 @@ except ImportError:  # pragma: no cover
 
 from ..config import LLMConfig
 from ..models import Subcategory
+from ..net import redact_exc
 from .llm_client import LLMClient
 from .sanitizer import sanitize_paper_text
 
@@ -197,7 +198,7 @@ class QueryExpander:
                     out[k] = [s for s in v if isinstance(s, str)]
             return out
         except (OSError, json.JSONDecodeError) as e:
-            log.warning("query_cache_load_failed", error=str(e))
+            log.warning("query_cache_load_failed", error=redact_exc(e))
             return {}
 
     async def _persist_cache(self) -> None:
@@ -216,7 +217,7 @@ class QueryExpander:
                     os.fsync(fh.fileno())
                 os.replace(tmp, self.cache_path)
             except OSError as e:
-                log.warning("query_cache_write_failed", error=str(e))
+                log.warning("query_cache_write_failed", error=redact_exc(e))
 
     async def _call_llm(self, subcategory: Subcategory) -> list[str]:
         """Generate expansions. Returns [] on any failure."""
@@ -248,7 +249,7 @@ class QueryExpander:
             log.warning("query_expansion_timeout", subcategory=subcategory.name)
             return []
         except Exception as e:
-            log.warning("query_expansion_failed", subcategory=subcategory.name, error=str(e))
+            log.warning("query_expansion_failed", subcategory=subcategory.name, error=redact_exc(e))
             return []
 
         raw = (
