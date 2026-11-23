@@ -1,5 +1,6 @@
-# AI Risk Taxonomy config — step 3 of 3: + governance_and_oversight (complete)
-# Regenerated file: replaces the repo copy wholesale. Drag into GitHub as-is.
+# Long-form definition of every subcategory: a one-line summary, the population
+# of papers it should contain, its elements, and its adjacency edges.
+# Consumed by the judge and by the quality audits.
 version: '2.2'
 subcategories:
 - name: Hallucinations

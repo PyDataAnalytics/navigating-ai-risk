@@ -394,6 +394,9 @@ def cmd_create() -> int:
     capacity_misses = 0
     forbidden = 0
     last_400 = ""
+    bad_requests = 0  # HTTP 400 only; 429 and 5xx also bump capacity_misses
+    first_400 = ""
+    first_400_body: dict = {}
     stale_ids: list[str] = []
     attempts = 0
     print(
@@ -409,7 +412,8 @@ def cmd_create() -> int:
                 )
                 return 3
             attempts += 1
-            pod_id, status, err = _post_create(_create_body(cloud, gpu_id, name), name)
+            body = _create_body(cloud, gpu_id, name)
+            pod_id, status, err = _post_create(body, name)
             if pod_id:
                 print(
                     f"create: landed {gpu_id} in {cloud} after {attempts} attempt(s)",
@@ -450,8 +454,19 @@ def cmd_create() -> int:
                 time.sleep(RATE_LIMIT_BACKOFF_S)
                 continue
             if status == 400:
-                capacity_misses += 1  # documented: capacity exhaustion returns 400
+                # RunPod returns 400 BOTH for capacity exhaustion and for a body that
+                # breaks a cross-field rule, with only a human-readable detail to tell
+                # them apart. Count it here, but keep the first detail in full: if every
+                # candidate 400s, the after-ladder check below reads that as a request
+                # problem, which is what RunPod's own docs say to do.
+                capacity_misses += 1
+                bad_requests += 1
                 last_400 = _err_summary(err, 160)
+                if not first_400:
+                    first_400 = (err or "").strip()
+                    first_400_body = {
+                        k: v for k, v in body.items() if k not in ("env", "entrypoint", "cmd")
+                    }
                 continue
             if status is None:
                 transport_errors += 1
@@ -480,6 +495,31 @@ def cmd_create() -> int:
             f"create: {forbidden} candidate(s) refused with 403 (restricted pool for this key)",
             file=sys.stderr,
         )
+    # Every candidate 400'd, nothing else went wrong: RunPod documents that as a
+    # request problem rather than capacity. A simultaneous sell-out of every GPU id
+    # in BOTH clouds is possible but rare, and calling it capacity is how a broken
+    # request hides behind a green skip for weeks. Fail loudly and show the detail.
+    if (
+        attempts > 0
+        and bad_requests == attempts
+        and os.environ.get("ALLOW_CAPACITY_SKIP", "").strip().lower()
+        not in ("1", "true", "yes", "on")
+    ):
+        print(
+            f"create: all {attempts} candidates were rejected with HTTP 400 and nothing "
+            f"else failed. RunPod uses 400 for BOTH 'no capacity' and 'this request "
+            f"breaks a rule', so an all-400 ladder is read as a REQUEST problem. "
+            f"Set ALLOW_CAPACITY_SKIP=1 to go back to skipping instead.",
+            file=sys.stderr,
+        )
+        print(f"create: RunPod's first 400 said: {first_400 or 'n/a'}", file=sys.stderr)
+        print(
+            "create: the body that produced it (env/entrypoint/cmd omitted): "
+            f"{json.dumps(first_400_body, sort_keys=True)}",
+            file=sys.stderr,
+        )
+        return 1
+
     if capacity_misses:
         print(
             f"create: no GPU could be placed ({capacity_misses} capacity miss(es) across "
