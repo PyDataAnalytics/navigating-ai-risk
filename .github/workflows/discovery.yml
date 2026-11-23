@@ -25,7 +25,9 @@ name: discovery
 # Optional repo variables: OLLAMA_VERSION, OLLAMA_INSTALL_SHA256
 on:
   schedule:
-    - cron: "0 4 * * 0"   # 04:00 UTC every Sunday (refresh runs Monday - no clash)
+    - cron: "0 4 * * 0"    # 04:00 UTC Sunday - primary attempt
+    - cron: "0 10 * * 0"   # retry: only acts if 04:00 found no GPU capacity
+    - cron: "0 16 * * 0"   # last retry of the week (done by 20:00 UTC; refresh is Monday)
   workflow_dispatch:
     inputs:
       gpu_types:
@@ -54,11 +56,39 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - name: Skip if a discovery run already landed today
+        id: guard
+        run: |
+          # merge_corpus.py archives every run under snapshots/<UTC date> and
+          # those dirs are committed, so an archived date == a landed run.
+          #
+          # Test origin/main's LIVE head, NOT the checked-out tree: `schedule`
+          # events pin github.sha at trigger time, so a 04:00 attempt that
+          # overran (timeout-minutes is 240) could commit after a later
+          # attempt's checkout and be missed - paying for a second GPU hour.
+          # Fail-open on a fetch error: a duplicate run beats never running.
+          TODAY="$(date -u +%F)"
+          FRESH=true
+          if [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ]; then
+            echo "Manual dispatch: guard bypassed."
+          else
+            git fetch --depth=1 --quiet origin main || echo "WARN: fetch failed; proceeding."
+            if git cat-file -e "origin/main:snapshots/$TODAY" 2>/dev/null; then
+              echo "::notice title=Discovery already ran::snapshots/$TODAY is already on main - skipping this attempt."
+              FRESH=false
+            fi
+          fi
+          echo "guard: fresh=$FRESH (date $TODAY, event $GITHUB_EVENT_NAME)"
+          echo "fresh=$FRESH" >> "$GITHUB_OUTPUT"
+      # NOT gated on the guard: `Terminate pod` runs with if: always() and calls
+      # `python scripts/runpod_pod.py`, so Python must be on PATH even when the
+      # guard skips the run. Costs ~2s.
       - name: Set up Python
         uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: "3.11"
       - name: Generate ephemeral SSH keypair
+        if: steps.guard.outputs.fresh == 'true'
         run: |
           mkdir -p ~/.ssh && chmod 700 ~/.ssh
           # Fresh throwaway key per run - nothing long-lived is stored as a secret.
@@ -67,13 +97,14 @@ jobs:
           chmod 600 ~/.ssh/runpod_key
       - name: Create pod
         id: create
+        if: steps.guard.outputs.fresh == 'true'
         env:
           RUNPOD_API_KEY: ${{ secrets.RUNPOD_API_KEY }}
           GPU_TYPE_IDS: ${{ inputs.gpu_types || 'NVIDIA GeForce RTX 4090,NVIDIA RTX A5000,NVIDIA A40,NVIDIA L40S,NVIDIA GeForce RTX 3090' }}
           POD_TEMPLATE_ID: ${{ inputs.template_id }}
           POD_IMAGE: ${{ inputs.image || 'runpod/pytorch@sha256:2594f25beeef751aeebcc207ba4c45a382ba174655f01e15cbbfad0e2bdb5ef8' }}
           POD_NAME: ai-risk-discovery-${{ github.run_number }}
-          POD_CLOUD_TYPE: "SECURE"
+          POD_CLOUD_TYPE: "SECURE,COMMUNITY"
           CONTAINER_DISK_GB: "40"
           VOLUME_GB: "40"
         run: |
